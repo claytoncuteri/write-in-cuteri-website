@@ -1,65 +1,205 @@
-import Image from "next/image";
+import { Section } from "@/components/Section";
+import { CTAButton } from "@/components/CTAButton";
+import { problems } from "@/data/problems";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
-export default function Home() {
+const topProblems = problems.filter((p) => p.number <= 4);
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      {/* Hero */}
+      <section className="bg-navy overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            {/* Text */}
+            <div>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white font-serif leading-tight">
+                Clayton Cuteri for Congress
+              </h1>
+              <p className="mt-4 text-lg sm:text-xl text-white/80">
+                Write-In Candidate, South Carolina District 1
+                <br />
+                November 3, 2026
+              </p>
+              <p className="mt-6 text-white/70 text-base sm:text-lg leading-relaxed max-w-lg">
+                Both Republicans and Democrats have failed us. The American
+                Congress Party is for the Americans neither party speaks for.
+              </p>
+              <div className="mt-8 flex flex-col sm:flex-row gap-4">
+                <CTAButton variant="primary" href="/write-in">
+                  How to Write Me In
+                </CTAButton>
+                <CTAButton
+                  variant="secondary"
+                  href="/policies"
+                  className="border-white text-white hover:bg-white hover:text-navy"
+                >
+                  See My Platform
+                </CTAButton>
+              </div>
+            </div>
+
+            {/* Headshot */}
+            <div className="flex justify-center lg:justify-end">
+              <div className="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-2xl overflow-hidden shadow-2xl">
+                <img
+                  src="/images/Clayton_Headshot.jpg"
+                  alt="Clayton Cuteri, write-in candidate for SC-01"
+                  className="w-full h-full object-cover object-top"
+                />
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+      </section>
+
+      {/* Top 4 Problems */}
+      <Section
+        title="What SC-01 Voters Are Telling Us"
+        subtitle="These are the four most urgent issues facing Charleston, Berkeley, Beaufort, and the surrounding Lowcountry communities."
+      >
+        <div className="grid sm:grid-cols-2 gap-6">
+          {topProblems.map((problem) => (
+            <div
+              key={problem.id}
+              className="bg-cream rounded-lg p-6 border border-gray-100 hover:shadow-md transition-shadow"
+            >
+              <span className="text-xs font-semibold uppercase tracking-wider text-navy/60">
+                Problem {problem.number}
+              </span>
+              <h3 className="mt-1 text-xl font-bold text-charcoal font-serif">
+                {problem.title}
+              </h3>
+              <p className="mt-2 text-charcoal/70 text-sm leading-relaxed">
+                {problem.pain.split(". ").slice(0, 2).join(". ")}.
+              </p>
+              <p className="mt-3 text-sm font-semibold text-navy">
+                Cuteri&apos;s answer:{" "}
+                <span className="font-normal text-charcoal/70">
+                  {problem.planks.map((p) => p.title).join(", ")}
+                </span>
+              </p>
+              <Link
+                href={`/problems#problem-${problem.id}`}
+                className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-navy hover:text-navy-dark transition-colors"
+              >
+                Read more <ArrowRight size={14} />
+              </Link>
+            </div>
+          ))}
+        </div>
+        <div className="mt-10 text-center">
+          <CTAButton variant="secondary" href="/problems">
+            See All 8 SC-01 Problems
+          </CTAButton>
+        </div>
+      </Section>
+
+      {/* About Teaser */}
+      <Section bgColor="cream">
+        <div className="grid lg:grid-cols-5 gap-10 items-center">
+          <div className="lg:col-span-3">
+            <h2 className="text-3xl sm:text-4xl font-bold text-charcoal font-serif">
+              Meet Clayton
+            </h2>
+            <p className="mt-4 text-charcoal/80 text-lg leading-relaxed">
+              [ABOUT_TEASER_PARAGRAPH_1: Write 2-3 sentences about Clayton&apos;s
+              background, connection to SC-01, and why he is running. Keep it
+              personal and specific.]
+            </p>
+            <p className="mt-4 text-charcoal/80 text-lg leading-relaxed">
+              As Secretary General of the American Congress Party, Clayton is
+              building a structural alternative to the two-party duopoly. His
+              platform is drawn from his book &quot;America Reimagined,&quot;
+              which lays out 13 concrete policy planks backed by real math, not
+              slogans.
+            </p>
+            <div className="mt-6">
+              <CTAButton variant="tertiary" href="/about">
+                Read full bio
+              </CTAButton>
+            </div>
+          </div>
+          <div className="lg:col-span-2 flex justify-center">
+            <img
+              src="/images/Clayton_Headshot.jpg"
+              alt="Clayton Cuteri"
+              className="w-64 h-64 sm:w-72 sm:h-72 rounded-xl object-cover object-top shadow-lg"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </div>
         </div>
-      </main>
-    </div>
+      </Section>
+
+      {/* ACP Section */}
+      <Section bgColor="navy" title="Why a Third Party?">
+        <div className="grid lg:grid-cols-5 gap-10 items-center">
+          <div className="lg:col-span-3">
+            <p className="text-white/80 text-lg leading-relaxed">
+              A record number of Americans now identify as political
+              independents. Both parties profit from keeping you angry at each
+              other while they serve the same donors. The American Congress Party
+              is a structural alternative: not a spoiler, not a protest vote, but
+              a real party with a real platform for real people.
+            </p>
+            <p className="text-white/80 text-lg leading-relaxed mt-4">
+              Clayton serves as ACP Secretary General. This campaign is not about
+              left or right. It is about the common people versus the connected
+              few.
+            </p>
+            <div className="mt-6">
+              <a
+                href="https://americancongressparty.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-white font-semibold hover:text-white/80 transition-colors"
+              >
+                Visit americancongressparty.com <ArrowRight size={16} />
+              </a>
+            </div>
+          </div>
+          <div className="lg:col-span-2 flex justify-center">
+            <img
+              src="/images/ACP_Eagle_transparent_background.png"
+              alt="American Congress Party Eagle"
+              className="w-48 h-48 sm:w-56 sm:h-56 object-contain"
+            />
+          </div>
+        </div>
+      </Section>
+
+      {/* CTA Cards */}
+      <Section>
+        <div className="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+          <div className="bg-cream rounded-lg p-8 text-center">
+            <h3 className="text-xl font-bold text-charcoal font-serif">
+              Get Involved
+            </h3>
+            <p className="mt-2 text-charcoal/70 text-sm">
+              Volunteer, spread the word, or join the movement.
+            </p>
+            <div className="mt-4">
+              <CTAButton variant="secondary" href="/get-involved">
+                Join Us
+              </CTAButton>
+            </div>
+          </div>
+          <div className="bg-cream rounded-lg p-8 text-center">
+            <h3 className="text-xl font-bold text-charcoal font-serif">
+              Support the Campaign
+            </h3>
+            <p className="mt-2 text-charcoal/70 text-sm">
+              Every dollar funds voter education, not TV attack ads.
+            </p>
+            <div className="mt-4">
+              <CTAButton variant="primary" href="/donate">
+                Donate
+              </CTAButton>
+            </div>
+          </div>
+        </div>
+      </Section>
+    </>
   );
 }
