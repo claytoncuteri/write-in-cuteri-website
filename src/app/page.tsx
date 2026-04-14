@@ -1,10 +1,7 @@
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
-import { problems } from "@/data/problems";
-import Link from "next/link";
+import { HomeProblems } from "@/components/HomeProblems";
 import { ArrowRight } from "lucide-react";
-
-const topProblems = problems.filter((p) => p.number <= 4);
 
 export default function HomePage() {
   return (
@@ -55,47 +52,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Top 4 Problems */}
-      <Section
-        title="What SC-01 Voters Are Telling Us"
-        subtitle="These are the four most urgent issues facing Charleston, Berkeley, Beaufort, and the surrounding Lowcountry communities."
-      >
-        <div className="grid sm:grid-cols-2 gap-6">
-          {topProblems.map((problem) => (
-            <div
-              key={problem.id}
-              className="bg-cream rounded-lg p-6 border border-gray-100 hover:shadow-md transition-shadow"
-            >
-              <span className="text-xs font-semibold uppercase tracking-wider text-navy/60">
-                Problem {problem.number}
-              </span>
-              <h3 className="mt-1 text-xl font-bold text-charcoal font-serif">
-                {problem.title}
-              </h3>
-              <p className="mt-2 text-charcoal/70 text-sm leading-relaxed">
-                {problem.pain.split(". ").slice(0, 2).join(". ")}.
-              </p>
-              <p className="mt-3 text-sm font-semibold text-navy">
-                Cuteri&apos;s answer:{" "}
-                <span className="font-normal text-charcoal/70">
-                  {problem.planks.map((p) => p.title).join(", ")}
-                </span>
-              </p>
-              <Link
-                href={`/problems#problem-${problem.id}`}
-                className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-navy hover:text-navy-dark transition-colors"
-              >
-                Read more <ArrowRight size={14} />
-              </Link>
-            </div>
-          ))}
-        </div>
-        <div className="mt-10 text-center">
-          <CTAButton variant="secondary" href="/problems">
-            See All 8 SC-01 Problems
-          </CTAButton>
-        </div>
-      </Section>
+      {/* Problems (client component with expand toggle) */}
+      <HomeProblems />
 
       {/* About Teaser */}
       <Section bgColor="cream">
@@ -113,8 +71,8 @@ export default function HomePage() {
               As Secretary General of the American Congress Party, Clayton is
               building a structural alternative to the two-party duopoly. His
               platform is drawn from his book &quot;America Reimagined,&quot;
-              which lays out 13 concrete policy planks backed by real math, not
-              slogans.
+              which lays out 13 concrete policy priorities backed by real math,
+              not slogans.
             </p>
             <div className="mt-6">
               <CTAButton variant="tertiary" href="/about">

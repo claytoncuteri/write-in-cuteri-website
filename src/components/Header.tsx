@@ -19,7 +19,7 @@ export function Header() {
             <img
               src="/images/ACP_logo_with_letters.png"
               alt="American Congress Party"
-              className="h-10 sm:h-12 w-auto"
+              className="h-14 sm:h-16 w-auto"
             />
           </Link>
 
@@ -45,19 +45,19 @@ export function Header() {
             })}
           </nav>
 
-          {/* Desktop CTA + Donate */}
+          {/* Desktop CTAs */}
           <div className="hidden lg:flex items-center gap-3">
             <Link
-              href="/donate"
-              className="px-4 py-2 text-sm font-semibold text-navy border border-navy rounded-lg hover:bg-navy hover:text-white transition-colors"
-            >
-              Donate
-            </Link>
-            <Link
               href="/write-in"
-              className="px-5 py-2.5 text-sm font-semibold text-white bg-red-accent rounded-lg hover:bg-red-accent-dark transition-colors"
+              className="px-5 py-2.5 text-sm font-semibold text-white bg-navy rounded-full hover:bg-navy-dark transition-colors"
             >
               Write Me In
+            </Link>
+            <Link
+              href="/donate"
+              className="px-5 py-2.5 text-sm font-semibold text-white bg-red-accent rounded-full hover:bg-red-accent-dark transition-colors"
+            >
+              Donate
             </Link>
           </div>
 
@@ -98,18 +98,18 @@ export function Header() {
             })}
             <div className="pt-3 flex flex-col gap-2">
               <Link
-                href="/donate"
+                href="/write-in"
                 onClick={() => setMobileOpen(false)}
-                className="block text-center px-4 py-2.5 text-base font-semibold text-navy border border-navy rounded-lg hover:bg-navy hover:text-white transition-colors"
+                className="block text-center px-5 py-3 text-base font-semibold text-white bg-navy rounded-lg hover:bg-navy-dark transition-colors"
               >
-                Donate
+                Write Me In
               </Link>
               <Link
-                href="/write-in"
+                href="/donate"
                 onClick={() => setMobileOpen(false)}
                 className="block text-center px-5 py-3 text-base font-semibold text-white bg-red-accent rounded-lg hover:bg-red-accent-dark transition-colors"
               >
-                Write Me In
+                Donate
               </Link>
             </div>
           </nav>

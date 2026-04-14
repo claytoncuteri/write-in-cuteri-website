@@ -25,7 +25,7 @@ const steps = [
       'Confirm you are registered to vote in South Carolina Congressional District 1. This includes voters in Charleston (partial), Berkeley, Dorchester (partial), Beaufort, Colleton (partial), and Jasper counties.',
     action: {
       label: "Check registration at scvotes.gov",
-      href: "https://info.scvotes.sc.gov/eng/voterinquiry/VoterInformationRequest.aspx?PageMode=VoterInfo",
+      href: "https://vrems.scvotes.sc.gov/Voter/Login?PageMode=VoterInformation",
     },
   },
   {
@@ -35,14 +35,14 @@ const steps = [
       "Know where to vote on Election Day or during the early voting period. You can also request an absentee ballot if you qualify.",
     action: {
       label: "Find your polling place",
-      href: "https://info.scvotes.sc.gov/eng/voterinquiry/VoterInformationRequest.aspx?PageMode=VoterInfo",
+      href: "https://vrems.scvotes.sc.gov/Voter/Login?PageMode=PollingPlace",
     },
   },
   {
     icon: FileText,
     title: "Find the U.S. House District 1 race on your ballot",
     description:
-      "Look for the section labeled U.S. House of Representatives, District 1. You will see the listed candidates and a write-in option.",
+      "On Election Day, November 3, 2026 (or during early voting), look for the section labeled U.S. House of Representatives, District 1. You will see the listed candidates and a write-in option.",
   },
   {
     icon: PenTool,
@@ -62,17 +62,31 @@ export default function WriteInPage() {
   return (
     <>
       {/* Spelling Banner */}
-      <div className="bg-red-accent py-6 sm:py-8">
+      <div className="bg-navy py-8 sm:py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-white/80 text-sm font-medium uppercase tracking-wider mb-2">
+          <p className="text-white/60 text-sm font-medium uppercase tracking-wider mb-3">
             Spell it exactly
           </p>
-          <p className="text-white text-3xl sm:text-5xl lg:text-6xl font-bold tracking-[0.15em] sm:tracking-[0.2em] font-serif">
-            C-L-A-Y-T-O-N
-          </p>
-          <p className="text-white text-3xl sm:text-5xl lg:text-6xl font-bold tracking-[0.15em] sm:tracking-[0.2em] font-serif mt-1">
-            C-U-T-E-R-I
-          </p>
+          <div className="flex justify-center gap-2 sm:gap-3 flex-wrap">
+            {"CLAYTON".split("").map((letter, i) => (
+              <span
+                key={i}
+                className="inline-flex items-center justify-center w-10 h-10 sm:w-14 sm:h-14 lg:w-16 lg:h-16 border-2 border-red-accent rounded-lg text-white text-xl sm:text-3xl lg:text-4xl font-bold font-serif shadow-[0_2px_0_0_rgba(215,38,56,0.4)] bg-white/5"
+              >
+                {letter}
+              </span>
+            ))}
+          </div>
+          <div className="flex justify-center gap-2 sm:gap-3 flex-wrap mt-3">
+            {"CUTERI".split("").map((letter, i) => (
+              <span
+                key={i}
+                className="inline-flex items-center justify-center w-10 h-10 sm:w-14 sm:h-14 lg:w-16 lg:h-16 border-2 border-red-accent rounded-lg text-white text-xl sm:text-3xl lg:text-4xl font-bold font-serif shadow-[0_2px_0_0_rgba(215,38,56,0.4)] bg-white/5"
+              >
+                {letter}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -142,7 +156,7 @@ export default function WriteInPage() {
           </div>
           <CTAButton
             variant="secondary"
-            href="https://info.scvotes.sc.gov/eng/voterinquiry/VoterInformationRequest.aspx?PageMode=VoterInfo"
+            href="https://vrems.scvotes.sc.gov/Voter/Login?PageMode=VoterInformation"
           >
             Check Your Registration
           </CTAButton>

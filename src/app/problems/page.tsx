@@ -18,7 +18,7 @@ export default function ProblemsPage() {
       <section className="bg-navy py-14 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <p className="text-red-accent font-semibold text-sm uppercase tracking-wider mb-3">
+            <p className="text-gold font-semibold text-sm uppercase tracking-wider mb-3">
               SC-01 Problems
             </p>
             <h1 className="text-4xl sm:text-5xl font-bold text-white font-serif leading-tight">
@@ -42,7 +42,7 @@ export default function ProblemsPage() {
               key={problem.id}
               id={`problem-${problem.id}`}
               subtitle={`Problem ${problem.number} of 8`}
-              title={problem.title}
+              title={`\u201C${problem.title}\u201D`}
               summary={
                 <p className="text-charcoal/80">{problem.pain}</p>
               }
@@ -61,14 +61,14 @@ export default function ProblemsPage() {
                 {/* Talking point */}
                 <div className="bg-cream rounded-md p-4">
                   <h4 className="text-sm font-bold uppercase tracking-wider text-red-accent mb-2">
-                    Cuteri&apos;s Position
+                    Clayton&apos;s Position
                   </h4>
                   <p className="text-charcoal font-medium text-sm leading-relaxed">
                     {problem.talkingPoint}
                   </p>
                 </div>
 
-                {/* Policy planks */}
+                {/* Policy solutions */}
                 {problem.planks.length > 0 && (
                   <div>
                     <h4 className="text-sm font-bold uppercase tracking-wider text-navy mb-2">
@@ -78,10 +78,10 @@ export default function ProblemsPage() {
                       {problem.planks.map((plank) => (
                         <Link
                           key={plank.id}
-                          href={`/policies#plank-${plank.id}`}
+                          href={`/policies#priority-${plank.id}`}
                           className="inline-flex items-center gap-1 bg-navy/10 text-navy text-xs font-semibold px-3 py-1.5 rounded-full hover:bg-navy hover:text-white transition-colors"
                         >
-                          Plank {plank.number}: {plank.title}
+                          {plank.title}
                         </Link>
                       ))}
                     </div>
@@ -96,7 +96,7 @@ export default function ProblemsPage() {
       {/* CTA */}
       <Section bgColor="navy" title="Ready to See the Solutions?">
         <p className="text-white/80 text-lg leading-relaxed max-w-2xl mb-8">
-          Every problem above has a policy plank. Thirteen concrete proposals,
+          Every problem above has a policy solution. Thirteen concrete proposals,
           grounded in real math, not slogans.
         </p>
         <div className="flex flex-col sm:flex-row gap-4">

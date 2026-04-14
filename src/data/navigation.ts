@@ -6,8 +6,7 @@ export interface NavItem {
 export const mainNavItems: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Problems", href: "/problems" },
-  { label: "Policies", href: "/policies" },
-  { label: "Write Me In", href: "/write-in" },
+  { label: "Priorities", href: "/policies" },
   { label: "About", href: "/about" },
   { label: "Get Involved", href: "/get-involved" },
 ];
@@ -15,7 +14,7 @@ export const mainNavItems: NavItem[] = [
 export const footerNavItems: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "SC-01 Problems", href: "/problems" },
-  { label: "Policies", href: "/policies" },
+  { label: "Priorities", href: "/policies" },
   { label: "How to Write Me In", href: "/write-in" },
   { label: "About", href: "/about" },
   { label: "Get Involved", href: "/get-involved" },

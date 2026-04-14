@@ -36,7 +36,7 @@ export default function GetInvolvedPage() {
       <section className="bg-navy py-14 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <p className="text-red-accent font-semibold text-sm uppercase tracking-wider mb-3">
+            <p className="text-gold font-semibold text-sm uppercase tracking-wider mb-3">
               Get Involved
             </p>
             <h1 className="text-4xl sm:text-5xl font-bold text-white font-serif leading-tight">

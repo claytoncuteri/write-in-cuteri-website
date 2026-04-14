@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 
 interface ExpandableCardProps {
@@ -25,6 +25,32 @@ export function ExpandableCard({
   const [open, setOpen] = useState(defaultOpen);
   const panelId = id ? `${id}-panel` : undefined;
   const triggerId = id ? `${id}-trigger` : undefined;
+
+  // Auto-open and scroll into view when URL hash matches this card's id
+  useEffect(() => {
+    if (!id) return;
+
+    function checkHash() {
+      const hash = window.location.hash.replace("#", "");
+      if (hash === id) {
+        setOpen(true);
+        setTimeout(() => {
+          const el = document.getElementById(id);
+          if (el) {
+            const y = el.getBoundingClientRect().top + window.scrollY - 120;
+            window.scrollTo({ top: y, behavior: "smooth" });
+          }
+        }, 150);
+      }
+    }
+
+    // Check on mount
+    checkHash();
+
+    // Also listen for hash changes (covers client-side navigation)
+    window.addEventListener("hashchange", checkHash);
+    return () => window.removeEventListener("hashchange", checkHash);
+  }, [id]);
 
   const accentBorder = accentColor === "red" ? "border-l-red-accent" : "border-l-navy";
 

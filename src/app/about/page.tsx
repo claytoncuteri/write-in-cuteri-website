@@ -15,7 +15,7 @@ export default function AboutPage() {
       <section className="bg-navy py-14 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <p className="text-red-accent font-semibold text-sm uppercase tracking-wider mb-3">
+            <p className="text-gold font-semibold text-sm uppercase tracking-wider mb-3">
               About
             </p>
             <h1 className="text-4xl sm:text-5xl font-bold text-white font-serif leading-tight">
@@ -116,7 +116,7 @@ export default function AboutPage() {
         <div className="max-w-3xl space-y-4">
           <p className="text-charcoal/80 text-lg leading-relaxed">
             Clayton is the author of &quot;America Reimagined,&quot; a
-            book-length policy blueprint that lays out 13 concrete planks for
+            book-length policy blueprint that lays out 13 concrete priorities for
             rebuilding the American system from the ground up. The platform on
             this website is drawn directly from that work.
           </p>

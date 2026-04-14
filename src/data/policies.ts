@@ -14,8 +14,10 @@ export interface Policy {
   partNumber: number;
   plank: string;
   whatItMeans: string;
-  solvesProblems: { id: string; title: string }[];
+  solvesProblems: { id: string; title: string; shortLabel: string }[];
   readMore: string;
+  netBenefit?: string;
+  mathBreakdown?: string[];
   subSolutions?: SubSolution[];
   fundedBy?: string;
 }
@@ -32,8 +34,15 @@ export const policies: Policy[] = [
     whatItMeans:
       "America has tens of millions of acres of unused federal land. Lease that land to American farmers who agree to grow without poison, in exchange for distributing nearly half of what they grow free to the people. The farmer keeps 70% of profits on what they sell. The American people get clean food. The land regenerates. Foreign corporations stop owning the soil that feeds us.",
     solvesProblems: [
-      { id: "working-class", title: "I Work Hard and Have Nothing Left" },
-      { id: "environment", title: "The Lowcountry Is Being Poisoned and Paved" },
+      { id: "working-class", title: "I Work Hard and Have Nothing Left", shortLabel: "Working-class wage gap" },
+      { id: "environment", title: "The Lowcountry Is Being Poisoned and Paved", shortLabel: "Lowcountry environmental damage" },
+    ],
+    netBenefit: "$325+ billion/year",
+    mathBreakdown: [
+      "$150B saved by replacing fragmented food assistance programs",
+      "$100B in healthcare savings from improved nutrition",
+      "$150B+ in economic stimulus from 47.9 million Americans freed from food insecurity",
+      "$75B annual program cost",
     ],
     readMore: "America Reimagined, Chapter 2",
   },
@@ -48,8 +57,13 @@ export const policies: Policy[] = [
     whatItMeans:
       "Insulin costs $5 to make and sells for $300. The same pill is $80 in America and $8 in Europe. That gap is not market dynamics; it is institutional capture by pharmaceutical companies. Free essential medicine, paid for by ending pharma's grip on Washington and the FDA. Restore the medical knowledge that was deliberately suppressed when the AMA aligned with chemical companies in the early 1900s.",
     solvesProblems: [
-      { id: "prescriptions", title: "My Retirement Is Being Eaten by Prescription Costs" },
-      { id: "working-class", title: "I Work Hard and Have Nothing Left" },
+      { id: "prescriptions", title: "My Retirement Is Being Eaten by Prescription Costs", shortLabel: "Skyrocketing prescription costs" },
+      { id: "working-class", title: "I Work Hard and Have Nothing Left", shortLabel: "Working-class wage gap" },
+    ],
+    netBenefit: "$285 billion/year",
+    mathBreakdown: [
+      "$650B in total savings from eliminating pharma markup on essential medicine",
+      "$365B annual program cost",
     ],
     readMore: "America Reimagined, Chapter 3",
   },
@@ -64,7 +78,12 @@ export const policies: Policy[] = [
     whatItMeans:
       "Our schools were designed in the industrial era to produce factory workers who could follow orders. We are not in that era anymore. Education should awaken curiosity, not extinguish it. Free at every level so cost never blocks ability. Real-world skills like financial literacy and gardening alongside core subjects. Pay teachers what they are worth.",
     solvesProblems: [
-      { id: "working-class", title: "I Work Hard and Have Nothing Left" },
+      { id: "working-class", title: "I Work Hard and Have Nothing Left", shortLabel: "Working-class wage gap" },
+    ],
+    netBenefit: "$5+ billion/year",
+    mathBreakdown: [
+      "$215B saved through eliminated redundancy and improved outcomes",
+      "$210B annual cost after transition period",
     ],
     readMore: "America Reimagined, Chapter 4",
   },
@@ -79,8 +98,13 @@ export const policies: Policy[] = [
     whatItMeans:
       "Every American deserves food that does not poison them and water that does not sicken their children. Ban glyphosate. Remove fluoride and PFAS from public water. Hold chemical companies accountable instead of letting them write their own pollution thresholds. Restore the soil, restore the forests, restore the relationship between Americans and the land they live on.",
     solvesProblems: [
-      { id: "environment", title: "The Lowcountry Is Being Poisoned and Paved" },
-      { id: "prescriptions", title: "My Retirement Is Being Eaten by Prescription Costs" },
+      { id: "environment", title: "The Lowcountry Is Being Poisoned and Paved", shortLabel: "Lowcountry environmental damage" },
+      { id: "prescriptions", title: "My Retirement Is Being Eaten by Prescription Costs", shortLabel: "Skyrocketing prescription costs" },
+    ],
+    netBenefit: "$155+ billion/year",
+    mathBreakdown: [
+      "$290B saved from reduced chronic disease and avoided pollution cleanup",
+      "$135B annual federal enforcement cost",
     ],
     readMore: "America Reimagined, Chapter 5",
   },
@@ -95,8 +119,14 @@ export const policies: Policy[] = [
     whatItMeans:
       "The dollar has lost 97% of its purchasing power since 1913. That is the year the Federal Reserve was created. That is not a coincidence. End the Fed. Return money to its constitutional role: a unit of value backed by something real, controlled by elected representatives, not unelected bankers.",
     solvesProblems: [
-      { id: "working-class", title: "I Work Hard and Have Nothing Left" },
-      { id: "both-parties", title: "Both Parties Have Failed Us" },
+      { id: "working-class", title: "I Work Hard and Have Nothing Left", shortLabel: "Working-class wage gap" },
+      { id: "both-parties", title: "Both Parties Have Failed Us", shortLabel: "Two-party failure" },
+    ],
+    netBenefit: "$200+ billion/year",
+    mathBreakdown: [
+      "$200B+ saved by ending the hidden inflation tax on every American",
+      "Dollar has lost 97% of purchasing power since 1913",
+      "Sound money restores stability to savings and wages",
     ],
     readMore: "America Reimagined, Chapter 6",
   },
@@ -111,9 +141,16 @@ export const policies: Policy[] = [
     whatItMeans:
       "A working family of 4 keeps an extra $8,000 to $15,000 per year. The federal government still collects revenue, just through consumption (you control how much you pay by what you buy) instead of through wage garnishment. The IRS, the most-feared agency in America, becomes unnecessary.",
     solvesProblems: [
-      { id: "working-class", title: "I Work Hard and Have Nothing Left" },
-      { id: "property-tax", title: "My Property Tax Bill Keeps Doubling" },
-      { id: "housing", title: "I Cannot Afford to Live Where I Grew Up" },
+      { id: "working-class", title: "I Work Hard and Have Nothing Left", shortLabel: "Working-class wage gap" },
+      { id: "property-tax", title: "My Property Tax Bill Keeps Doubling", shortLabel: "Rising property taxes" },
+      { id: "housing", title: "I Cannot Afford to Live Where I Grew Up", shortLabel: "Unaffordable housing" },
+    ],
+    netBenefit: "$500+ billion/year",
+    mathBreakdown: [
+      "$8,000 to $15,000 kept per year by a working family of 4",
+      "Fair Tax (consumption-based) replaces income tax revenue",
+      "IRS eliminated entirely",
+      "Property taxes eliminated on primary residences",
     ],
     readMore: "America Reimagined, Chapter 7",
   },
@@ -128,9 +165,15 @@ export const policies: Policy[] = [
     whatItMeans:
       "If they spent your money on it, you have the right to see it line by line. A real-time public platform shows every dollar the government spends, who it went to, and what for. Voters can flag suspicious expenditures. Both parties become accountable to the people they serve, not just to donors.",
     solvesProblems: [
-      { id: "both-parties", title: "Both Parties Have Failed Us" },
-      { id: "insurance", title: "Insurance is Eating Us Alive" },
-      { id: "wars", title: "Stop Sending Our Kids Overseas" },
+      { id: "both-parties", title: "Both Parties Have Failed Us", shortLabel: "Two-party failure" },
+      { id: "insurance", title: "Insurance is Eating Us Alive", shortLabel: "Coastal insurance crisis" },
+      { id: "wars", title: "Stop Sending Our Kids Overseas", shortLabel: "Endless overseas wars" },
+    ],
+    netBenefit: "$500+ billion/year",
+    mathBreakdown: [
+      "$2.4 trillion in improper government payments over the past 20 years",
+      "$2.8 billion sent to dead people by federal agencies",
+      "Real-time public visibility stops waste before it happens",
     ],
     readMore: "America Reimagined, Chapter 8",
   },
@@ -145,9 +188,16 @@ export const policies: Policy[] = [
     whatItMeans:
       "America has the strongest military on earth. We use it for defense, not for empire. Every offensive military action requires a Congressional vote, and every member who votes yes must register their own children first. Defense contractors no longer get to write the policies that fund them.",
     solvesProblems: [
-      { id: "wars", title: "Stop Sending Our Kids Overseas" },
-      { id: "insurance", title: "Insurance is Eating Us Alive" },
-      { id: "both-parties", title: "Both Parties Have Failed Us" },
+      { id: "wars", title: "Stop Sending Our Kids Overseas", shortLabel: "Endless overseas wars" },
+      { id: "insurance", title: "Insurance is Eating Us Alive", shortLabel: "Coastal insurance crisis" },
+      { id: "both-parties", title: "Both Parties Have Failed Us", shortLabel: "Two-party failure" },
+    ],
+    netBenefit: "$200+ billion/year",
+    mathBreakdown: [
+      "~$8 trillion spent on wars since 2001",
+      "$90B+ per year currently sent to foreign conflicts",
+      "Redirected to domestic infrastructure and resilience",
+      "Defense contractor revolving door closed",
     ],
     readMore: "America Reimagined, Chapter 9",
   },
@@ -162,8 +212,15 @@ export const policies: Policy[] = [
     whatItMeans:
       "Wall Street should not get to buy the house your kids were going to grow up in. Ban hedge funds and corporations from bulk-buying single-family homes. Zero-interest federal loans for first-time buyers. Convert hundreds of thousands of vacant federal properties into homes. Federal-level protection from being taxed out of your primary residence.",
     solvesProblems: [
-      { id: "housing", title: "I Cannot Afford to Live Where I Grew Up" },
-      { id: "property-tax", title: "My Property Tax Bill Keeps Doubling" },
+      { id: "housing", title: "I Cannot Afford to Live Where I Grew Up", shortLabel: "Unaffordable housing" },
+      { id: "property-tax", title: "My Property Tax Bill Keeps Doubling", shortLabel: "Rising property taxes" },
+    ],
+    netBenefit: "$50+ billion/year",
+    mathBreakdown: [
+      "770,000+ vacant federal properties converted to housing",
+      "Zero-interest loans for first-time homebuyers",
+      "Corporate bulk-buying of residential properties banned",
+      "Property tax eliminated on primary residences",
     ],
     readMore: "America Reimagined, Chapter 10",
   },
@@ -178,8 +235,14 @@ export const policies: Policy[] = [
     whatItMeans:
       "Over 771,000 Americans sleep without shelter every night in the wealthiest nation in human history. Housing First, with comprehensive mental health, addiction, and employment support. Funded by redirecting $20 billion annually from foreign military aid. Veterans get housed immediately, no exceptions.",
     solvesProblems: [
-      { id: "insurance", title: "Insurance is Eating Us Alive" },
-      { id: "housing", title: "I Cannot Afford to Live Where I Grew Up" },
+      { id: "insurance", title: "Insurance is Eating Us Alive", shortLabel: "Coastal insurance crisis" },
+      { id: "housing", title: "I Cannot Afford to Live Where I Grew Up", shortLabel: "Unaffordable housing" },
+    ],
+    netBenefit: "$10+ billion/year",
+    mathBreakdown: [
+      "Housing First costs less than ERs, jails, and shelters combined",
+      "$20B redirected annually from foreign military aid",
+      "Veterans receive immediate housing, no exceptions",
     ],
     readMore: "America Reimagined, Chapter 11",
   },
@@ -194,8 +257,14 @@ export const policies: Policy[] = [
     whatItMeans:
       "The people who run toward danger so the rest of us do not have to deserve to be paid like it matters. Quadruple training, mandatory mental health support, real adrenaline management techniques. Restore public honor for first responders and veterans alike.",
     solvesProblems: [
-      { id: "wars", title: "Stop Sending Our Kids Overseas" },
-      { id: "both-parties", title: "Both Parties Have Failed Us" },
+      { id: "wars", title: "Stop Sending Our Kids Overseas", shortLabel: "Endless overseas wars" },
+      { id: "both-parties", title: "Both Parties Have Failed Us", shortLabel: "Two-party failure" },
+    ],
+    netBenefit: "$5+ billion/year",
+    mathBreakdown: [
+      "Quadrupled training hours and real pay increases",
+      "Mandatory mental health support reduces turnover",
+      "Investment pays back through better outcomes and retention",
     ],
     readMore: "America Reimagined, Chapter 12",
   },
@@ -210,9 +279,15 @@ export const policies: Policy[] = [
     whatItMeans:
       "Since 1951, the federal government has secretly classified over 6,500 patents as 'national security threats' and prevented the inventors from using or selling them. Many cover energy. Repeal the Act. Release the tech. Develop new American energy sources from the ocean and the roads we already drive on. All publicly funded research becomes public on day one.",
     solvesProblems: [
-      { id: "insurance", title: "Insurance is Eating Us Alive" },
-      { id: "environment", title: "The Lowcountry Is Being Poisoned and Paved" },
-      { id: "working-class", title: "I Work Hard and Have Nothing Left" },
+      { id: "insurance", title: "Insurance is Eating Us Alive", shortLabel: "Coastal insurance crisis" },
+      { id: "environment", title: "The Lowcountry Is Being Poisoned and Paved", shortLabel: "Lowcountry environmental damage" },
+      { id: "working-class", title: "I Work Hard and Have Nothing Left", shortLabel: "Working-class wage gap" },
+    ],
+    netBenefit: "$100+ billion/year",
+    mathBreakdown: [
+      "6,500+ suppressed patents released to the public",
+      "All publicly funded technology open-sourced on blockchain",
+      "Conservative estimate; grows to $300B+ at full implementation",
     ],
     readMore: "America Reimagined, Chapter 13",
   },
@@ -227,8 +302,8 @@ export const policies: Policy[] = [
     whatItMeans:
       "Charleston families pay $5,000+ per year for flood, wind, and hail coverage on top of mortgages they can already barely afford. Carriers are abandoning the market entirely. Federal flood maps are a decade out of date. The National Flood Insurance Program is functionally bankrupt. Meanwhile, $90 billion a year flows to foreign wars while the homes we already have cannot be insured against the storms we already see.",
     solvesProblems: [
-      { id: "insurance", title: "Insurance is Eating Us Alive" },
-      { id: "environment", title: "The Lowcountry Is Being Poisoned and Paved" },
+      { id: "insurance", title: "Insurance is Eating Us Alive", shortLabel: "Coastal insurance crisis" },
+      { id: "environment", title: "The Lowcountry Is Being Poisoned and Paved", shortLabel: "Lowcountry environmental damage" },
     ],
     readMore: "Lowcountry Resilience Explained (campaign kit)",
     fundedBy:
@@ -298,7 +373,7 @@ export const policies: Policy[] = [
         charlestonReality:
           "Some of those classified patents are for building materials that survive Category 5 winds. We literally have technology in government vaults that could make Charleston homes nearly hurricane-proof. We just cannot use it. Repealing the Act unlocks that tech.",
         framing:
-          "This is already in the Energy Independence plank. Lowcountry Resilience makes the storm-resistance application explicit.",
+          "This is already in the Energy Independence priority. Lowcountry Resilience makes the storm-resistance application explicit.",
       },
       {
         title: "Bring Reinsurance Home",
@@ -320,5 +395,5 @@ export const partLabels: Record<number, string> = {
   2: "Part II: Breaking Free",
   3: "Part III: Securing the Foundation",
   4: "Part IV: Energy Independence",
-  5: "Plank 13: SC-01 Specific",
+  5: "Priority 13: SC-01 Specific",
 };
