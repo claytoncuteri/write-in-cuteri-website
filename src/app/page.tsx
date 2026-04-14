@@ -2,7 +2,7 @@ import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 import { HomeProblems } from "@/components/HomeProblems";
 import { PdfDownloadButton } from "@/components/PdfDownloadButton";
-import { ArrowRight, Printer } from "lucide-react";
+import { ArrowRight, Printer, FileText } from "lucide-react";
 
 export default function HomePage() {
   return (
@@ -14,7 +14,7 @@ export default function HomePage() {
             {/* Text */}
             <div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white font-serif leading-tight">
-                Clayton Cuteri for Congress
+                Clayton Cuteri for U.S. Congress
               </h1>
               <p className="mt-4 text-lg sm:text-xl text-white/80">
                 Write-In Candidate, South Carolina District 1
@@ -130,27 +130,41 @@ export default function HomePage() {
 
       {/* CTA Cards */}
       <Section>
-        <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
-          <div className="bg-cream rounded-lg p-8 text-center">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+          <div className="bg-cream rounded-lg p-6 text-center">
             <Printer size={28} className="text-navy mx-auto mb-3" />
-            <h3 className="text-xl font-bold text-charcoal font-serif">
-              Remember the Name
+            <h3 className="text-lg font-bold text-charcoal font-serif">
+              Wallet Card
             </h3>
             <p className="mt-2 text-charcoal/70 text-sm">
-              Print a wallet card so you are ready on Election Day.
+              Remember the name on Election Day.
             </p>
             <div className="mt-4">
               <PdfDownloadButton href="/images/cuteri-wallet-card.pdf">
-                Download Card
+                Download
               </PdfDownloadButton>
             </div>
           </div>
-          <div className="bg-cream rounded-lg p-8 text-center">
-            <h3 className="text-xl font-bold text-charcoal font-serif">
+          <div className="bg-cream rounded-lg p-6 text-center">
+            <FileText size={28} className="text-navy mx-auto mb-3" />
+            <h3 className="text-lg font-bold text-charcoal font-serif">
+              One-Pager
+            </h3>
+            <p className="mt-2 text-charcoal/70 text-sm">
+              The full platform on a single page.
+            </p>
+            <div className="mt-4">
+              <PdfDownloadButton href="/images/cuteri-one-pager.pdf">
+                Download
+              </PdfDownloadButton>
+            </div>
+          </div>
+          <div className="bg-cream rounded-lg p-6 text-center">
+            <h3 className="text-lg font-bold text-charcoal font-serif">
               Get Involved
             </h3>
             <p className="mt-2 text-charcoal/70 text-sm">
-              Volunteer, spread the word, or join the movement.
+              Volunteer and spread the word.
             </p>
             <div className="mt-4">
               <CTAButton variant="secondary" href="/get-involved">
@@ -158,12 +172,12 @@ export default function HomePage() {
               </CTAButton>
             </div>
           </div>
-          <div className="bg-cream rounded-lg p-8 text-center">
-            <h3 className="text-xl font-bold text-charcoal font-serif">
+          <div className="bg-cream rounded-lg p-6 text-center">
+            <h3 className="text-lg font-bold text-charcoal font-serif">
               Support the Campaign
             </h3>
             <p className="mt-2 text-charcoal/70 text-sm">
-              Every dollar funds voter education, not TV attack ads.
+              Every dollar funds voter education.
             </p>
             <div className="mt-4">
               <CTAButton variant="primary" href="/donate">

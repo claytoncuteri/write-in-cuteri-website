@@ -14,9 +14,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "How to Write In Clayton Cuteri",
+  title: "How to Write In Clayton Cuteri | SC-01 Ballot Instructions",
   description:
-    "Step-by-step instructions for writing in Clayton Cuteri on your SC-01 ballot. November 3, 2026. Spell it: C-L-A-Y-T-O-N  C-U-T-E-R-I.",
+    "How to write in a candidate in South Carolina. Step-by-step instructions for writing in Clayton Cuteri on your SC-01 ballot on November 3, 2026. Check voter registration, find your polling place, spell it: C-L-A-Y-T-O-N C-U-T-E-R-I.",
 };
 
 const steps = [

@@ -1,0 +1,16 @@
+/* TEAM */
+Candidate: Clayton A. Cuteri
+Role: Write-In Candidate, U.S. House SC-01
+Party: American Congress Party
+Website: writeincuteri.com
+
+/* SITE */
+Built with: Next.js, Tailwind CSS, TypeScript
+Fonts: DM Serif Display, DM Sans, Caveat
+Hosted on: Replit
+Last updated: 2026-04-14
+
+/* CAMPAIGN */
+Committee: Cuteri for Americans
+Election: November 3, 2026
+District: South Carolina Congressional District 1

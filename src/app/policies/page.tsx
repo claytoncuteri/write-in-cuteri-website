@@ -8,9 +8,9 @@ import Link from "next/link";
 import { Printer } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Priorities",
+  title: "Solutions | 13 Policy Priorities for SC-01",
   description:
-    "Thirteen priorities for SC-01. What would you do with an extra $582 per month? These policies save Americans $2.34+ trillion per year.",
+    "Clayton Cuteri's 13 priorities for South Carolina District 1: no federal income tax, free medication, affordable housing, coastal insurance reform, and more. $2.34+ trillion in savings, $582 more per person per month.",
 };
 
 // SC-01 has ~800,000 residents. $2.34T / 335M population * 800K = ~$5.59B for SC-01.

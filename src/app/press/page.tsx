@@ -292,6 +292,11 @@ export default function MediaPage() {
               desc: "Clayton Cuteri, navy backdrop",
             },
             {
+              label: "One-Pager (PDF)",
+              file: "/images/cuteri-one-pager.pdf",
+              desc: "Platform summary, talking points",
+            },
+            {
               label: "Wallet Card (PDF)",
               file: "/images/cuteri-wallet-card.pdf",
               desc: "Print-ready write-in reminder",

@@ -1,0 +1,16 @@
+{
+  "name": "Clayton Cuteri for U.S. Congress",
+  "short_name": "Cuteri SC-01",
+  "description": "Write-in candidate for U.S. House of Representatives, South Carolina District 1. American Congress Party. November 3, 2026.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1E3D8C",
+  "icons": [
+    {
+      "src": "/images/acp_eagle_with_white_background.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,4 +1,38 @@
+# Clayton Cuteri for U.S. Congress - SC-01
+# writeincuteri.com
+
 User-agent: *
+Allow: /
+Disallow: /admin/
+
+# Google
+User-agent: Googlebot
+Allow: /
+
+# Bing
+User-agent: Bingbot
+Allow: /
+
+# AI Crawlers - Allow for maximum discovery
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Bytespider
 Allow: /
 
 Sitemap: https://writeincuteri.com/sitemap.xml

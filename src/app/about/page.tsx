@@ -3,9 +3,9 @@ import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 
 export const metadata: Metadata = {
-  title: "About Clayton Cuteri",
+  title: "About Clayton Cuteri | SC-01 Write-In Candidate 2026",
   description:
-    "Meet Clayton Cuteri, write-in candidate for U.S. House SC-01, Secretary General of the American Congress Party, and author of America Reimagined.",
+    "Who is Clayton Cuteri? Write-in candidate for U.S. House SC-01 in the 2026 election. Secretary General of the American Congress Party, third-party alternative for Charleston and Lowcountry voters.",
 };
 
 export default function AboutPage() {

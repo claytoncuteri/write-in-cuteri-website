@@ -3,7 +3,8 @@
 import { useState, type FormEvent } from "react";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
-import { Users, Share2, Mail } from "lucide-react";
+import { Users, Share2, Mail, FileText, Printer } from "lucide-react";
+import { PdfDownloadButton } from "@/components/PdfDownloadButton";
 
 export default function GetInvolvedPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -205,6 +206,40 @@ export default function GetInvolvedPage() {
               </p>
             </form>
           )}
+        </div>
+      </Section>
+
+      {/* Volunteer materials */}
+      <Section bgColor="cream" title="Materials for Volunteers">
+        <p className="text-charcoal/70 mb-6">
+          Download and print these to hand out at events, door-to-door, or
+          anywhere someone asks what Clayton stands for.
+        </p>
+        <div className="grid sm:grid-cols-2 gap-4 max-w-lg">
+          <div className="bg-white rounded-lg p-5 border border-gray-200 text-center">
+            <FileText size={28} className="text-navy mx-auto mb-2" />
+            <h3 className="font-bold text-charcoal text-sm font-serif">
+              Campaign One-Pager
+            </h3>
+            <p className="text-xs text-charcoal/60 mt-1 mb-3">
+              Platform summary and talking points
+            </p>
+            <PdfDownloadButton href="/images/cuteri-one-pager.pdf">
+              Download PDF
+            </PdfDownloadButton>
+          </div>
+          <div className="bg-white rounded-lg p-5 border border-gray-200 text-center">
+            <Printer size={28} className="text-navy mx-auto mb-2" />
+            <h3 className="font-bold text-charcoal text-sm font-serif">
+              Wallet Card
+            </h3>
+            <p className="text-xs text-charcoal/60 mt-1 mb-3">
+              Write-in reminder card for Election Day
+            </p>
+            <PdfDownloadButton href="/images/cuteri-wallet-card.pdf">
+              Download PDF
+            </PdfDownloadButton>
+          </div>
         </div>
       </Section>
 
