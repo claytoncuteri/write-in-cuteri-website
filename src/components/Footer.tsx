@@ -75,10 +75,10 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:[CAMPAIGN_EMAIL]"
+                  href="mailto:info@writeincuteri.com"
                   className="hover:text-white transition-colors"
                 >
-                  [CAMPAIGN_EMAIL]
+                  info@writeincuteri.com
                 </a>
               </li>
             </ul>

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
+import { DistrictMap } from "@/components/DistrictMap";
+import { PdfDownloadButton } from "@/components/PdfDownloadButton";
 import {
   CheckCircle,
   MapPin,
@@ -62,31 +64,17 @@ export default function WriteInPage() {
   return (
     <>
       {/* Spelling Banner */}
-      <div className="bg-navy py-8 sm:py-10">
+      <div className="bg-navy py-10 sm:py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-white/60 text-sm font-medium uppercase tracking-wider mb-3">
-            Spell it exactly
+          <p className="text-gold text-sm font-medium uppercase tracking-wider mb-4">
+            Write this name on your ballot
           </p>
-          <div className="flex justify-center gap-2 sm:gap-3 flex-wrap">
-            {"CLAYTON".split("").map((letter, i) => (
-              <span
-                key={i}
-                className="inline-flex items-center justify-center w-10 h-10 sm:w-14 sm:h-14 lg:w-16 lg:h-16 border-2 border-red-accent rounded-lg text-white text-xl sm:text-3xl lg:text-4xl font-bold font-serif shadow-[0_2px_0_0_rgba(215,38,56,0.4)] bg-white/5"
-              >
-                {letter}
-              </span>
-            ))}
-          </div>
-          <div className="flex justify-center gap-2 sm:gap-3 flex-wrap mt-3">
-            {"CUTERI".split("").map((letter, i) => (
-              <span
-                key={i}
-                className="inline-flex items-center justify-center w-10 h-10 sm:w-14 sm:h-14 lg:w-16 lg:h-16 border-2 border-red-accent rounded-lg text-white text-xl sm:text-3xl lg:text-4xl font-bold font-serif shadow-[0_2px_0_0_rgba(215,38,56,0.4)] bg-white/5"
-              >
-                {letter}
-              </span>
-            ))}
-          </div>
+          <p className="text-white text-5xl sm:text-6xl lg:text-8xl" style={{ fontFamily: "var(--font-caveat), cursive" }}>
+            CLAYTON CUTERI
+          </p>
+          <p className="mt-4 text-white/50 text-sm">
+            Spell it exactly: C-L-A-Y-T-O-N &nbsp; C-U-T-E-R-I
+          </p>
         </div>
       </div>
 
@@ -132,34 +120,40 @@ export default function WriteInPage() {
 
       {/* Eligibility */}
       <Section bgColor="cream" title="Am I Eligible?">
-        <div className="max-w-3xl">
-          <p className="text-charcoal/80 text-lg mb-6">
-            To vote in the SC-01 U.S. House race, you must be a registered voter
-            in South Carolina Congressional District 1. The district includes:
-          </p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
-            {[
-              "Charleston (partial)",
-              "Berkeley",
-              "Dorchester (partial)",
-              "Beaufort",
-              "Colleton (partial)",
-              "Jasper",
-            ].map((county) => (
-              <div
-                key={county}
-                className="bg-white px-4 py-3 rounded-lg border border-gray-200 text-sm font-medium text-charcoal"
-              >
-                {county}
-              </div>
-            ))}
+        <div className="grid lg:grid-cols-5 gap-10 items-start">
+          <div className="lg:col-span-3">
+            <p className="text-charcoal/80 text-lg mb-6">
+              To vote in the SC-01 U.S. House race, you must be a registered
+              voter in South Carolina Congressional District 1. The district
+              includes:
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
+              {[
+                "Charleston (partial)",
+                "Berkeley",
+                "Dorchester (partial)",
+                "Beaufort",
+                "Colleton (partial)",
+                "Jasper",
+              ].map((county) => (
+                <div
+                  key={county}
+                  className="bg-white px-4 py-3 rounded-lg border border-gray-200 text-sm font-medium text-charcoal"
+                >
+                  {county}
+                </div>
+              ))}
+            </div>
+            <CTAButton
+              variant="secondary"
+              href="https://vrems.scvotes.sc.gov/Voter/Login?PageMode=VoterInformation"
+            >
+              Check Your Registration
+            </CTAButton>
           </div>
-          <CTAButton
-            variant="secondary"
-            href="https://vrems.scvotes.sc.gov/Voter/Login?PageMode=VoterInformation"
-          >
-            Check Your Registration
-          </CTAButton>
+          <div className="lg:col-span-2 flex justify-center">
+            <DistrictMap />
+          </div>
         </div>
       </Section>
 
@@ -201,14 +195,10 @@ export default function WriteInPage() {
             your polling place info. Keep it in your pocket on Election Day.
           </p>
           <div className="mt-6">
-            <CTAButton variant="secondary" href="/images/[WALLET_CARD_PDF]">
+            <PdfDownloadButton href="/images/cuteri-wallet-card.pdf">
               Download Wallet Card (PDF)
-            </CTAButton>
+            </PdfDownloadButton>
           </div>
-          <p className="mt-3 text-sm text-charcoal/50">
-            [WALLET_CARD_PDF: Add a PDF file to public/images/ and update this
-            link]
-          </p>
         </div>
       </Section>
 

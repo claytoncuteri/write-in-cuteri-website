@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 import { ExpandableCard } from "@/components/ExpandableCard";
+import { PdfDownloadButton } from "@/components/PdfDownloadButton";
 import { problems } from "@/data/problems";
 import Link from "next/link";
+import { Printer } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "SC-01 Problems",
@@ -93,11 +95,30 @@ export default function ProblemsPage() {
         </div>
       </Section>
 
+      {/* Wallet card */}
+      <Section bgColor="cream">
+        <div className="max-w-xl mx-auto text-center">
+          <Printer size={32} className="text-navy mx-auto mb-3" />
+          <h2 className="text-2xl font-bold text-charcoal font-serif">
+            Remember the Name on Election Day
+          </h2>
+          <p className="mt-2 text-charcoal/70">
+            Print a wallet-sized card with the correct spelling and bring it to
+            the polls on November 3.
+          </p>
+          <div className="mt-5">
+            <PdfDownloadButton href="/images/cuteri-wallet-card.pdf">
+              Download Wallet Card (PDF)
+            </PdfDownloadButton>
+          </div>
+        </div>
+      </Section>
+
       {/* CTA */}
       <Section bgColor="navy" title="Ready to See the Solutions?">
         <p className="text-white/80 text-lg leading-relaxed max-w-2xl mb-8">
           Every problem above has a policy solution. Thirteen concrete proposals,
-          grounded in real math, not slogans.
+          grounded in real numbers, not slogans.
         </p>
         <div className="flex flex-col sm:flex-row gap-4">
           <CTAButton variant="primary" href="/policies">
@@ -108,7 +129,7 @@ export default function ProblemsPage() {
             href="/write-in"
             className="border-white text-white hover:bg-white hover:text-navy"
           >
-            How to Write Me In
+            Learn How to Write Me In
           </CTAButton>
         </div>
       </Section>

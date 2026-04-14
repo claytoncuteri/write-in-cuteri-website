@@ -35,11 +35,12 @@ export function CTAButton({
     const isExternal =
       href.startsWith("http") ||
       href.startsWith("mailto:") ||
-      href.includes("[");
+      href.includes("[") ||
+      href.endsWith(".pdf");
 
     if (isExternal) {
       return (
-        <a href={href} className={classes} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noopener noreferrer" : undefined}>
+        <a href={href} className={classes} target={href.startsWith("http") || href.endsWith(".pdf") ? "_blank" : undefined} rel={href.startsWith("http") ? "noopener noreferrer" : undefined}>
           {children}
         </a>
       );

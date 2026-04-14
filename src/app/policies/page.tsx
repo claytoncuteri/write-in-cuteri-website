@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 import { ExpandableCard } from "@/components/ExpandableCard";
+import { PdfDownloadButton } from "@/components/PdfDownloadButton";
 import { policies, partLabels } from "@/data/policies";
 import Link from "next/link";
+import { Printer } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Priorities",
@@ -318,6 +320,25 @@ export default function PoliciesPage() {
               working Americans.
             </p>
           </ExpandableCard>
+        </div>
+      </Section>
+
+      {/* Wallet card */}
+      <Section>
+        <div className="max-w-xl mx-auto text-center">
+          <Printer size={32} className="text-navy mx-auto mb-3" />
+          <h2 className="text-2xl font-bold text-charcoal font-serif">
+            Take These Priorities With You
+          </h2>
+          <p className="mt-2 text-charcoal/70">
+            Print a wallet card with Clayton&apos;s name so you are ready at the
+            polls on November 3.
+          </p>
+          <div className="mt-5">
+            <PdfDownloadButton href="/images/cuteri-wallet-card.pdf">
+              Download Wallet Card (PDF)
+            </PdfDownloadButton>
+          </div>
         </div>
       </Section>
 

@@ -85,10 +85,10 @@ export default function PrivacyPage() {
           <p className="text-charcoal/80 leading-relaxed mt-3">
             For privacy questions or data removal requests, contact us at{" "}
             <a
-              href="mailto:[CAMPAIGN_EMAIL]"
+              href="mailto:info@writeincuteri.com"
               className="text-navy hover:text-navy-dark underline"
             >
-              [CAMPAIGN_EMAIL]
+              info@writeincuteri.com
             </a>
             .
           </p>

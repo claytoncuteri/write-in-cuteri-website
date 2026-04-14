@@ -1,7 +1,8 @@
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 import { HomeProblems } from "@/components/HomeProblems";
-import { ArrowRight } from "lucide-react";
+import { PdfDownloadButton } from "@/components/PdfDownloadButton";
+import { ArrowRight, Printer } from "lucide-react";
 
 export default function HomePage() {
   return (
@@ -129,7 +130,21 @@ export default function HomePage() {
 
       {/* CTA Cards */}
       <Section>
-        <div className="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div className="bg-cream rounded-lg p-8 text-center">
+            <Printer size={28} className="text-navy mx-auto mb-3" />
+            <h3 className="text-xl font-bold text-charcoal font-serif">
+              Remember the Name
+            </h3>
+            <p className="mt-2 text-charcoal/70 text-sm">
+              Print a wallet card so you are ready on Election Day.
+            </p>
+            <div className="mt-4">
+              <PdfDownloadButton href="/images/cuteri-wallet-card.pdf">
+                Download Card
+              </PdfDownloadButton>
+            </div>
+          </div>
           <div className="bg-cream rounded-lg p-8 text-center">
             <h3 className="text-xl font-bold text-charcoal font-serif">
               Get Involved

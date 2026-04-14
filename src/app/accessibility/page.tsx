@@ -77,10 +77,10 @@ export default function AccessibilityPage() {
             If you encounter any accessibility barriers on this website, please
             contact us at{" "}
             <a
-              href="mailto:[CAMPAIGN_EMAIL]"
+              href="mailto:info@writeincuteri.com"
               className="text-navy hover:text-navy-dark underline"
             >
-              [CAMPAIGN_EMAIL]
+              info@writeincuteri.com
             </a>
             . We take all feedback seriously and will work to address issues
             promptly.
