@@ -5,6 +5,7 @@ import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 import { Users, Share2, Mail, FileText, Printer } from "lucide-react";
 import { PdfDownloadButton } from "@/components/PdfDownloadButton";
+import { subscribeToConvertKit } from "@/lib/convertkit";
 
 export default function GetInvolvedPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -18,11 +19,27 @@ export default function GetInvolvedPage() {
     const data = new FormData(form);
 
     try {
-      await fetch("[FORMSPREE_ENDPOINT]", {
+      // Send to Formspree (backup/admin visibility)
+      const formspreePromise = fetch("[FORMSPREE_ENDPOINT]", {
         method: "POST",
         body: data,
         headers: { Accept: "application/json" },
       });
+
+      // Send to ConvertKit with Cuteri26-Volunteer tag
+      const convertkitPromise = subscribeToConvertKit({
+        email: data.get("email") as string,
+        firstName: data.get("firstName") as string,
+        lastName: data.get("lastName") as string,
+        tag: "volunteer",
+        fields: {
+          phone: (data.get("phone") as string) || "",
+          zip_code: (data.get("zipCode") as string) || "",
+        },
+      });
+
+      // Fire both in parallel, don't let ConvertKit failure block the form
+      await Promise.allSettled([formspreePromise, convertkitPromise]);
       setSubmitted(true);
     } catch {
       alert("Something went wrong. Please try again.");

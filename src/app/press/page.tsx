@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { Section } from "@/components/Section";
 import { Download, Mic, Newspaper, Send } from "lucide-react";
+import { subscribeToConvertKit } from "@/lib/convertkit";
 
 export default function MediaPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -14,11 +15,23 @@ export default function MediaPage() {
     const form = e.currentTarget;
     const data = new FormData(form);
     try {
-      await fetch("[FORMSPREE_PRESS_ENDPOINT]", {
+      const formspreePromise = fetch("[FORMSPREE_PRESS_ENDPOINT]", {
         method: "POST",
         body: data,
         headers: { Accept: "application/json" },
       });
+
+      const convertkitPromise = subscribeToConvertKit({
+        email: data.get("email") as string,
+        firstName: data.get("name") as string,
+        tag: "press",
+        fields: {
+          organization: (data.get("organization") as string) || "",
+          inquiry_type: (data.get("inquiryType") as string) || "",
+        },
+      });
+
+      await Promise.allSettled([formspreePromise, convertkitPromise]);
       setSubmitted(true);
     } catch {
       alert("Something went wrong. Please try again.");
