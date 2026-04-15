@@ -3,7 +3,7 @@ run = "npm run dev"
 hidden = [".config", ".git", "node_modules", ".next"]
 
 [nix]
-channel = "stable-24_05"
+channel = "stable-25_05"
 
 [deployment]
 deploymentTarget = "static"
@@ -13,13 +13,6 @@ publicDir = "out"
 [[ports]]
 localPort = 3000
 externalPort = 80
-
-[[ports]]
-localPort = 5000
-externalPort = 80
-
-[nix]
-channel = "stable-25_05"
 
 [agent]
 expertMode = true
@@ -43,7 +36,7 @@ author = "agent"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "npm run dev"
-waitForPort = 5000
+waitForPort = 3000
 
 [workflows.workflow.metadata]
 outputType = "webview"
