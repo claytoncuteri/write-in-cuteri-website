@@ -28,11 +28,14 @@ export default function MediaPage() {
     const form = e.currentTarget;
     const data = new FormData(form);
     try {
-      const formspreePromise = fetch("[FORMSPREE_PRESS_ENDPOINT]", {
-        method: "POST",
-        body: data,
-        headers: { Accept: "application/json" },
-      });
+      const formspreeEndpoint = "[FORMSPREE_PRESS_ENDPOINT]";
+      const formspreePromise = formspreeEndpoint.startsWith("[")
+        ? Promise.resolve()
+        : fetch(formspreeEndpoint, {
+            method: "POST",
+            body: data,
+            headers: { Accept: "application/json" },
+          });
 
       const convertkitPromise = subscribeToConvertKit({
         email: data.get("email") as string,
@@ -378,31 +381,31 @@ export default function MediaPage() {
           {[
             {
               platform: "Instagram",
-              handle: "[INSTAGRAM_HANDLE]",
+              handle: "@claytoncuteri",
               followers: "441,000 followers",
               icon: Camera,
-              href: "https://instagram.com/[INSTAGRAM_HANDLE]",
+              href: "https://www.instagram.com/claytoncuteri/",
             },
             {
               platform: "Facebook",
-              handle: "[FACEBOOK_HANDLE]",
+              handle: "Clayton Cuteri",
               followers: "220,000 followers",
               icon: Users,
-              href: "https://facebook.com/[FACEBOOK_HANDLE]",
+              href: "https://www.facebook.com/clayton.cuteri.2025/",
             },
             {
               platform: "YouTube",
-              handle: "[YOUTUBE_HANDLE]",
+              handle: "@ClaytonCuteriACP",
               followers: "49,000 subscribers",
               icon: Play,
-              href: "https://youtube.com/[YOUTUBE_HANDLE]",
+              href: "https://www.youtube.com/@ClaytonCuteriACP",
             },
             {
               platform: "X / Twitter",
-              handle: "[TWITTER_HANDLE]",
+              handle: "@ClaytonCuteri",
               followers: "",
               icon: Globe,
-              href: "https://x.com/[TWITTER_HANDLE]",
+              href: "https://x.com/ClaytonCuteri",
             },
           ].map((social) => (
             <a
@@ -616,9 +619,6 @@ export default function MediaPage() {
                 <Send size={16} />
                 {submitting ? "Sending..." : "Submit Inquiry"}
               </button>
-              <p className="text-xs text-charcoal/40 text-center">
-                [FORMSPREE_PRESS_ENDPOINT: Replace with Formspree URL]
-              </p>
             </form>
           )}
         </div>

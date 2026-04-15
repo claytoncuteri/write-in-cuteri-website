@@ -176,8 +176,8 @@ export default function WriteInPage() {
               Early Voting
             </h3>
             <p className="text-charcoal/80 mt-2">
-              [EARLY_VOTING_DATES: Check scvotes.gov for SC early voting
-              schedule as it is announced]
+              Early voting dates for 2026 have not been announced yet.
+              Check scvotes.gov for the schedule as Election Day approaches.
             </p>
           </div>
         </div>

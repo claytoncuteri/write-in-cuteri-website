@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 import { Clock, ShieldCheck, DollarSign } from "lucide-react";
+import { subscribeToConvertKit } from "@/lib/convertkit";
 
 // Toggle this to switch between "Coming Soon" and active donation view.
 // Set to true when FEC registration, EIN, and bank account are ready.
@@ -11,7 +12,26 @@ const DONATIONS_LIVE = false;
 
 export default function DonatePage() {
   const [previewLive, setPreviewLive] = useState(DONATIONS_LIVE);
+  const [emailSubmitted, setEmailSubmitted] = useState(false);
+  const [emailSubmitting, setEmailSubmitting] = useState(false);
   const showLive = previewLive;
+
+  async function handleEmailSignup(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setEmailSubmitting(true);
+    const data = new FormData(e.currentTarget);
+    try {
+      await subscribeToConvertKit({
+        email: data.get("email") as string,
+        tag: "donor",
+      });
+      setEmailSubmitted(true);
+    } catch {
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setEmailSubmitting(false);
+    }
+  }
 
   return (
     <>
@@ -138,39 +158,35 @@ export default function DonatePage() {
               Want to be the first to know?
             </p>
 
-            {/* Email signup placeholder */}
+            {/* Email signup */}
             <div className="mt-6 bg-cream rounded-lg p-6 max-w-md mx-auto">
               <p className="text-sm font-medium text-charcoal mb-3">
                 Get notified when donations open:
               </p>
-              <form
-                action="[FORMSPREE_DONATE_NOTIFY_ENDPOINT]"
-                method="POST"
-                className="flex gap-2"
-              >
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  placeholder="your@email.com"
-                  className="flex-1 px-3 py-2.5 border border-gray-300 rounded-lg text-charcoal text-sm focus:outline-none focus:ring-2 focus:ring-navy focus:border-navy"
-                />
-                <CTAButton
-                  variant="primary"
-                  type="submit"
-                  className="text-sm px-4 py-2.5"
-                >
-                  Notify Me
-                </CTAButton>
-              </form>
-              <input
-                type="hidden"
-                name="_subject"
-                value="Donation notification signup"
-              />
-              <p className="text-xs text-charcoal/40 mt-2">
-                [FORMSPREE_DONATE_NOTIFY_ENDPOINT: Replace with Formspree URL]
-              </p>
+              {emailSubmitted ? (
+                <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                  <p className="text-green-800 font-medium text-sm">
+                    You are on the list. We will let you know.
+                  </p>
+                </div>
+              ) : (
+                <form onSubmit={handleEmailSignup} className="flex gap-2">
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    placeholder="your@email.com"
+                    className="flex-1 px-3 py-2.5 border border-gray-300 rounded-lg text-charcoal text-sm focus:outline-none focus:ring-2 focus:ring-navy focus:border-navy"
+                  />
+                  <CTAButton
+                    variant="primary"
+                    type="submit"
+                    className="text-sm px-4 py-2.5"
+                  >
+                    {emailSubmitting ? "..." : "Notify Me"}
+                  </CTAButton>
+                </form>
+              )}
             </div>
           </div>
         </Section>

@@ -19,12 +19,15 @@ export default function GetInvolvedPage() {
     const data = new FormData(form);
 
     try {
-      // Send to Formspree (backup/admin visibility)
-      const formspreePromise = fetch("[FORMSPREE_ENDPOINT]", {
-        method: "POST",
-        body: data,
-        headers: { Accept: "application/json" },
-      });
+      // Send to Formspree (backup/admin visibility) - skip if not configured
+      const formspreeEndpoint = "[FORMSPREE_ENDPOINT]";
+      const formspreePromise = formspreeEndpoint.startsWith("[")
+        ? Promise.resolve()
+        : fetch(formspreeEndpoint, {
+            method: "POST",
+            body: data,
+            headers: { Accept: "application/json" },
+          });
 
       // Send to ConvertKit with Cuteri26-Volunteer tag
       const convertkitPromise = subscribeToConvertKit({
@@ -217,10 +220,6 @@ export default function GetInvolvedPage() {
               <CTAButton variant="primary" type="submit" className="w-full">
                 {submitting ? "Sending..." : "Sign Up to Volunteer"}
               </CTAButton>
-              <p className="text-xs text-charcoal/50 text-center">
-                [FORMSPREE_ENDPOINT: Replace with your Formspree form URL, e.g.
-                https://formspree.io/f/xyzabc]
-              </p>
             </form>
           )}
         </div>
