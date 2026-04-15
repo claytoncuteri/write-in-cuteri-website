@@ -87,25 +87,34 @@ export default function AboutPage() {
 
       {/* Connection to SC-01 */}
       <Section bgColor="cream" title="Connection to the Lowcountry">
-        <div className="max-w-3xl space-y-4">
-          <p className="text-charcoal/80 text-lg leading-relaxed">
-            Clayton chose Charleston because, after years of moving across the
-            country, the Lowcountry was the place that felt like home. He lives
-            in Mount Pleasant. The marshes, the harbor, the people who have
-            built their lives in these communities from Sullivan&apos;s Island
-            down to Beaufort: this is worth protecting. This is not a district
-            he is parachuting into for a campaign. This is home.
-          </p>
-          <p className="text-charcoal/80 text-lg leading-relaxed">
-            What pushed Clayton from commentary to candidacy was watching the
-            Lowcountry get hollowed out in real time. Kids who grew up in Mount
-            Pleasant cannot afford a starter home here because Wall Street firms
-            buy them in bulk. Retirees on the islands are being taxed out of
-            houses they paid off decades ago. Families across Charleston,
-            Berkeley, and Dorchester counties pay $5,000 or more a year in
-            insurance, and carriers are still leaving the market. Both parties
-            have had years to fix this, and both have failed.
-          </p>
+        <div className="grid lg:grid-cols-5 gap-10 items-start">
+          <div className="lg:col-span-3 space-y-4">
+            <p className="text-charcoal/80 text-lg leading-relaxed">
+              Clayton chose Charleston because, after years of moving across the
+              country, the Lowcountry was the place that felt like home. He lives
+              in Mount Pleasant. The marshes, the harbor, the people who have
+              built their lives in these communities from Sullivan&apos;s Island
+              down to Beaufort: this is worth protecting. This is not a district
+              he is parachuting into for a campaign. This is home.
+            </p>
+            <p className="text-charcoal/80 text-lg leading-relaxed">
+              What pushed Clayton from commentary to candidacy was watching the
+              Lowcountry get hollowed out in real time. Kids who grew up in Mount
+              Pleasant cannot afford a starter home here because Wall Street firms
+              buy them in bulk. Retirees on the islands are being taxed out of
+              houses they paid off decades ago. Families across Charleston,
+              Berkeley, and Dorchester counties pay $5,000 or more a year in
+              insurance, and carriers are still leaving the market. Both parties
+              have had years to fix this, and both have failed.
+            </p>
+          </div>
+          <div className="lg:col-span-2 flex justify-center">
+            <img
+              src="/images/clayton-podium.jpg"
+              alt="Clayton Cuteri speaking at the Francis Marion Hotel in Charleston"
+              className="w-full max-w-sm rounded-xl shadow-lg"
+            />
+          </div>
         </div>
       </Section>
 
@@ -138,6 +147,33 @@ export default function AboutPage() {
               src="/images/ACP_logo_with_letters.png"
               alt="American Congress Party logo"
               className="w-48 sm:w-56 object-contain"
+            />
+          </div>
+        </div>
+      </Section>
+
+      {/* Asia Icon Award */}
+      <Section title="Asia Icon Global Leader of the Year, 2024">
+        <div className="grid lg:grid-cols-5 gap-10 items-center">
+          <div className="lg:col-span-3 space-y-4">
+            <p className="text-charcoal/80 text-lg leading-relaxed">
+              In 2024, Clayton was recognized as the Asia Icon Global Leader of
+              the Year for his work in consciousness, media, and political
+              advocacy. The award ceremony brought international press coverage
+              from BBC News, Al Jazeera, Sky News, and other global outlets.
+            </p>
+            <p className="text-charcoal/80 text-lg leading-relaxed">
+              This recognition reflects the reach of Clayton&apos;s message
+              beyond American borders and his ability to connect with audiences
+              worldwide on issues of personal freedom, government accountability,
+              and systemic reform.
+            </p>
+          </div>
+          <div className="lg:col-span-2 flex justify-center">
+            <img
+              src="/images/clayton-red-carpet.jpg"
+              alt="Clayton Cuteri at the Asia Icon Global Leader of the Year 2024 award ceremony"
+              className="w-full max-w-sm rounded-xl shadow-lg"
             />
           </div>
         </div>

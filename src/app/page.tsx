@@ -79,7 +79,7 @@ export default function HomePage() {
           </div>
           <div className="lg:col-span-2 flex justify-center">
             <img
-              src="/images/Clayton_Headshot.jpg"
+              src="/images/clayton-seated-smiling.jpg"
               alt="Clayton Cuteri"
               className="w-64 h-64 sm:w-72 sm:h-72 rounded-xl object-cover object-top shadow-lg"
             />

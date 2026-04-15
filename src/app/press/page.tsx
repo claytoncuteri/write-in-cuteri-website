@@ -294,9 +294,14 @@ export default function MediaPage() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
             {
-              label: "Candidate Headshot",
+              label: "Headshot (Formal)",
               file: "/images/Clayton_Headshot.jpg",
-              desc: "High-resolution, navy backdrop (print-ready)",
+              desc: "Navy backdrop, formal (print-ready)",
+            },
+            {
+              label: "Headshot (Alternative)",
+              file: "/images/clayton-seated-direct.jpg",
+              desc: "Seated, direct eye contact",
             },
             {
               label: "ACP Logo with Letters",
@@ -409,6 +414,34 @@ export default function MediaPage() {
       </Section>
 
       {/* Media Appearances */}
+      {/* Featured press photo */}
+      <Section bgColor="cream">
+        <div className="grid lg:grid-cols-2 gap-8 items-center max-w-4xl mx-auto">
+          <div>
+            <img
+              src="/images/clayton-asia-icon-press.jpg"
+              alt="Clayton Cuteri interviewed by BBC News, Al Jazeera, and Sky News at the Asia Icon Awards 2024"
+              className="w-full rounded-xl shadow-lg"
+            />
+          </div>
+          <div>
+            <p className="text-gold font-semibold text-sm uppercase tracking-wider mb-2">
+              International Recognition
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-charcoal font-serif">
+              Asia Icon Global Leader of the Year, 2024
+            </h2>
+            <p className="mt-4 text-charcoal/80 leading-relaxed">
+              Clayton was recognized as the Asia Icon Global Leader of the Year
+              in 2024, bringing coverage from BBC News, Al Jazeera, Sky News,
+              and other international outlets. The same voice that reaches 30 to
+              100 million views per month online now carries into the halls of
+              Congress.
+            </p>
+          </div>
+        </div>
+      </Section>
+
       <Section title="Media Appearances">
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {[1, 2, 3].map((i) => (
