@@ -60,8 +60,16 @@ function DesktopDropdown({ group }: { group: DropdownGroup }) {
     timeout.current = setTimeout(() => setOpen(false), 150);
   }
 
+  // Close on click outside
   useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
       if (timeout.current) clearTimeout(timeout.current);
     };
   }, []);

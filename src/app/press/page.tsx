@@ -294,9 +294,14 @@ export default function MediaPage() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
             {
-              label: "Candidate Headshot",
+              label: "Headshot (Formal)",
               file: "/images/Clayton_Headshot.jpg",
-              desc: "High-resolution, navy backdrop (print-ready)",
+              desc: "Navy backdrop, formal (print-ready)",
+            },
+            {
+              label: "Headshot (Alternative)",
+              file: "/images/clayton-seated-direct.jpg",
+              desc: "Seated, direct eye contact",
             },
             {
               label: "ACP Logo with Letters",
@@ -409,77 +414,36 @@ export default function MediaPage() {
       </Section>
 
       {/* Media Appearances */}
-      <Section title="Media Appearances">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1, 2, 3].map((i) => (
-            <div
-              key={i}
-              className="bg-cream rounded-lg overflow-hidden border border-gray-200 hover:shadow-md transition-shadow"
-            >
-              <div className="bg-navy/5 p-6 flex items-center justify-center">
-                <Mic size={40} className="text-navy/30" />
-              </div>
-              <div className="p-5">
-                <p className="text-xs text-charcoal/50 uppercase tracking-wider mb-1">
-                  [MEDIA_TYPE_{i}: Podcast / Interview / Panel]
-                </p>
-                <h3 className="font-bold text-charcoal font-serif">
-                  [MEDIA_TITLE_{i}]
-                </h3>
-                <p className="mt-1 text-charcoal/60 text-sm">
-                  [MEDIA_SHOW_NAME_{i}]
-                </p>
-                <p className="mt-1 text-charcoal/40 text-xs">
-                  [MEDIA_DATE_{i}]
-                </p>
-                <a
-                  href="[MEDIA_LINK_{i}]"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3 inline-block text-sm font-semibold text-navy hover:text-navy-dark transition-colors"
-                >
-                  Listen / Watch
-                </a>
-              </div>
-            </div>
-          ))}
+      {/* Featured press photo */}
+      <Section bgColor="cream">
+        <div className="grid lg:grid-cols-2 gap-8 items-center max-w-4xl mx-auto">
+          <div>
+            <img
+              src="/images/clayton-asia-icon-press.jpg"
+              alt="Clayton Cuteri interviewed by BBC News, Al Jazeera, and Sky News at the Asia Icon Awards 2024"
+              className="w-full rounded-xl shadow-lg"
+            />
+          </div>
+          <div>
+            <p className="text-gold font-semibold text-sm uppercase tracking-wider mb-2">
+              International Recognition
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-charcoal font-serif">
+              Asia Icon Global Leader of the Year, 2024
+            </h2>
+            <p className="mt-4 text-charcoal/80 leading-relaxed">
+              Clayton was recognized as the Asia Icon Global Leader of the Year
+              in 2024, bringing coverage from BBC News, Al Jazeera, Sky News,
+              and other international outlets. The same voice that reaches 30 to
+              100 million views per month online now carries into the halls of
+              Congress.
+            </p>
+          </div>
         </div>
-        <p className="text-sm text-charcoal/50 mt-6">
-          Media appearances will be added as they are scheduled and recorded.
-        </p>
       </Section>
 
-      {/* Press Coverage */}
-      <Section bgColor="cream" title="Press Coverage">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1, 2, 3].map((i) => (
-            <div
-              key={i}
-              className="bg-white rounded-lg p-6 border border-gray-200"
-            >
-              <Newspaper size={20} className="text-navy/30 mb-2" />
-              <p className="text-xs text-charcoal/50 uppercase tracking-wider mb-1">
-                [PRESS_SOURCE_{i}]
-              </p>
-              <h3 className="font-bold text-charcoal font-serif">
-                [PRESS_HEADLINE_{i}]
-              </h3>
-              <p className="mt-2 text-charcoal/70 text-sm">
-                [PRESS_EXCERPT_{i}]
-              </p>
-              <a
-                href="[PRESS_LINK_{i}]"
-                className="mt-3 inline-block text-sm font-semibold text-navy hover:text-navy-dark transition-colors"
-              >
-                Read article
-              </a>
-            </div>
-          ))}
-        </div>
-        <p className="text-sm text-charcoal/50 mt-6">
-          Press coverage will be added as it is published.
-        </p>
-      </Section>
+      {/* TODO: Uncomment Media Appearances when podcast links are ready */}
+      {/* TODO: Uncomment Press Coverage when articles are published */}
 
       {/* Media Inquiry Form */}
       <Section title="Media Inquiry">
