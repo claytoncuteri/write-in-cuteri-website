@@ -37,18 +37,42 @@ export default function AboutPage() {
               Who Is Clayton?
             </h2>
             <p className="text-charcoal/80 text-lg leading-relaxed">
-              [BIO_PARAGRAPH_1: Personal background. Where he grew up, what
-              shaped him, what brought him to South Carolina. Keep it human and
-              specific.]
+              Clayton grew up in Pittsburgh, Pennsylvania, went to college at the
+              University of Central Florida in Orlando, and spent years after
+              graduation living in San Diego, Brazil, and back in Pittsburgh,
+              where he started his businesses from his parents&apos; basement.
+              Along the way, he taught himself the financial literacy, personal
+              development, and real-world skills that eighteen years of
+              classrooms never offered. When things started taking off, he moved
+              to Mount Pleasant, South Carolina. His path to the Lowcountry was
+              not a straight line, but every stop taught him something the
+              political class never learns: what it actually feels like to build
+              something from nothing.
             </p>
             <p className="text-charcoal/80 text-lg leading-relaxed">
-              [BIO_PARAGRAPH_2: Professional background. What he does for work,
-              relevant experience, skills he brings to the table.]
+              Five years ago, Clayton launched a spiritual podcast called
+              &quot;Traveling to Consciousness.&quot; What started as
+              conversations about personal growth and consciousness grew into
+              political commentary as he realized that inner work without public
+              action was not enough. Today he reaches 30 to 100 million views
+              per month across Instagram, YouTube, and Facebook, with a combined
+              audience of more than 700,000 followers. He has built and operated
+              five businesses and is now turning that audience into a political
+              movement.
             </p>
             <p className="text-charcoal/80 text-lg leading-relaxed">
-              [BIO_PARAGRAPH_3: Why he is running. The personal moment or
-              realization that made him decide to run for Congress. What does he
-              see that others do not?]
+              The turning point came during COVID, standing on a beach in
+              California, staring at an empty ocean that bureaucrats had declared
+              off limits. Nature herself, locked behind caution tape. In that
+              moment, the scope of political power became impossible to ignore.
+              Small businesses crushed, lives suspended, and nobody in charge
+              asked for permission. Clayton realized that avoiding politics was
+              not virtue. It was surrender, handing power to people willing to
+              poison the food supply, send other people&apos;s children to war,
+              and let insurance companies abandon entire coastlines. He is
+              running because the Americans who feel abandoned by both parties
+              deserve a representative who actually lives their problems, not one
+              who fundraises off them.
             </p>
           </div>
           <div className="lg:col-span-2">
@@ -65,14 +89,22 @@ export default function AboutPage() {
       <Section bgColor="cream" title="Connection to the Lowcountry">
         <div className="max-w-3xl space-y-4">
           <p className="text-charcoal/80 text-lg leading-relaxed">
-            [SC01_CONNECTION_1: Clayton&apos;s personal ties to Charleston,
-            Berkeley, Beaufort, or the surrounding counties. When did he move
-            here? What does he love about the area?]
+            Clayton chose Charleston because, after years of moving across the
+            country, the Lowcountry was the place that felt like home. He lives
+            in Mount Pleasant. The marshes, the harbor, the people who have
+            built their lives in these communities from Sullivan&apos;s Island
+            down to Beaufort: this is worth protecting. This is not a district
+            he is parachuting into for a campaign. This is home.
           </p>
           <p className="text-charcoal/80 text-lg leading-relaxed">
-            [SC01_CONNECTION_2: What specific local issues motivated him? Does he
-            deal with insurance costs firsthand? Has he seen neighbors priced out
-            of their homes?]
+            What pushed Clayton from commentary to candidacy was watching the
+            Lowcountry get hollowed out in real time. Kids who grew up in Mount
+            Pleasant cannot afford a starter home here because Wall Street firms
+            buy them in bulk. Retirees on the islands are being taxed out of
+            houses they paid off decades ago. Families across Charleston,
+            Berkeley, and Dorchester counties pay $5,000 or more a year in
+            insurance, and carriers are still leaving the market. Both parties
+            have had years to fix this, and both have failed.
           </p>
         </div>
       </Section>
@@ -87,10 +119,10 @@ export default function AboutPage() {
               alternative to the Republican-Democrat duopoly.
             </p>
             <p className="text-charcoal/80 text-lg leading-relaxed">
-              The ACP is not a protest movement. It is a real party with a real
-              platform, designed for the Americans neither major party speaks for.
-              The party is still growing, and South Carolina is one of the first
-              states where ACP candidates are running for federal office.
+              The ACP is a real party with a real platform, built for the
+              Americans who deserve representation. South Carolina is one of the
+              first states where ACP candidates are running for federal office,
+              and the party is growing every day.
             </p>
             <div className="mt-4">
               <CTAButton
@@ -111,25 +143,25 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      {/* The Book */}
-      <Section bgColor="cream" title="America Reimagined">
+      {/* The Platform */}
+      <Section bgColor="cream" title="The 13-Policy Platform">
         <div className="max-w-3xl space-y-4">
           <p className="text-charcoal/80 text-lg leading-relaxed">
-            Clayton is the author of &quot;America Reimagined,&quot; a
-            book-length policy blueprint that lays out 13 concrete priorities for
-            rebuilding the American system from the ground up. The platform on
-            this website is drawn directly from that work.
+            Clayton is a published author and is currently writing his political
+            manifesto, which outlines the 13-policy platform at the center of
+            this campaign. The platform covers everything from free food and
+            medication to ending the Federal Reserve, eliminating the federal
+            income tax, and redirecting war spending toward American communities.
           </p>
           <p className="text-charcoal/80 text-lg leading-relaxed">
-            The book covers everything from free food and medication to ending
-            the Federal Reserve, eliminating the federal income tax, and
-            redirecting war spending toward American communities. It is backed by
-            real numbers, real history, and real proposals.
+            Every policy is backed by real numbers, real history, and real
+            proposals. No slogans, no empty promises.
           </p>
-          <p className="text-charcoal/60 text-sm">
-            [BOOK_STATUS: Add publication date, purchase link, or pre-order info
-            when available.]
-          </p>
+          <div className="mt-2">
+            <CTAButton variant="secondary" href="/policies">
+              See the Full Platform
+            </CTAButton>
+          </div>
         </div>
       </Section>
 

@@ -64,16 +64,12 @@ export default function HomePage() {
               Meet Clayton
             </h2>
             <p className="mt-4 text-charcoal/80 text-lg leading-relaxed">
-              [ABOUT_TEASER_PARAGRAPH_1: Write 2-3 sentences about Clayton&apos;s
-              background, connection to SC-01, and why he is running. Keep it
-              personal and specific.]
-            </p>
-            <p className="mt-4 text-charcoal/80 text-lg leading-relaxed">
-              As Secretary General of the American Congress Party, Clayton is
-              building a structural alternative to the two-party duopoly. His
-              platform is drawn from his book &quot;America Reimagined,&quot;
-              which lays out 13 concrete policy priorities backed by real math,
-              not slogans.
+              Clayton Cuteri lives in Mount Pleasant, pays the same insurance
+              premiums you do, and watches the same neighbors get priced out of
+              the Lowcountry every year. He is not a career politician. He is an
+              entrepreneur, content creator, and co-founder of the American
+              Congress Party who built a following of over 700,000 people by
+              saying what both parties refuse to say.
             </p>
             <div className="mt-6">
               <CTAButton variant="tertiary" href="/about">
@@ -99,8 +95,8 @@ export default function HomePage() {
               A record number of Americans now identify as political
               independents. Both parties profit from keeping you angry at each
               other while they serve the same donors. The American Congress Party
-              is a structural alternative: not a spoiler, not a protest vote, but
-              a real party with a real platform for real people.
+              is the structural alternative: a real party with a real platform
+              for real people.
             </p>
             <p className="text-white/80 text-lg leading-relaxed mt-4">
               Clayton serves as ACP Secretary General. This campaign is not about

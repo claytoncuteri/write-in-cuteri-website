@@ -356,20 +356,10 @@ export default function MediaPage() {
                 Live Announcement
               </h3>
             </div>
-            <div className="space-y-2 text-sm text-charcoal/80">
-              <p>
-                <strong>Date:</strong> [LAUNCH_DATE]
-              </p>
-              <p>
-                <strong>Time:</strong> 7:00 PM ET
-              </p>
-              <p>
-                <strong>Format:</strong> Live-streamed announcement (15-20
-                minutes) followed by Q&amp;A (20-30 minutes)
-              </p>
-            </div>
-            <p className="mt-4 text-sm text-charcoal/60">
-              Streaming links will be posted here before the event.
+            <p className="text-charcoal/80 text-sm">
+              A live-streamed campaign announcement is coming soon.
+              Follow Clayton on social media for updates, or check back here
+              for streaming links and event details.
             </p>
           </div>
         </div>
