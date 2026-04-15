@@ -6,9 +6,10 @@ hidden = [".config", ".git", "node_modules", ".next"]
 channel = "stable-25_05"
 
 [deployment]
-deploymentTarget = "static"
-build = ["sh", "-c", "npm install && npm run build"]
+deploymentTarget = "autoscale"
+build = ["bash", "-c", "npm install && npm run build"]
 publicDir = "out"
+run = ["npm", "run", "start"]
 
 [[ports]]
 localPort = 5000
