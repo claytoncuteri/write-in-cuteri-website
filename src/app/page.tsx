@@ -81,7 +81,8 @@ export default function HomePage() {
             <img
               src="/images/clayton-seated-smiling.jpg"
               alt="Clayton Cuteri"
-              className="w-64 h-64 sm:w-72 sm:h-72 rounded-xl object-cover object-top shadow-lg"
+              className="w-64 h-80 sm:w-72 sm:h-96 rounded-xl object-cover shadow-lg"
+              style={{ objectPosition: "center 25%" }}
             />
           </div>
         </div>
