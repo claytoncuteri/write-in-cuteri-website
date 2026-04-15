@@ -1,8 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import type { GeoJsonObject } from "geojson";
-import districtData from "../../public/data/sc01-district.json";
 
 const SC01_CENTER: [number, number] = [32.5, -80.2];
 const INITIAL_ZOOM = 8;
@@ -13,10 +13,18 @@ const districtStyle = {
   opacity: 1,
   fillColor: "#1E3D8C",
   fillOpacity: 0.1,
-  dashArray: undefined,
 };
 
 export function DistrictMapLeaflet() {
+  const [geoData, setGeoData] = useState<GeoJsonObject | null>(null);
+
+  useEffect(() => {
+    fetch("/data/sc01-district.json")
+      .then((r) => r.json())
+      .then((data) => setGeoData(data as GeoJsonObject))
+      .catch(() => {});
+  }, []);
+
   return (
     <MapContainer
       center={SC01_CENTER}
@@ -32,10 +40,12 @@ export function DistrictMapLeaflet() {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         maxZoom={19}
       />
-      <GeoJSON
-        data={districtData as GeoJsonObject}
-        style={districtStyle}
-      />
+      {geoData && (
+        <GeoJSON
+          data={geoData}
+          style={districtStyle}
+        />
+      )}
     </MapContainer>
   );
 }
