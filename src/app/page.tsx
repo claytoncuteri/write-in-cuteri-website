@@ -2,7 +2,7 @@ import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 import { HomeProblems } from "@/components/HomeProblems";
 import { PdfDownloadButton } from "@/components/PdfDownloadButton";
-import { ArrowRight, Printer, FileText } from "lucide-react";
+import { ArrowRight, Printer, FileText, Users, Heart } from "lucide-react";
 
 export default function HomePage() {
   return (
@@ -156,6 +156,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="bg-cream rounded-lg p-6 text-center">
+            <Users size={28} className="text-navy mx-auto mb-3" />
             <h3 className="text-lg font-bold text-charcoal font-serif">
               Get Involved
             </h3>
@@ -169,6 +170,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="bg-cream rounded-lg p-6 text-center">
+            <Heart size={28} className="text-navy mx-auto mb-3" />
             <h3 className="text-lg font-bold text-charcoal font-serif">
               Support the Campaign
             </h3>
