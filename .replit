@@ -6,8 +6,8 @@ hidden = [".config", ".git", "node_modules", ".next"]
 channel = "stable-25_05"
 
 [deployment]
-deploymentTarget = "autoscale"
-build = ["bash", "-c", "npm install && npm run build"]
+deploymentTarget = "static"
+build = ["npm", "run", "build"]
 publicDir = "out"
 run = ["npm", "run", "start"]
 
