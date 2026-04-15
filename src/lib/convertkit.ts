@@ -1,7 +1,12 @@
 // ConvertKit (Kit) API v4 integration
 // Docs: https://developers.kit.com/v4
+//
+// Uses form-based subscription so Kit's confirmation/incentive email
+// is triggered automatically. Subscribers stay "unconfirmed" until
+// they click the link in the confirmation email.
 
 const CONVERTKIT_API_KEY = "kit_38c5ff1e4ffa6226fa3d1883bdb00d93";
+const CONVERTKIT_FORM_ID = "9329221"; // Cuteri for Americans - SC01
 
 const TAGS = {
   volunteer: "18936015",  // SC01-Volunteer
@@ -33,45 +38,42 @@ export async function subscribeToConvertKit({
   };
 
   try {
-    // Step 1: Create or update subscriber
-    const subResponse = await fetch("https://api.kit.com/v4/subscribers", {
-      method: "POST",
-      headers,
-      body: JSON.stringify({
-        email_address: email,
-        first_name: firstName || undefined,
-        fields: {
-          ...(lastName ? { last_name: lastName } : {}),
-          ...(fields || {}),
-        },
-      }),
-    });
-
-    if (!subResponse.ok) {
-      const err = await subResponse.text();
-      return { success: false, error: `Subscriber creation failed: ${err}` };
-    }
-
-    const subData = await subResponse.json();
-    const subscriberId = subData.subscriber?.id;
-
-    if (!subscriberId) {
-      return { success: false, error: "No subscriber ID returned" };
-    }
-
-    // Step 2: Apply tag
-    const tagId = TAGS[tag];
-    const tagResponse = await fetch(
-      `https://api.kit.com/v4/tags/${tagId}/subscribers/${subscriberId}`,
+    // Step 1: Subscribe via form (triggers confirmation email)
+    const formResponse = await fetch(
+      `https://api.kit.com/v4/forms/${CONVERTKIT_FORM_ID}/subscribers`,
       {
         method: "POST",
         headers,
-        body: JSON.stringify({}),
+        body: JSON.stringify({
+          email_address: email,
+          first_name: firstName || undefined,
+          fields: {
+            ...(lastName ? { last_name: lastName } : {}),
+            ...(fields || {}),
+          },
+        }),
       }
     );
 
-    if (!tagResponse.ok) {
-      console.warn("Subscriber created but tagging failed");
+    if (!formResponse.ok) {
+      const err = await formResponse.text();
+      return { success: false, error: `Form subscription failed: ${err}` };
+    }
+
+    const formData = await formResponse.json();
+    const subscriberId = formData.subscriber?.id;
+
+    // Step 2: Apply tag (so we know which form they came from)
+    if (subscriberId) {
+      const tagId = TAGS[tag];
+      await fetch(
+        `https://api.kit.com/v4/tags/${tagId}/subscribers/${subscriberId}`,
+        {
+          method: "POST",
+          headers,
+          body: JSON.stringify({}),
+        }
+      );
     }
 
     return { success: true };
