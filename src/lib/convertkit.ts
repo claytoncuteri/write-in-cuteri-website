@@ -1,9 +1,7 @@
-// ConvertKit (Kit) API v4 integration
-// Docs: https://developers.kit.com/v4
-//
-// Uses form-based subscription so Kit's confirmation/incentive email
-// is triggered automatically. Subscribers stay "unconfirmed" until
-// they click the link in the confirmation email.
+// ConvertKit (Kit) integration
+// Uses Kit's HTML form endpoint to trigger confirmation/incentive emails.
+// Subscribers stay "unconfirmed" until they click the confirmation link.
+// Tags are applied via the v4 API after form submission.
 
 const CONVERTKIT_API_KEY = "kit_38c5ff1e4ffa6226fa3d1883bdb00d93";
 const CONVERTKIT_FORM_ID = "9329221"; // Cuteri for Americans - SC01
@@ -32,18 +30,13 @@ export async function subscribeToConvertKit({
   tag,
   fields,
 }: SubscribeOptions): Promise<{ success: boolean; error?: string }> {
-  const headers = {
-    "Content-Type": "application/json",
-    "X-Kit-Api-Key": CONVERTKIT_API_KEY,
-  };
-
   try {
-    // Step 1: Subscribe via form (triggers confirmation email)
+    // Step 1: Subscribe via Kit's HTML form endpoint (triggers confirmation email)
     const formResponse = await fetch(
-      `https://api.kit.com/v4/forms/${CONVERTKIT_FORM_ID}/subscribers`,
+      `https://app.kit.com/forms/${CONVERTKIT_FORM_ID}/subscriptions`,
       {
         method: "POST",
-        headers,
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email_address: email,
           first_name: firstName || undefined,
@@ -55,25 +48,37 @@ export async function subscribeToConvertKit({
       }
     );
 
-    if (!formResponse.ok) {
-      const err = await formResponse.text();
-      return { success: false, error: `Form subscription failed: ${err}` };
+    if (!formResponse.ok && formResponse.status !== 302) {
+      return { success: false, error: `Form submission failed: ${formResponse.status}` };
     }
 
-    const formData = await formResponse.json();
-    const subscriberId = formData.subscriber?.id;
+    // Step 2: Apply tag via v4 API
+    // First get the subscriber ID
+    const subResponse = await fetch(
+      `https://api.kit.com/v4/subscribers?email_address=${encodeURIComponent(email)}`,
+      {
+        headers: { "X-Kit-Api-Key": CONVERTKIT_API_KEY },
+      }
+    );
 
-    // Step 2: Apply tag (so we know which form they came from)
-    if (subscriberId) {
-      const tagId = TAGS[tag];
-      await fetch(
-        `https://api.kit.com/v4/tags/${tagId}/subscribers/${subscriberId}`,
-        {
-          method: "POST",
-          headers,
-          body: JSON.stringify({}),
-        }
-      );
+    if (subResponse.ok) {
+      const subData = await subResponse.json();
+      const subscriberId = subData.subscribers?.[0]?.id;
+
+      if (subscriberId) {
+        const tagId = TAGS[tag];
+        await fetch(
+          `https://api.kit.com/v4/tags/${tagId}/subscribers/${subscriberId}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-Kit-Api-Key": CONVERTKIT_API_KEY,
+            },
+            body: JSON.stringify({}),
+          }
+        );
+      }
     }
 
     return { success: true };
