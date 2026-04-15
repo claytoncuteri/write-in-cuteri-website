@@ -1,49 +1,26 @@
 "use client";
 
-import { useState } from "react";
-import { MapPin, ImageIcon } from "lucide-react";
+import dynamic from "next/dynamic";
+
+const DistrictMapLeaflet = dynamic(
+  () => import("./DistrictMapLeaflet").then((m) => m.DistrictMapLeaflet),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-full flex items-center justify-center bg-cream rounded-xl">
+        <div className="text-center text-charcoal/50 text-sm">
+          <div className="w-8 h-8 border-2 border-navy/30 border-t-navy rounded-full animate-spin mx-auto mb-2" />
+          Loading map…
+        </div>
+      </div>
+    ),
+  }
+);
 
 export function DistrictMap() {
-  const [interactive, setInteractive] = useState(false);
-
   return (
-    <div className="w-full max-w-sm">
-      <div className="rounded-xl overflow-hidden shadow-lg">
-        {interactive ? (
-          <iframe
-            width="100%"
-            height="350"
-            frameBorder="0"
-            scrolling="no"
-            src="https://www.govtrack.us/congress/members/embed/mapframe?state=sc&district=1"
-            title="South Carolina Congressional District 1 interactive map"
-          />
-        ) : (
-          <img
-            src="/images/sc01-map.png"
-            alt="South Carolina Congressional District 1 map showing Charleston, Beaufort, and surrounding coastal counties"
-            className="w-full h-auto"
-          />
-        )}
-      </div>
-      <div className="flex justify-center mt-3">
-        <button
-          onClick={() => setInteractive(!interactive)}
-          className="inline-flex items-center gap-1.5 text-xs font-medium text-navy/60 hover:text-navy transition-colors"
-        >
-          {interactive ? (
-            <>
-              <ImageIcon size={14} />
-              Show static map
-            </>
-          ) : (
-            <>
-              <MapPin size={14} />
-              Show interactive map
-            </>
-          )}
-        </button>
-      </div>
+    <div className="w-full h-[420px] sm:h-[480px] rounded-xl overflow-hidden shadow-lg border border-gray-200">
+      <DistrictMapLeaflet />
     </div>
   );
 }

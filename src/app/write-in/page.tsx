@@ -120,8 +120,8 @@ export default function WriteInPage() {
 
       {/* Eligibility */}
       <Section bgColor="cream" title="Am I Eligible?">
-        <div className="grid lg:grid-cols-5 gap-10 items-start">
-          <div className="lg:col-span-3">
+        <div className="grid lg:grid-cols-2 gap-10 items-start">
+          <div>
             <p className="text-charcoal/80 text-lg mb-6">
               To vote in the SC-01 U.S. House race, you must be a registered
               voter in South Carolina Congressional District 1. The district
@@ -151,8 +151,11 @@ export default function WriteInPage() {
               Check Your Registration
             </CTAButton>
           </div>
-          <div className="lg:col-span-2 flex justify-center">
+          <div className="w-full">
             <DistrictMap />
+            <p className="text-xs text-charcoal/50 mt-2 text-center">
+              Zoom in to street level to see exactly where the district line falls. Map data © OpenStreetMap contributors.
+            </p>
           </div>
         </div>
       </Section>
