@@ -19,18 +19,7 @@ export default function GetInvolvedPage() {
     const data = new FormData(form);
 
     try {
-      // Send to Formspree (backup/admin visibility) - skip if not configured
-      const formspreeEndpoint = "[FORMSPREE_ENDPOINT]";
-      const formspreePromise = formspreeEndpoint.startsWith("[")
-        ? Promise.resolve()
-        : fetch(formspreeEndpoint, {
-            method: "POST",
-            body: data,
-            headers: { Accept: "application/json" },
-          });
-
-      // Send to ConvertKit with Cuteri26-Volunteer tag
-      const convertkitPromise = subscribeToConvertKit({
+      await subscribeToConvertKit({
         email: data.get("email") as string,
         firstName: data.get("firstName") as string,
         lastName: data.get("lastName") as string,
@@ -40,9 +29,6 @@ export default function GetInvolvedPage() {
           zip_code: (data.get("zipCode") as string) || "",
         },
       });
-
-      // Fire both in parallel, don't let ConvertKit failure block the form
-      await Promise.allSettled([formspreePromise, convertkitPromise]);
       setSubmitted(true);
     } catch {
       alert("Something went wrong. Please try again.");
@@ -118,7 +104,8 @@ export default function GetInvolvedPage() {
                 Thank you for signing up!
               </h3>
               <p className="mt-2 text-green-700">
-                We will be in touch soon with next steps.
+                Check your inbox for a confirmation email. You will need to
+                confirm your email address to join the mailing list.
               </p>
             </div>
           ) : (

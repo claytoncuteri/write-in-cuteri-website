@@ -28,16 +28,7 @@ export default function MediaPage() {
     const form = e.currentTarget;
     const data = new FormData(form);
     try {
-      const formspreeEndpoint = "[FORMSPREE_PRESS_ENDPOINT]";
-      const formspreePromise = formspreeEndpoint.startsWith("[")
-        ? Promise.resolve()
-        : fetch(formspreeEndpoint, {
-            method: "POST",
-            body: data,
-            headers: { Accept: "application/json" },
-          });
-
-      const convertkitPromise = subscribeToConvertKit({
+      await subscribeToConvertKit({
         email: data.get("email") as string,
         firstName: data.get("name") as string,
         tag: "press",
@@ -46,8 +37,6 @@ export default function MediaPage() {
           inquiry_type: (data.get("inquiryType") as string) || "",
         },
       });
-
-      await Promise.allSettled([formspreePromise, convertkitPromise]);
       setSubmitted(true);
     } catch {
       alert("Something went wrong. Please try again.");
@@ -507,7 +496,8 @@ export default function MediaPage() {
                 Inquiry received!
               </h3>
               <p className="mt-2 text-green-700 text-sm">
-                We will be in touch within 24 hours.
+                Check your inbox for a confirmation email to join our mailing
+                list. We will follow up on your inquiry within 24 hours.
               </p>
             </div>
           ) : (

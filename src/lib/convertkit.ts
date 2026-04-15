@@ -1,20 +1,13 @@
-// ConvertKit (Kit) API integration
+// ConvertKit (Kit) API v4 integration
 // Docs: https://developers.kit.com/v4
-//
-// SETUP:
-// 1. Get your API key from Kit dashboard > Settings > Developer
-// 2. Create a tag called "Cuteri26-Volunteer" in Kit
-// 3. Get the tag ID from Kit dashboard or via API
-// 4. Replace the values below
 
-const CONVERTKIT_API_KEY = "[CONVERTKIT_API_KEY]";
+const CONVERTKIT_API_KEY = "kit_38c5ff1e4ffa6226fa3d1883bdb00d93";
 
-// Tag IDs - get these from your Kit dashboard
 const TAGS = {
-  volunteer: "[CONVERTKIT_TAG_ID_VOLUNTEER]", // Tag: Cuteri26-Volunteer
-  donor: "[CONVERTKIT_TAG_ID_DONOR]",         // Tag: Cuteri26-DonorInterest
-  press: "[CONVERTKIT_TAG_ID_PRESS]",         // Tag: Cuteri26-Press
-  general: "[CONVERTKIT_TAG_ID_GENERAL]",     // Tag: Cuteri26-Supporter
+  volunteer: "18936015",  // SC01-Volunteer
+  donor: "18936016",      // SC01-DonorInterest
+  press: "18936017",      // SC01-MediaInquiry
+  general: "18936018",    // SC01-Supporter
 } as const;
 
 export type SubscriberTag = keyof typeof TAGS;
@@ -34,15 +27,6 @@ export async function subscribeToConvertKit({
   tag,
   fields,
 }: SubscribeOptions): Promise<{ success: boolean; error?: string }> {
-  // Skip if not configured
-  if (
-    CONVERTKIT_API_KEY.startsWith("[") ||
-    TAGS[tag].startsWith("[")
-  ) {
-    console.warn("ConvertKit not configured. Skipping subscription.");
-    return { success: false, error: "ConvertKit not configured" };
-  }
-
   const headers = {
     "Content-Type": "application/json",
     "X-Kit-Api-Key": CONVERTKIT_API_KEY,
@@ -87,7 +71,6 @@ export async function subscribeToConvertKit({
     );
 
     if (!tagResponse.ok) {
-      // Subscriber was created but tagging failed - still partial success
       console.warn("Subscriber created but tagging failed");
     }
 

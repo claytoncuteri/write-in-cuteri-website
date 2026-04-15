@@ -166,7 +166,8 @@ export default function DonatePage() {
               {emailSubmitted ? (
                 <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                   <p className="text-green-800 font-medium text-sm">
-                    You are on the list. We will let you know.
+                    Check your inbox for a confirmation email. Once confirmed,
+                    we will notify you when donations open.
                   </p>
                 </div>
               ) : (

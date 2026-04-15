@@ -158,9 +158,8 @@ export default function AdminPage() {
             <p className="text-charcoal/50 text-sm">
               {activeTab === "volunteers" && (
                 <>
-                  Volunteer signups will appear here once the Formspree (or
-                  ConvertKit) integration is connected and form submissions start
-                  coming in.
+                  Volunteer signups will appear here once the ConvertKit
+                  integration is connected and form submissions start coming in.
                 </>
               )}
               {activeTab === "signups" && (

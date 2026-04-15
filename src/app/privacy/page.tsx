@@ -29,8 +29,8 @@ export default function PrivacyPage() {
             When you submit a form on this website (volunteer signup, email
             notification, or contact form), we collect the information you
             provide: name, email address, phone number, zip code, and any
-            message content. This data is collected via Formspree, a third-party
-            form processing service.
+            message content. This data is processed through ConvertKit (Kit), our
+            email management platform.
           </p>
 
           <h2 className="text-2xl font-bold text-charcoal font-serif mt-8">
@@ -67,14 +67,14 @@ export default function PrivacyPage() {
             Third-Party Services
           </h2>
           <p className="text-charcoal/80 leading-relaxed mt-3">
-            Form submissions are processed by Formspree. Please review{" "}
+            Form submissions are processed by ConvertKit (Kit). Please review{" "}
             <a
-              href="https://formspree.io/legal/privacy-policy"
+              href="https://kit.com/privacy"
               target="_blank"
               rel="noopener noreferrer"
               className="text-navy hover:text-navy-dark underline"
             >
-              Formspree&apos;s privacy policy
+              Kit&apos;s privacy policy
             </a>{" "}
             for details on how they handle submitted data.
           </p>
