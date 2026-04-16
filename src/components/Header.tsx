@@ -23,6 +23,7 @@ const navGroups: (DropdownGroup | { label: string; href: string })[] = [
     label: "About",
     items: [
       { label: "About Clayton", href: "/about" },
+      { label: "Endorsements", href: "/endorsements" },
       { label: "Media", href: "/press" },
     ],
   },
@@ -30,6 +31,7 @@ const navGroups: (DropdownGroup | { label: string; href: string })[] = [
     label: "Get Involved",
     items: [
       { label: "Volunteer", href: "/get-involved" },
+      { label: "Events", href: "/events" },
       { label: "Donate", href: "/donate" },
     ],
   },

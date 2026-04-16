@@ -3,6 +3,7 @@ import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 import { DistrictMap } from "@/components/DistrictMap";
 import { PdfDownloadButton } from "@/components/PdfDownloadButton";
+import { BallotSimulator } from "@/components/BallotSimulator";
 import {
   CheckCircle,
   MapPin,
@@ -203,6 +204,24 @@ export default function WriteInPage() {
             </PdfDownloadButton>
           </div>
         </div>
+      </Section>
+
+      {/* Interactive ballot simulator */}
+      <Section bgColor="navy">
+        <div className="text-center mb-8">
+          <p className="text-gold font-semibold text-sm uppercase tracking-wider mb-3">
+            Interactive
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white font-serif">
+            Practice Your Ballot
+          </h2>
+          <p className="mt-3 text-white/70 text-lg max-w-xl mx-auto">
+            Walk through the steps on a simulated ballot so you know exactly
+            what to do on November 3. The most common mistake? Forgetting to
+            fill in the bubble.
+          </p>
+        </div>
+        <BallotSimulator />
       </Section>
 
       {/* Sticky Mobile Banner */}
