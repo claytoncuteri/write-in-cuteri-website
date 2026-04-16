@@ -325,8 +325,8 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
           {totalPct}% alignment with Clayton on {total === 10 ? "every" : total} issue{total === 1 ? "" : "s"}.
         </p>
         <p className="mt-4 text-charcoal/80">
-          Share your result &mdash; most voters have never taken a quiz where
-          the questions aren&rsquo;t rigged by a consultant.
+          Share your result. Most voters have never taken a quiz where the
+          questions aren&rsquo;t rigged by a consultant.
         </p>
         <div className="mt-5 flex flex-wrap justify-center gap-2">
           <a
