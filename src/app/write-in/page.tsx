@@ -79,6 +79,27 @@ export default function WriteInPage() {
         </div>
       </div>
 
+      {/* Interactive practice ballot (elevated  -  research shows hands-on first
+          out-performs read-then-do). This is now the primary engagement
+          moment on the page. */}
+      <Section bgColor="navy">
+        <div className="text-center mb-8">
+          <p className="text-gold font-semibold text-sm uppercase tracking-wider mb-3">
+            Practice Ballot
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white font-serif">
+            Rehearse Your Vote
+          </h2>
+          <p className="mt-3 text-white/70 text-base sm:text-lg max-w-xl mx-auto">
+            This is a simulated SC-01 ballot. Nothing is submitted. Find the
+            U.S. House race, fill in the write-in oval, and write the name.
+            The #1 reason write-in votes get thrown out is forgetting the
+            oval &mdash; do it once here and you&rsquo;ve got it.
+          </p>
+        </div>
+        <BallotSimulator />
+      </Section>
+
       {/* Steps */}
       <Section
         title="How to Write Me In"
@@ -204,24 +225,6 @@ export default function WriteInPage() {
             </PdfDownloadButton>
           </div>
         </div>
-      </Section>
-
-      {/* Interactive ballot simulator */}
-      <Section bgColor="navy">
-        <div className="text-center mb-8">
-          <p className="text-gold font-semibold text-sm uppercase tracking-wider mb-3">
-            Interactive
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white font-serif">
-            Practice Your Ballot
-          </h2>
-          <p className="mt-3 text-white/70 text-lg max-w-xl mx-auto">
-            Walk through the steps on a simulated ballot so you know exactly
-            what to do on November 3. The most common mistake? Forgetting to
-            fill in the bubble.
-          </p>
-        </div>
-        <BallotSimulator />
       </Section>
 
       {/* Sticky Mobile Banner */}

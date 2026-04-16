@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { DM_Sans, DM_Serif_Display, Caveat } from "next/font/google";
 import "./globals.css";
+import { Suspense } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { PostHogProvider } from "@/components/PostHogProvider";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -163,9 +165,13 @@ export default function RootLayout({
         <link rel="author" href="/humans.txt" />
       </head>
       <body className="min-h-screen flex flex-col">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <Suspense fallback={null}>
+          <PostHogProvider>
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </PostHogProvider>
+        </Suspense>
       </body>
     </html>
   );

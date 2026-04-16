@@ -4,7 +4,7 @@ import { useState, type FormEvent } from "react";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 import { Clock, ShieldCheck, DollarSign } from "lucide-react";
-import { subscribeToConvertKit } from "@/lib/convertkit";
+import { track, identifyByEmail } from "@/lib/analytics";
 
 // Toggle this to switch between "Coming Soon" and active donation view.
 // Set to true when FEC registration, EIN, and bank account are ready.
@@ -20,13 +20,26 @@ export default function DonatePage() {
     e.preventDefault();
     setEmailSubmitting(true);
     const data = new FormData(e.currentTarget);
+    const email = String(data.get("email") || "");
     try {
-      await subscribeToConvertKit({
-        email: data.get("email") as string,
-        tag: "donor",
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          tag: "donor",
+          sourcePage: "/donate",
+        }),
+      });
+      if (!res.ok) throw new Error(`Signup failed: ${res.status}`);
+      await identifyByEmail(email, { form_type: "donor_interest" });
+      track("signup_form_submitted", {
+        form_type: "donor_interest",
+        source_page: "/donate",
       });
       setEmailSubmitted(true);
     } catch {
+      track("signup_form_error", { form_type: "donor_interest" });
       alert("Something went wrong. Please try again.");
     } finally {
       setEmailSubmitting(false);

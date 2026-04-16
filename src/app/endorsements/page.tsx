@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { Section } from "@/components/Section";
 import { Award, Send } from "lucide-react";
-import { subscribeToConvertKit } from "@/lib/convertkit";
+import { track, identifyByEmail } from "@/lib/analytics";
 
 // Add endorsements here as they come in
 const endorsements: {
@@ -29,18 +29,31 @@ export default function EndorsementsPage() {
     e.preventDefault();
     setSubmitting(true);
     const data = new FormData(e.currentTarget);
+    const email = String(data.get("email") || "");
     try {
-      await subscribeToConvertKit({
-        email: data.get("email") as string,
-        firstName: data.get("name") as string,
-        tag: "general",
-        fields: {
-          organization: (data.get("organization") as string) || "",
-          endorsement_reason: (data.get("reason") as string) || "",
-        },
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          firstName: String(data.get("name") || ""),
+          tag: "general",
+          sourcePage: "/endorsements",
+          fields: {
+            organization: String(data.get("organization") || ""),
+            endorsement_reason: String(data.get("reason") || ""),
+          },
+        }),
+      });
+      if (!res.ok) throw new Error(`Signup failed: ${res.status}`);
+      await identifyByEmail(email, { form_type: "endorsement" });
+      track("signup_form_submitted", {
+        form_type: "endorsement",
+        source_page: "/endorsements",
       });
       setSubmitted(true);
     } catch {
+      track("signup_form_error", { form_type: "endorsement" });
       alert("Something went wrong. Please try again.");
     } finally {
       setSubmitting(false);

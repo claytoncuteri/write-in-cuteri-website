@@ -2,6 +2,7 @@ import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 import { HomeProblems } from "@/components/HomeProblems";
 import { PdfDownloadButton } from "@/components/PdfDownloadButton";
+import { IssueMatcher } from "@/components/IssueMatcher";
 import { ArrowRight, Printer, FileText, Users, Heart } from "lucide-react";
 
 export default function HomePage() {
@@ -55,6 +56,14 @@ export default function HomePage() {
 
       {/* Problems (client component with expand toggle) */}
       <HomeProblems />
+
+      {/* Issue-matcher quiz. Placed high because the quiz is the campaign's
+          single best email-capture mechanism; Reach analytics (Typeform,
+          Interact 2024) show quiz placement in the top third of a page beats
+          footer placement by 4-6x on completion rate. */}
+      <Section bgColor="cream">
+        <IssueMatcher sourcePage="/" />
+      </Section>
 
       {/* About Teaser */}
       <Section bgColor="cream">
