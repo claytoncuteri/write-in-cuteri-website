@@ -49,12 +49,18 @@ export async function subscribeToConvertKit({
   }
 
   try {
-    // Step 1: Subscribe via Kit's HTML form endpoint (triggers confirmation email)
+    // Step 1: Subscribe via Kit's v4 API form-subscribe endpoint.
+    // The HTML app URL (app.kit.com/forms/.../subscriptions) returns the
+    // rendered form page with a 200 and never actually creates the
+    // subscriber  -  which silently broke every signup before this fix.
     const formResponse = await fetch(
-      `https://app.kit.com/forms/${CONVERTKIT_FORM_ID}/subscriptions`,
+      `https://api.kit.com/v4/forms/${CONVERTKIT_FORM_ID}/subscribers`,
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "X-Kit-Api-Key": CONVERTKIT_API_KEY,
+        },
         body: JSON.stringify({
           email_address: email,
           first_name: firstName || undefined,
