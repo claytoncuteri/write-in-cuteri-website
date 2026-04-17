@@ -122,6 +122,13 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
           score_core: scoreCore,
           source_page: sourcePage,
         });
+        // Auto-advance into the extended block the moment the save succeeds.
+        // Voters told us the intermediate "Saved. Start 5 bonus questions"
+        // step felt like an unnecessary extra click  -  they hit Unlock
+        // expecting the next question.
+        track("quiz_extended_started", { source_page: sourcePage });
+        setIndex(0);
+        setPhase("extended");
       } catch (err) {
         setEmailError(
           err instanceof Error ? err.message : "Something went wrong",
