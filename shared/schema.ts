@@ -26,7 +26,7 @@ export const signups = pgTable(
     tag: text("tag").notNull(),
     email: text("email").notNull(),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull(),
-    data: jsonb("data").notNull(),
+    data: jsonb("data"),
   },
   (table) => ({
     createdAtIdx: index("signups_created_at_idx").on(table.createdAt),
@@ -40,7 +40,7 @@ export const quizRecords = pgTable(
     id: text("id").primaryKey(),
     email: text("email"),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull(),
-    data: jsonb("data").notNull(),
+    data: jsonb("data"),
   },
   (table) => ({
     createdAtIdx: index("quiz_records_created_at_idx").on(table.createdAt),
