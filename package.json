@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@types/leaflet": "^1.9.21",
+    "drizzle-orm": "^0.45.2",
     "leaflet": "^1.9.4",
     "lucide-react": "^1.8.0",
     "next": "16.2.3",
@@ -26,6 +27,7 @@
     "@types/pg": "^8.20.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "drizzle-kit": "^0.31.10",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
