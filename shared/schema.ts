@@ -17,6 +17,7 @@
 // consumed by Replit's deploy-side migration tooling. Do not import from
 // application code.
 
+import { sql } from "drizzle-orm";
 import { pgTable, text, timestamp, jsonb, index } from "drizzle-orm/pg-core";
 
 export const signups = pgTable(
@@ -29,7 +30,7 @@ export const signups = pgTable(
     data: jsonb("data"),
   },
   (table) => ({
-    createdAtIdx: index("signups_created_at_idx").on(table.createdAt),
+    createdAtIdx: index("signups_created_at_idx").on(sql`${table.createdAt} DESC`),
     tagIdx: index("signups_tag_idx").on(table.tag),
   }),
 );
@@ -43,6 +44,6 @@ export const quizRecords = pgTable(
     data: jsonb("data"),
   },
   (table) => ({
-    createdAtIdx: index("quiz_records_created_at_idx").on(table.createdAt),
+    createdAtIdx: index("quiz_records_created_at_idx").on(sql`${table.createdAt} DESC`),
   }),
 );
