@@ -85,7 +85,7 @@ export async function POST(req: NextRequest) {
     // Buckets match IssueMatcher.tsx: 8-question core, 6+ high, 4-5 medium, 0-3 low.
     const alignment =
       scoreCore >= 6 ? "high" : scoreCore >= 4 ? "medium" : "low";
-    await subscribeToConvertKit({
+    const ckResult = await subscribeToConvertKit({
       email,
       tag: "general",
       fields: {
@@ -97,6 +97,18 @@ export async function POST(req: NextRequest) {
           : {}),
       },
     });
+    // Log the ConvertKit outcome so we can diagnose "email didn't arrive"
+    // from Replit logs. Kit's API returns 200 even when no confirmation
+    // email is sent (e.g. subscriber already exists and is confirmed),
+    // so success:true here does not guarantee a new message went out.
+    if (!ckResult.success) {
+      console.error("[quiz] ConvertKit subscribe failed", {
+        email,
+        error: ckResult.error,
+      });
+    } else {
+      console.log("[quiz] ConvertKit subscribe ok", { email, alignment, scoreCore });
+    }
   }
 
     return NextResponse.json({ success: true, id: record.id });
