@@ -4,9 +4,12 @@
 
 "use client";
 
-import { CheckCircle, AlertCircle } from "lucide-react";
+import { CheckCircle, AlertCircle, Printer } from "lucide-react";
+import { track } from "@/lib/analytics";
 
 export type BallotMode = "bmd" | "paper";
+
+const WALLET_CARD_HREF = "/images/cuteri-wallet-card.pdf";
 
 /**
  * Fuzzy match on common misspellings of "Cuteri". We want this forgiving
@@ -88,12 +91,37 @@ export function SuccessState({ writeInValue, onReset, mode }: SuccessStateProps)
               </p>
             </>
           )}
-          <button
-            onClick={onReset}
-            className="mt-6 px-6 py-2.5 text-navy border-2 border-navy font-semibold rounded-lg hover:bg-navy hover:text-white transition-colors"
-          >
-            Practice Again
-          </button>
+          <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center items-center">
+            {nameMatch && (
+              <a
+                href={WALLET_CARD_HREF}
+                download
+                onClick={() =>
+                  track("wallet_card_downloaded", {
+                    source: "ballot_sim_success",
+                    mode,
+                  })
+                }
+                className="inline-flex items-center gap-2 px-6 py-2.5 bg-navy text-white font-semibold rounded-lg hover:bg-navy-dark transition-colors"
+              >
+                <Printer size={18} />
+                Download Wallet Card
+              </a>
+            )}
+            <button
+              onClick={onReset}
+              className="px-6 py-2.5 text-navy border-2 border-navy font-semibold rounded-lg hover:bg-navy hover:text-white transition-colors"
+            >
+              Practice Again
+            </button>
+          </div>
+          {nameMatch && (
+            <p className="mt-3 text-xs text-charcoal/50 max-w-sm mx-auto">
+              The wallet card has the spelling (C-U-T-E-R-I) and the steps on
+              one page. Print it or keep the PDF on your phone for Election
+              Day.
+            </p>
+          )}
         </div>
       </div>
     </div>

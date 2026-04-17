@@ -146,6 +146,11 @@ const jsonLd = {
   ],
 };
 
+// suppressHydrationWarning on <html> + <body>: in dev, Replit injects its
+// devtools <script src="/__replco/..."> into <head> and browser extensions
+// (Grammarly, LastPass) inject attributes into <body>. Neither shows up in
+// prod. Suppressing at the root only silences these specific mismatches;
+// it does not mask bugs in child components.
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -154,6 +159,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${dmSans.variable} ${dmSerif.variable} ${caveat.variable}`}
     >
       <head>
@@ -164,7 +170,7 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="author" href="/humans.txt" />
       </head>
-      <body className="min-h-screen flex flex-col">
+      <body className="min-h-screen flex flex-col" suppressHydrationWarning>
         <Suspense fallback={null}>
           <PostHogProvider>
             <Header />

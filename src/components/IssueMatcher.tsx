@@ -13,7 +13,7 @@
 //   without scrolling  -  critical because quizzes drop 30%+ when people have
 //   to scroll to see the choice buttons.
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   Award,
@@ -21,6 +21,7 @@ import {
   Lock,
   Share2,
   Sparkles,
+  ThumbsUp,
 } from "lucide-react";
 import {
   CORE_QUESTIONS,
@@ -43,6 +44,22 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
   const [emailError, setEmailError] = useState("");
   const [emailSubmitting, setEmailSubmitting] = useState(false);
   const [recordId, setRecordId] = useState<string | null>(null);
+
+  // Positive reinforcement: when the voter's answer matches Clayton's stance,
+  // flash a "Clayton agrees" confirmation. Builds alignment perception as
+  // the quiz progresses (per Cialdini social-proof / commitment research).
+  const [agreePulse, setAgreePulse] = useState(0);
+  const agreeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    return () => {
+      if (agreeTimer.current) clearTimeout(agreeTimer.current);
+    };
+  }, []);
+  const triggerAgreePulse = useCallback(() => {
+    setAgreePulse((n) => n + 1);
+    if (agreeTimer.current) clearTimeout(agreeTimer.current);
+    agreeTimer.current = setTimeout(() => setAgreePulse(0), 1600);
+  }, []);
 
   const activeQuestions: QuizQuestion[] =
     phase === "extended" ? EXTENDED_QUESTIONS : CORE_QUESTIONS;
@@ -131,10 +148,13 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
       const q = current;
       if (!q) return;
       setAnswers((prev) => ({ ...prev, [q.id]: answer }));
+      const aligned = answer === q.aligned;
+      if (aligned) triggerAgreePulse();
       track("quiz_question_answered", {
         question_id: q.id,
         question_index: index + 1,
         answer,
+        aligned_with_clayton: aligned,
         is_extended: phase === "extended",
         source_page: sourcePage,
       });
@@ -158,7 +178,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
         setPhase("done");
       }
     },
-    [current, index, phase, activeQuestions.length, scoreCore, scoreExtended, sourcePage, persistFinal],
+    [current, index, phase, activeQuestions.length, scoreCore, scoreExtended, sourcePage, persistFinal, triggerAgreePulse],
   );
 
   async function onEmailSubmit(e: React.FormEvent) {
@@ -195,8 +215,30 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
 
   // --- rendering ------------------------------------------------------------
 
+  const agreeToast = (
+    <div
+      aria-live="polite"
+      role="status"
+      className={`fixed left-1/2 -translate-x-1/2 bottom-6 z-50 pointer-events-none transition-all duration-300 ${
+        agreePulse > 0
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 translate-y-3"
+      }`}
+    >
+      <div
+        key={agreePulse}
+        className="flex items-center gap-2 px-4 py-2.5 bg-green-600 text-white font-semibold rounded-full shadow-xl text-sm sm:text-base"
+      >
+        <ThumbsUp size={18} />
+        Clayton agrees
+      </div>
+    </div>
+  );
+
   if (phase === "intro") {
     return (
+      <>
+        {agreeToast}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8 max-w-2xl mx-auto">
         <div className="flex items-center gap-2 mb-2">
           <Sparkles size={18} className="text-gold" />
@@ -221,6 +263,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
           Takes under 90 seconds. You can see your score before giving an email.
         </p>
       </div>
+      </>
     );
   }
 
@@ -233,6 +276,8 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
       low: "You disagree often  -  but Clayton wants to hear why.",
     }[alignment];
     return (
+      <>
+        {agreeToast}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8 max-w-2xl mx-auto">
         <div className="flex items-center gap-2 mb-2">
           <Award size={18} className="text-gold" />
@@ -303,6 +348,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
           </div>
         )}
       </div>
+      </>
     );
   }
 
@@ -313,6 +359,8 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
       `I agree with Clayton Cuteri on ${total}/10 issues. Take the quiz: https://writeincuteri.com/`,
     );
     return (
+      <>
+        {agreeToast}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8 max-w-2xl mx-auto text-center">
         <Award size={40} className="text-gold mx-auto mb-3" />
         <p className="text-xs font-semibold text-navy uppercase tracking-wider">
@@ -351,6 +399,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
           policy on /policies.
         </p>
       </div>
+      </>
     );
   }
 
@@ -360,6 +409,8 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
   const blockTotal = activeQuestions.length;
 
   return (
+    <>
+      {agreeToast}
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8 max-w-2xl mx-auto">
       {/* Progress strip */}
       <div className="flex items-center gap-2 mb-5">
@@ -408,5 +459,6 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
         </button>
       )}
     </div>
+    </>
   );
 }

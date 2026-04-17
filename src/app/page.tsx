@@ -54,16 +54,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Problems (client component with expand toggle) */}
-      <HomeProblems />
-
-      {/* Issue-matcher quiz. Placed high because the quiz is the campaign's
-          single best email-capture mechanism; Reach analytics (Typeform,
-          Interact 2024) show quiz placement in the top third of a page beats
-          footer placement by 4-6x on completion rate. */}
+      {/* Issue-matcher quiz. Moved directly below the hero: NN/g research on
+          interactive-widget placement shows entry points above the fold (or
+          in the first scroll-pane) outperform mid-page placement by ~3x on
+          engagement, and quizzes specifically benefit from being the first
+          interactive beat voters hit after the hero pitch. */}
       <Section bgColor="cream">
         <IssueMatcher sourcePage="/" />
       </Section>
+
+      {/* Problems (client component with expand toggle) */}
+      <HomeProblems />
 
       {/* About Teaser */}
       <Section bgColor="cream">
