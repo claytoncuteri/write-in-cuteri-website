@@ -113,11 +113,11 @@ export default function AboutPage() {
                 trims whitespace; object-top keeps Clayton's face in frame
                 instead of centering through his torso; scale-110 zooms in
                 a touch further so the subject fills the card. */}
-            <div className="w-full max-w-sm aspect-[3/4] overflow-hidden rounded-xl shadow-lg">
+            <div className="w-full max-w-sm aspect-square overflow-hidden rounded-xl shadow-lg">
               <img
                 src="/images/clayton-podium.jpg"
                 alt="Clayton Cuteri speaking at the Francis Marion Hotel in Charleston"
-                className="w-full h-full object-cover object-top scale-110"
+                className="w-full h-full object-cover scale-[1.35] object-[center_30%]"
               />
             </div>
           </div>
