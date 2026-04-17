@@ -47,6 +47,7 @@ function clientIpHints(req: NextRequest): {
 }
 
 export async function POST(req: NextRequest) {
+  try {
   let body: Record<string, unknown>;
   try {
     body = await req.json();
@@ -135,4 +136,18 @@ export async function POST(req: NextRequest) {
   // want to surface internal errors to end users. Admins see real status via
   // /api/admin/list.
   return NextResponse.json({ success: true });
+  } catch (err) {
+    // Catch-all so the client's fetch.json() never blows up on an empty body.
+    console.error("[subscribe] unexpected error", err);
+    return NextResponse.json(
+      {
+        success: false,
+        error:
+          err instanceof Error
+            ? err.message
+            : "Something went wrong. Please try again.",
+      },
+      { status: 500 },
+    );
+  }
 }

@@ -105,9 +105,12 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
             sourcePage,
           }),
         });
-        const data = await res.json();
+        // Read as text first so a catastrophic empty 500 body doesn't throw
+        // an opaque "Unexpected end of JSON input" at the user.
+        const raw = await res.text();
+        const data = raw ? (JSON.parse(raw) as { success?: boolean; error?: string; id?: string }) : {};
         if (!res.ok || !data.success) {
-          throw new Error(data.error || "Failed to save");
+          throw new Error(data.error || `Save failed (HTTP ${res.status})`);
         }
         setRecordId(data.id ?? null);
         await identifyByEmail(emailValue, {

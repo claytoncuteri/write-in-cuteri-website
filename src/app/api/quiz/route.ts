@@ -25,6 +25,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const VALID_ANSWER = new Set(["yes", "no", "unsure"]);
 
 export async function POST(req: NextRequest) {
+  try {
   let body: Record<string, unknown>;
   try {
     body = await req.json();
@@ -98,5 +99,20 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  return NextResponse.json({ success: true, id: record.id });
+    return NextResponse.json({ success: true, id: record.id });
+  } catch (err) {
+    // Catch-all so client fetch.json() never blows up on an empty body.
+    // The client surfaces data.error directly, so make it human-readable.
+    console.error("[quiz] unexpected error", err);
+    return NextResponse.json(
+      {
+        success: false,
+        error:
+          err instanceof Error
+            ? err.message
+            : "Something went wrong saving your quiz. Please try again.",
+      },
+      { status: 500 },
+    );
+  }
 }
