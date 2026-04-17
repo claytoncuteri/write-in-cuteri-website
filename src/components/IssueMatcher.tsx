@@ -48,17 +48,23 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
   // Positive reinforcement: when the voter's answer matches Clayton's stance,
   // flash a "Clayton agrees" confirmation. Builds alignment perception as
   // the quiz progresses (per Cialdini social-proof / commitment research).
+  // Toast is tied to the question-transition window: appears on aligned
+  // answer, disappears when the next question renders. ~700ms feels snappy
+  // but noticeable.
+  const AGREE_DURATION_MS = 800;
   const [agreePulse, setAgreePulse] = useState(0);
   const agreeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => {
     return () => {
       if (agreeTimer.current) clearTimeout(agreeTimer.current);
+      if (advanceTimer.current) clearTimeout(advanceTimer.current);
     };
   }, []);
   const triggerAgreePulse = useCallback(() => {
     setAgreePulse((n) => n + 1);
     if (agreeTimer.current) clearTimeout(agreeTimer.current);
-    agreeTimer.current = setTimeout(() => setAgreePulse(0), 1600);
+    agreeTimer.current = setTimeout(() => setAgreePulse(0), AGREE_DURATION_MS);
   }, []);
 
   const activeQuestions: QuizQuestion[] =
@@ -160,22 +166,36 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
       });
 
       const isLast = index === activeQuestions.length - 1;
-      if (!isLast) {
-        setIndex((i) => i + 1);
-        return;
-      }
-      // Last question in the current block.
-      if (phase === "core") {
-        track("quiz_core_completed", { score_core: scoreCore });
-        setPhase("email");
-      } else if (phase === "extended") {
-        track("quiz_extended_completed", {
-          score_core: scoreCore,
-          score_extended: scoreExtended,
-          total_score: scoreCore + scoreExtended,
-        });
-        persistFinal();
-        setPhase("done");
+      // When aligned, delay the advance by the agree-banner duration so the
+      // "Clayton agrees" flash lands before the next question renders. When
+      // not aligned, advance immediately (no banner, no reason to pause).
+      const delay = aligned ? AGREE_DURATION_MS : 0;
+
+      const advance = () => {
+        if (!isLast) {
+          setIndex((i) => i + 1);
+          return;
+        }
+        // Last question in the current block.
+        if (phase === "core") {
+          track("quiz_core_completed", { score_core: scoreCore });
+          setPhase("email");
+        } else if (phase === "extended") {
+          track("quiz_extended_completed", {
+            score_core: scoreCore,
+            score_extended: scoreExtended,
+            total_score: scoreCore + scoreExtended,
+          });
+          persistFinal();
+          setPhase("done");
+        }
+      };
+
+      if (advanceTimer.current) clearTimeout(advanceTimer.current);
+      if (delay === 0) {
+        advance();
+      } else {
+        advanceTimer.current = setTimeout(advance, delay);
       }
     },
     [current, index, phase, activeQuestions.length, scoreCore, scoreExtended, sourcePage, persistFinal, triggerAgreePulse],
@@ -215,30 +235,33 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
 
   // --- rendering ------------------------------------------------------------
 
-  const agreeToast = (
+  // Full-card green takeover between the "Yes" tap and the next question
+  // rendering. Covers the whole quiz card so the voter's eyes (already on
+  // the card) catch it without looking elsewhere. Per NN/g microinteraction
+  // research, 600-800ms is the sweet spot for celebratory confirmations:
+  // long enough to register, short enough to feel snappy.
+  const agreeOverlay = (
     <div
       aria-live="polite"
       role="status"
-      className={`fixed left-1/2 -translate-x-1/2 bottom-6 z-50 pointer-events-none transition-all duration-300 ${
-        agreePulse > 0
-          ? "opacity-100 translate-y-0"
-          : "opacity-0 translate-y-3"
+      className={`absolute inset-0 flex items-center justify-center rounded-xl bg-green-600 z-20 pointer-events-none transition-opacity duration-150 ${
+        agreePulse > 0 ? "opacity-100" : "opacity-0"
       }`}
     >
       <div
         key={agreePulse}
-        className="flex items-center gap-2 px-4 py-2.5 bg-green-600 text-white font-semibold rounded-full shadow-xl text-sm sm:text-base"
+        className="flex flex-col items-center gap-3 text-white animate-[agreePop_200ms_ease-out]"
       >
-        <ThumbsUp size={18} />
-        Clayton agrees
+        <ThumbsUp size={56} strokeWidth={2.5} />
+        <p className="text-2xl sm:text-3xl font-bold font-serif">
+          Clayton agrees!
+        </p>
       </div>
     </div>
   );
 
   if (phase === "intro") {
     return (
-      <>
-        {agreeToast}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8 max-w-2xl mx-auto">
         <div className="flex items-center gap-2 mb-2">
           <Sparkles size={18} className="text-gold" />
@@ -263,7 +286,6 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
           Takes under 90 seconds. You can see your score before giving an email.
         </p>
       </div>
-      </>
     );
   }
 
@@ -276,8 +298,6 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
       low: "You disagree often  -  but Clayton wants to hear why.",
     }[alignment];
     return (
-      <>
-        {agreeToast}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8 max-w-2xl mx-auto">
         <div className="flex items-center gap-2 mb-2">
           <Award size={18} className="text-gold" />
@@ -348,7 +368,6 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
           </div>
         )}
       </div>
-      </>
     );
   }
 
@@ -359,8 +378,6 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
       `I agree with Clayton Cuteri on ${total}/10 issues. Take the quiz: https://writeincuteri.com/`,
     );
     return (
-      <>
-        {agreeToast}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8 max-w-2xl mx-auto text-center">
         <Award size={40} className="text-gold mx-auto mb-3" />
         <p className="text-xs font-semibold text-navy uppercase tracking-wider">
@@ -399,7 +416,6 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
           policy on /policies.
         </p>
       </div>
-      </>
     );
   }
 
@@ -409,9 +425,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
   const blockTotal = activeQuestions.length;
 
   return (
-    <>
-      {agreeToast}
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8 max-w-2xl mx-auto">
+    <div className="relative bg-white rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8 max-w-2xl mx-auto">
       {/* Progress strip */}
       <div className="flex items-center gap-2 mb-5">
         <p className="text-xs font-semibold text-navy uppercase tracking-wider">
@@ -458,7 +472,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
           Skip the rest and see my score
         </button>
       )}
+      {agreeOverlay}
     </div>
-    </>
   );
 }
