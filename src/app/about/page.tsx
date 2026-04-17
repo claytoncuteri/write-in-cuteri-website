@@ -117,7 +117,8 @@ export default function AboutPage() {
               <img
                 src="/images/clayton-podium.jpg"
                 alt="Clayton Cuteri speaking at the Francis Marion Hotel in Charleston"
-                className="w-full h-full object-cover scale-[1.35] object-[70%_30%]"
+                className="w-full h-full object-cover scale-[1.35]"
+                style={{ objectPosition: "85% 30%" }}
               />
             </div>
           </div>
