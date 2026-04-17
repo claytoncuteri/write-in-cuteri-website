@@ -127,6 +127,13 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
 
+  // Auto-close mobile menu whenever the route changes. Covers the logo
+  // link, back-button navigation, and any future links that forget to
+  // wire up an explicit onClick close.
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
