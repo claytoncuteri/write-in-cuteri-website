@@ -133,6 +133,35 @@ async function ensureSchema(): Promise<void> {
       await client.query(
         `CREATE INDEX IF NOT EXISTS quiz_records_created_at_idx ON quiz_records (created_at DESC);`,
       );
+
+      // Drop NOT NULL on any legacy columns left over from earlier schemas
+      // (e.g. an older "answers" NOT NULL column that the current code no
+      // longer writes to). Only id and created_at stay required, since every
+      // new insert supplies both.
+      await client.query(`
+        DO $$
+        DECLARE col record;
+        BEGIN
+          FOR col IN
+            SELECT column_name FROM information_schema.columns
+            WHERE table_schema = 'public'
+              AND table_name = 'quiz_records'
+              AND is_nullable = 'NO'
+              AND column_name NOT IN ('id', 'created_at')
+          LOOP
+            EXECUTE format('ALTER TABLE quiz_records ALTER COLUMN %I DROP NOT NULL', col.column_name);
+          END LOOP;
+          FOR col IN
+            SELECT column_name FROM information_schema.columns
+            WHERE table_schema = 'public'
+              AND table_name = 'signups'
+              AND is_nullable = 'NO'
+              AND column_name NOT IN ('id', 'tag', 'email', 'created_at')
+          LOOP
+            EXECUTE format('ALTER TABLE signups ALTER COLUMN %I DROP NOT NULL', col.column_name);
+          END LOOP;
+        END $$;
+      `);
     } finally {
       client.release();
     }

@@ -430,7 +430,10 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
   const blockTotal = activeQuestions.length;
 
   return (
-    <div className="relative bg-white rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8 max-w-2xl mx-auto">
+    // min-h keeps the card a consistent size across questions so the answer
+    // buttons don't jump up/down as prompt length varies. Tuned to fit the
+    // longest ~3-line prompt without overflow on mobile.
+    <div className="relative bg-white rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8 max-w-2xl mx-auto flex flex-col min-h-[26rem] sm:min-h-[24rem]">
       {/* Progress strip */}
       <div className="flex items-center gap-2 mb-5">
         <p className="text-xs font-semibold text-navy uppercase tracking-wider">
@@ -444,7 +447,9 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
         </div>
       </div>
 
-      <h3 className="text-xl sm:text-2xl font-bold text-charcoal font-serif leading-snug">
+      {/* Prompt area reserves a fixed min-height so short and long prompts
+          both anchor the button row at the same position. */}
+      <h3 className="text-xl sm:text-2xl font-bold text-charcoal font-serif leading-snug min-h-[6.5rem] sm:min-h-[5.5rem]">
         {current.prompt}
       </h3>
 
