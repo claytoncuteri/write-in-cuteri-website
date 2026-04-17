@@ -1,49 +1,39 @@
-// Replit DB wrapper  -  SERVER-ONLY.
+// Postgres-backed data layer  -  SERVER-ONLY.
 //
-// Replit injects REPLIT_DB_URL at runtime (NOT at build time), so this module
-// must only be imported from server code paths (API routes, server actions,
-// server components). The `server-only` import throws a compile-time error if
-// a client component tries to pull it in.
+// Replaced the Replit key-value database because REPLIT_DB_URL is only
+// injected into the workspace, not into autoscale deployments, which
+// broke the production admin dashboard. DATABASE_URL is auto-provisioned
+// by Replit in both dev and deployment, so Postgres is the durable
+// storage layer through the Nov 3 2026 election with no token rotation
+// or manual secret management.
 //
-// Key schema (lexicographic ordering by ISO timestamp gives us recency ordering
-// for free):
+// The public API of this module is unchanged. Every caller
+// (putSignup, updateSignupStatus, listSignups, putQuizRecord,
+// listQuizRecords, getCounts) keeps the same signature, so the
+// /api/subscribe, /api/quiz, and /api/admin/* routes require no
+// further changes.
 //
-//   signup:<ISO8601>:<randHex>       -> JSON SignupRecord
-//   quiz:<ISO8601>:<randHex>         -> JSON QuizRecord
-//   donor_interest:<ISO8601>:<randHex> -> JSON (subset of SignupRecord)
-//   analytics_event:<ISO8601>:<randHex> -> JSON AnalyticsEvent (server-tracked only)
+// Schema is deliberately minimal. Each row stores a generated id, a
+// created_at timestamp (indexed for sort), and the full record payload
+// as JSONB. We avoid a rigid column-per-field schema so new fields on
+// SignupRecord / QuizRecord don't require migrations; Postgres JSONB
+// queries are fast enough at campaign-volume (thousands of rows, not
+// millions). Filtering still happens in SQL where it matters (the
+// signup tag on listSignups); anything more exotic lives in memory,
+// same as the Replit KV version.
 //
-// Replit DB is eventually consistent and has a 5 MB per-value cap, which is
-// plenty for form submissions. For list-all queries we use the prefix list API.
+// Tables are created idempotently on first connection via
+// CREATE TABLE IF NOT EXISTS. No separate migration tooling is
+// required; deploy the code and the first request wires the schema.
 
 import "server-only";
 
-import Database from "@replit/database";
-
-type DbClient = InstanceType<typeof Database>;
-
-// The Replit Database client demands REPLIT_DB_URL at construction time and
-// that env var is only injected when the app is *running* on Replit, not at
-// build time or during local `next build`. Defer instantiation so local
-// builds and environments without the URL still succeed  -  admin endpoints
-// will fail at request time with a clear error instead of at module load.
-let _db: DbClient | null = null;
-function db(): DbClient {
-  if (_db) return _db;
-  const url = process.env.REPLIT_DB_URL;
-  if (!url) {
-    throw new Error(
-      "REPLIT_DB_URL is not set. This endpoint requires Replit Database and will only work when deployed on Replit.",
-    );
-  }
-  _db = new Database(url);
-  return _db;
-}
+import { Pool, type PoolClient } from "pg";
 
 export type SignupTag = "volunteer" | "donor" | "press" | "general";
 
 export interface SignupRecord {
-  id: string;                  // the full key (e.g. "signup:2026-04-16T20:28:00.123Z:a1b2c3")
+  id: string;                  // e.g. "signup:2026-04-16T20:28:00.123Z:a1b2c3"
   tag: SignupTag;
   email: string;
   firstName?: string;
@@ -51,12 +41,12 @@ export interface SignupRecord {
   fields?: Record<string, string>;
   sourcePage?: string;
   userAgent?: string;
-  ipCountry?: string;          // from Replit's Cloudflare edge headers
-  ipRegion?: string;           // e.g. "SC"
-  ipCity?: string;             // best-effort, not reliable for small towns
+  ipCountry?: string;
+  ipRegion?: string;
+  ipCity?: string;
   convertkitStatus: "pending" | "ok" | "error";
   convertkitError?: string;
-  createdAt: string;           // ISO8601, same as embedded in key
+  createdAt: string;           // ISO8601
 }
 
 export interface QuizRecord {
@@ -70,6 +60,90 @@ export interface QuizRecord {
   userAgent?: string;
   ipRegion?: string;
   createdAt: string;
+}
+
+// Lazy pool so local builds without DATABASE_URL still compile. The
+// first query call will fail loudly if the env var is missing, which
+// is exactly what we want in production (fail fast, not silently).
+let _pool: Pool | null = null;
+let _schemaReady: Promise<void> | null = null;
+
+function pool(): Pool {
+  if (_pool) return _pool;
+  const url = process.env.DATABASE_URL;
+  if (!url) {
+    throw new Error(
+      "DATABASE_URL is not set. Postgres is required for admin and signup persistence.",
+    );
+  }
+  _pool = new Pool({
+    connectionString: url,
+    // Replit Postgres uses TLS with a self-signed chain; the driver
+    // accepts it when we skip strict cert verification. The connection
+    // is still encrypted end-to-end.
+    ssl: url.includes("localhost") ? false : { rejectUnauthorized: false },
+    max: 5,
+    idleTimeoutMillis: 30_000,
+  });
+  return _pool;
+}
+
+// Runs once per process. Creates both tables with IF NOT EXISTS so
+// repeat deploys are a no-op. Also creates the indexes we need for
+// newest-first listing and tag filtering.
+async function ensureSchema(): Promise<void> {
+  if (_schemaReady) return _schemaReady;
+  _schemaReady = (async () => {
+    const client = await pool().connect();
+    try {
+      await client.query(`
+        CREATE TABLE IF NOT EXISTS signups (
+          id          TEXT PRIMARY KEY,
+          tag         TEXT NOT NULL,
+          email       TEXT NOT NULL,
+          created_at  TIMESTAMPTZ NOT NULL,
+          data        JSONB NOT NULL
+        );
+      `);
+      await client.query(
+        `CREATE INDEX IF NOT EXISTS signups_created_at_idx ON signups (created_at DESC);`,
+      );
+      await client.query(
+        `CREATE INDEX IF NOT EXISTS signups_tag_idx ON signups (tag);`,
+      );
+      await client.query(`
+        CREATE TABLE IF NOT EXISTS quiz_records (
+          id          TEXT PRIMARY KEY,
+          email       TEXT,
+          created_at  TIMESTAMPTZ NOT NULL,
+          data        JSONB NOT NULL
+        );
+      `);
+      await client.query(
+        `CREATE INDEX IF NOT EXISTS quiz_records_created_at_idx ON quiz_records (created_at DESC);`,
+      );
+    } finally {
+      client.release();
+    }
+  })().catch((err) => {
+    // On failure, clear the cached promise so a subsequent call retries
+    // instead of forever returning the same rejection.
+    _schemaReady = null;
+    throw err;
+  });
+  return _schemaReady;
+}
+
+async function withClient<T>(
+  fn: (client: PoolClient) => Promise<T>,
+): Promise<T> {
+  await ensureSchema();
+  const client = await pool().connect();
+  try {
+    return await fn(client);
+  } finally {
+    client.release();
+  }
 }
 
 function randHex(bytes = 6): string {
@@ -87,8 +161,18 @@ export async function putSignup(
 ): Promise<SignupRecord> {
   const now = new Date();
   const id = makeKey("signup", now);
-  const full: SignupRecord = { ...record, id, createdAt: now.toISOString() };
-  await db().set(id, full);
+  const full: SignupRecord = {
+    ...record,
+    id,
+    createdAt: now.toISOString(),
+  };
+  await withClient((client) =>
+    client.query(
+      `INSERT INTO signups (id, tag, email, created_at, data)
+       VALUES ($1, $2, $3, $4, $5)`,
+      [full.id, full.tag, full.email, now, full],
+    ),
+  );
   return full;
 }
 
@@ -97,31 +181,23 @@ export async function updateSignupStatus(
   status: SignupRecord["convertkitStatus"],
   error?: string,
 ): Promise<void> {
-  const res = await db().get(id);
-  if (!res.ok || !res.value) return;
-  const existing = res.value as SignupRecord;
-  const next: SignupRecord = {
-    ...existing,
-    convertkitStatus: status,
-    ...(error ? { convertkitError: error } : {}),
-  };
-  await db().set(id, next);
-}
-
-async function getMany<T>(keys: string[]): Promise<T[]> {
-  if (keys.length === 0) return [];
-  // Replit DB client has no batch-get primitive; fan out with modest
-  // concurrency to stay friendly to the key-value backend.
-  const results: T[] = [];
-  const CHUNK = 25;
-  for (let i = 0; i < keys.length; i += CHUNK) {
-    const chunk = keys.slice(i, i + CHUNK);
-    const settled = await Promise.all(chunk.map((k) => db().get(k)));
-    for (const r of settled) {
-      if (r.ok && r.value) results.push(r.value as T);
-    }
-  }
-  return results;
+  await withClient(async (client) => {
+    const res = await client.query<{ data: SignupRecord }>(
+      `SELECT data FROM signups WHERE id = $1`,
+      [id],
+    );
+    if (res.rows.length === 0) return;
+    const existing = res.rows[0].data;
+    const next: SignupRecord = {
+      ...existing,
+      convertkitStatus: status,
+      ...(error ? { convertkitError: error } : {}),
+    };
+    await client.query(
+      `UPDATE signups SET data = $2 WHERE id = $1`,
+      [id, next],
+    );
+  });
 }
 
 export async function listSignups(opts?: {
@@ -129,22 +205,28 @@ export async function listSignups(opts?: {
   since?: Date;
   limit?: number;
 }): Promise<SignupRecord[]> {
-  const res = await db().list("signup:");
-  if (!res.ok) return [];
-  const keys = res.value ?? [];
-  // Newest first (ISO timestamps sort lexicographically).
-  keys.sort().reverse();
-  // Fetch ~3x the cap so we have room after filtering by tag/since.
-  const capped = opts?.limit ? keys.slice(0, opts.limit * 3) : keys;
-  const records = await getMany<SignupRecord>(capped);
-  let filtered = records;
-  if (opts?.tag) filtered = filtered.filter((r) => r.tag === opts.tag);
-  if (opts?.since) {
-    const sinceIso = opts.since.toISOString();
-    filtered = filtered.filter((r) => r.createdAt >= sinceIso);
+  const conds: string[] = [];
+  const params: unknown[] = [];
+  if (opts?.tag) {
+    params.push(opts.tag);
+    conds.push(`tag = $${params.length}`);
   }
-  if (opts?.limit) filtered = filtered.slice(0, opts.limit);
-  return filtered;
+  if (opts?.since) {
+    params.push(opts.since);
+    conds.push(`created_at >= $${params.length}`);
+  }
+  const where = conds.length > 0 ? `WHERE ${conds.join(" AND ")}` : "";
+  const limitClause = opts?.limit
+    ? `LIMIT ${Math.min(Math.floor(opts.limit), 10_000)}`
+    : "";
+  const rows = await withClient((client) =>
+    client.query<{ data: SignupRecord }>(
+      `SELECT data FROM signups ${where}
+       ORDER BY created_at DESC ${limitClause}`,
+      params,
+    ),
+  );
+  return rows.rows.map((r) => r.data);
 }
 
 export async function putQuizRecord(
@@ -152,8 +234,18 @@ export async function putQuizRecord(
 ): Promise<QuizRecord> {
   const now = new Date();
   const id = makeKey("quiz", now);
-  const full: QuizRecord = { ...record, id, createdAt: now.toISOString() };
-  await db().set(id, full);
+  const full: QuizRecord = {
+    ...record,
+    id,
+    createdAt: now.toISOString(),
+  };
+  await withClient((client) =>
+    client.query(
+      `INSERT INTO quiz_records (id, email, created_at, data)
+       VALUES ($1, $2, $3, $4)`,
+      [full.id, full.email ?? null, now, full],
+    ),
+  );
   return full;
 }
 
@@ -161,63 +253,78 @@ export async function listQuizRecords(opts?: {
   since?: Date;
   limit?: number;
 }): Promise<QuizRecord[]> {
-  const res = await db().list("quiz:");
-  if (!res.ok) return [];
-  const keys = res.value ?? [];
-  keys.sort().reverse();
-  const capped = opts?.limit ? keys.slice(0, opts.limit * 2) : keys;
-  const records = await getMany<QuizRecord>(capped);
-  let filtered = records;
+  const conds: string[] = [];
+  const params: unknown[] = [];
   if (opts?.since) {
-    const sinceIso = opts.since.toISOString();
-    filtered = filtered.filter((r) => r.createdAt >= sinceIso);
+    params.push(opts.since);
+    conds.push(`created_at >= $${params.length}`);
   }
-  if (opts?.limit) filtered = filtered.slice(0, opts.limit);
-  return filtered;
+  const where = conds.length > 0 ? `WHERE ${conds.join(" AND ")}` : "";
+  const limitClause = opts?.limit
+    ? `LIMIT ${Math.min(Math.floor(opts.limit), 10_000)}`
+    : "";
+  const rows = await withClient((client) =>
+    client.query<{ data: QuizRecord }>(
+      `SELECT data FROM quiz_records ${where}
+       ORDER BY created_at DESC ${limitClause}`,
+      params,
+    ),
+  );
+  return rows.rows.map((r) => r.data);
 }
 
 /**
- * Returns counts useful for admin KPIs without loading every record into memory.
- * Still O(n) in key count since Replit DB has no aggregation primitives.
+ * Returns counts useful for admin KPIs. SQL-aggregated so we never load
+ * the full record set into memory just to count it.
  */
 export async function getCounts(): Promise<{
   signups: { total: number; byTag: Record<SignupTag, number> };
   quiz: { total: number; withEmail: number; extendedComplete: number };
 }> {
-  const [signupRes, quizRes] = await Promise.all([
-    db().list("signup:"),
-    db().list("quiz:"),
-  ]);
+  return withClient(async (client) => {
+    const [signupTotalRes, signupTagRes, quizStatsRes] = await Promise.all([
+      client.query<{ count: string }>(`SELECT COUNT(*)::text AS count FROM signups`),
+      client.query<{ tag: string; count: string }>(
+        `SELECT tag, COUNT(*)::text AS count FROM signups GROUP BY tag`,
+      ),
+      client.query<{
+        total: string;
+        with_email: string;
+        extended_complete: string;
+      }>(`
+        SELECT
+          COUNT(*)::text AS total,
+          COUNT(email)::text AS with_email,
+          COUNT(*) FILTER (
+            WHERE (data->>'completedExtended')::boolean = TRUE
+          )::text AS extended_complete
+        FROM quiz_records
+      `),
+    ]);
 
-  const signupKeys = signupRes.ok ? (signupRes.value ?? []) : [];
-  const quizKeys = quizRes.ok ? (quizRes.value ?? []) : [];
-
-  const byTag: Record<SignupTag, number> = {
-    volunteer: 0,
-    donor: 0,
-    press: 0,
-    general: 0,
-  };
-
-  if (signupKeys.length > 0) {
-    const signups = await getMany<SignupRecord>(signupKeys);
-    for (const r of signups) {
-      if (r?.tag && byTag[r.tag] !== undefined) byTag[r.tag]++;
+    const byTag: Record<SignupTag, number> = {
+      volunteer: 0,
+      donor: 0,
+      press: 0,
+      general: 0,
+    };
+    for (const row of signupTagRes.rows) {
+      if (row.tag in byTag) {
+        byTag[row.tag as SignupTag] = Number(row.count);
+      }
     }
-  }
 
-  let withEmail = 0;
-  let extendedComplete = 0;
-  if (quizKeys.length > 0) {
-    const quizzes = await getMany<QuizRecord>(quizKeys);
-    for (const r of quizzes) {
-      if (r?.email) withEmail++;
-      if (r?.completedExtended) extendedComplete++;
-    }
-  }
-
-  return {
-    signups: { total: signupKeys.length, byTag },
-    quiz: { total: quizKeys.length, withEmail, extendedComplete },
-  };
+    const quizStats = quizStatsRes.rows[0];
+    return {
+      signups: {
+        total: Number(signupTotalRes.rows[0].count),
+        byTag,
+      },
+      quiz: {
+        total: Number(quizStats?.total ?? 0),
+        withEmail: Number(quizStats?.with_email ?? 0),
+        extendedComplete: Number(quizStats?.extended_complete ?? 0),
+      },
+    };
+  });
 }
