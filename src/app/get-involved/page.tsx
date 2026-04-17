@@ -5,6 +5,7 @@ import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 import { Users, Share2, Mail, FileText, Printer } from "lucide-react";
 import { PdfDownloadButton } from "@/components/PdfDownloadButton";
+import { IssueMatcher } from "@/components/IssueMatcher";
 import { track, identifyByEmail } from "@/lib/analytics";
 
 export default function GetInvolvedPage() {
@@ -259,6 +260,14 @@ export default function GetInvolvedPage() {
             </PdfDownloadButton>
           </div>
         </div>
+      </Section>
+
+      {/* Issue-matcher for visitors who are interested but not yet ready to
+          commit to the volunteer form. Placed AFTER the volunteer form and
+          materials so high-intent visitors hit the form first; the quiz is
+          the soft landing for anyone who scrolled past it. */}
+      <Section>
+        <IssueMatcher sourcePage="/get-involved" />
       </Section>
 
       {/* Social share */}

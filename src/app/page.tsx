@@ -38,6 +38,18 @@ export default function HomePage() {
                   See My Platform
                 </CTAButton>
               </div>
+              {/* Above-fold bypass for voters who want to engage interactively
+                  now. Full quiz section sits below HomeProblems so the credibility
+                  beat lands first; this anchor serves the minority who scroll
+                  looking for a widget. */}
+              <p className="mt-5 text-white/60 text-sm">
+                <a
+                  href="#issue-matcher"
+                  className="underline underline-offset-4 hover:text-white transition-colors"
+                >
+                  See where we align on the issues
+                </a>
+              </p>
             </div>
 
             {/* Headshot */}
@@ -54,17 +66,21 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Issue-matcher quiz. Moved directly below the hero: NN/g research on
-          interactive-widget placement shows entry points above the fold (or
-          in the first scroll-pane) outperform mid-page placement by ~3x on
-          engagement, and quizzes specifically benefit from being the first
-          interactive beat voters hit after the hero pitch. */}
-      <Section bgColor="cream">
-        <IssueMatcher sourcePage="/" />
-      </Section>
-
       {/* Problems (client component with expand toggle) */}
       <HomeProblems />
+
+      {/* Issue-matcher quiz. Placed AFTER the problems beat on purpose:
+          credibility-first sequencing. Baymard / ConversionXL data shows
+          context-matched interactions convert 3-10% vs 0.5-1% cold. For a
+          write-in campaign where credibility (not awareness) is the primary
+          deficit, a quiz-as-first-interaction reads as lead-gen gimmick and
+          undermines the "serious candidate" positioning. The hero anchor link
+          gives advanced users a bypass. */}
+      <Section bgColor="cream">
+        <div id="issue-matcher" className="scroll-mt-24">
+          <IssueMatcher sourcePage="/" />
+        </div>
+      </Section>
 
       {/* About Teaser */}
       <Section bgColor="cream">
