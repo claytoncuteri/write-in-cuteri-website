@@ -127,7 +127,7 @@ export default function AboutPage() {
                 // within the crop; translateY(-8%) nudges up so his face
                 // clears the top edge after scaling.
                 style={{
-                  transform: "scale(1.4) translate(-5%, -2%)",
+                  transform: "scale(1.4) translate(-6%, -2%)",
                   transformOrigin: "center",
                 }}
               />
