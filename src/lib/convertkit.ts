@@ -49,92 +49,89 @@ export async function subscribeToConvertKit({
   }
 
   try {
-    // Step 1: Subscribe via Kit's v4 API form-subscribe endpoint.
-    // The HTML app URL (app.kit.com/forms/.../subscriptions) returns the
-    // rendered form page with a 200 and never actually creates the
-    // subscriber  -  which silently broke every signup before this fix.
-    const formResponse = await fetch(
-      `https://api.kit.com/v4/forms/${CONVERTKIT_FORM_ID}/subscribers`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Kit-Api-Key": CONVERTKIT_API_KEY,
+    const kitHeaders = {
+      "Content-Type": "application/json",
+      "X-Kit-Api-Key": CONVERTKIT_API_KEY,
+    };
+
+    // Step 1: Create (or upsert) the subscriber via v4 /subscribers.
+    // This returns the subscriber ID we need for form + tag association.
+    // Kit dedupes by email_address automatically; resubmitting the same
+    // email returns the existing subscriber rather than erroring.
+    const createResponse = await fetch("https://api.kit.com/v4/subscribers", {
+      method: "POST",
+      headers: kitHeaders,
+      body: JSON.stringify({
+        email_address: email,
+        first_name: firstName || undefined,
+        state: "active",
+        fields: {
+          ...(lastName ? { last_name: lastName } : {}),
+          ...(fields || {}),
         },
-        body: JSON.stringify({
-          email_address: email,
-          first_name: firstName || undefined,
-          fields: {
-            ...(lastName ? { last_name: lastName } : {}),
-            ...(fields || {}),
-          },
-        }),
-      }
-    );
-
-    // Capture the full response so production logs can tell us exactly
-    // what Kit said. Their form endpoint sometimes 200s with an error body,
-    // which the status-only check below would silently pass.
-    const formBody = await formResponse.text().catch(() => "");
-    console.log("[convertkit] form submit", {
-      email,
-      formId: CONVERTKIT_FORM_ID,
-      status: formResponse.status,
-      ok: formResponse.ok,
-      bodyPreview: formBody.slice(0, 300),
+      }),
     });
-
-    if (!formResponse.ok && formResponse.status !== 302) {
+    const createBody = await createResponse.text().catch(() => "");
+    console.log("[convertkit] subscriber create", {
+      email,
+      status: createResponse.status,
+      ok: createResponse.ok,
+      bodyPreview: createBody.slice(0, 300),
+    });
+    if (!createResponse.ok) {
       return {
         success: false,
-        error: `Form submission failed: ${formResponse.status} - ${formBody.slice(0, 200)}`,
+        error: `Subscriber create failed: ${createResponse.status} - ${createBody.slice(0, 200)}`,
+      };
+    }
+    const createData = JSON.parse(createBody) as {
+      subscriber?: { id?: number };
+    };
+    const subscriberId = createData.subscriber?.id;
+    if (!subscriberId) {
+      return {
+        success: false,
+        error: "Subscriber created but no id returned",
       };
     }
 
-    // Step 2: Apply tag via v4 API
-    // First get the subscriber ID
-    const subResponse = await fetch(
-      `https://api.kit.com/v4/subscribers?email_address=${encodeURIComponent(email)}`,
-      {
-        headers: { "X-Kit-Api-Key": CONVERTKIT_API_KEY },
-      }
+    // Step 2: Add the subscriber to the form. Form automations (welcome
+    // email, double-opt-in, sequences) trigger from this step  -  simply
+    // creating the subscriber in Step 1 does not fire form hooks.
+    const formResponse = await fetch(
+      `https://api.kit.com/v4/forms/${CONVERTKIT_FORM_ID}/subscribers/${subscriberId}`,
+      { method: "POST", headers: kitHeaders, body: JSON.stringify({}) },
     );
+    const formBody = await formResponse.text().catch(() => "");
+    console.log("[convertkit] form add", {
+      email,
+      subscriberId,
+      formId: CONVERTKIT_FORM_ID,
+      status: formResponse.status,
+      ok: formResponse.ok,
+      bodyPreview: formBody.slice(0, 200),
+    });
+    // Form-add failure is non-fatal: subscriber still exists and will be
+    // tagged in Step 3. Log and continue.
 
-    if (subResponse.ok) {
-      const subData = await subResponse.json();
-      const subscriberId = subData.subscribers?.[0]?.id;
-      console.log("[convertkit] subscriber lookup", {
-        email,
-        found: Boolean(subscriberId),
-        count: subData.subscribers?.length ?? 0,
-      });
-
-      if (subscriberId) {
-        const tagId = TAGS[tag];
-        const tagResponse = await fetch(
-          `https://api.kit.com/v4/tags/${tagId}/subscribers/${subscriberId}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "X-Kit-Api-Key": CONVERTKIT_API_KEY,
-            },
-            body: JSON.stringify({}),
-          }
-        );
-        console.log("[convertkit] tag apply", {
-          email,
-          tag,
-          status: tagResponse.status,
-          ok: tagResponse.ok,
-        });
-      }
-    } else {
-      console.error("[convertkit] subscriber lookup failed", {
-        email,
-        status: subResponse.status,
-      });
-    }
+    // Step 3: Apply the routing tag (volunteer / donor / press / general).
+    // Tag-based automations in Kit fan out from here: welcome sequence,
+    // segmentation, admin notifications, etc.
+    const tagId = TAGS[tag];
+    const tagResponse = await fetch(
+      `https://api.kit.com/v4/tags/${tagId}/subscribers/${subscriberId}`,
+      { method: "POST", headers: kitHeaders, body: JSON.stringify({}) },
+    );
+    const tagBody = await tagResponse.text().catch(() => "");
+    console.log("[convertkit] tag apply", {
+      email,
+      tag,
+      tagId,
+      subscriberId,
+      status: tagResponse.status,
+      ok: tagResponse.ok,
+      bodyPreview: tagBody.slice(0, 200),
+    });
 
     return { success: true };
   } catch (err) {
