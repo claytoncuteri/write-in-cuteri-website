@@ -62,9 +62,9 @@ export interface SignupRecord {
 export interface QuizRecord {
   id: string;
   email?: string;              // only if they completed the email gate
-  answers: Record<string, string>; // q1..q10 -> "yes" | "no" | "unsure"
-  scoreCore: number;           // 0..6 alignment count on core questions
-  scoreExtended?: number;      // 0..4 if they did extended
+  answers: Record<string, string>; // q1..q13 -> "yes" | "no" | "unsure"
+  scoreCore: number;           // 0..8 alignment count on core questions
+  scoreExtended?: number;      // 0..5 if they did extended
   completedExtended: boolean;
   sourcePage?: string;
   userAgent?: string;

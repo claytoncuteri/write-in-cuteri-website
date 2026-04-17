@@ -83,7 +83,7 @@ export const problems: Problem[] = [
       { id: "clean-food-water", number: 4, title: "Clean Food, Clean Water" },
     ],
     talkingPoint:
-      "Insulin costs $5 to make and sells for $300. The same pill is $80 in America and $8 in Europe. That is not a market. That is a racket. Free medication, paid for by ending pharma's grip on Washington.",
+      "Insulin costs $5 to make and sells for $300. The same pill is $80 in America and $8 in Europe. That is not a market. That is a racket. Free medication, paid for by ending pharma's grip on the Federal Government.",
   },
   {
     id: "working-class",

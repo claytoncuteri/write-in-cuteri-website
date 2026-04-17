@@ -60,6 +60,25 @@ type SignupRecord = {
 
 type Tab = "volunteer" | "donor" | "press" | "general" | "quiz";
 
+type PriorityRow = {
+  priorityId: string;
+  questionId: string;
+  heading: string;
+  prompt: string;
+  yes: number;
+  no: number;
+  unsure: number;
+  answered: number;
+  alignedCount: number;
+  alignmentPct: number;
+};
+
+type Breakdown = {
+  success: boolean;
+  totalRecords: number;
+  rows: PriorityRow[];
+};
+
 // Directional targets by month. Shown as small gray text on each hero card.
 // Not a commitment  -  adjustable later from a settings page. The shape mirrors
 // the research agent's recommended trajectory for a viable write-in.
@@ -88,6 +107,7 @@ export function AdminDashboard() {
   const router = useRouter();
   const [kpis, setKpis] = useState<Kpis | null>(null);
   const [records, setRecords] = useState<SignupRecord[]>([]);
+  const [breakdown, setBreakdown] = useState<Breakdown | null>(null);
   const [activeTab, setActiveTab] = useState<Tab>("volunteer");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -96,7 +116,7 @@ export function AdminDashboard() {
     setLoading(true);
     setError(null);
     try {
-      const [k, l] = await Promise.all([
+      const [k, l, b] = await Promise.all([
         fetch("/api/admin/kpis", { cache: "no-store" }).then((r) => r.json()),
         fetch(
           activeTab === "quiz"
@@ -104,10 +124,14 @@ export function AdminDashboard() {
             : `/api/admin/list?tag=${activeTab}&limit=500`,
           { cache: "no-store" },
         ).then((r) => r.json()),
+        fetch("/api/admin/quiz-breakdown", { cache: "no-store" }).then((r) =>
+          r.json(),
+        ),
       ]);
       if (!k.success) throw new Error(k.error || "Failed to load KPIs");
       setKpis(k);
       setRecords(l.records ?? []);
+      setBreakdown(b?.success ? b : null);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to load");
     } finally {
@@ -354,6 +378,84 @@ export function AdminDashboard() {
                   : 0}
                 %
               </p>
+            </div>
+          </div>
+        )}
+
+        {/* Priority agreement breakdown  -  per-question alignment rates. */}
+        {breakdown && breakdown.rows.length > 0 && (
+          <div className="bg-white rounded-lg border border-gray-200 overflow-hidden mb-6">
+            <div className="px-4 sm:px-6 py-3 border-b border-gray-200 flex items-center justify-between">
+              <h2 className="font-bold text-charcoal font-serif text-sm">
+                Priority agreement breakdown
+              </h2>
+              <span className="text-[11px] text-charcoal/50">
+                {breakdown.totalRecords} quiz records, sorted by % aligned
+              </span>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-gray-50 text-xs text-charcoal/60 uppercase tracking-wider">
+                  <tr>
+                    <th className="px-4 sm:px-6 py-2.5 text-left font-medium">
+                      Priority
+                    </th>
+                    <th className="px-4 sm:px-6 py-2.5 text-right font-medium">
+                      % aligned
+                    </th>
+                    <th className="px-4 sm:px-6 py-2.5 text-right font-medium">
+                      Yes
+                    </th>
+                    <th className="px-4 sm:px-6 py-2.5 text-right font-medium">
+                      No
+                    </th>
+                    <th className="px-4 sm:px-6 py-2.5 text-right font-medium">
+                      Unsure
+                    </th>
+                    <th className="px-4 sm:px-6 py-2.5 text-right font-medium">
+                      Answered
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  {breakdown.rows.map((row) => {
+                    // Visual cue so strongest/weakest pop at a glance.
+                    const tone =
+                      row.alignmentPct >= 70
+                        ? "text-green-700"
+                        : row.alignmentPct >= 50
+                          ? "text-charcoal"
+                          : "text-red-accent";
+                    return (
+                      <tr key={row.questionId} className="hover:bg-gray-50">
+                        <td className="px-4 sm:px-6 py-2.5">
+                          <div className="font-medium text-charcoal">
+                            {row.heading}
+                          </div>
+                          <div className="text-[11px] text-charcoal/50 leading-snug">
+                            {row.questionId}  -  {row.priorityId}
+                          </div>
+                        </td>
+                        <td className={`px-4 sm:px-6 py-2.5 text-right font-bold ${tone}`}>
+                          {row.answered > 0 ? `${row.alignmentPct}%` : " - "}
+                        </td>
+                        <td className="px-4 sm:px-6 py-2.5 text-right text-charcoal/70">
+                          {row.yes}
+                        </td>
+                        <td className="px-4 sm:px-6 py-2.5 text-right text-charcoal/70">
+                          {row.no}
+                        </td>
+                        <td className="px-4 sm:px-6 py-2.5 text-right text-charcoal/70">
+                          {row.unsure}
+                        </td>
+                        <td className="px-4 sm:px-6 py-2.5 text-right text-charcoal/70">
+                          {row.answered}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
             </div>
           </div>
         )}

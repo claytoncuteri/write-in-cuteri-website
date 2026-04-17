@@ -1,13 +1,14 @@
 "use client";
 
-// Slanted issue-alignment quiz. Shows six core questions, captures email,
-// unlocks four extended questions, finishes on a score + share state. Every
+// Slanted issue-alignment quiz. Shows eight core questions, captures email,
+// unlocks five extended questions (thirteen total, 1:1 mapped to Clayton's
+// thirteen priorities), finishes on a score + share state. Every
 // state transition fires a PostHog event so we can measure completion funnels
 // and drop-off by question ID.
 //
 // Design notes:
 // - Single-question view, big buttons for thumb-sized YES / NO / UNSURE.
-// - Progress pill strip at top (1 of 6, etc.) lets us communicate that the
+// - Progress pill strip at top (1 of 8, etc.) lets us communicate that the
 //   "email gate" is a mid-quiz milestone, not a wall.
 // - On mobile we lock the answer row to the bottom so the voter can tap
 //   without scrolling  -  critical because quizzes drop 30%+ when people have
@@ -111,7 +112,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
         setRecordId(data.id ?? null);
         await identifyByEmail(emailValue, {
           quiz_alignment:
-            scoreCore >= 5 ? "high" : scoreCore >= 3 ? "medium" : "low",
+            scoreCore >= 6 ? "high" : scoreCore >= 4 ? "medium" : "low",
           quiz_score_core: scoreCore,
         });
         track("quiz_email_submitted", {
@@ -273,17 +274,18 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
           See how much you agree with Clayton.
         </h3>
         <p className="mt-3 text-charcoal/70 text-base">
-          Six quick questions. No fluff, no political mush. Slanted the way
-          most voters actually feel but the parties won&rsquo;t say.
+          Thirteen questions on Clayton&rsquo;s thirteen priorities. Eight to
+          start, five more after you unlock them. No fluff, no political mush.
+          Slanted the way most voters actually feel but the parties won&rsquo;t say.
         </p>
         <button
           onClick={beginCore}
           className="mt-5 inline-flex items-center gap-2 px-5 py-3 bg-navy text-white font-semibold rounded-lg hover:bg-navy-dark transition-colors"
         >
-          Start the 6-question quiz <ArrowRight size={16} />
+          Start the 13-question quiz <ArrowRight size={16} />
         </button>
         <p className="mt-3 text-[11px] text-charcoal/40">
-          Takes under 90 seconds. You can see your score before giving an email.
+          Takes under two minutes. You can see your score before giving an email.
         </p>
       </div>
     );
@@ -291,7 +293,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
 
   if (phase === "email") {
     const alignment =
-      scoreCore >= 5 ? "high" : scoreCore >= 3 ? "medium" : "low";
+      scoreCore >= 6 ? "high" : scoreCore >= 4 ? "medium" : "low";
     const alignmentCopy = {
       high: "You and Clayton agree on nearly everything that matters.",
       medium: "You agree with Clayton on the issues both parties ignore.",
@@ -307,7 +309,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
         </div>
         <div className="flex items-baseline gap-3 mt-1">
           <p className="text-5xl sm:text-6xl font-bold text-navy font-serif">
-            {scoreCore}/6
+            {scoreCore}/8
           </p>
           <span className="text-sm font-semibold text-charcoal/60">
             core issues
@@ -318,7 +320,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
         <form onSubmit={onEmailSubmit} className="mt-5 space-y-3">
           <div>
             <label className="block text-xs font-semibold text-charcoal/60 uppercase tracking-wider mb-1">
-              Email (required to unlock 4 more questions)
+              Email (required to unlock 5 more questions)
             </label>
             <input
               type="email"
@@ -348,7 +350,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
                 "Saving..."
               ) : (
                 <>
-                  Unlock 4 more questions <Lock size={14} />
+                  Unlock 5 more questions <Lock size={14} />
                 </>
               )}
             </button>
@@ -363,7 +365,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
               onClick={startExtended}
               className="ml-auto inline-flex items-center gap-1 text-navy font-semibold hover:underline"
             >
-              Start 4 bonus questions <ArrowRight size={14} />
+              Start 5 bonus questions <ArrowRight size={14} />
             </button>
           </div>
         )}
@@ -373,9 +375,9 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
 
   if (phase === "done") {
     const total = scoreCore + scoreExtended;
-    const totalPct = Math.round((total / 10) * 100);
+    const totalPct = Math.round((total / 13) * 100);
     const shareText = encodeURIComponent(
-      `I agree with Clayton Cuteri on ${total}/10 issues. Take the quiz: https://writeincuteri.com/`,
+      `I agree with Clayton Cuteri on ${total}/13 issues. Take the quiz: https://writeincuteri.com/`,
     );
     return (
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8 max-w-2xl mx-auto text-center">
@@ -384,10 +386,10 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
           Final result
         </p>
         <p className="mt-2 text-5xl sm:text-6xl font-bold text-navy font-serif">
-          {total}/10
+          {total}/13
         </p>
         <p className="mt-2 text-charcoal/70">
-          {totalPct}% alignment with Clayton on {total === 10 ? "every" : total} issue{total === 1 ? "" : "s"}.
+          {totalPct}% alignment with Clayton on {total === 13 ? "every" : total} issue{total === 1 ? "" : "s"}.
         </p>
         <p className="mt-4 text-charcoal/80">
           Share your result. Most voters have never taken a quiz where the

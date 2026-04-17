@@ -1,21 +1,33 @@
 // IssueMatcher quiz content.
 //
-// Every question is slanted so that YES = aligned with Clayton's policy
-// platform. NO = not aligned. UNSURE = neutral (counts for zero). This lets
-// us display a simple "you agree with Clayton on X of Y issues" score that
-// the user intuitively grasps and is willing to share.
+// Thirteen questions, strict 1:1 mapped to Clayton's thirteen policy
+// priorities. Every question is persuasively framed so YES = aligned with
+// Clayton's platform. NO = not aligned. UNSURE = neutral (counts for zero).
 //
-// Six core questions gate the email capture. Four extended questions unlock
-// after email is submitted. Completion benchmarks (research-backed):
-//   - Core-six completion rate should beat 60%.
-//   - Extended conversion (email-submitters who finish extended) should beat 25%.
+// Why persuasive framing: the goal is to win SC-01 on Nov 3, 2026, not to
+// run a neutral survey. Broockman & Kalla (2016) show persuasion works
+// strongest when voters self-identify agreement on concrete, named stakes;
+// Cialdini commitment-consistency predicts they then internalize the
+// position. We accept the framing bias as the cost of the persuasive lift.
+// Rank-order per priority is still valid under Krosnick (1999).
+//
+// Structure:
+//   - 8 CORE questions gate the email capture (sequenced Lowcountry-first
+//     for SC-01 credibility; see research notes in git log).
+//   - 5 EXTENDED questions unlock after email, covering the remaining
+//     priorities so every voter can touch every position.
+//
+// Each question carries a `priorityId` matching the /policies priority
+// slug so the admin dashboard can aggregate per-priority agreement rates
+// and surface our strongest/weakest issues without fuzzy matching.
 
 export type QuizAnswer = "yes" | "no" | "unsure";
 
 export interface QuizQuestion {
-  id: string;               // q1..q10  -  stable forever, used as DB/analytics keys
+  id: string;               // q1..q13 - stable forever, used as DB/analytics keys
+  priorityId: string;       // 1:1 map to a policy priority slug on /policies
   heading: string;          // short label shown in the progress strip
-  prompt: string;           // the slanted question asked to the voter
+  prompt: string;           // the persuasively framed question asked to the voter
   aligned: "yes" | "no";    // which answer counts toward the score
   policyRef?: string;       // link slug on /policies for "read more" footer
   rationale: string;        // shown on the results screen after they answer
@@ -24,49 +36,54 @@ export interface QuizQuestion {
 export const CORE_QUESTIONS: QuizQuestion[] = [
   {
     id: "q1",
-    heading: "Home insurance",
+    priorityId: "lowcountry-resilience",
+    heading: "Lowcountry resilience",
     prompt:
-      "Are you tired of Charleston families paying $12,000 a year for home insurance while carriers keep leaving the state?",
+      "Should the Federal Government stop insurance carriers from abandoning Charleston families stuck paying $12,000 a year?",
     aligned: "yes",
     policyRef: "coastal-insurance",
     rationale:
-      "Clayton wants a federal backstop for Lowcountry coastal insurance modeled after the NFIP so carriers stay and premiums drop.",
+      "Federal backstop for Lowcountry coastal insurance modeled after the NFIP so carriers stay and premiums drop.",
   },
   {
     id: "q2",
-    heading: "Wall Street homes",
+    priorityId: "clean-food-clean-water",
+    heading: "Clean food & water",
     prompt:
-      "Should hedge funds and corporations be banned from bulk-buying single-family homes that working families are trying to buy?",
+      "Should chemical companies stop writing their own rules and poisoning Lowcountry water?",
     aligned: "yes",
-    policyRef: "housing-affordability",
+    policyRef: "clean-water",
     rationale:
-      "Clayton supports the End Hedge Fund Control of Single-Family Homes framework  -  no institutional buyer should hold more than 50 homes in SC-01.",
+      "End the revolving door between chemical industry lobbyists and EPA rule-writing. PFAS limits set by independent toxicologists.",
   },
   {
     id: "q3",
-    heading: "Property tax",
+    priorityId: "veterans-first-responders",
+    heading: "Veterans & first responders",
     prompt:
-      "Should retirees and long-time homeowners be protected from being taxed out of the home they have lived in and paid off?",
+      "Should SC-01's 75,000 veterans and first responders finally get the care and pay they earned?",
     aligned: "yes",
-    policyRef: "property-tax-protection",
+    policyRef: "veterans-first-responders",
     rationale:
-      "Homestead caps on assessed value after 10 years of residency. No one should lose their paid-off home to a tax bill.",
+      "Direct-care VA reform with guaranteed appointment timelines, plus a federal first-responder pay floor indexed to local cost-of-living.",
   },
   {
     id: "q4",
-    heading: "Foreign wars",
+    priorityId: "affordable-housing",
+    heading: "Affordable housing",
     prompt:
-      "Should the U.S. stop sending $90 billion a year to foreign wars that kill innocent people, and bring that money home to insure and house our own families?",
+      "Should hedge funds and corporations be banned from bulk-buying single-family homes that working Lowcountry families are trying to buy?",
     aligned: "yes",
-    policyRef: "end-forever-wars",
+    policyRef: "housing-affordability",
     rationale:
-      "Every dollar sent to a foreign war is a dollar not spent on Lowcountry insurance, veteran care, or first-responder pay.",
+      "End the Hedge Fund Control of Single-Family Homes framework. No institutional buyer should hold more than 50 homes in SC-01.",
   },
   {
     id: "q5",
-    heading: "Drug pricing",
+    priorityId: "free-medication",
+    heading: "Free medication",
     prompt:
-      "Should Americans pay the same price for insulin as Europeans do  -  $8 instead of $300?",
+      "Should retirees pay $8 for insulin like Europeans do, instead of the $300 they pay now?",
     aligned: "yes",
     policyRef: "free-medication",
     rationale:
@@ -74,56 +91,94 @@ export const CORE_QUESTIONS: QuizQuestion[] = [
   },
   {
     id: "q6",
+    priorityId: "stop-endless-wars",
+    heading: "Stop endless wars",
+    prompt:
+      "Should we stop sending $90 billion a year to foreign wars that kill innocent people, and bring that money home?",
+    aligned: "yes",
+    policyRef: "end-forever-wars",
+    rationale:
+      "Every dollar sent to a foreign war is a dollar not spent on Lowcountry insurance, veteran care, or first-responder pay.",
+  },
+  {
+    id: "q7",
+    priorityId: "open-books",
     heading: "Open books",
     prompt:
-      "Should every dollar the federal government spends be publicly visible online in real time, line by line?",
+      "Should every federal dollar be public online in real time, so you see exactly where your paycheck went?",
     aligned: "yes",
     policyRef: "government-transparency",
     rationale:
       "Real-time public ledger of federal spending. Sunlight is the cheapest accountability we have.",
   },
+  {
+    id: "q8",
+    priorityId: "free-food",
+    heading: "Free food",
+    prompt:
+      "Should no American child go hungry while we send billions to kill innocent children overseas?",
+    aligned: "yes",
+    policyRef: "free-food",
+    rationale:
+      "Universal school meals plus SNAP reform. A country that funds foreign wars can feed its own kids.",
+  },
 ];
 
 export const EXTENDED_QUESTIONS: QuizQuestion[] = [
   {
-    id: "q7",
-    heading: "Clean water",
-    prompt:
-      "Should chemical companies be stopped from writing their own pollution standards and poisoning Lowcountry water?",
-    aligned: "yes",
-    policyRef: "clean-water",
-    rationale:
-      "End the revolving door between chemical industry lobbyists and EPA rule-writing. PFAS limits set by independent toxicologists.",
-  },
-  {
-    id: "q8",
-    heading: "Veterans & first responders",
-    prompt:
-      "Should the VA stop failing our veterans, and should first responders finally get pay that matches what they risk every shift?",
-    aligned: "yes",
-    policyRef: "veterans-first-responders",
-    rationale:
-      "Direct-care VA reform with guaranteed appointment timelines, plus a federal first-responder pay floor indexed to local cost-of-living.",
-  },
-  {
     id: "q9",
-    heading: "Paycheck",
+    priorityId: "energy-independence",
+    heading: "Energy independence",
     prompt:
-      "Should working families keep $8,000 to $15,000 more per year by replacing the federal income tax with a simpler system that doesn't punish work?",
+      "Should South Carolina produce its own clean energy instead of depending on foreign regimes?",
+    aligned: "yes",
+    policyRef: "energy-independence",
+    rationale:
+      "Domestic clean-energy build-out so SC keeps the paychecks and the power. Stop importing energy from regimes that hate us.",
+  },
+  {
+    id: "q10",
+    priorityId: "end-homelessness",
+    heading: "End homelessness",
+    prompt:
+      "Should homeless veterans and families in Charleston get a real bed and treatment, not another arrest cycle?",
+    aligned: "yes",
+    policyRef: "end-homelessness",
+    rationale:
+      "Housing-first with integrated mental-health and substance-abuse care. Cheaper than jail, and it actually works.",
+  },
+  {
+    id: "q11",
+    priorityId: "gold-standard",
+    heading: "Sound money",
+    prompt:
+      "Should Congress audit the Federal Reserve and stop the money-printing that's shrinking your paycheck every year?",
+    aligned: "yes",
+    policyRef: "gold-standard",
+    rationale:
+      "Full Fed audit, then a phased return to a sound-money standard. Stop the silent transfer of wealth from wage-earners to asset-holders.",
+  },
+  {
+    id: "q12",
+    priorityId: "no-federal-income-tax",
+    heading: "No federal income tax",
+    prompt:
+      "Should working families keep the $8,000 to $15,000 a year the Federal Government currently takes from their paycheck?",
     aligned: "yes",
     policyRef: "no-federal-income-tax",
     rationale:
       "Replace the federal income tax with a tariff-and-excise system that doesn't punish earning. Full transition plan in the policy book.",
   },
   {
-    id: "q10",
-    heading: "End the Fed",
+    id: "q13",
+    priorityId: "free-education",
+    heading: "Free education",
     prompt:
-      "Should Congress audit the Federal Reserve and end the hidden inflation tax that's eroding your paycheck and your savings?",
+      "Should every SC kid be able to learn a trade or finish college without $100,000 in debt?",
     aligned: "yes",
-    policyRef: "gold-standard",
+    policyRef: "free-education",
     rationale:
-      "Full Fed audit, then a phased return to a sound-money standard. Stop the silent transfer of wealth from wage-earners to asset-holders.",
+      "Trade schools and public-college tuition funded by redirecting a fraction of the foreign-war budget. Degrees and credentials without decades of debt.",
   },
 ];
 
