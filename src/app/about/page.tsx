@@ -109,11 +109,17 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="lg:col-span-2 flex justify-center">
-            <img
-              src="/images/clayton-podium.jpg"
-              alt="Clayton Cuteri speaking at the Francis Marion Hotel in Charleston"
-              className="w-full max-w-sm rounded-xl shadow-lg"
-            />
+            {/* Tighter crop on the podium shot. aspect-[3/4] + object-cover
+                trims whitespace; object-top keeps Clayton's face in frame
+                instead of centering through his torso; scale-110 zooms in
+                a touch further so the subject fills the card. */}
+            <div className="w-full max-w-sm aspect-[3/4] overflow-hidden rounded-xl shadow-lg">
+              <img
+                src="/images/clayton-podium.jpg"
+                alt="Clayton Cuteri speaking at the Francis Marion Hotel in Charleston"
+                className="w-full h-full object-cover object-top scale-110"
+              />
+            </div>
           </div>
         </div>
       </Section>
