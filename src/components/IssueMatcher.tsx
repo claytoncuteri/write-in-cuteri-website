@@ -389,11 +389,14 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
     // X gets the @ClaytonCuteri handle so the post tags Clayton and shows up
     // in his mentions. SMS keeps the plain name because an @ in a text
     // message reads as broken rather than as a tag.
+    // #quiz hash drops the voter straight onto the quiz section  -  tweet
+    // promises "Take the quiz", so landing on the quiz (not the hero) is
+    // the promise-match that keeps bounce low.
     const shareTextX = encodeURIComponent(
-      `I agree with @ClaytonCuteri on ${total}/13 issues. Take the quiz: https://writeincuteri.com/`,
+      `I agree with @ClaytonCuteri on ${total}/13 issues. Take the quiz: https://writeincuteri.com/#quiz`,
     );
     const shareTextSms = encodeURIComponent(
-      `I agree with Clayton Cuteri on ${total}/13 issues. Take the quiz: https://writeincuteri.com/`,
+      `I agree with Clayton Cuteri on ${total}/13 issues. Take the quiz: https://writeincuteri.com/#quiz`,
     );
     return (
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8 max-w-2xl mx-auto text-center">

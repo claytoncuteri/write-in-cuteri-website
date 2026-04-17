@@ -44,7 +44,7 @@ export default function HomePage() {
                   looking for a widget. */}
               <p className="mt-5 text-white/60 text-sm">
                 <a
-                  href="#issue-matcher"
+                  href="#quiz"
                   className="underline underline-offset-4 hover:text-white transition-colors"
                 >
                   See where we align on the issues
@@ -77,7 +77,7 @@ export default function HomePage() {
           undermines the "serious candidate" positioning. The hero anchor link
           gives advanced users a bypass. */}
       <Section bgColor="cream">
-        <div id="issue-matcher" className="scroll-mt-24">
+        <div id="quiz" className="scroll-mt-24">
           <IssueMatcher sourcePage="/" />
         </div>
       </Section>
