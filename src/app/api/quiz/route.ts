@@ -1,13 +1,13 @@
 // POST /api/quiz
 //
 // Persists a quiz session to Replit DB. Called in two phases:
-//   1. When the user hits the email gate (core 6 complete)  -  records answers
+//   1. When the user hits the email gate (core 8 complete)  -  records answers
 //      + email + scoreCore; completedExtended=false.
 //   2. When the user finishes extended  -  same record rewritten with updated
 //      scoreExtended + completedExtended=true.
 //
 // Body:
-//   { answers: { q1..q10: "yes"|"no"|"unsure" },
+//   { answers: { q1..q13: "yes"|"no"|"unsure" },
 //     email?: string,
 //     scoreCore: number,
 //     scoreExtended?: number,
@@ -81,8 +81,9 @@ export async function POST(req: NextRequest) {
   // If the quiz taker submitted an email at the gate, sync to ConvertKit with
   // alignment-bucket custom field for later segmentation.
   if (email) {
+    // Buckets match IssueMatcher.tsx: 8-question core, 6+ high, 4-5 medium, 0-3 low.
     const alignment =
-      scoreCore >= 5 ? "high" : scoreCore >= 3 ? "medium" : "low";
+      scoreCore >= 6 ? "high" : scoreCore >= 4 ? "medium" : "low";
     await subscribeToConvertKit({
       email,
       tag: "general",
