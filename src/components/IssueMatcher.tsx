@@ -277,7 +277,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
         <div className="flex items-center gap-2 mb-2">
           <Sparkles size={18} className="text-gold" />
           <p className="text-xs font-semibold text-navy uppercase tracking-wider">
-            Issue Matcher
+            Issue Matcher Quiz
           </p>
         </div>
         <h3 className="text-2xl sm:text-3xl font-bold text-charcoal font-serif leading-tight">
