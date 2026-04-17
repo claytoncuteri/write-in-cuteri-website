@@ -20,6 +20,7 @@ import {
   Award,
   CheckCircle2,
   Lock,
+  LockOpen,
   Share2,
   Sparkles,
   ThumbsUp,
@@ -45,6 +46,11 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
   const [emailError, setEmailError] = useState("");
   const [emailSubmitting, setEmailSubmitting] = useState(false);
   const [recordId, setRecordId] = useState<string | null>(null);
+  // Achievement moment between email save and bonus questions: full-card
+  // overlay shows a padlock snapping open. Tuned to ~1.1s so the voter
+  // registers the reward without feeling stalled.
+  const UNLOCK_DURATION_MS = 1100;
+  const [unlocking, setUnlocking] = useState(false);
 
   // Positive reinforcement: when the voter's answer matches Clayton's stance,
   // flash a "Clayton agrees" confirmation. Builds alignment perception as
@@ -122,13 +128,17 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
           score_core: scoreCore,
           source_page: sourcePage,
         });
-        // Auto-advance into the extended block the moment the save succeeds.
-        // Voters told us the intermediate "Saved. Start 5 bonus questions"
-        // step felt like an unnecessary extra click  -  they hit Unlock
-        // expecting the next question.
-        track("quiz_extended_started", { source_page: sourcePage });
-        setIndex(0);
-        setPhase("extended");
+        // Play the unlock animation first, then advance into extended.
+        // The achievement moment is the reward for handing over an email;
+        // skipping straight to q9 would waste the commitment-consistency
+        // dopamine hit.
+        setUnlocking(true);
+        setTimeout(() => {
+          track("quiz_extended_started", { source_page: sourcePage });
+          setIndex(0);
+          setPhase("extended");
+          setUnlocking(false);
+        }, UNLOCK_DURATION_MS);
       } catch (err) {
         setEmailError(
           err instanceof Error ? err.message : "Something went wrong",
@@ -310,7 +320,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
       low: "You disagree often  -  but Clayton wants to hear why.",
     }[alignment];
     return (
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8 max-w-2xl mx-auto">
+      <div className="relative bg-white rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8 max-w-2xl mx-auto overflow-hidden">
         <div className="flex items-center gap-2 mb-2">
           <Award size={18} className="text-gold" />
           <p className="text-xs font-semibold text-navy uppercase tracking-wider">
@@ -367,7 +377,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
           </div>
         </form>
 
-        {recordId && (
+        {recordId && !unlocking && (
           <div className="mt-4 flex items-center gap-2 text-sm text-charcoal/70">
             <CheckCircle2 size={16} className="text-green-600" />
             Saved. Check your inbox to confirm your subscription.
@@ -379,6 +389,45 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
             </button>
           </div>
         )}
+
+        {/* Unlock achievement overlay. Full-card takeover: locked padlock
+            pops in, shakes once, swaps to the open padlock, fades the
+            surrounding card gold. Lasts ~1.1s then the parent transitions
+            us into the extended block. */}
+        <div
+          aria-live="polite"
+          role="status"
+          className={`absolute inset-0 flex items-center justify-center rounded-xl bg-navy z-20 pointer-events-none transition-opacity duration-200 ${
+            unlocking ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <div className="flex flex-col items-center gap-4 text-white">
+            <div className="relative w-20 h-20 flex items-center justify-center">
+              <Lock
+                size={72}
+                strokeWidth={2}
+                className={`absolute text-gold transition-all duration-300 ${
+                  unlocking
+                    ? "opacity-0 scale-75 -rotate-12"
+                    : "opacity-100 scale-100"
+                }`}
+              />
+              <LockOpen
+                size={72}
+                strokeWidth={2}
+                className={`absolute text-gold transition-all duration-500 delay-200 ${
+                  unlocking
+                    ? "opacity-100 scale-110 rotate-0"
+                    : "opacity-0 scale-75 rotate-12"
+                }`}
+              />
+            </div>
+            <p className="text-2xl sm:text-3xl font-bold font-serif">
+              Unlocked!
+            </p>
+            <p className="text-sm text-white/80">5 bonus questions loading...</p>
+          </div>
+        </div>
       </div>
     );
   }
