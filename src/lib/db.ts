@@ -105,6 +105,14 @@ async function ensureSchema(): Promise<void> {
           data        JSONB NOT NULL
         );
       `);
+      // Idempotent column adds. If an earlier deploy created the table
+      // with a different schema, CREATE TABLE IF NOT EXISTS above is a
+      // no-op and we'd be missing the columns we now expect. ADD COLUMN
+      // IF NOT EXISTS covers the drift without requiring manual SQL.
+      await client.query(`ALTER TABLE signups ADD COLUMN IF NOT EXISTS tag TEXT;`);
+      await client.query(`ALTER TABLE signups ADD COLUMN IF NOT EXISTS email TEXT;`);
+      await client.query(`ALTER TABLE signups ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ;`);
+      await client.query(`ALTER TABLE signups ADD COLUMN IF NOT EXISTS data JSONB;`);
       await client.query(
         `CREATE INDEX IF NOT EXISTS signups_created_at_idx ON signups (created_at DESC);`,
       );
@@ -119,6 +127,9 @@ async function ensureSchema(): Promise<void> {
           data        JSONB NOT NULL
         );
       `);
+      await client.query(`ALTER TABLE quiz_records ADD COLUMN IF NOT EXISTS email TEXT;`);
+      await client.query(`ALTER TABLE quiz_records ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ;`);
+      await client.query(`ALTER TABLE quiz_records ADD COLUMN IF NOT EXISTS data JSONB;`);
       await client.query(
         `CREATE INDEX IF NOT EXISTS quiz_records_created_at_idx ON quiz_records (created_at DESC);`,
       );
