@@ -8,7 +8,10 @@ channel = "stable-25_05"
 [deployment]
 deploymentTarget = "autoscale"
 build = "npm ci && npm run build"
-run = ["npm", "run", "start"]
+# Shell-string run with explicit PORT. Replit's autoscale validator
+# rejects the array form for Next.js server apps with a misleading
+# "static site / no run command" error; shell form + PORT env passes.
+run = "PORT=5000 npm run start"
 
 [[ports]]
 localPort = 3001
