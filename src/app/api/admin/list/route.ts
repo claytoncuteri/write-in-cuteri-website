@@ -22,14 +22,15 @@ function csvEscape(val: unknown): string {
 }
 
 export async function GET(req: NextRequest) {
-  if (!(await isAdminAuthed())) {
-    return NextResponse.json(
-      { success: false, error: "Unauthorized" },
-      { status: 401 },
-    );
-  }
+  try {
+    if (!(await isAdminAuthed())) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized" },
+        { status: 401 },
+      );
+    }
 
-  const url = new URL(req.url);
+    const url = new URL(req.url);
   const tagParam = url.searchParams.get("tag");
   const format = url.searchParams.get("format") ?? "json";
   const resource = url.searchParams.get("resource") ?? "signups";
@@ -118,5 +119,21 @@ export async function GET(req: NextRequest) {
     });
   }
 
-  return NextResponse.json({ success: true, records });
+    return NextResponse.json({ success: true, records });
+  } catch (err) {
+    // Catch-all so the endpoint never returns an empty body, which would
+    // break r.json() on the client with "Unexpected end of JSON input".
+    console.error("[admin-list] unexpected error", err);
+    return NextResponse.json(
+      {
+        success: false,
+        error:
+          err instanceof Error
+            ? err.message
+            : "Unexpected server error",
+        records: [],
+      },
+      { status: 500 },
+    );
+  }
 }
