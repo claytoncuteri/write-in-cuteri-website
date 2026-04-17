@@ -386,7 +386,13 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
   if (phase === "done") {
     const total = scoreCore + scoreExtended;
     const totalPct = Math.round((total / 13) * 100);
-    const shareText = encodeURIComponent(
+    // X gets the @ClaytonCuteri handle so the post tags Clayton and shows up
+    // in his mentions. SMS keeps the plain name because an @ in a text
+    // message reads as broken rather than as a tag.
+    const shareTextX = encodeURIComponent(
+      `I agree with @ClaytonCuteri on ${total}/13 issues. Take the quiz: https://writeincuteri.com/`,
+    );
+    const shareTextSms = encodeURIComponent(
       `I agree with Clayton Cuteri on ${total}/13 issues. Take the quiz: https://writeincuteri.com/`,
     );
     return (
@@ -407,7 +413,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
         </p>
         <div className="mt-5 flex flex-wrap justify-center gap-2">
           <a
-            href={`https://twitter.com/intent/tweet?text=${shareText}`}
+            href={`https://twitter.com/intent/tweet?text=${shareTextX}`}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => track("share_button_clicked", { platform: "x", content_type: "quiz_result" })}
@@ -416,7 +422,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
             <Share2 size={14} /> Share on X
           </a>
           <a
-            href={`sms:?&body=${shareText}`}
+            href={`sms:?&body=${shareTextSms}`}
             onClick={() => track("share_button_clicked", { platform: "sms", content_type: "quiz_result" })}
             className="inline-flex items-center gap-2 px-4 py-2 bg-cream text-charcoal border border-gray-200 rounded-lg hover:bg-gray-100"
           >
