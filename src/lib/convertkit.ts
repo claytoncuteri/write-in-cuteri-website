@@ -66,10 +66,22 @@ export async function subscribeToConvertKit({
       }
     );
 
+    // Capture the full response so production logs can tell us exactly
+    // what Kit said. Their form endpoint sometimes 200s with an error body,
+    // which the status-only check below would silently pass.
+    const formBody = await formResponse.text().catch(() => "");
+    console.log("[convertkit] form submit", {
+      email,
+      formId: CONVERTKIT_FORM_ID,
+      status: formResponse.status,
+      ok: formResponse.ok,
+      bodyPreview: formBody.slice(0, 300),
+    });
+
     if (!formResponse.ok && formResponse.status !== 302) {
       return {
         success: false,
-        error: `Form submission failed: ${formResponse.status}`,
+        error: `Form submission failed: ${formResponse.status} - ${formBody.slice(0, 200)}`,
       };
     }
 
@@ -85,10 +97,15 @@ export async function subscribeToConvertKit({
     if (subResponse.ok) {
       const subData = await subResponse.json();
       const subscriberId = subData.subscribers?.[0]?.id;
+      console.log("[convertkit] subscriber lookup", {
+        email,
+        found: Boolean(subscriberId),
+        count: subData.subscribers?.length ?? 0,
+      });
 
       if (subscriberId) {
         const tagId = TAGS[tag];
-        await fetch(
+        const tagResponse = await fetch(
           `https://api.kit.com/v4/tags/${tagId}/subscribers/${subscriberId}`,
           {
             method: "POST",
@@ -99,7 +116,18 @@ export async function subscribeToConvertKit({
             body: JSON.stringify({}),
           }
         );
+        console.log("[convertkit] tag apply", {
+          email,
+          tag,
+          status: tagResponse.status,
+          ok: tagResponse.ok,
+        });
       }
+    } else {
+      console.error("[convertkit] subscriber lookup failed", {
+        email,
+        status: subResponse.status,
+      });
     }
 
     return { success: true };

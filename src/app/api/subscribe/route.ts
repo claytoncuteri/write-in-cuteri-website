@@ -122,6 +122,15 @@ export async function POST(req: NextRequest) {
     tag,
     fields,
   });
+  if (!ckResult.success) {
+    console.error("[subscribe] ConvertKit subscribe failed", {
+      email,
+      tag,
+      error: ckResult.error,
+    });
+  } else {
+    console.log("[subscribe] ConvertKit subscribe ok", { email, tag });
+  }
 
   // 3. Update the Replit DB record with the ConvertKit outcome.
   if (record?.id) {

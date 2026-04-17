@@ -81,16 +81,17 @@ export default function WriteInPage() {
 
       {/* Interactive practice ballot (elevated  -  research shows hands-on first
           out-performs read-then-do). This is now the primary engagement
-          moment on the page. */}
-      <Section bgColor="navy">
+          moment on the page. Cream bg breaks the navy-on-navy stack with
+          the spelling banner above and signals "now it's your turn to act." */}
+      <Section bgColor="cream">
         <div className="text-center mb-8">
-          <p className="text-gold font-semibold text-sm uppercase tracking-wider mb-3">
+          <p className="text-navy font-semibold text-sm uppercase tracking-wider mb-3">
             Practice Ballot
           </p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white font-serif">
+          <h2 className="text-3xl sm:text-4xl font-bold text-charcoal font-serif">
             Rehearse Your Vote
           </h2>
-          <p className="mt-3 text-white/70 text-base sm:text-lg max-w-xl mx-auto">
+          <p className="mt-3 text-charcoal/70 text-base sm:text-lg max-w-xl mx-auto">
             Practice finding the U.S. House race, selecting Write-In, and
             entering the name. The default view matches the ExpressVote
             touchscreen you&rsquo;ll see at the polls. Switch the toggle if
