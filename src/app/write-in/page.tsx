@@ -3,6 +3,7 @@ import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 import { DistrictMap } from "@/components/DistrictMap";
 import { PdfDownloadButton } from "@/components/PdfDownloadButton";
+import { BallotSimulator } from "@/components/BallotSimulator";
 import {
   CheckCircle,
   MapPin,
@@ -24,7 +25,7 @@ const steps = [
     icon: CheckCircle,
     title: "Check your voter registration",
     description:
-      'Confirm you are registered to vote in South Carolina Congressional District 1. This includes voters in Charleston (partial), Berkeley, Dorchester (partial), Beaufort, Colleton (partial), and Jasper counties.',
+      "Confirm you are registered to vote in South Carolina Congressional District 1. This includes voters in Charleston (partial), Berkeley, Dorchester (partial), Beaufort, Colleton (partial), and Jasper counties.",
     action: {
       label: "Check registration at scvotes.gov",
       href: "https://vrems.scvotes.sc.gov/Voter/Login?PageMode=VoterInformation",
@@ -32,9 +33,9 @@ const steps = [
   },
   {
     icon: MapPin,
-    title: "Find your polling place",
+    title: "Find your polling place, or request absentee",
     description:
-      "Know where to vote on Election Day or during the early voting period. You can also request an absentee ballot if you qualify.",
+      "Vote in person on Election Day or during early voting. If you cannot make it to the polls, request an absentee ballot from your county elections office.",
     action: {
       label: "Find your polling place",
       href: "https://vrems.scvotes.sc.gov/Voter/Login?PageMode=PollingPlace",
@@ -42,21 +43,21 @@ const steps = [
   },
   {
     icon: FileText,
-    title: "Find the U.S. House District 1 race on your ballot",
+    title: "Check in and get your activation card",
     description:
-      "On Election Day, November 3, 2026 (or during early voting), look for the section labeled U.S. House of Representatives, District 1. You will see the listed candidates and a write-in option.",
+      "At your polling place, check in with a poll worker. They will hand you a blank activation card. Take it to any open ExpressVote touchscreen machine and insert the card when prompted. (Voting absentee by mail? Open the paper ballot that arrives in your envelope.)",
   },
   {
     icon: PenTool,
-    title: 'Write "Clayton Cuteri" in the write-in field',
+    title: "Find U.S. House, District 1 and tap Write-In",
     description:
-      "On paper ballots, write the name clearly in the blank write-in line. On touchscreen machines, select the write-in option and type the name using the on-screen keyboard.",
+      "The screen steps you through each contest. When you reach U.S. House, District 1, tap the Write-In box, type CLAYTON CUTERI on the on-screen keyboard, then tap Accept. The machine marks the selection for you. (On a paper absentee ballot, fill in the Write-In oval and write CLAYTON CUTERI on the line in pen.)",
   },
   {
     icon: ShieldCheck,
-    title: "Verify your spelling and submit",
+    title: "Review and cast your ballot",
     description:
-      "Double-check the spelling before casting your ballot. The name must be recognizable to count. Review your full ballot, then submit.",
+      "On the review screen, check the name is spelled correctly, then tap Print Ballot Card. Take the printed card to the scanner (a separate tabulator machine) and feed it in. Your vote is cast. (Absentee voters: sign the return envelope and mail it back before the deadline posted at scvotes.gov.)",
   },
 ];
 
@@ -77,6 +78,27 @@ export default function WriteInPage() {
           </p>
         </div>
       </div>
+
+      {/* Interactive practice ballot (elevated  -  research shows hands-on first
+          out-performs read-then-do). This is now the primary engagement
+          moment on the page. */}
+      <Section bgColor="navy">
+        <div className="text-center mb-8">
+          <p className="text-gold font-semibold text-sm uppercase tracking-wider mb-3">
+            Practice Ballot
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white font-serif">
+            Rehearse Your Vote
+          </h2>
+          <p className="mt-3 text-white/70 text-base sm:text-lg max-w-xl mx-auto">
+            Practice finding the U.S. House race, selecting Write-In, and
+            entering the name. The default view matches the ExpressVote
+            touchscreen you&rsquo;ll see at the polls. Switch the toggle if
+            you&rsquo;re voting absentee by mail. Nothing is submitted.
+          </p>
+        </div>
+        <BallotSimulator />
+      </Section>
 
       {/* Steps */}
       <Section

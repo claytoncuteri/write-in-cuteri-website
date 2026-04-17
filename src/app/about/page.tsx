@@ -109,11 +109,29 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="lg:col-span-2 flex justify-center">
-            <img
-              src="/images/clayton-podium.jpg"
-              alt="Clayton Cuteri speaking at the Francis Marion Hotel in Charleston"
-              className="w-full max-w-sm rounded-xl shadow-lg"
-            />
+            {/* Tighter crop on the podium shot. aspect-[3/4] + object-cover
+                trims whitespace; object-top keeps Clayton's face in frame
+                instead of centering through his torso; scale-110 zooms in
+                a touch further so the subject fills the card. */}
+            <div className="w-full max-w-sm aspect-square overflow-hidden rounded-xl shadow-lg">
+              <img
+                src="/images/clayton-podium.jpg"
+                alt="Clayton Cuteri speaking at the Francis Marion Hotel in Charleston"
+                className="w-full h-full object-cover"
+                // Source is portrait (~3:4) into a square container, so
+                // object-cover fits width-to-width and object-position X
+                // has no effect (no horizontal overflow to slide). We use
+                // transform: scale + translate instead so the zoom and the
+                // horizontal shift both land. translateX(-12%) pulls the
+                // subject (Clayton, roughly center of source) visibly left
+                // within the crop; translateY(-8%) nudges up so his face
+                // clears the top edge after scaling.
+                style={{
+                  transform: "scale(1.4) translate(-6%, -2%)",
+                  transformOrigin: "center",
+                }}
+              />
+            </div>
           </div>
         </div>
       </Section>

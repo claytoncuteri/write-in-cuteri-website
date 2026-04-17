@@ -3,6 +3,7 @@ import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 import { ExpandableCard } from "@/components/ExpandableCard";
 import { PdfDownloadButton } from "@/components/PdfDownloadButton";
+import { IssueMatcher } from "@/components/IssueMatcher";
 import { policies, partLabels } from "@/data/policies";
 import Link from "next/link";
 import { Printer } from "lucide-react";
@@ -321,6 +322,14 @@ export default function PoliciesPage() {
             </p>
           </ExpandableCard>
         </div>
+      </Section>
+
+      {/* Issue-matcher after the full policy content. Context-matched:
+          voter has now read (or scrolled past) all 13 priorities and the
+          savings math, so the quiz reads as "now measure your own alignment"
+          rather than lead-gen. */}
+      <Section>
+        <IssueMatcher sourcePage="/policies" />
       </Section>
 
       {/* Wallet card */}

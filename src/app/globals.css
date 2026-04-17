@@ -31,3 +31,21 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-serif);
   line-height: 1.2;
 }
+
+/* "Clayton agrees" celebratory pop used by IssueMatcher. Scales in from
+   ~85% with a tiny overshoot-free ease-out so the whole-card green takeover
+   feels like a confirmation stamp, not a modal appearance. */
+@keyframes agreePop {
+  0% {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

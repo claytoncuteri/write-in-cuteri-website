@@ -11,7 +11,6 @@ interface DropdownGroup {
 }
 
 const navGroups: (DropdownGroup | { label: string; href: string })[] = [
-  { label: "Home", href: "/" },
   {
     label: "Issues",
     items: [
@@ -23,6 +22,7 @@ const navGroups: (DropdownGroup | { label: string; href: string })[] = [
     label: "About",
     items: [
       { label: "About Clayton", href: "/about" },
+      { label: "Endorsements", href: "/endorsements" },
       { label: "Media", href: "/press" },
     ],
   },
@@ -30,9 +30,10 @@ const navGroups: (DropdownGroup | { label: string; href: string })[] = [
     label: "Get Involved",
     items: [
       { label: "Volunteer", href: "/get-involved" },
-      { label: "Donate", href: "/donate" },
+      { label: "Events", href: "/events" },
     ],
   },
+  { label: "Write Me In", href: "/write-in" },
 ];
 
 function isDropdown(
@@ -126,6 +127,13 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
 
+  // Auto-close mobile menu whenever the route changes. Covers the logo
+  // link, back-button navigation, and any future links that forget to
+  // wire up an explicit onClick close.
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -160,14 +168,8 @@ export function Header() {
             )}
           </nav>
 
-          {/* Desktop CTAs */}
-          <div className="hidden lg:flex items-center gap-3">
-            <Link
-              href="/write-in"
-              className="px-5 py-2.5 text-sm font-semibold text-white bg-navy rounded-full hover:bg-navy-dark transition-colors"
-            >
-              Write Me In
-            </Link>
+          {/* Desktop CTA */}
+          <div className="hidden lg:flex items-center">
             <Link
               href="/donate"
               className="px-5 py-2.5 text-sm font-semibold text-white bg-red-accent rounded-full hover:bg-red-accent-dark transition-colors"
@@ -233,14 +235,7 @@ export function Header() {
                 </Link>
               )
             )}
-            <div className="pt-3 flex flex-col gap-2">
-              <Link
-                href="/write-in"
-                onClick={() => setMobileOpen(false)}
-                className="block text-center px-5 py-3 text-base font-semibold text-white bg-navy rounded-lg hover:bg-navy-dark transition-colors"
-              >
-                Write Me In
-              </Link>
+            <div className="pt-3">
               <Link
                 href="/donate"
                 onClick={() => setMobileOpen(false)}

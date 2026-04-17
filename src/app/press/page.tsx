@@ -16,7 +16,7 @@ import {
   Users,
   Play,
 } from "lucide-react";
-import { subscribeToConvertKit } from "@/lib/convertkit";
+import { track, identifyByEmail } from "@/lib/analytics";
 
 export default function MediaPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -27,18 +27,31 @@ export default function MediaPage() {
     setSubmitting(true);
     const form = e.currentTarget;
     const data = new FormData(form);
+    const email = String(data.get("email") || "");
     try {
-      await subscribeToConvertKit({
-        email: data.get("email") as string,
-        firstName: data.get("name") as string,
-        tag: "press",
-        fields: {
-          organization: (data.get("organization") as string) || "",
-          inquiry_type: (data.get("inquiryType") as string) || "",
-        },
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          firstName: String(data.get("name") || ""),
+          tag: "press",
+          sourcePage: "/press",
+          fields: {
+            organization: String(data.get("organization") || ""),
+            inquiry_type: String(data.get("inquiryType") || ""),
+          },
+        }),
+      });
+      if (!res.ok) throw new Error(`Signup failed: ${res.status}`);
+      await identifyByEmail(email, { form_type: "press" });
+      track("signup_form_submitted", {
+        form_type: "press",
+        source_page: "/press",
       });
       setSubmitted(true);
     } catch {
+      track("signup_form_error", { form_type: "press" });
       alert("Something went wrong. Please try again.");
     } finally {
       setSubmitting(false);

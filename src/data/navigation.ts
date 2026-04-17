@@ -18,6 +18,8 @@ export const footerNavItems: NavItem[] = [
   { label: "How to Write Me In", href: "/write-in" },
   { label: "About", href: "/about" },
   { label: "Get Involved", href: "/get-involved" },
+  { label: "Events", href: "/events" },
+  { label: "Endorsements", href: "/endorsements" },
   { label: "Donate", href: "/donate" },
   { label: "Media", href: "/press" },
   { label: "Privacy Policy", href: "/privacy" },

@@ -55,7 +55,7 @@ export const policies: Policy[] = [
     plank:
       "Eliminate the profit motive from essential medicine. Free medication for all Americans. Restore natural and traditional healing to medical education. Legalize all plants for medical research.",
     whatItMeans:
-      "Insulin costs $5 to make and sells for $300. The same pill is $80 in America and $8 in Europe. That gap is not market dynamics; it is institutional capture by pharmaceutical companies. Free essential medicine, paid for by ending pharma's grip on Washington and the FDA. Restore the medical knowledge that was deliberately suppressed when the AMA aligned with chemical companies in the early 1900s.",
+      "Insulin costs $5 to make and sells for $300. The same pill is $80 in America and $8 in Europe. That gap is not market dynamics; it is institutional capture by pharmaceutical companies. Free essential medicine, paid for by ending pharma's grip on the Federal Government and the FDA. Restore the medical knowledge that was deliberately suppressed when the AMA aligned with chemical companies in the early 1900s.",
     solvesProblems: [
       { id: "prescriptions", title: "My Retirement Is Being Eaten by Prescription Costs", shortLabel: "Skyrocketing prescription costs" },
       { id: "working-class", title: "I Work Hard and Have Nothing Left", shortLabel: "Working-class wage gap" },

@@ -5,7 +5,8 @@ import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 import { Users, Share2, Mail, FileText, Printer } from "lucide-react";
 import { PdfDownloadButton } from "@/components/PdfDownloadButton";
-import { subscribeToConvertKit } from "@/lib/convertkit";
+import { IssueMatcher } from "@/components/IssueMatcher";
+import { track, identifyByEmail } from "@/lib/analytics";
 
 export default function GetInvolvedPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -17,20 +18,35 @@ export default function GetInvolvedPage() {
 
     const form = e.currentTarget;
     const data = new FormData(form);
+    const email = String(data.get("email") || "");
+    const zip = String(data.get("zipCode") || "");
 
     try {
-      await subscribeToConvertKit({
-        email: data.get("email") as string,
-        firstName: data.get("firstName") as string,
-        lastName: data.get("lastName") as string,
-        tag: "volunteer",
-        fields: {
-          phone: (data.get("phone") as string) || "",
-          zip_code: (data.get("zipCode") as string) || "",
-        },
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          firstName: String(data.get("firstName") || ""),
+          lastName: String(data.get("lastName") || ""),
+          tag: "volunteer",
+          sourcePage: "/get-involved",
+          fields: {
+            phone: String(data.get("phone") || ""),
+            zip_code: zip,
+          },
+        }),
+      });
+      if (!res.ok) throw new Error(`Signup failed: ${res.status}`);
+      await identifyByEmail(email, { form_type: "volunteer", zip_code: zip });
+      track("signup_form_submitted", {
+        form_type: "volunteer",
+        source_page: "/get-involved",
+        has_zip: zip.length > 0,
       });
       setSubmitted(true);
     } catch {
+      track("signup_form_error", { form_type: "volunteer" });
       alert("Something went wrong. Please try again.");
     } finally {
       setSubmitting(false);
@@ -244,6 +260,14 @@ export default function GetInvolvedPage() {
             </PdfDownloadButton>
           </div>
         </div>
+      </Section>
+
+      {/* Issue-matcher for visitors who are interested but not yet ready to
+          commit to the volunteer form. Placed AFTER the volunteer form and
+          materials so high-intent visitors hit the form first; the quiz is
+          the soft landing for anyone who scrolled past it. */}
+      <Section>
+        <IssueMatcher sourcePage="/get-involved" />
       </Section>
 
       {/* Social share */}

@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { DM_Sans, DM_Serif_Display, Caveat } from "next/font/google";
 import "./globals.css";
+import { Suspense } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { PostHogProvider } from "@/components/PostHogProvider";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -144,6 +146,20 @@ const jsonLd = {
   ],
 };
 
+// JSON-LD lives inside <body>, not <head>, per Next.js 16 official guidance
+// (node_modules/next/dist/docs/01-app/02-guides/json-ld.md). Keeping it in
+// <head> breaks hydration in dev because Replit's proxy injects
+// <script src="/__replco/static/devtools/injected.js"> into <head>, which
+// shifts children and makes React's positional match fail. Google reads
+// JSON-LD from anywhere in the document, so body placement is SEO-equivalent.
+//
+// The <link rel="manifest"> was redundant with metadata.manifest; removed.
+//
+// suppressHydrationWarning on <html> + <body> silences the remaining
+// attribute-level mismatches caused by browser extensions (Grammarly,
+// LastPass) that inject data-* attrs into <body> after SSR. It only
+// suppresses one-level mismatches on those elements; it cannot hide bugs
+// in child components.
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -152,20 +168,25 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${dmSans.variable} ${dmSerif.variable} ${caveat.variable}`}
     >
-      <head>
+      <body className="min-h-screen flex flex-col" suppressHydrationWarning>
+        {/* JSON-LD structured data. \u003c replacement prevents XSS via
+            stringified input that contains </script>. */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
         />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="author" href="/humans.txt" />
-      </head>
-      <body className="min-h-screen flex flex-col">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <Suspense fallback={null}>
+          <PostHogProvider>
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </PostHogProvider>
+        </Suspense>
       </body>
     </html>
   );
