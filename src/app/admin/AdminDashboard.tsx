@@ -115,22 +115,39 @@ export function AdminDashboard() {
   const refresh = useCallback(async () => {
     setLoading(true);
     setError(null);
+    // Per-endpoint resilience: a single failing endpoint (e.g. a fresh
+    // deploy where /api/admin/quiz-breakdown is still cold, or an empty
+    // response body that would blow up r.json()) should NOT take down the
+    // whole dashboard. Each fetch is isolated; failures fall back to
+    // null and the page renders whatever did succeed.
+    const safeJson = async <T,>(url: string): Promise<T | null> => {
+      try {
+        const res = await fetch(url, { cache: "no-store" });
+        const text = await res.text();
+        if (!text) return null;
+        return JSON.parse(text) as T;
+      } catch (err) {
+        console.error("[admin] fetch failed", url, err);
+        return null;
+      }
+    };
     try {
+      const listUrl =
+        activeTab === "quiz"
+          ? "/api/admin/list?resource=quiz&limit=500"
+          : `/api/admin/list?tag=${activeTab}&limit=500`;
       const [k, l, b] = await Promise.all([
-        fetch("/api/admin/kpis", { cache: "no-store" }).then((r) => r.json()),
-        fetch(
-          activeTab === "quiz"
-            ? "/api/admin/list?resource=quiz&limit=500"
-            : `/api/admin/list?tag=${activeTab}&limit=500`,
-          { cache: "no-store" },
-        ).then((r) => r.json()),
-        fetch("/api/admin/quiz-breakdown", { cache: "no-store" }).then((r) =>
-          r.json(),
-        ),
+        safeJson<Kpis>("/api/admin/kpis"),
+        safeJson<{ records?: SignupRecord[] }>(listUrl),
+        safeJson<Breakdown>("/api/admin/quiz-breakdown"),
       ]);
-      if (!k.success) throw new Error(k.error || "Failed to load KPIs");
-      setKpis(k);
-      setRecords(l.records ?? []);
+      if (!k) {
+        setError("Failed to load KPIs. Check server logs.");
+      } else if (!k.success) {
+        setError("Failed to load KPIs.");
+      }
+      setKpis(k ?? null);
+      setRecords(l?.records ?? []);
       setBreakdown(b?.success ? b : null);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to load");
