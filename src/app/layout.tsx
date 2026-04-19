@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans, DM_Serif_Display, Caveat } from "next/font/google";
 import "./globals.css";
-import { Suspense } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { PostHogProvider } from "@/components/PostHogProvider";
@@ -180,13 +179,11 @@ export default function RootLayout({
             __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
           }}
         />
-        <Suspense fallback={null}>
-          <PostHogProvider>
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </PostHogProvider>
-        </Suspense>
+        <PostHogProvider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </PostHogProvider>
       </body>
     </html>
   );

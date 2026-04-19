@@ -4,7 +4,7 @@
 // automatically via App Router navigation events, and enables session replay
 // on every route except /donate (where we honour a tighter privacy posture).
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import posthog from "posthog-js";
 import { PostHogProvider as PHProvider } from "posthog-js/react";
@@ -96,9 +96,17 @@ function PageViews() {
 export function PostHogProvider({ children }: { children: React.ReactNode }) {
   initIfNeeded();
   // PHProvider wires the React context so hook-based consumers work too.
+  // Suspense is scoped to JUST <PageViews/> because that is the only
+  // component that calls useSearchParams(), which suspends during SSR in
+  // Next 15+. Wrapping the broader tree in Suspense (as the layout used
+  // to do) caused React to emit the null fallback into static HTML for
+  // every page -  crawlers/curl saw an empty <body> with only RSC markers.
+  // Scoping the boundary keeps page content synchronous and in the HTML.
   return (
     <PHProvider client={posthog}>
-      <PageViews />
+      <Suspense fallback={null}>
+        <PageViews />
+      </Suspense>
       {children}
     </PHProvider>
   );
