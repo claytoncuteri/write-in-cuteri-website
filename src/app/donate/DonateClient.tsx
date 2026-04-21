@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 import Image from "next/image";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
@@ -10,7 +10,6 @@ import {
   DollarSign,
   Share2,
   MessageSquare,
-  ArrowRight,
 } from "lucide-react";
 import { track, identifyByEmail } from "@/lib/analytics";
 import { DONATIONS_LIVE } from "./flags";
@@ -22,7 +21,7 @@ const ANEDOT_URL = "https://secure.anedot.com/cuteri-for-americans/donate";
 // Research-backed ladder: ActBlue Q1 2024 median political gift is $10-$20,
 // average $42.73. $50 is pre-selected (adjusted up from research default $25)
 // because Clayton's 700K-follower podcast audience sits between political
-// cold traffic and creator/patron economics — warmer than ActBlue baseline.
+// cold traffic and creator/patron economics, warmer than ActBlue baseline.
 // See the /donate plan file for full rationale.
 const PRESET_AMOUNTS = [10, 25, 50, 100, 250] as const;
 const PRESET_DEFAULT = 50;
@@ -43,6 +42,15 @@ export function DonateClient() {
   const [emailSubmitting, setEmailSubmitting] = useState(false);
   const [shareMsg, setShareMsg] = useState<string | null>(null);
   const [customAmount, setCustomAmount] = useState("");
+  // `selectedAmount` tracks which tile is active in the radiogroup. Two
+  // states: one of PRESET_AMOUNTS, or the sentinel "custom" meaning the
+  // donor is typing their own value in the last tile. Default $50 mirrors
+  // the "Most Common" pill and reduces clicks-to-donate to one for donors
+  // who accept the suggested amount.
+  const [selectedAmount, setSelectedAmount] = useState<number | "custom">(
+    PRESET_DEFAULT,
+  );
+  const customInputRef = useRef<HTMLInputElement>(null);
   const showLive = DONATIONS_LIVE;
 
   async function handleEmailSignup(e: FormEvent<HTMLFormElement>) {
@@ -75,25 +83,71 @@ export function DonateClient() {
     }
   }
 
-  function handlePresetClick(amount: number) {
-    track("donate_amount_click", { amount, source_page: "/donate" });
-  }
-
   const customAmountNum = Number(customAmount) || 0;
   const customOverLimit = customAmountNum > FEC_MAX_AMOUNT;
   const customCanSubmit = customAmountNum >= 1 && !customOverLimit;
 
-  function handleCustomSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    if (!customCanSubmit) return;
-    const amount = Math.floor(customAmountNum);
+  // Effective amount the primary submit will send to Anedot. Null when the
+  // donor picked "custom" but hasn't typed a valid value. That state
+  // disables the submit button.
+  const effectiveAmount: number | null =
+    selectedAmount === "custom"
+      ? customCanSubmit
+        ? Math.floor(customAmountNum)
+        : null
+      : selectedAmount;
+  const canDonate = effectiveAmount !== null;
+
+  function handlePresetSelect(amount: number) {
+    setSelectedAmount(amount);
     track("donate_amount_click", {
       amount,
       source_page: "/donate",
+      variant: "preset",
+    });
+  }
+
+  function handleCustomSelect() {
+    setSelectedAmount("custom");
+    track("donate_amount_click", {
+      amount: customAmountNum || 0,
+      source_page: "/donate",
       variant: "custom",
     });
+    // Pull focus into the input so typing is immediately captured on the
+    // tap/click that picked the tile.
+    setTimeout(() => customInputRef.current?.focus(), 0);
+  }
+
+  // Arrow-key navigation across the radio tiles. Order: PRESET_AMOUNTS
+  // then "custom" as the final tile. Wraps.
+  function handleTileKeyDown(
+    e: KeyboardEvent<HTMLButtonElement>,
+    index: number,
+  ) {
+    const total = PRESET_AMOUNTS.length + 1; // +1 for custom
+    let next = index;
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") next = (index + 1) % total;
+    else if (e.key === "ArrowLeft" || e.key === "ArrowUp")
+      next = (index - 1 + total) % total;
+    else return;
+    e.preventDefault();
+    if (next < PRESET_AMOUNTS.length) {
+      handlePresetSelect(PRESET_AMOUNTS[next]);
+    } else {
+      handleCustomSelect();
+    }
+  }
+
+  function handleDonateSubmit() {
+    if (!canDonate || effectiveAmount === null) return;
+    track("donate_submit", {
+      amount: effectiveAmount,
+      source_page: "/donate",
+      variant: selectedAmount === "custom" ? "custom" : "preset",
+    });
     window.open(
-      `${ANEDOT_URL}?amount=${amount}`,
+      `${ANEDOT_URL}?amount=${effectiveAmount}`,
       "_blank",
       "noopener,noreferrer",
     );
@@ -140,47 +194,40 @@ export function DonateClient() {
               events, and campaign outreach across SC-01.
             </p>
 
-            {/* Primary CTA → Anedot hosted page */}
+            {/* Single-submit donation flow. Research (ActBlue / WinRed /
+                M+R Benchmarks 2025): picking an amount and submitting in
+                one action minimizes clicks from landing to Anedot checkout.
+                Grid tiles are radiogroup-style selectors. The "Other" tile
+                turns into a live text input when selected. The single
+                primary CTA below the grid is the only thing that opens
+                Anedot, so the donor always lands on checkout with an
+                amount pre-filled. */}
             <div className="mt-8">
-              <a
-                href={ANEDOT_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => handlePresetClick(0)}
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 text-white bg-navy hover:bg-navy-dark font-semibold rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-navy text-lg"
-              >
-                <ShieldCheck size={20} />
-                Donate Securely via Anedot
-              </a>
-              <p className="text-xs text-charcoal/60 mt-3">
-                Apple Pay, Google Pay, PayPal, card, and ACH accepted. Secure
-                processing by Anedot.
-              </p>
-            </div>
-
-            {/* Preset amount grid. 6 slots: 5 preset amounts + 1 custom-
-                amount input-as-a-button. Grid is 2 cols on mobile
-                (3 rows × 2) and 3 cols on desktop (2 rows × 3) so the
-                custom input has enough width for the number + arrow. */}
-            <div className="mt-10">
               <p className="text-sm font-semibold text-charcoal mb-4 uppercase tracking-wider">
-                Or pick an amount
+                Pick an amount
               </p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 max-w-xl mx-auto">
-                {PRESET_AMOUNTS.map((amount) => {
+              <div
+                role="radiogroup"
+                aria-label="Donation amount"
+                className="grid grid-cols-2 sm:grid-cols-3 gap-3 max-w-xl mx-auto"
+              >
+                {PRESET_AMOUNTS.map((amount, idx) => {
                   const isDefault = amount === PRESET_DEFAULT;
+                  const isSelected = selectedAmount === amount;
                   return (
-                    <a
+                    <button
                       key={amount}
-                      href={anedotLink(amount)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => handlePresetClick(amount)}
+                      type="button"
+                      role="radio"
+                      aria-checked={isSelected}
+                      tabIndex={isSelected ? 0 : -1}
+                      onClick={() => handlePresetSelect(amount)}
+                      onKeyDown={(e) => handleTileKeyDown(e, idx)}
                       className={
-                        "relative inline-flex h-12 items-center justify-center px-4 font-semibold rounded-lg transition-colors text-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-navy " +
-                        (isDefault
-                          ? "bg-navy text-white hover:bg-navy-dark"
-                          : "border-2 border-navy text-navy hover:bg-navy hover:text-white")
+                        "relative inline-flex h-12 items-center justify-center px-4 font-semibold rounded-lg transition-colors text-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-navy border-2 " +
+                        (isSelected
+                          ? "bg-navy text-white border-navy"
+                          : "bg-white text-navy border-navy hover:bg-navy/5")
                       }
                     >
                       ${amount}
@@ -189,79 +236,97 @@ export function DonateClient() {
                           Most Common
                         </span>
                       )}
-                    </a>
+                    </button>
                   );
                 })}
 
-                {/* Custom amount input styled to match the preset buttons.
-                    The wrapping form lets "Enter" inside the input submit,
-                    identical behavior to clicking the arrow. */}
-                <form
-                  onSubmit={handleCustomSubmit}
-                  className={
-                    "relative flex h-12 items-center rounded-lg border-2 overflow-hidden focus-within:ring-2 focus-within:ring-offset-2 " +
-                    (customOverLimit
-                      ? "border-red-accent text-red-accent focus-within:ring-red-accent"
-                      : "border-navy text-navy focus-within:ring-navy")
-                  }
-                  aria-label="Donate a custom amount"
-                >
-                  <span
-                    className="pl-3 pr-1 text-lg font-semibold select-none"
-                    aria-hidden
-                  >
-                    $
-                  </span>
-                  {/* type="text" (not "number") is intentional: `type="number"`
-                      changes the value when the user scrolls the mouse wheel
-                      over a focused input, which accidentally mutates
-                      donation amounts for any donor who wheel-scrolls the
-                      page while the field has focus. It also renders spin
-                      buttons we do not want. Stripe, GitHub, and most
-                      modern donation forms use `type="text"` +
-                      `inputMode="numeric"` so mobile still gets a numeric
-                      keyboard and desktop gets a clean, wheel-proof field.
-                      Non-digit input is stripped in onChange; we allow up
-                      to 4 digits so donors can see their own over-limit
-                      attempt and read the inline error instead of having
-                      the field silently swallow keystrokes. */}
-                  <input
-                    type="text"
-                    inputMode="numeric"
-                    pattern="[0-9]*"
-                    maxLength={4}
-                    value={customAmount}
-                    onChange={(e) =>
-                      setCustomAmount(e.target.value.replace(/[^0-9]/g, ""))
-                    }
-                    placeholder="Other"
-                    aria-label="Custom donation amount in US dollars"
-                    aria-invalid={customOverLimit || undefined}
-                    aria-describedby={
-                      customOverLimit ? "custom-amount-error" : undefined
-                    }
-                    className="w-full min-w-0 bg-transparent text-lg font-semibold placeholder:text-navy/50 focus:outline-none"
-                  />
-                  <button
-                    type="submit"
-                    disabled={!customCanSubmit}
-                    aria-label="Donate custom amount"
-                    className={
-                      "h-full px-3 text-white transition-colors flex items-center disabled:opacity-40 disabled:cursor-not-allowed " +
-                      (customOverLimit
-                        ? "bg-red-accent hover:bg-red-accent-dark"
-                        : "bg-navy hover:bg-navy-dark")
-                    }
-                  >
-                    <ArrowRight size={18} />
-                  </button>
-                </form>
+                {/* "Other" tile. Acts as a radio option when unselected; when
+                    selected, reveals the inline text input. Clicking
+                    anywhere inside the tile while unselected picks it and
+                    focuses the input. */}
+                {(() => {
+                  const isSelected = selectedAmount === "custom";
+                  const customIdx = PRESET_AMOUNTS.length;
+                  return (
+                    <div
+                      role="radio"
+                      aria-checked={isSelected}
+                      aria-label="Custom donation amount"
+                      aria-invalid={
+                        isSelected && customOverLimit ? true : undefined
+                      }
+                      aria-describedby={
+                        isSelected && customOverLimit
+                          ? "custom-amount-error"
+                          : undefined
+                      }
+                      tabIndex={isSelected ? 0 : -1}
+                      onClick={() => {
+                        if (!isSelected) handleCustomSelect();
+                      }}
+                      onKeyDown={(e) => {
+                        // Only handle arrow keys when the tile itself has
+                        // focus (not the nested input), otherwise typing
+                        // digits in the input would fight with navigation.
+                        if (e.target === e.currentTarget) {
+                          handleTileKeyDown(
+                            e as unknown as KeyboardEvent<HTMLButtonElement>,
+                            customIdx,
+                          );
+                        }
+                      }}
+                      className={
+                        "relative flex h-12 items-center rounded-lg border-2 overflow-hidden cursor-text focus:outline-none focus:ring-2 focus:ring-offset-2 " +
+                        (isSelected
+                          ? customOverLimit
+                            ? "border-red-accent text-red-accent focus:ring-red-accent"
+                            : "border-navy text-navy bg-navy/5 focus:ring-navy"
+                          : "border-navy text-navy bg-white hover:bg-navy/5 focus:ring-navy")
+                      }
+                    >
+                      {isSelected ? (
+                        <>
+                          <span
+                            className="pl-3 pr-1 text-lg font-semibold select-none"
+                            aria-hidden
+                          >
+                            $
+                          </span>
+                          {/* type="text" + inputMode="numeric": see rationale
+                              in prior iteration: avoids wheel-mutating
+                              the amount and hides spin buttons. */}
+                          <input
+                            ref={customInputRef}
+                            type="text"
+                            inputMode="numeric"
+                            pattern="[0-9]*"
+                            maxLength={4}
+                            value={customAmount}
+                            onChange={(e) =>
+                              setCustomAmount(
+                                e.target.value.replace(/[^0-9]/g, ""),
+                              )
+                            }
+                            placeholder="Amount"
+                            aria-label="Custom donation amount in US dollars"
+                            className="w-full min-w-0 bg-transparent text-lg font-semibold placeholder:text-navy/50 focus:outline-none pr-3"
+                          />
+                        </>
+                      ) : (
+                        <span className="w-full text-center text-lg font-semibold">
+                          Other
+                        </span>
+                      )}
+                    </div>
+                  );
+                })()}
               </div>
 
               {/* Inline validation error for the custom-amount input. Shown
-                  only when the donor has typed over the FEC per-election
-                  limit. Live-region so screen readers announce it. */}
-              {customOverLimit && (
+                  only when the custom tile is active and the donor has typed
+                  over the FEC per-election limit. Live-region so screen
+                  readers announce it. */}
+              {selectedAmount === "custom" && customOverLimit && (
                 <p
                   id="custom-amount-error"
                   role="alert"
@@ -273,14 +338,43 @@ export function DonateClient() {
                 </p>
               )}
 
-              {/* Chip in $5 — lowest-commitment entry point, below grid
-                  as a text link so it doesn't anchor expectations down. */}
+              {/* Primary submit. Only entry point to Anedot from the amount
+                  grid, so the donor always lands on checkout with a
+                  preselected amount. */}
+              <div className="mt-6">
+                <button
+                  type="button"
+                  onClick={handleDonateSubmit}
+                  disabled={!canDonate}
+                  className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 text-white bg-navy hover:bg-navy-dark font-semibold rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-navy text-lg disabled:opacity-40 disabled:cursor-not-allowed"
+                >
+                  <ShieldCheck size={20} />
+                  {canDonate && effectiveAmount !== null
+                    ? `Donate $${effectiveAmount} Securely via Anedot`
+                    : "Donate Securely via Anedot"}
+                </button>
+                <p className="text-xs text-charcoal/60 mt-3">
+                  Apple Pay, Google Pay, PayPal, card, and ACH accepted.
+                  Secure processing by Anedot.
+                </p>
+              </div>
+
+              {/* Chip in $5: lowest-commitment entry point, below the
+                  submit as a text link so it does not anchor the ask
+                  downward. Still opens Anedot directly, since it acts as
+                  its own "amount selected + submitted" shortcut. */}
               <div className="mt-5 text-center text-sm">
                 <a
                   href={anedotLink(CHIP_IN_AMOUNT)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => handlePresetClick(CHIP_IN_AMOUNT)}
+                  onClick={() =>
+                    track("donate_submit", {
+                      amount: CHIP_IN_AMOUNT,
+                      source_page: "/donate",
+                      variant: "chip_in",
+                    })
+                  }
                   className="text-navy hover:text-navy-dark underline underline-offset-4 font-medium"
                 >
                   Or chip in ${CHIP_IN_AMOUNT}
