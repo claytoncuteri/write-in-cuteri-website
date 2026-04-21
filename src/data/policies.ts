@@ -2,7 +2,7 @@ export interface SubSolution {
   title: string;
   plainEnglish: string;
   analogy: string;
-  charlestonReality: string;
+  districtReality: string;
   framing: string;
 }
 
@@ -167,7 +167,7 @@ export const policies: Policy[] = [
     solvesProblems: [
       { id: "both-parties", title: "Both Parties Have Failed Us", shortLabel: "Two-party failure" },
       { id: "insurance", title: "Insurance is Eating Us Alive", shortLabel: "Coastal insurance crisis" },
-      { id: "wars", title: "Stop Sending Our Kids Overseas", shortLabel: "Endless overseas wars" },
+      { id: "wars", title: "Stop Sending Our Young Adults to War", shortLabel: "Sent to war" },
     ],
     netBenefit: "$500+ billion/year",
     mathBreakdown: [
@@ -188,7 +188,7 @@ export const policies: Policy[] = [
     whatItMeans:
       "America has the strongest military on earth. We use it for defense, not for empire. Every offensive military action requires a Congressional vote, and every member who votes yes must register their own children first. Defense contractors no longer get to write the policies that fund them.",
     solvesProblems: [
-      { id: "wars", title: "Stop Sending Our Kids Overseas", shortLabel: "Endless overseas wars" },
+      { id: "wars", title: "Stop Sending Our Young Adults to War", shortLabel: "Sent to war" },
       { id: "insurance", title: "Insurance is Eating Us Alive", shortLabel: "Coastal insurance crisis" },
       { id: "both-parties", title: "Both Parties Have Failed Us", shortLabel: "Two-party failure" },
     ],
@@ -257,7 +257,7 @@ export const policies: Policy[] = [
     whatItMeans:
       "The people who run toward danger so the rest of us do not have to deserve to be paid like it matters. Quadruple training, mandatory mental health support, real adrenaline management techniques. Restore public honor for first responders and veterans alike.",
     solvesProblems: [
-      { id: "wars", title: "Stop Sending Our Kids Overseas", shortLabel: "Endless overseas wars" },
+      { id: "wars", title: "Stop Sending Our Young Adults to War", shortLabel: "Sent to war" },
       { id: "both-parties", title: "Both Parties Have Failed Us", shortLabel: "Two-party failure" },
     ],
     netBenefit: "$5+ billion/year",
@@ -315,7 +315,7 @@ export const policies: Policy[] = [
           "Insurance for insurance companies, but only for the absolute worst-case disasters. The government becomes the safety net beneath the safety net.",
         analogy:
           "In 1957, Congress passed the Price-Anderson Act, making the federal government the insurer of last resort for nuclear catastrophes. This made nuclear power viable in America. Without it, no carrier would touch a nuclear plant.",
-        charlestonReality:
+        districtReality:
           "Right now, insurance carriers are pulling out of South Carolina because if a Category 5 hurricane levels the coast, they could go bankrupt paying claims. With a federal backstop, carriers know that if losses exceed a certain threshold, the government covers everything above that. The carrier's exposure is capped. They become willing to compete for your business again.",
         framing:
           "This is not a government takeover of insurance. It is the government playing the role only the government can play: backstopping risks too big for any private actor to bear, so the private market can function for everything else.",
@@ -326,7 +326,7 @@ export const policies: Policy[] = [
           "Let insurance carriers licensed in any state sell policies in every state, without 50 different sets of paperwork.",
         analogy:
           "Until 1994, an Ohio bank could not easily open branches in California. Then the Riegle-Neal Act allowed interstate banking, and competition increased. Consumer prices dropped. Insurance needs the same fix.",
-        charlestonReality:
+        districtReality:
           "Right now, only a handful of carriers will write home insurance in coastal SC. They charge whatever they want because there is no real competition. If dozens more carriers could easily enter the SC market, they would compete for your business and premiums would drop.",
         framing:
           "This is a deregulation move. Removing artificial barriers to competition lets the free market actually work.",
@@ -337,7 +337,7 @@ export const policies: Policy[] = [
           "A tax-free savings account specifically for hurricane preparation, mitigation upgrades, and insurance deductibles. Works like an HSA, but for storms.",
         analogy:
           "Health Savings Accounts (HSAs) let you put money in tax-free, grow it tax-free, and spend it tax-free on medical expenses. Millions of Americans use them. They work. This is the same concept for disaster preparation.",
-        charlestonReality:
+        districtReality:
           "Most Charleston families do not have $10,000 sitting around for a hurricane deductible or to install impact windows. With a Disaster Resilience Account, you put $5,000 per year in pre-tax, and that money grows. When a storm hits, you have your deductible covered.",
         framing:
           "This puts disaster preparation in the hands of families, not bureaucrats. You decide when and how to use the money. The government just stops taxing you for being responsible.",
@@ -348,7 +348,7 @@ export const policies: Policy[] = [
           "Update FEMA's flood maps using current data instead of 10- to 20-year-old estimates, so flood insurance prices match actual risk.",
         analogy:
           "Imagine if your car insurance rate was based on the value of your car in 2010. You would either be paying way too much or way too little. Insurance only works when the data behind it is current.",
-        charlestonReality:
+        districtReality:
           "Many SC neighborhoods are classified on flood maps drawn before sea levels rose, before development paved over wetlands. Some homes in West Ashley are classified 'low risk' but flood three times a year. Updated maps mean accurate pricing for everyone.",
         framing:
           "Real data, public access, accurate pricing. No government should be running an insurance program on stale data.",
@@ -359,7 +359,7 @@ export const policies: Policy[] = [
           "Government pays homeowners directly to make their houses more storm-resistant: elevating foundations, installing impact-resistant windows, hardening roofs.",
         analogy:
           "After Hurricane Andrew (1992), Florida funded 'wind mitigation' upgrades. When later hurricanes hit, those upgraded homes survived dramatically better. Insurance companies started offering discounts. The investment paid for itself many times over.",
-        charlestonReality:
+        districtReality:
           "Elevating a home costs $30,000 to $80,000. Most families cannot afford this alone. With federal mitigation grants, a family pays maybe 20% and the government pays 80%. Premiums drop because risk drops. Preventing $200,000 in damage with $40,000 in mitigation is just good math.",
         framing:
           "This is not a giveaway. It is an investment that returns 5x to 10x in averted disaster claims. The current model, letting homes get destroyed and then paying to rebuild, is the most expensive option.",
@@ -370,7 +370,7 @@ export const policies: Policy[] = [
           "Since 1951, the federal government has secretly classified over 6,500 patents. Many cover hurricane-resistant building materials, modular construction methods, and storm-hardened glass.",
         analogy:
           "Imagine Henry Ford invented the assembly line in 1913, and the government locked it away forever. That is what is happening to thousands of American inventors on technologies that could change lives.",
-        charlestonReality:
+        districtReality:
           "Some of those classified patents are for building materials that survive Category 5 winds. We literally have technology in government vaults that could make Charleston homes nearly hurricane-proof. We just cannot use it. Repealing the Act unlocks that tech.",
         framing:
           "This is already in the Energy Independence priority. Lowcountry Resilience makes the storm-resistance application explicit.",
@@ -381,7 +381,7 @@ export const policies: Policy[] = [
           "Reinsurance is the insurance that insurance companies buy for themselves. Most of it currently happens in Bermuda and London. Bring those markets back to the US.",
         analogy:
           "For decades, American factories moved overseas, and we lost critical capacity at home. The same thing happened with reinsurance: the global market consolidated offshore, and now American disaster premiums fund foreign economies.",
-        charlestonReality:
+        districtReality:
           "When you pay your homeowner's insurance, a chunk of that premium gets paid to a reinsurer to back up the policy. Most of those reinsurers are based in Bermuda or London. Your hurricane premium is partly funding offshore economies. Bringing reinsurance home means American money stays accountable to American regulators.",
         framing:
           "American risk, American money, American homes. Stop sending Charleston money to people who do not care about Charleston.",

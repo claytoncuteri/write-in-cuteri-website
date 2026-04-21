@@ -124,7 +124,7 @@ const jsonLd = {
       name: "Clayton A. Cuteri",
       jobTitle: "Write-In Candidate for U.S. House of Representatives, SC-01",
       description:
-        "Write-in candidate for U.S. Congress, South Carolina District 1. Secretary General of the American Congress Party. Author of America Reimagined.",
+        "Write-in candidate for U.S. Congress, South Carolina District 1. Secretary General of the American Congress Party. Author of the forthcoming book America Reimagined.",
       image: "https://writeincuteri.com/images/Clayton_Headshot.jpg",
       url: "https://writeincuteri.com/about/",
       affiliation: {

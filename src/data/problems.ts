@@ -48,7 +48,7 @@ export const problems: Problem[] = [
   {
     id: "wars",
     number: 3,
-    title: "Stop Sending Our Kids Overseas",
+    title: "Stop Sending Our Young Adults to War",
     pain: "Joint Base Charleston deploys constantly. Charleston, Berkeley, Beaufort, and Colleton families have lost children to wars they did not ask for and cannot justify. Military spouses raise kids alone for years at a stretch.",
     cause: "Defense contractors profit from endless deployment. The politicians who vote for war do not have skin in the game; their kids do not enlist. Both parties take turns starting wars; the working class fights them.",
     planks: [

@@ -167,10 +167,10 @@ export default function PoliciesPage() {
                                 </div>
                                 <div>
                                   <h5 className="text-xs font-bold uppercase tracking-wider text-navy/70 mb-1">
-                                    What It Means for Charleston
+                                    What It Means for SC-01
                                   </h5>
                                   <p className="text-charcoal/80 text-sm">
-                                    {sub.charlestonReality}
+                                    {sub.districtReality}
                                   </p>
                                 </div>
                                 <div className="bg-cream rounded-md p-3">
@@ -216,8 +216,9 @@ export default function PoliciesPage() {
                           </ul>
                         )}
                         <p className="text-xs text-charcoal/50 mt-4">
-                          Full breakdown in &quot;America Reimagined&quot; by
-                          Clayton Cuteri.
+                          Expanded analysis coming in &quot;America
+                          Reimagined,&quot; Clayton&apos;s forthcoming political
+                          manifesto.
                         </p>
                       </ExpandableCard>
                     )}
