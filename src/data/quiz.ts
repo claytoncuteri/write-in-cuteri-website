@@ -98,7 +98,7 @@ export const CORE_QUESTIONS: QuizQuestion[] = [
     aligned: "yes",
     policyRef: "end-forever-wars",
     rationale:
-      "Every dollar sent to a foreign war is a dollar not spent on Lowcountry insurance, veteran care, or first-responder pay.",
+      "Every young adult sent to a foreign war, and every dollar that funds it, is a life and a dollar not invested in Lowcountry insurance, veteran care, or first-responder pay.",
   },
   {
     id: "q7",

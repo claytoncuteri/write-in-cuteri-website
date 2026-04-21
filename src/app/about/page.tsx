@@ -102,11 +102,12 @@ export default function AboutPage() {
         <div className="grid lg:grid-cols-5 gap-10 items-start">
           <div className="lg:col-span-3 space-y-4">
             <p className="text-charcoal/80 text-lg leading-relaxed">
-              Before running for Congress, Clayton built a career as a software
-              engineer in artificial intelligence, rising to Vice President of
-              Engineering. He then left to start his own companies and today
-              operates multiple businesses across media, technology, and
-              consumer brands.
+              Before running for Congress, Clayton built a career as a
+              software engineer, rising to Vice President of Engineering &amp;
+              AI at Amara Social, a social media company that builds on top of
+              AI. He then left to start his own companies and today operates
+              multiple businesses across media, technology, and consumer
+              brands.
             </p>
             <p className="text-charcoal/80 text-lg leading-relaxed">
               Five years ago he launched the podcast &quot;Traveling to
@@ -116,13 +117,12 @@ export default function AboutPage() {
               audience is now the foundation of this campaign.
             </p>
             <p className="text-charcoal/80 text-lg leading-relaxed">
-              Clayton&apos;s engineering career has included government-
-              contracting work with the U.S. Navy on military drones and on
-              communications, software, and networking systems. He is not a
-              veteran and has not deployed. His lens on the defense community
-              is the engineer&apos;s lens, and it is one of the reasons
-              SC-01&apos;s military economy (Joint Base Charleston, MCAS
-              Beaufort, and Parris Island) is a priority for this campaign.
+              Clayton&apos;s engineering career has also included
+              government-contracting work with the U.S. Navy on military
+              drones and on communications, software, and networking systems.
+              That work is one of the reasons SC-01&apos;s military economy
+              (Joint Base Charleston, MCAS Beaufort, and Parris Island) is a
+              priority for this campaign.
             </p>
             <p className="text-charcoal/80 text-lg leading-relaxed">
               He is running without corporate PAC money and without needing
@@ -141,8 +141,7 @@ export default function AboutPage() {
               />
             </div>
             <p className="mt-3 text-xs text-charcoal/60 max-w-sm text-center">
-              Aboard USS Yorktown (CV-10) at Patriots Point Naval &amp;
-              Maritime Museum, Mount Pleasant.
+              Aboard USS Yorktown (CV-10).
             </p>
           </div>
         </div>
