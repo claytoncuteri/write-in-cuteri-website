@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Image from "next/image";
 import { Section } from "@/components/Section";
 import { Award, Send } from "lucide-react";
 import { track, identifyByEmail } from "@/lib/analytics";
@@ -91,9 +92,12 @@ export default function EndorsementsPage() {
               >
                 <div className="flex items-center gap-3 mb-4">
                   {endorsement.photo ? (
-                    <img
+                    <Image
                       src={endorsement.photo}
-                      alt={endorsement.name}
+                      alt={`${endorsement.name}, endorsing Clayton Cuteri for US House SC-01`}
+                      width={48}
+                      height={48}
+                      sizes="48px"
                       className="w-12 h-12 rounded-full object-cover"
                     />
                   ) : (
