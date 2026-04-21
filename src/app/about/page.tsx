@@ -281,7 +281,7 @@ export default function AboutPage() {
             <CTAButton
               variant="secondary"
               href="/get-involved"
-              className="border-white text-white hover:bg-white hover:text-navy"
+              className="!border-white !text-white hover:!bg-white hover:!text-navy"
             >
               Get Involved
             </CTAButton>

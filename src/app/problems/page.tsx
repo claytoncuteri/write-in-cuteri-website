@@ -127,7 +127,7 @@ export default function ProblemsPage() {
           <CTAButton
             variant="secondary"
             href="/write-in"
-            className="border-white text-white hover:bg-white hover:text-navy"
+            className="!border-white !text-white hover:!bg-white hover:!text-navy"
           >
             Learn How to Write Me In
           </CTAButton>

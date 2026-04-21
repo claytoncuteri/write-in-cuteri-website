@@ -370,7 +370,7 @@ export default function PoliciesPage() {
             <CTAButton
               variant="secondary"
               href="/get-involved"
-              className="border-white text-white hover:bg-white hover:text-navy"
+              className="!border-white !text-white hover:!bg-white hover:!text-navy"
             >
               Spread the Word
             </CTAButton>

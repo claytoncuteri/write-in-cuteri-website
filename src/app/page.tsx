@@ -36,7 +36,7 @@ export default function HomePage() {
                 <CTAButton
                   variant="secondary"
                   href="#quiz"
-                  className="border-white text-white hover:bg-white hover:text-navy"
+                  className="!border-white !text-white hover:!bg-white hover:!text-navy"
                 >
                   Take the Quiz: Where Do We Agree?
                 </CTAButton>
