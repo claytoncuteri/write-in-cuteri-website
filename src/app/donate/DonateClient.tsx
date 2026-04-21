@@ -79,14 +79,14 @@ export function DonateClient() {
     track("donate_amount_click", { amount, source_page: "/donate" });
   }
 
+  const customAmountNum = Number(customAmount) || 0;
+  const customOverLimit = customAmountNum > FEC_MAX_AMOUNT;
+  const customCanSubmit = customAmountNum >= 1 && !customOverLimit;
+
   function handleCustomSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // Floor to integer dollars: Anedot's ?amount= param accepts dollars,
-    // and donors rarely mean to give $37.42. Rounding down avoids an
-    // unexpected upsell feel.
-    const raw = Number(customAmount);
-    if (!Number.isFinite(raw) || raw < 1) return;
-    const amount = Math.min(Math.floor(raw), FEC_MAX_AMOUNT);
+    if (!customCanSubmit) return;
+    const amount = Math.floor(customAmountNum);
     track("donate_amount_click", {
       amount,
       source_page: "/donate",
@@ -198,7 +198,12 @@ export function DonateClient() {
                     identical behavior to clicking the arrow. */}
                 <form
                   onSubmit={handleCustomSubmit}
-                  className="relative flex h-12 items-center rounded-lg border-2 border-navy text-navy overflow-hidden focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-navy"
+                  className={
+                    "relative flex h-12 items-center rounded-lg border-2 overflow-hidden focus-within:ring-2 focus-within:ring-offset-2 " +
+                    (customOverLimit
+                      ? "border-red-accent text-red-accent focus-within:ring-red-accent"
+                      : "border-navy text-navy focus-within:ring-navy")
+                  }
                   aria-label="Donate a custom amount"
                 >
                   <span
@@ -216,9 +221,10 @@ export function DonateClient() {
                       modern donation forms use `type="text"` +
                       `inputMode="numeric"` so mobile still gets a numeric
                       keyboard and desktop gets a clean, wheel-proof field.
-                      Non-digit input is stripped in onChange, and the
-                      final amount is clamped to the FEC cap in the submit
-                      handler. */}
+                      Non-digit input is stripped in onChange; we allow up
+                      to 4 digits so donors can see their own over-limit
+                      attempt and read the inline error instead of having
+                      the field silently swallow keystrokes. */}
                   <input
                     type="text"
                     inputMode="numeric"
@@ -230,18 +236,42 @@ export function DonateClient() {
                     }
                     placeholder="Other"
                     aria-label="Custom donation amount in US dollars"
+                    aria-invalid={customOverLimit || undefined}
+                    aria-describedby={
+                      customOverLimit ? "custom-amount-error" : undefined
+                    }
                     className="w-full min-w-0 bg-transparent text-lg font-semibold placeholder:text-navy/50 focus:outline-none"
                   />
                   <button
                     type="submit"
-                    disabled={!customAmount || Number(customAmount) < 1}
+                    disabled={!customCanSubmit}
                     aria-label="Donate custom amount"
-                    className="h-full px-3 bg-navy text-white hover:bg-navy-dark disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex items-center"
+                    className={
+                      "h-full px-3 text-white transition-colors flex items-center disabled:opacity-40 disabled:cursor-not-allowed " +
+                      (customOverLimit
+                        ? "bg-red-accent hover:bg-red-accent-dark"
+                        : "bg-navy hover:bg-navy-dark")
+                    }
                   >
                     <ArrowRight size={18} />
                   </button>
                 </form>
               </div>
+
+              {/* Inline validation error for the custom-amount input. Shown
+                  only when the donor has typed over the FEC per-election
+                  limit. Live-region so screen readers announce it. */}
+              {customOverLimit && (
+                <p
+                  id="custom-amount-error"
+                  role="alert"
+                  className="mt-3 text-sm text-red-accent font-medium text-center"
+                >
+                  Maximum contribution is $
+                  {FEC_MAX_AMOUNT.toLocaleString()} per individual per
+                  election (federal limit).
+                </p>
+              )}
 
               {/* Chip in $5 — lowest-commitment entry point, below grid
                   as a text link so it doesn't anchor expectations down. */}
