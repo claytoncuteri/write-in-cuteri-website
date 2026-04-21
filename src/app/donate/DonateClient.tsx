@@ -12,10 +12,7 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { track, identifyByEmail } from "@/lib/analytics";
-
-// Toggle this to switch between "Coming Soon" and active donation view.
-// Set to true when Anedot account is approved and live.
-const DONATIONS_LIVE = false;
+import { DONATIONS_LIVE } from "./flags";
 
 // Anedot hosted donation page. Ends up pre-filling `amount` when linked with
 // `?amount=N`. See help.anedot.com/knowledge/url-parameter.
@@ -35,11 +32,10 @@ function anedotLink(amount?: number): string {
 }
 
 export function DonateClient() {
-  const [previewLive, setPreviewLive] = useState(DONATIONS_LIVE);
   const [emailSubmitted, setEmailSubmitted] = useState(false);
   const [emailSubmitting, setEmailSubmitting] = useState(false);
   const [shareMsg, setShareMsg] = useState<string | null>(null);
-  const showLive = previewLive;
+  const showLive = DONATIONS_LIVE;
 
   async function handleEmailSignup(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -103,28 +99,10 @@ export function DonateClient() {
 
   return (
     <>
-      {/* Admin preview toggle (only visible when DONATIONS_LIVE is false) */}
-      {!DONATIONS_LIVE && (
-        <div className="bg-yellow-50 border-b border-yellow-200 py-3">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-            <p className="text-sm text-yellow-800">
-              <strong>Preview mode:</strong> Toggle to see what the donation
-              page will look like once donations are live.
-            </p>
-            <button
-              onClick={() => setPreviewLive(!previewLive)}
-              className="px-4 py-1.5 text-sm font-semibold rounded-lg border transition-colors bg-white text-yellow-800 border-yellow-300 hover:bg-yellow-100"
-            >
-              {showLive ? "Show Coming Soon" : "Preview Live Donations"}
-            </button>
-          </div>
-        </div>
-      )}
-
       {showLive ? (
         /* ===== LIVE DONATION VIEW ===== */
         <Section>
-          <div className="max-w-2xl mx-auto text-center">
+          <div id="donate-now" className="max-w-2xl mx-auto text-center scroll-mt-24">
             <DollarSign size={48} className="text-navy mx-auto mb-4" />
             <h2 className="text-3xl font-bold text-charcoal font-serif">
               Make a Contribution
@@ -292,7 +270,7 @@ export function DonateClient() {
       ) : (
         /* ===== COMING SOON VIEW ===== */
         <Section>
-          <div className="max-w-2xl mx-auto text-center">
+          <div id="donate-now" className="max-w-2xl mx-auto text-center scroll-mt-24">
             <Clock size={48} className="text-navy mx-auto mb-4" />
             <h2 className="text-3xl font-bold text-charcoal font-serif">
               Donations Coming Soon

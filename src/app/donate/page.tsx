@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Section } from "@/components/Section";
+import { CTAButton } from "@/components/CTAButton";
 import { ShieldCheck } from "lucide-react";
 import { DonateClient } from "./DonateClient";
+import { DONATIONS_LIVE } from "./flags";
 
 export const metadata: Metadata = {
   title: "Donate | Clayton Cuteri for Congress SC-01",
@@ -93,6 +95,18 @@ export default function DonatePage() {
               Americans. Not authorized by any other candidate or
               candidate&apos;s committee.
             </p>
+          </div>
+
+          {/* Ready-to-give CTA. Anchor-link back up so users who finish
+              reading the disclaimer (highest-intent readers since they
+              checked requirements) don't have to scroll hunt for the
+              donate button. The `#donate-now` id lives on whichever
+              section DonateClient is currently rendering (live or
+              coming-soon), so this works with DONATIONS_LIVE on or off. */}
+          <div className="mt-8 text-center">
+            <CTAButton variant="primary" href="#donate-now">
+              {DONATIONS_LIVE ? "Donate Now" : "Get Notified When Donations Open"}
+            </CTAButton>
           </div>
         </div>
       </Section>
