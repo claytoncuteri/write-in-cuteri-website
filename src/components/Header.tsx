@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown } from "lucide-react";
@@ -139,15 +138,16 @@ export function Header() {
     <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
-          {/* Logo */}
+          {/* Logo. Plain <img> (not next/image) because the source is an
+              SVG and we have not enabled dangerouslyAllowSVG in
+              next.config.ts. SVG is lossless at every header size and the
+              file is tiny, so there's nothing for the image optimizer to
+              improve anyway. */}
           <Link href="/" className="flex-shrink-0">
-            <Image
-              src="/images/ACP_logo_with_letters.png"
-              alt="American Congress Party — Cuteri for US House SC-01"
-              width={1080}
-              height={1080}
-              priority
-              className="h-14 sm:h-16 w-auto"
+            <img
+              src="/images/writein-cuteri-wordmark.svg"
+              alt="Write In Cuteri for U.S. House, South Carolina District 1"
+              className="h-10 sm:h-12 w-auto"
             />
           </Link>
 
