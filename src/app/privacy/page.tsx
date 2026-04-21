@@ -64,9 +64,10 @@ export default function PrivacyPage() {
               what helps voters learn how to write Clayton in.
             </li>
             <li>
-              Donation-intent clicks on /donate (which preset amount was
-              clicked, whether the custom-amount input was used), so we can
-              see which amounts drive actual gifts. The payment itself
+              Donation-intent events on /donate (which amount was selected,
+              whether you used a preset tile, the custom-amount tile, the
+              $5 chip-in link, or tapped the main Donate button), so we
+              can see which amounts drive actual gifts. The payment itself
               happens on Anedot, and we never see your card number, bank
               account, or the final amount you choose to give.
             </li>
@@ -197,11 +198,11 @@ export default function PrivacyPage() {
             Donations and text-to-give
           </h2>
           <p className="text-charcoal/80 leading-relaxed mt-3">
-            When you click a preset amount, the custom-amount submit
-            arrow, or the main Donate button on /donate, we record an
-            anonymous click event (preset amount clicked, source page) to
-            our analytics vendor so we can see which amounts are
-            generating gifts. We do not see your payment card, bank
+            When you pick an amount tile, type a custom amount, or click
+            the main Donate button on /donate, we record an anonymous
+            event (which amount was selected, which tile variant, source
+            page) to our analytics vendor so we can see which amounts
+            are generating gifts. We do not see your payment card, bank
             account, or the donation amount you ultimately give. The
             donation itself is completed on Anedot&apos;s secure hosted
             page, and everything entered there is covered by Anedot&apos;s
