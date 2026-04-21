@@ -146,7 +146,7 @@ export function Header() {
           <Link href="/" className="flex-shrink-0">
             <img
               src="/images/writein-cuteri-wordmark.svg"
-              alt="Write In Cuteri for U.S. House, South Carolina District 1"
+              alt="Write In Cuteri for U.S. House of Representatives, South Carolina District 1"
               className="h-10 sm:h-12 w-auto"
             />
           </Link>
