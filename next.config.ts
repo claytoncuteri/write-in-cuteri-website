@@ -1,7 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  images: { unoptimized: true },
+  images: {
+    formats: ["image/avif", "image/webp"],
+    // Next 16 requires explicit quality allowlist. 75 is the default; 85 is
+    // used for photos of Clayton where crispness matters for trust.
+    qualities: [75, 85],
+  },
   trailingSlash: true,
   allowedDevOrigins: [
     "*.replit.dev",
