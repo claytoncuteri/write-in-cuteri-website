@@ -29,7 +29,7 @@ export function BallotSimulator() {
         <div
           role="tablist"
           aria-label="Ballot practice mode"
-          className="bg-white/10 border border-white/20 rounded-lg p-1 flex text-sm"
+          className="bg-navy/5 border border-navy/20 rounded-lg p-1 flex text-sm"
         >
           <ModeTab
             active={mode === "bmd"}
@@ -44,7 +44,7 @@ export function BallotSimulator() {
             sublabel="Paper ballot"
           />
         </div>
-        <p className="text-center text-white/60 text-xs mt-2">
+        <p className="text-center text-charcoal/60 text-xs mt-2">
           Not sure which one you&rsquo;ll use? Most SC-01 voters vote in person -
           start with that.
         </p>
@@ -74,14 +74,14 @@ function ModeTab({
       onClick={onClick}
       className={`flex-1 px-3 sm:px-4 py-2.5 rounded-md font-semibold transition-colors min-h-[48px] ${
         active
-          ? "bg-white text-navy shadow"
-          : "text-white/80 hover:text-white hover:bg-white/5"
+          ? "bg-navy text-white shadow"
+          : "text-navy/80 hover:text-navy hover:bg-navy/10"
       }`}
     >
       <span className="block text-sm sm:text-base">{label}</span>
       <span
         className={`block text-[10px] sm:text-xs font-normal ${
-          active ? "text-navy/70" : "text-white/60"
+          active ? "text-white/80" : "text-navy/60"
         }`}
       >
         {sublabel}
