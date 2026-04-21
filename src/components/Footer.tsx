@@ -91,12 +91,12 @@ export function Footer() {
         {/* FEC Disclaimer */}
         <div className="mt-12 pt-8 border-t border-white/10">
           <p className="text-xs text-white/50 leading-relaxed max-w-3xl">
-            Paid for by Cuteri for Americans. Not authorized by any other
-            candidate or candidate&apos;s committee. Contributions to Cuteri for
-            Americans are not tax deductible. Federal law requires us to use our
-            best efforts to collect and report the name, mailing address,
-            occupation, and employer of individuals whose contributions exceed
-            $200 in an election cycle.
+            Paid for by Cuteri for Americans (FEC ID C00947259). Not
+            authorized by any other candidate or candidate&apos;s committee.
+            Contributions to Cuteri for Americans are not tax deductible.
+            Federal law requires us to use our best efforts to collect and
+            report the name, mailing address, occupation, and employer of
+            individuals whose contributions exceed $200 in an election cycle.
           </p>
           <p className="text-xs text-white/40 mt-4">
             &copy; {new Date().getFullYear()} Cuteri for Americans. All rights

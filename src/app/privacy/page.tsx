@@ -306,7 +306,7 @@ export default function PrivacyPage() {
             >
               info@writeincuteri.com
             </a>
-            . Paid for by Cuteri for Americans.
+            . Paid for by Cuteri for Americans (FEC ID C00947259).
           </p>
         </div>
       </Section>
