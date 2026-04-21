@@ -141,7 +141,7 @@ export function PaperBallot() {
             General Election - November 3, 2026
           </p>
           <p className="text-xs text-gray-500 font-mono">
-            Congressional District 1 - State of South Carolina
+            U.S. House of Representatives, District 1 - State of South Carolina
           </p>
         </div>
 
@@ -174,11 +174,11 @@ export function PaperBallot() {
                 : ""
             }`}
             role="group"
-            aria-label="U.S. House of Representatives District 1 - your race"
+            aria-label="U.S. House of Representatives, District 1 - your race"
           >
             <div className="flex items-baseline justify-between mb-2">
               <h4 className="text-sm font-bold uppercase tracking-wider text-navy font-serif">
-                United States House of Representatives, District 1
+                U.S. House of Representatives, District 1
               </h4>
               <span className="text-[10px] text-navy/70 uppercase tracking-wider font-semibold">
                 Vote for One
@@ -299,7 +299,7 @@ function ProgressiveHint({
   nudge: string | null;
 }) {
   const steps: { key: Stage; label: string }[] = [
-    { key: "find", label: "Find U.S. House, District 1" },
+    { key: "find", label: "Find U.S. House of Representatives, District 1" },
     { key: "oval", label: "Fill in the Write-in oval" },
     { key: "write", label: "Write Clayton Cuteri" },
     { key: "ready", label: "Cast your practice vote" },

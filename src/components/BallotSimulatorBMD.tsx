@@ -82,7 +82,7 @@ export function BMDSimulator() {
     );
     track("ballot_sim_decoy_click", {
       mode: "bmd",
-      race: "U.S. House District 1",
+      race: "U.S. House of Representatives, District 1",
       choice: name,
       stage,
     });
@@ -264,10 +264,10 @@ function ContestScreen({
     <>
       <div className="px-6 py-5 border-b border-gray-200">
         <p className="text-[11px] text-gray-500 uppercase tracking-wider font-semibold">
-          United States House of Representatives
+          Federal Race
         </p>
         <h3 className="text-lg sm:text-xl font-bold text-gray-900 font-serif mt-0.5">
-          Congressional District 1
+          U.S. House of Representatives, District 1
         </h3>
         <p className="text-xs text-gray-600 mt-1">(Vote for One)</p>
       </div>
@@ -412,7 +412,7 @@ function KeyboardScreen({
     <>
       <div className="px-6 py-4 border-b border-gray-200 bg-gray-50">
         <p className="text-[11px] text-gray-500 uppercase tracking-wider font-semibold">
-          Write-in for U.S. House, District 1
+          Write-in for U.S. House of Representatives, District 1
         </p>
         <p className="text-xs text-gray-700 mt-1">
           Type the candidate&rsquo;s name, then tap Accept.

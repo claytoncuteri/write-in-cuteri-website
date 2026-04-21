@@ -49,9 +49,9 @@ const steps = [
   },
   {
     icon: PenTool,
-    title: "Find U.S. House, District 1 and tap Write-In",
+    title: "Find U.S. House of Representatives, District 1 and tap Write-In",
     description:
-      "The screen steps you through each contest. When you reach U.S. House, District 1, tap the Write-In box, type CLAYTON CUTERI on the on-screen keyboard, then tap Accept. The machine marks the selection for you. (On a paper absentee ballot, fill in the Write-In oval and write CLAYTON CUTERI on the line in pen.)",
+      "The screen steps you through each contest. When you reach U.S. House of Representatives, District 1, tap the Write-In box, type CLAYTON CUTERI on the on-screen keyboard, then tap Accept. The machine marks the selection for you. (On a paper absentee ballot, fill in the Write-In oval and write CLAYTON CUTERI on the line in pen.)",
   },
   {
     icon: ShieldCheck,
@@ -76,6 +76,30 @@ export default function WriteInPage() {
           <p className="mt-4 text-white/50 text-sm">
             Spell it exactly: C-L-A-Y-T-O-N &nbsp; C-U-T-E-R-I
           </p>
+          <p className="mt-2 text-white/40 text-xs">
+            Can&rsquo;t remember the exact spelling at the polls? South Carolina
+            counts a clear attempt at his name. Do your best.
+          </p>
+        </div>
+      </div>
+
+      {/* Primary vs. general clarification. A write-in candidate never
+          appears on a primary ballot, so supporters who don't know that
+          can show up in June looking for Clayton, not find him, and
+          wrongly assume the campaign is over. This note heads that off
+          before anyone reaches the practice ballot. Navy left-border
+          matches the ExpandableCard accent pattern used elsewhere. */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-3xl bg-cream rounded-lg p-6 border border-gray-100 border-l-4 border-l-navy">
+          <p className="text-navy font-semibold text-sm uppercase tracking-wider font-serif">
+            A note on the June primary
+          </p>
+          <p className="mt-2 text-charcoal/80 text-base leading-relaxed">
+            Clayton Cuteri is a write-in candidate for the November 3, 2026
+            general election. He will not appear on the June primary ballot.
+            When you vote in November, write &ldquo;Clayton Cuteri&rdquo; on
+            the write-in line for U.S. House of Representatives, District 1.
+          </p>
         </div>
       </div>
 
@@ -92,7 +116,7 @@ export default function WriteInPage() {
             Rehearse Your Vote
           </h2>
           <p className="mt-3 text-charcoal/70 text-base sm:text-lg max-w-xl mx-auto">
-            Practice finding the U.S. House race, selecting Write-In, and
+            Practice finding the U.S. House of Representatives, District 1 race, selecting Write-In, and
             entering the name. The default view matches the ExpressVote
             touchscreen you&rsquo;ll see at the polls. Switch the toggle if
             you&rsquo;re voting absentee by mail. Nothing is submitted.
@@ -204,6 +228,48 @@ export default function WriteInPage() {
             <p className="text-charcoal/80 mt-2">
               Early voting dates for 2026 have not been announced yet.
               Check scvotes.gov for the schedule as Election Day approaches.
+            </p>
+          </div>
+        </div>
+      </Section>
+
+      {/* Common Questions. Plain cards (not ExpandableCard) because every
+          answer here is short enough that collapsing it behind a toggle
+          adds friction without saving space. Ordered so the primary-ballot
+          question comes first (most common misconception), then the
+          spelling question (second-most-common anxiety among supporters). */}
+      <Section bgColor="cream" title="Common Questions">
+        <div className="max-w-3xl space-y-4">
+          <div className="bg-white rounded-lg p-6 border border-gray-200 border-l-4 border-l-navy">
+            <h3 className="text-lg sm:text-xl font-bold text-charcoal font-serif">
+              Will Clayton be on the primary ballot?
+            </h3>
+            <p className="mt-3 text-charcoal/80 text-base leading-relaxed">
+              No. As a write-in candidate, Clayton Cuteri will only appear as
+              a write-in option on the November 3, 2026 general election
+              ballot. You do not need to vote in the June primary to vote for
+              Clayton in November.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-lg p-6 border border-gray-200 border-l-4 border-l-navy">
+            <h3 className="text-lg sm:text-xl font-bold text-charcoal font-serif">
+              What if I can&rsquo;t spell &ldquo;Cuteri&rdquo; exactly right?
+            </h3>
+            <p className="mt-3 text-charcoal/80 text-base leading-relaxed">
+              Your vote still counts. South Carolina counts write-in votes
+              based on voter intent: as long as the name you write clearly
+              identifies Clayton Cuteri and no other candidate with a similar
+              name is running, the ballot will be counted for him. The safest
+              thing is still to write <strong>Clayton Cuteri</strong>{" "}
+              exactly, and the spelling guide at the top of this page is
+              there to help. But don&rsquo;t skip the race if you&rsquo;re
+              unsure: a recognizable attempt at his name is better than
+              leaving it blank.
+            </p>
+            <p className="mt-3 text-charcoal/60 text-sm leading-relaxed">
+              Source: guidance from the South Carolina State Election
+              Commission, April 2026.
             </p>
           </div>
         </div>
