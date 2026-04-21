@@ -210,6 +210,8 @@ export default function AboutPage() {
               width={1080}
               height={1080}
               sizes="(max-width: 640px) 192px, 224px"
+              placeholder="blur"
+              blurDataURL={imageBlur["/images/ACP_logo_with_letters.png"]}
               className="w-48 sm:w-56 h-auto object-contain"
             />
           </div>
@@ -241,6 +243,8 @@ export default function AboutPage() {
               height={1542}
               quality={85}
               sizes="(max-width: 1024px) 100vw, 384px"
+              placeholder="blur"
+              blurDataURL={imageBlur["/images/clayton-red-carpet.jpg"]}
               className="w-full max-w-sm h-auto rounded-xl shadow-lg"
             />
           </div>

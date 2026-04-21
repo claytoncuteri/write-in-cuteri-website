@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 import Link from "next/link";
+import { imageBlur } from "@/data/imageBlur";
 import {
   Download,
   Mic,
@@ -165,6 +166,8 @@ export default function MediaPage() {
               height={1371}
               quality={85}
               sizes="(max-width: 640px) 100vw, 300px"
+              placeholder="blur"
+              blurDataURL={imageBlur["/images/Clayton_Headshot.jpg"]}
               className="w-full max-w-[300px] h-auto rounded-xl shadow-lg"
             />
             <a
@@ -443,6 +446,8 @@ export default function MediaPage() {
               height={4032}
               quality={85}
               sizes="(max-width: 1024px) 100vw, 448px"
+              placeholder="blur"
+              blurDataURL={imageBlur["/images/clayton-asia-icon-press.jpg"]}
               className="w-full h-auto rounded-xl shadow-lg"
             />
           </div>
