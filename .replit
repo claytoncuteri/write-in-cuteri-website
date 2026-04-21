@@ -4,6 +4,7 @@ hidden = [".config", ".git", "node_modules", ".next"]
 
 [nix]
 channel = "stable-25_05"
+packages = ["g-ls"]
 
 [deployment]
 deploymentTarget = "autoscale"
