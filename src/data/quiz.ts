@@ -61,7 +61,7 @@ export const CORE_QUESTIONS: QuizQuestion[] = [
     priorityId: "veterans-first-responders",
     heading: "Veterans & first responders",
     prompt:
-      "Should SC-01's 75,000 veterans and first responders finally get the care and pay they earned?",
+      "Should District 1's 75,000 veterans and first responders finally get the care and pay they earned?",
     aligned: "yes",
     policyRef: "veterans-first-responders",
     rationale:
@@ -76,7 +76,7 @@ export const CORE_QUESTIONS: QuizQuestion[] = [
     aligned: "yes",
     policyRef: "housing-affordability",
     rationale:
-      "End the Hedge Fund Control of Single-Family Homes framework. No institutional buyer should hold more than 50 homes in SC-01.",
+      "End the Hedge Fund Control of Single-Family Homes framework. No institutional buyer should hold more than 50 homes in District 1.",
   },
   {
     id: "q5",
@@ -98,7 +98,7 @@ export const CORE_QUESTIONS: QuizQuestion[] = [
     aligned: "yes",
     policyRef: "end-forever-wars",
     rationale:
-      "Every dollar sent to a foreign war is a dollar not spent on Lowcountry insurance, veteran care, or first-responder pay.",
+      "Every young adult sent to a foreign war, and every dollar that funds it, is a life and a dollar not invested in Lowcountry insurance, veteran care, or first-responder pay.",
   },
   {
     id: "q7",

@@ -8,9 +8,9 @@ import Link from "next/link";
 import { Printer } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "SC-01 Problems | Charleston Insurance, Housing, and More",
+  title: "SC-01 Problems | Lowcountry Insurance, Housing, and More",
   description:
-    "The eight biggest issues in South Carolina District 1: Charleston flood insurance costs, housing affordability crisis, cost of living, and more. Why both parties have failed SC-01 voters and what Clayton Cuteri will do about it.",
+    "The eight biggest issues facing South Carolina District 1 voters in Charleston, Berkeley, Dorchester, Beaufort, Colleton, and Jasper counties: coastal flood insurance costs, the housing affordability crisis, cost of living, and more. Why both parties have failed SC-01 voters and what Clayton Cuteri will do about it.",
 };
 
 export default function ProblemsPage() {
@@ -21,10 +21,10 @@ export default function ProblemsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <p className="text-gold font-semibold text-sm uppercase tracking-wider mb-3">
-              SC-01 Problems
+              District 1 Problems
             </p>
             <h1 className="text-4xl sm:text-5xl font-bold text-white font-serif leading-tight">
-              What SC-01 Voters Are Living With
+              What District 1 Voters Are Living With
             </h1>
             <p className="mt-5 text-white/80 text-lg leading-relaxed">
               These are not abstractions. These are the real problems reported by
@@ -127,7 +127,7 @@ export default function ProblemsPage() {
           <CTAButton
             variant="secondary"
             href="/write-in"
-            className="border-white text-white hover:bg-white hover:text-navy"
+            className="!border-white !text-white hover:!bg-white hover:!text-navy"
           >
             Learn How to Write Me In
           </CTAButton>

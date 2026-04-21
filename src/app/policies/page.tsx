@@ -34,7 +34,7 @@ const partCTAs: Record<number, { variant: "primary" | "secondary"; href: string;
     variant: "primary",
     href: "/write-in",
     label: "Learn How to Write In Clayton",
-    message: "Like what you see? On November 3, you can write in Clayton Cuteri for SC-01. Make sure you know how before Election Day.",
+    message: "Like what you see? On November 3, you can write in Clayton Cuteri for District 1. Make sure you know how before Election Day.",
   },
   2: {
     variant: "primary",
@@ -65,7 +65,7 @@ export default function PoliciesPage() {
               Where Clayton Stands
             </p>
             <h1 className="text-4xl sm:text-5xl font-bold text-white font-serif leading-tight">
-              Thirteen Priorities for SC-01
+              Thirteen Priorities for District 1
             </h1>
             <p className="mt-5 text-white/80 text-lg leading-relaxed">
               Expand any priority to see the details and the math.
@@ -110,7 +110,7 @@ export default function PoliciesPage() {
                     {policy.solvesProblems.length > 0 && (
                       <div>
                         <h4 className="text-sm font-bold uppercase tracking-wider text-navy mb-2">
-                          SC-01 Problems It Addresses
+                          District 1 Problems It Addresses
                         </h4>
                         <div className="flex flex-wrap gap-2">
                           {policy.solvesProblems.map((prob) => (
@@ -167,10 +167,10 @@ export default function PoliciesPage() {
                                 </div>
                                 <div>
                                   <h5 className="text-xs font-bold uppercase tracking-wider text-navy/70 mb-1">
-                                    What It Means for Charleston
+                                    What It Means for District 1
                                   </h5>
                                   <p className="text-charcoal/80 text-sm">
-                                    {sub.charlestonReality}
+                                    {sub.districtReality}
                                   </p>
                                 </div>
                                 <div className="bg-cream rounded-md p-3">
@@ -216,8 +216,9 @@ export default function PoliciesPage() {
                           </ul>
                         )}
                         <p className="text-xs text-charcoal/50 mt-4">
-                          Full breakdown in &quot;America Reimagined&quot; by
-                          Clayton Cuteri.
+                          Expanded analysis coming in &quot;America
+                          Reimagined,&quot; Clayton&apos;s forthcoming political
+                          manifesto.
                         </p>
                       </ExpandableCard>
                     )}
@@ -314,7 +315,7 @@ export default function PoliciesPage() {
               </div>
             </div>
             <p className="mt-4 text-xs text-charcoal/50 font-sans">
-              National figures. Per-person share for SC-01 residents:
+              National figures. Per-person share for District 1 residents:
               {" "}{PER_PERSON_YEARLY}/year ({PER_PERSON_MONTHLY}/month). Not new
               spending. Every dollar comes from eliminating waste, ending
               corporate capture, and redirecting money currently taken from
@@ -369,7 +370,7 @@ export default function PoliciesPage() {
             <CTAButton
               variant="secondary"
               href="/get-involved"
-              className="border-white text-white hover:bg-white hover:text-navy"
+              className="!border-white !text-white hover:!bg-white hover:!text-navy"
             >
               Spread the Word
             </CTAButton>

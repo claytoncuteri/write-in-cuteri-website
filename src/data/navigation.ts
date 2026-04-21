@@ -13,7 +13,7 @@ export const mainNavItems: NavItem[] = [
 
 export const footerNavItems: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "SC-01 Problems", href: "/problems" },
+  { label: "District 1 Problems", href: "/problems" },
   { label: "Priorities", href: "/policies" },
   { label: "How to Write Me In", href: "/write-in" },
   { label: "About", href: "/about" },

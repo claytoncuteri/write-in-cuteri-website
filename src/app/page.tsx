@@ -35,23 +35,25 @@ export default function HomePage() {
                 </CTAButton>
                 <CTAButton
                   variant="secondary"
-                  href="/policies"
-                  className="border-white text-white hover:bg-white hover:text-navy"
+                  href="#quiz"
+                  className="!border-white !text-white hover:!bg-white hover:!text-navy"
                 >
-                  See My Platform
+                  Take the Quiz: Where Do We Agree?
                 </CTAButton>
               </div>
-              {/* Above-fold bypass for voters who want to engage interactively
-                  now. Full quiz section sits below HomeProblems so the credibility
-                  beat lands first; this anchor serves the minority who scroll
-                  looking for a widget. */}
+              {/* Tertiary escape hatch to the full platform page. The quiz is
+                  now the primary above-fold interactive entry (secondary button
+                  above), so this link serves voters who would rather read the
+                  13 policies in full than take a quiz. */}
               <p className="mt-5 text-white/60 text-sm">
+                Prefer the full platform?{" "}
                 <a
-                  href="#quiz"
+                  href="/policies"
                   className="underline underline-offset-4 hover:text-white transition-colors"
                 >
-                  See where we align on the issues
+                  Read all 13 policies
                 </a>
+                .
               </p>
             </div>
 
@@ -98,8 +100,9 @@ export default function HomePage() {
             </h2>
             <p className="mt-4 text-charcoal/80 text-lg leading-relaxed">
               Clayton Cuteri lives in Mount Pleasant, pays the same insurance
-              premiums you do, and watches the same neighbors get priced out of
-              the Lowcountry every year. He is not a career politician. He is an
+              premiums you do, and watches the same neighbors get priced out
+              of District 1 every year, from Hilton Head and Bluffton to Summerville
+              and Goose Creek. He is not a career politician. He is an
               entrepreneur, content creator, and co-founder of the American
               Congress Party who built a following of over 700,000 people by
               saying what both parties refuse to say.

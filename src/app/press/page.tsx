@@ -145,9 +145,9 @@ export default function MediaPage() {
                 700,000 followers across Instagram, Facebook, and YouTube over
                 five years. His content, which began with a spiritual podcast
                 and expanded into political commentary, reaches more than 30
-                million views per month. He is the author of America Reimagined,
-                which outlines the 13-policy platform at the center of his
-                campaign.
+                million views per month. His forthcoming book, America
+                Reimagined, will expand on the 13-policy platform at the center
+                of his campaign.
               </p>
               <p className="text-sm text-charcoal/60">
                 Principal campaign committee: Cuteri for Americans (FEC
@@ -184,8 +184,8 @@ export default function MediaPage() {
         <div className="max-w-3xl space-y-4 text-charcoal/80 leading-relaxed">
           <p>
             Cuteri&apos;s platform includes 13 policies that cross traditional
-            partisan lines, drawn from his book America Reimagined. The platform
-            is organized into four parts:
+            partisan lines, which will be expanded in his forthcoming book,
+            America Reimagined. The platform is organized into four parts:
           </p>
           <div className="space-y-3">
             <div className="bg-cream rounded-lg p-4">
@@ -230,7 +230,7 @@ export default function MediaPage() {
                 (Policy 12) and Lowcountry Resilience (Policy 13), a
                 district-specific plan addressing coastal flood infrastructure,
                 insurance affordability, wind pool reform, and climate
-                adaptation for SC-01 communities.
+                adaptation for District 1 communities.
               </p>
             </div>
           </div>
@@ -256,7 +256,7 @@ export default function MediaPage() {
           </h2>
           <p className="text-charcoal/80 leading-relaxed">
             Clayton Cuteri&apos;s name will not appear on the printed ballot. To
-            vote for him, SC-01 voters must write &quot;Clayton A. Cuteri&quot;
+            vote for him, District 1 voters must write &quot;Clayton A. Cuteri&quot;
             in the write-in field on their general election ballot on November 3,
             2026. South Carolina law permits write-in candidates for federal
             office. The campaign has filed all required notices with the South

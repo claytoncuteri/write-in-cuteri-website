@@ -11,8 +11,8 @@ export function HomeProblems() {
 
   return (
     <Section
-      title="What SC-01 Voters Are Telling Us"
-      subtitle="These are the most urgent issues facing Charleston, Berkeley, Beaufort, and the surrounding Lowcountry communities."
+      title="What District 1 Voters Are Telling Us"
+      subtitle="These are the most urgent issues facing Charleston, Berkeley, Dorchester, Beaufort, Colleton, and Jasper counties."
     >
       <div className="grid sm:grid-cols-2 gap-6">
         {displayed.map((problem) => (
@@ -50,7 +50,7 @@ export function HomeProblems() {
             onClick={() => setShowAll(true)}
             className="inline-flex items-center gap-2 px-6 py-3 text-navy border-2 border-navy font-semibold rounded-lg hover:bg-navy hover:text-white transition-colors"
           >
-            See All 8 SC-01 Problems
+            See All 8 District 1 Problems
             <ChevronDown size={18} />
           </button>
         ) : (

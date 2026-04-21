@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     template: "%s | Clayton Cuteri for U.S. Congress",
   },
   description:
-    "Clayton Cuteri is a write-in candidate for U.S. House of Representatives, South Carolina District 1 (SC-01). American Congress Party. Third-party alternative for Charleston, Berkeley, Beaufort, and Lowcountry voters. November 3, 2026.",
+    "Clayton Cuteri is a write-in candidate for U.S. House of Representatives, South Carolina District 1 (SC-01). American Congress Party. Third-party alternative for Charleston, Berkeley, Dorchester, Beaufort, Colleton, and Jasper county voters across the Lowcountry. November 3, 2026.",
   keywords: [
     "Clayton Cuteri",
     "SC-01 candidates 2026",
@@ -37,8 +37,14 @@ export const metadata: Metadata = {
     "third party candidate South Carolina 2026",
     "American Congress Party",
     "Charleston SC congressional race",
+    "Beaufort SC congressional race",
+    "Hilton Head congressional race",
+    "Summerville SC congressional race",
+    "Goose Creek SC congressional race",
     "who is running for Congress Charleston SC",
+    "who is running for Congress Beaufort SC",
     "independent candidate Charleston SC",
+    "independent candidate Hilton Head",
     "how to write in a candidate South Carolina",
     "SC-01 open seat 2026",
     "alternative to Republican Democrat SC-01",
@@ -124,7 +130,7 @@ const jsonLd = {
       name: "Clayton A. Cuteri",
       jobTitle: "Write-In Candidate for U.S. House of Representatives, SC-01",
       description:
-        "Write-in candidate for U.S. Congress, South Carolina District 1. Secretary General of the American Congress Party. Author of America Reimagined.",
+        "Write-in candidate for U.S. Congress, South Carolina District 1. Secretary General of the American Congress Party. Author of the forthcoming book America Reimagined.",
       image: "https://writeincuteri.com/images/Clayton_Headshot.jpg",
       url: "https://writeincuteri.com/about/",
       affiliation: {
