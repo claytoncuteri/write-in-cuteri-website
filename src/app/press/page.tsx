@@ -230,7 +230,7 @@ export default function MediaPage() {
                 (Policy 12) and Lowcountry Resilience (Policy 13), a
                 district-specific plan addressing coastal flood infrastructure,
                 insurance affordability, wind pool reform, and climate
-                adaptation for SC-01 communities.
+                adaptation for District 1 communities.
               </p>
             </div>
           </div>
@@ -256,7 +256,7 @@ export default function MediaPage() {
           </h2>
           <p className="text-charcoal/80 leading-relaxed">
             Clayton Cuteri&apos;s name will not appear on the printed ballot. To
-            vote for him, SC-01 voters must write &quot;Clayton A. Cuteri&quot;
+            vote for him, District 1 voters must write &quot;Clayton A. Cuteri&quot;
             in the write-in field on their general election ballot on November 3,
             2026. South Carolina law permits write-in candidates for federal
             office. The campaign has filed all required notices with the South

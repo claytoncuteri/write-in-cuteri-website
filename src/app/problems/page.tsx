@@ -21,10 +21,10 @@ export default function ProblemsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <p className="text-gold font-semibold text-sm uppercase tracking-wider mb-3">
-              SC-01 Problems
+              District 1 Problems
             </p>
             <h1 className="text-4xl sm:text-5xl font-bold text-white font-serif leading-tight">
-              What SC-01 Voters Are Living With
+              What District 1 Voters Are Living With
             </h1>
             <p className="mt-5 text-white/80 text-lg leading-relaxed">
               These are not abstractions. These are the real problems reported by

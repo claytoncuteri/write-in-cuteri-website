@@ -75,7 +75,7 @@ export default function EndorsementsPage() {
             </h1>
             <p className="mt-5 text-white/80 text-lg leading-relaxed">
               Community leaders, local voices, and everyday Americans who
-              believe SC-01 deserves better than what both parties have offered.
+              believe District 1 deserves better than what both parties have offered.
             </p>
           </div>
         </div>
@@ -132,7 +132,7 @@ export default function EndorsementsPage() {
             <p className="mt-3 text-charcoal/70 text-lg leading-relaxed">
               This campaign is built on real people, not political machines.
               Endorsements from community leaders, local organizations, and
-              SC-01 voters will be listed here as they come in.
+              District 1 voters will be listed here as they come in.
             </p>
           </div>
         )}
@@ -142,7 +142,7 @@ export default function EndorsementsPage() {
       <Section bgColor="cream" title="Request to Endorse">
         <div className="max-w-xl mx-auto">
           <p className="text-charcoal/70 text-sm mb-6">
-            Are you a community leader, organization, or SC-01 voter who wants
+            Are you a community leader, organization, or District 1 voter who wants
             to publicly endorse Clayton Cuteri? Fill out the form below and the
             campaign will follow up.
           </p>
@@ -202,7 +202,7 @@ export default function EndorsementsPage() {
                   type="text"
                   id="endorseOrg"
                   name="organization"
-                  placeholder="e.g., Mount Pleasant City Council, Local business owner, SC-01 voter"
+                  placeholder="e.g., Mount Pleasant City Council, Local business owner, District 1 voter"
                   className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-charcoal focus:outline-none focus:ring-2 focus:ring-navy focus:border-navy"
                 />
               </div>

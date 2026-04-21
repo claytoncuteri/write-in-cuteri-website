@@ -83,7 +83,7 @@ export default function GetInvolvedPage() {
             </h3>
             <p className="mt-2 text-charcoal/70 text-sm">
               Help at events, knock doors, make calls, or distribute materials
-              across SC-01.
+              across District 1.
             </p>
           </div>
           <div className="bg-cream rounded-lg p-6 text-center">

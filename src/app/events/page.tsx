@@ -46,7 +46,7 @@ export default function EventsPage() {
             </h1>
             <p className="mt-5 text-white/80 text-lg leading-relaxed">
               Town halls, community meetings, and voter education events across
-              SC-01. Come ask questions, hear the platform, and decide for
+              District 1. Come ask questions, hear the platform, and decide for
               yourself.
             </p>
           </div>
@@ -144,7 +144,7 @@ export default function EventsPage() {
             Want to Host an Event?
           </h2>
           <p className="mt-3 text-charcoal/70 leading-relaxed">
-            If you have a venue, a living room, or a backyard in SC-01 and want
+            If you have a venue, a living room, or a backyard in District 1 and want
             to host a meet-and-greet with Clayton, reach out. Grassroots events
             are the backbone of this campaign.
           </p>

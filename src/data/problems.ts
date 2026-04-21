@@ -31,7 +31,7 @@ export const problems: Problem[] = [
     // 2023-24 (record), projected 45-85/yr by 2050. Carriers pulling out of
     // coastal SC is on the record at SC DOI.
     pain: "From the Charleston peninsula to Hilton Head, Beaufort, and Edisto, homeowners are watching premiums double, triple, or get dropped entirely. Flood plus wind and hail coverage runs $5,000 or more a year on top of a mortgage that already squeezes them. Jasper County coastal properties and Bluffton workforce housing feel the same pressure. Some carriers will not write policies in coastal SC at all anymore.",
-    cause: "The National Flood Insurance Program is functionally insolvent and FEMA's Risk Rating 2.0 transition is resetting premiums upward across SC-01's coast. Private carriers are fleeing the Lowcountry wind and hail market while federal flood maps lag actual flood reality by a decade. The NOAA Charleston tide gauge set a record with 17 high-tide flood days in 2023-24, and projections run 45 to 85 per year by 2050. Meanwhile, $90 billion a year flows to foreign wars instead of domestic resilience.",
+    cause: "The National Flood Insurance Program is functionally insolvent and FEMA's Risk Rating 2.0 transition is resetting premiums upward across District 1's coast. Private carriers are fleeing the Lowcountry wind and hail market while federal flood maps lag actual flood reality by a decade. The NOAA Charleston tide gauge set a record with 17 high-tide flood days in 2023-24, and projections run 45 to 85 per year by 2050. Meanwhile, $90 billion a year flows to foreign wars instead of domestic resilience.",
     planks: [
       { id: "lowcountry-resilience", number: 13, title: "Lowcountry Resilience" },
       { id: "stop-endless-wars", number: 8, title: "Stop Endless Wars" },
@@ -58,7 +58,7 @@ export const problems: Problem[] = [
       { id: "free-food", number: 1, title: "Free Food for All Americans" },
     ],
     talkingPoint:
-      "Wall Street should not get to buy the house your kids were going to grow up in, whether that house is on James Island, in Summerville, or on Hilton Head. Ban corporate bulk-buying, give first-time buyers zero-interest loans, and let SC-01 families come home.",
+      "Wall Street should not get to buy the house your kids were going to grow up in, whether that house is on James Island, in Summerville, or on Hilton Head. Ban corporate bulk-buying, give first-time buyers zero-interest loans, and let District 1 families come home.",
   },
   {
     id: "wars",
@@ -68,7 +68,7 @@ export const problems: Problem[] = [
     // Island. JBC: >70% of Atlantic-bound DoD materiel; ~$11B annual impact.
     // MCAS Beaufort + Parris Island + Naval Hospital ~20,000 personnel.
     pain: "Joint Base Charleston handles more than 70 percent of Atlantic-bound DoD materiel and deploys its C-17 crews constantly. MCAS Beaufort's F/A-18 and F-35B squadrons rotate in and out. Marine recruits from every county pass through Parris Island. Families in Berkeley, Dorchester, Beaufort, Colleton, and Jasper have lost young adults to wars they did not ask for and cannot justify, while military spouses raise kids alone for years at a stretch.",
-    cause: "Defense contractors profit from endless deployment. The politicians who vote for war do not have skin in the game; their kids do not enlist. Both parties take turns starting wars; the young adults of SC-01 and the rest of the working class fight them.",
+    cause: "Defense contractors profit from endless deployment. The politicians who vote for war do not have skin in the game; their kids do not enlist. Both parties take turns starting wars; the young adults of District 1 and the rest of the working class fight them.",
     planks: [
       { id: "stop-endless-wars", number: 8, title: "Stop Endless Wars" },
       { id: "honor-first-responders", number: 11, title: "Honor First Responders & Veterans" },
@@ -81,8 +81,8 @@ export const problems: Problem[] = [
     id: "both-parties",
     number: 4,
     title: "Both Parties Have Failed Us",
-    pain: "Lifelong Republicans across Berkeley, Dorchester, and Beaufort are exhausted by MAGA chaos. Lifelong Democrats on James Island, in North Charleston, and in Colleton are exhausted by establishment betrayal. Rural voters in Jasper and Colleton feel invisible to both. Everyone in SC-01 feels unrepresented, unheard, and used.",
-    cause: "The two parties function as a duopoly that profits from conflict. Different talking points, same donors, same outcomes for working families. A record share of Americans now identify as political independents, and SC-01's turnout tells the same story.",
+    pain: "Lifelong Republicans across Berkeley, Dorchester, and Beaufort are exhausted by MAGA chaos. Lifelong Democrats on James Island, in North Charleston, and in Colleton are exhausted by establishment betrayal. Rural voters in Jasper and Colleton feel invisible to both. Everyone in District 1 feels unrepresented, unheard, and used.",
+    cause: "The two parties function as a duopoly that profits from conflict. Different talking points, same donors, same outcomes for working families. A record share of Americans now identify as political independents, and District 1's turnout tells the same story.",
     planks: [
       { id: "open-books", number: 7, title: "Open Books" },
     ],
@@ -115,7 +115,7 @@ export const problems: Problem[] = [
     // Beaufort (tourism), Dorchester (Summerville trades). Port $87B
     // statewide, 260,000 jobs; Volvo 1,500 workers + 1,910 new jobs
     // announced; Boeing SC ~9,059 employees.
-    pain: "A Port of Charleston longshoreman, a Hilton Head hospitality worker, a Boeing line tech in North Charleston, a Volvo plant worker in Ridgeville, a teacher in Summerville, a Walterboro first responder. SC-01's working class works full-time and still struggles. Two jobs to make rent. No savings. One car repair from disaster.",
+    pain: "A Port of Charleston longshoreman, a Hilton Head hospitality worker, a Boeing line tech in North Charleston, a Volvo plant worker in Ridgeville, a teacher in Summerville, a Walterboro first responder. District 1's working class works full-time and still struggles. Two jobs to make rent. No savings. One car repair from disaster.",
     cause: "Real wages have not kept up with productivity for 50 years. Income tax plus payroll tax plus sales tax plus inflation eat 40 percent or more of working-class income before they see a dime. The dollar has lost 97 percent of its purchasing power since 1913. The Port of Charleston supports 260,000 jobs statewide and generates $87 billion in economic impact (SCPA), but the workers who move the cargo cannot afford to live on the peninsula they serve.",
     planks: [
       { id: "no-federal-income-tax", number: 6, title: "No Federal Income Tax" },
@@ -141,7 +141,7 @@ export const problems: Problem[] = [
       { id: "free-food", number: 1, title: "Free Food for All Americans" },
     ],
     talkingPoint:
-      "The Lowcountry's beauty is its economy. Poison the water in Berkeley County, pave the marsh in Charleston, or sell out the ACE Basin in Colleton and you kill the goose. Real EPA accountability, SC-01-first land protection, and an end to letting chemical companies grade their own homework.",
+      "The Lowcountry's beauty is its economy. Poison the water in Berkeley County, pave the marsh in Charleston, or sell out the ACE Basin in Colleton and you kill the goose. Real EPA accountability, District-1-first land protection, and an end to letting chemical companies grade their own homework.",
   },
   {
     id: "property-tax",

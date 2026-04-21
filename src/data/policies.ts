@@ -295,7 +295,7 @@ export const policies: Policy[] = [
     id: "lowcountry-resilience",
     number: 13,
     title: "Lowcountry Resilience",
-    part: "SC-01 Specific",
+    part: "District 1 Specific",
     partNumber: 5,
     plank:
       "Bring competition back to coastal insurance, mitigation back to coastal communities, and accountability back to disaster spending.",
@@ -316,7 +316,7 @@ export const policies: Policy[] = [
         analogy:
           "In 1957, Congress passed the Price-Anderson Act, making the federal government the insurer of last resort for nuclear catastrophes. This made nuclear power viable in America. Without it, no carrier would touch a nuclear plant.",
         districtReality:
-          "Carriers have been non-renewing and exiting across the SC-01 coast: Beaufort and Hilton Head clients, Charleston peninsula and Mt. Pleasant clients, Edisto and Hunting Island clients. A single Category 5 landfall anywhere from Hilton Head to Pawleys could blow past the surplus of the remaining writers. A federal backstop caps carrier tail exposure above a defined threshold, and carriers start competing again from Ridgeland to Moncks Corner.",
+          "Carriers have been non-renewing and exiting across the District 1 coast: Beaufort and Hilton Head clients, Charleston peninsula and Mt. Pleasant clients, Edisto and Hunting Island clients. A single Category 5 landfall anywhere from Hilton Head to Pawleys could blow past the surplus of the remaining writers. A federal backstop caps carrier tail exposure above a defined threshold, and carriers start competing again from Ridgeland to Moncks Corner.",
         framing:
           "This is not a government takeover of insurance. It is the government playing the role only the government can play: backstopping risks too big for any private actor to bear, so the private market can function for everything else.",
       },
@@ -338,7 +338,7 @@ export const policies: Policy[] = [
         analogy:
           "Health Savings Accounts (HSAs) let you put money in tax-free, grow it tax-free, and spend it tax-free on medical expenses. Millions of Americans use them. They work. This is the same concept for disaster preparation.",
         districtReality:
-          "A Summerville family in Dorchester County, a Goose Creek family in Berkeley County, and a Walterboro family in Colleton County all run into the same wall: no one has $10,000 sitting around for a hurricane deductible or impact windows. A tax-free Disaster Resilience Account lets working households across SC-01 set aside $5,000 a year pre-tax and let it grow, so the deductible is covered before the storm names show up.",
+          "A Summerville family in Dorchester County, a Goose Creek family in Berkeley County, and a Walterboro family in Colleton County all run into the same wall: no one has $10,000 sitting around for a hurricane deductible or impact windows. A tax-free Disaster Resilience Account lets working households across District 1 set aside $5,000 a year pre-tax and let it grow, so the deductible is covered before the storm names show up.",
         framing:
           "This puts disaster preparation in the hands of families, not bureaucrats. You decide when and how to use the money. The government just stops taxing you for being responsible.",
       },
@@ -382,9 +382,9 @@ export const policies: Policy[] = [
         analogy:
           "For decades, American factories moved overseas, and we lost critical capacity at home. The same thing happened with reinsurance: the global market consolidated offshore, and now American disaster premiums fund foreign economies.",
         districtReality:
-          "When an SC-01 homeowner pays a premium in Beaufort, North Charleston, or Moncks Corner, a chunk of it is ceded to a reinsurer to back the policy. Most reinsurers are domiciled in Bermuda, London, or Zurich. Your hurricane premium is partly funding offshore economies. Bringing reinsurance home keeps that capital accountable to American regulators and closer to the risk it is backing.",
+          "When a District 1 homeowner pays a premium in Beaufort, North Charleston, or Moncks Corner, a chunk of it is ceded to a reinsurer to back the policy. Most reinsurers are domiciled in Bermuda, London, or Zurich. Your hurricane premium is partly funding offshore economies. Bringing reinsurance home keeps that capital accountable to American regulators and closer to the risk it is backing.",
         framing:
-          "American risk, American money, American homes. Stop sending SC-01 premium dollars to firms with no stake in whether Beaufort or Charleston rebuilds.",
+          "American risk, American money, American homes. Stop sending District 1 premium dollars to firms with no stake in whether Beaufort or Charleston rebuilds.",
       },
     ],
   },
@@ -395,5 +395,5 @@ export const partLabels: Record<number, string> = {
   2: "Part II: Breaking Free",
   3: "Part III: Securing the Foundation",
   4: "Part IV: Energy Independence",
-  5: "Priority 13: SC-01 Specific",
+  5: "Priority 13: District 1 Specific",
 };

@@ -120,7 +120,7 @@ export default function AboutPage() {
               Clayton&apos;s engineering career has also included
               government-contracting work with the U.S. Navy on military
               drones and on communications, software, and networking systems.
-              That work is one of the reasons SC-01&apos;s military economy
+              That work is one of the reasons District 1&apos;s military economy
               (Joint Base Charleston, MCAS Beaufort, and Parris Island) is a
               priority for this campaign.
             </p>
@@ -148,7 +148,7 @@ export default function AboutPage() {
       </Section>
 
       {/* Connection to SC-01 */}
-      <Section title="Home in SC-01">
+      <Section title="Home in District 1">
         <div className="max-w-3xl space-y-4">
           <p className="text-charcoal/80 text-lg leading-relaxed">
             After years of moving across the country, the Lowcountry was the
@@ -162,7 +162,7 @@ export default function AboutPage() {
           </p>
           <p className="text-charcoal/80 text-lg leading-relaxed">
             What pushed Clayton from commentary to candidacy was watching
-            SC-01 get hollowed out in real time. Kids who grew up in Mount
+            District 1 get hollowed out in real time. Kids who grew up in Mount
             Pleasant and Bluffton cannot afford starter homes. Retirees on
             Hilton Head and Edisto are being taxed out of houses they paid
             off decades ago. Families across Charleston, Berkeley,

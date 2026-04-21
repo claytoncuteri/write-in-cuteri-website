@@ -163,9 +163,9 @@ export default function WriteInPage() {
         <div className="grid lg:grid-cols-2 gap-10 items-start">
           <div>
             <p className="text-charcoal/80 text-lg mb-6">
-              To vote in the SC-01 U.S. House race, you must be a registered
-              voter in South Carolina Congressional District 1. The district
-              includes:
+              To vote in the District 1 U.S. House race, you must be a
+              registered voter in South Carolina&apos;s 1st Congressional
+              District. The district includes:
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
               {[

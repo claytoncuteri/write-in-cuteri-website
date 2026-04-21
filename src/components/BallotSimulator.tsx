@@ -45,7 +45,7 @@ export function BallotSimulator() {
           />
         </div>
         <p className="text-center text-charcoal/60 text-xs mt-2">
-          Not sure which one you&rsquo;ll use? Most SC-01 voters vote in person -
+          Not sure which one you&rsquo;ll use? Most District 1 voters vote in person -
           start with that.
         </p>
       </div>

@@ -43,7 +43,7 @@ export function SuccessState({ writeInValue, onReset, mode }: SuccessStateProps)
   const modeCopy =
     mode === "bmd"
       ? "On November 3, 2026, do exactly this on the ExpressVote touchscreen at your polling place and your vote for Clayton Cuteri will count."
-      : "On November 3, 2026, do exactly this on your real SC-01 absentee ballot and your vote for Clayton Cuteri will count.";
+      : "On November 3, 2026, do exactly this on your real District 1 absentee ballot and your vote for Clayton Cuteri will count.";
 
   return (
     <div className="max-w-3xl mx-auto">

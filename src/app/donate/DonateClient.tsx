@@ -191,7 +191,7 @@ export function DonateClient() {
             </h2>
             <p className="mt-4 text-charcoal/70 text-lg leading-relaxed">
               Your contribution directly funds voter education, community
-              events, and campaign outreach across SC-01.
+              events, and campaign outreach across District 1.
             </p>
 
             {/* Single-submit donation flow. Research (ActBlue / WinRed /
