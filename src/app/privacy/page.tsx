@@ -14,7 +14,7 @@ export default function PrivacyPage() {
           <h1 className="text-4xl sm:text-5xl font-bold text-white font-serif">
             Privacy Policy
           </h1>
-          <p className="mt-4 text-white/80">Last updated: April 16, 2026</p>
+          <p className="mt-4 text-white/80">Last updated: April 21, 2026</p>
         </div>
       </section>
 
@@ -62,6 +62,13 @@ export default function PrivacyPage() {
             <li>
               Practice ballot completion and quiz answer events so we can tell
               what helps voters learn how to write Clayton in.
+            </li>
+            <li>
+              Donation-intent clicks on /donate (which preset amount was
+              clicked, whether the custom-amount input was used), so we can
+              see which amounts drive actual gifts. The payment itself
+              happens on Anedot, and we never see your card number, bank
+              account, or the final amount you choose to give.
             </li>
             <li>
               Session recordings on some pages (not on /donate). Recordings
@@ -152,9 +159,15 @@ export default function PrivacyPage() {
               .
             </li>
             <li>
-              <strong>Anedot</strong> (when donations open) &ndash; processes
-              donations and collects FEC-required donor information. Subject
-              to federal campaign finance disclosure.{" "}
+              <strong>Anedot</strong> &ndash; processes all online donations,
+              including card, ACH, Apple Pay, Google Pay, and PayPal.
+              Collects the FEC-required donor information (name, address,
+              occupation, employer for gifts over $200 in an election
+              cycle). Also operates the text-to-give flow: when you text
+              the keyword CUTERI to (888) 444-8774, your phone number and
+              text content go to Anedot and its SMS partners so they can
+              send you a donation link. Subject to federal campaign
+              finance disclosure.{" "}
               <a
                 href="https://www.anedot.com/privacy-policy"
                 target="_blank"
@@ -178,6 +191,37 @@ export default function PrivacyPage() {
             outreach is working. We do not sell, trade, or rent your personal
             information to third parties. Campaign communications are sent
             directly by Cuteri for Americans.
+          </p>
+
+          <h2 className="text-2xl font-bold text-charcoal font-serif mt-8">
+            Donations and text-to-give
+          </h2>
+          <p className="text-charcoal/80 leading-relaxed mt-3">
+            When you click a preset amount, the custom-amount submit
+            arrow, or the main Donate button on /donate, we record an
+            anonymous click event (preset amount clicked, source page) to
+            our analytics vendor so we can see which amounts are
+            generating gifts. We do not see your payment card, bank
+            account, or the donation amount you ultimately give. The
+            donation itself is completed on Anedot&apos;s secure hosted
+            page, and everything entered there is covered by Anedot&apos;s
+            privacy policy linked above.
+          </p>
+          <p className="text-charcoal/80 leading-relaxed mt-3">
+            If you use text-to-give by texting CUTERI to (888) 444-8774,
+            you are consenting to receive a reply text from Anedot with a
+            donation link. Message and data rates from your mobile carrier
+            may apply. You can stop messages at any time by replying
+            STOP. Anedot, not this campaign, operates the SMS short code,
+            so your phone number is collected by Anedot under their
+            privacy policy.
+          </p>
+          <p className="text-charcoal/80 leading-relaxed mt-3">
+            The mobile &ldquo;Share the donate link&rdquo; button uses
+            your device&apos;s native share sheet (via the Web Share API)
+            or copies the Anedot donation URL to your clipboard if your
+            browser does not support the share sheet. We do not capture
+            what you share or who you share with.
           </p>
 
           <h2 className="text-2xl font-bold text-charcoal font-serif mt-8">

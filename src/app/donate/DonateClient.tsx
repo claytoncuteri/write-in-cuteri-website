@@ -10,6 +10,7 @@ import {
   DollarSign,
   Share2,
   MessageSquare,
+  ArrowRight,
 } from "lucide-react";
 import { track, identifyByEmail } from "@/lib/analytics";
 import { DONATIONS_LIVE } from "./flags";
@@ -31,10 +32,17 @@ function anedotLink(amount?: number): string {
   return amount ? `${ANEDOT_URL}?amount=${amount}` : ANEDOT_URL;
 }
 
+// FEC 2026 individual per-election limit. Use as a client-side sanity
+// cap on the custom-amount input. Anedot enforces server-side, but
+// stopping obvious-garbage (e.g. $99,999) before we hand off reduces
+// confused donors bouncing on Anedot's error page.
+const FEC_MAX_AMOUNT = 3500;
+
 export function DonateClient() {
   const [emailSubmitted, setEmailSubmitted] = useState(false);
   const [emailSubmitting, setEmailSubmitting] = useState(false);
   const [shareMsg, setShareMsg] = useState<string | null>(null);
+  const [customAmount, setCustomAmount] = useState("");
   const showLive = DONATIONS_LIVE;
 
   async function handleEmailSignup(e: FormEvent<HTMLFormElement>) {
@@ -69,6 +77,26 @@ export function DonateClient() {
 
   function handlePresetClick(amount: number) {
     track("donate_amount_click", { amount, source_page: "/donate" });
+  }
+
+  function handleCustomSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    // Floor to integer dollars: Anedot's ?amount= param accepts dollars,
+    // and donors rarely mean to give $37.42. Rounding down avoids an
+    // unexpected upsell feel.
+    const raw = Number(customAmount);
+    if (!Number.isFinite(raw) || raw < 1) return;
+    const amount = Math.min(Math.floor(raw), FEC_MAX_AMOUNT);
+    track("donate_amount_click", {
+      amount,
+      source_page: "/donate",
+      variant: "custom",
+    });
+    window.open(
+      `${ANEDOT_URL}?amount=${amount}`,
+      "_blank",
+      "noopener,noreferrer",
+    );
   }
 
   async function handleMobileShare() {
@@ -130,12 +158,15 @@ export function DonateClient() {
               </p>
             </div>
 
-            {/* Preset amount grid */}
+            {/* Preset amount grid. 6 slots: 5 preset amounts + 1 custom-
+                amount input-as-a-button. Grid is 2 cols on mobile
+                (3 rows × 2) and 3 cols on desktop (2 rows × 3) so the
+                custom input has enough width for the number + arrow. */}
             <div className="mt-10">
               <p className="text-sm font-semibold text-charcoal mb-4 uppercase tracking-wider">
                 Or pick an amount
               </p>
-              <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 max-w-xl mx-auto">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 max-w-xl mx-auto">
                 {PRESET_AMOUNTS.map((amount) => {
                   const isDefault = amount === PRESET_DEFAULT;
                   return (
@@ -146,7 +177,7 @@ export function DonateClient() {
                       rel="noopener noreferrer"
                       onClick={() => handlePresetClick(amount)}
                       className={
-                        "relative inline-flex items-center justify-center px-4 py-3 font-semibold rounded-lg transition-colors text-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-navy " +
+                        "relative inline-flex h-12 items-center justify-center px-4 font-semibold rounded-lg transition-colors text-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-navy " +
                         (isDefault
                           ? "bg-navy text-white hover:bg-navy-dark"
                           : "border-2 border-navy text-navy hover:bg-navy hover:text-white")
@@ -161,10 +192,47 @@ export function DonateClient() {
                     </a>
                   );
                 })}
+
+                {/* Custom amount input styled to match the preset buttons.
+                    The wrapping form lets "Enter" inside the input submit,
+                    identical behavior to clicking the arrow. */}
+                <form
+                  onSubmit={handleCustomSubmit}
+                  className="relative flex h-12 items-center rounded-lg border-2 border-navy text-navy overflow-hidden focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-navy"
+                  aria-label="Donate a custom amount"
+                >
+                  <span
+                    className="pl-3 pr-1 text-lg font-semibold select-none"
+                    aria-hidden
+                  >
+                    $
+                  </span>
+                  <input
+                    type="number"
+                    inputMode="numeric"
+                    min={1}
+                    max={FEC_MAX_AMOUNT}
+                    step={1}
+                    value={customAmount}
+                    onChange={(e) => setCustomAmount(e.target.value)}
+                    placeholder="Other"
+                    aria-label="Custom donation amount in US dollars"
+                    className="w-full min-w-0 bg-transparent text-lg font-semibold placeholder:text-navy/50 focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  />
+                  <button
+                    type="submit"
+                    disabled={!customAmount || Number(customAmount) < 1}
+                    aria-label="Donate custom amount"
+                    className="h-full px-3 bg-navy text-white hover:bg-navy-dark disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex items-center"
+                  >
+                    <ArrowRight size={18} />
+                  </button>
+                </form>
               </div>
 
-              {/* Chip in $5 + custom amount */}
-              <div className="mt-5 flex flex-col sm:flex-row items-center justify-center gap-x-6 gap-y-2 text-sm">
+              {/* Chip in $5 — lowest-commitment entry point, below grid
+                  as a text link so it doesn't anchor expectations down. */}
+              <div className="mt-5 text-center text-sm">
                 <a
                   href={anedotLink(CHIP_IN_AMOUNT)}
                   target="_blank"
@@ -173,15 +241,6 @@ export function DonateClient() {
                   className="text-navy hover:text-navy-dark underline underline-offset-4 font-medium"
                 >
                   Or chip in ${CHIP_IN_AMOUNT}
-                </a>
-                <a
-                  href={ANEDOT_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => handlePresetClick(0)}
-                  className="text-navy hover:text-navy-dark underline underline-offset-4 font-medium"
-                >
-                  Donate a custom amount
                 </a>
               </div>
             </div>
