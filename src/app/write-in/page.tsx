@@ -89,18 +89,11 @@ export default function WriteInPage() {
           wrongly assume the campaign is over. This note heads that off
           before anyone reaches the practice ballot. Navy left-border
           matches the ExpandableCard accent pattern used elsewhere. */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="max-w-3xl bg-cream rounded-lg p-4 sm:p-5 border border-gray-100 border-l-4 border-l-navy">
-          <p className="text-navy font-semibold text-xs uppercase tracking-wider font-serif">
-            A note on the June primary
-          </p>
-          <p className="mt-1.5 text-charcoal/80 text-sm leading-relaxed">
-            Clayton Cuteri is a write-in candidate for the November 3, 2026
-            general election. He will not appear on the June primary ballot.
-            When you vote in November, write &ldquo;Clayton Cuteri&rdquo; on
-            the write-in line for U.S. House of Representatives, District 1.
-          </p>
-        </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <p className="max-w-3xl bg-cream rounded-md px-3 py-2 border-l-4 border-l-navy text-charcoal/80 text-xs leading-snug">
+          <span className="font-semibold text-navy">Note:</span> Write-ins
+          skip the June primary. Vote for Clayton on November 3, 2026.
+        </p>
       </div>
 
       {/* Interactive practice ballot (elevated  -  research shows hands-on first
