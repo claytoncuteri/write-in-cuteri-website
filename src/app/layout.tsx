@@ -83,9 +83,11 @@ export const metadata: Metadata = {
     canonical: "https://writeincuteri.com",
   },
   manifest: "/site.webmanifest",
-  other: {
-    "google-site-verification": "[GOOGLE_SITE_VERIFICATION_CODE]",
-  },
+  // Google Search Console verification is handled via DNS TXT record on
+  // writeincuteri.com, not an HTML meta tag. If we ever need meta-tag
+  // verification (for example, for a non-DNS-owned subdomain), add it
+  // back here as:
+  //   other: { "google-site-verification": "<code from Search Console>" }
 };
 
 // JSON-LD structured data
