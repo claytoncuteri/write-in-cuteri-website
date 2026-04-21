@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown } from "lucide-react";
@@ -140,9 +141,12 @@ export function Header() {
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
-            <img
+            <Image
               src="/images/ACP_logo_with_letters.png"
-              alt="American Congress Party"
+              alt="American Congress Party — Cuteri for US House SC-01"
+              width={1080}
+              height={1080}
+              priority
               className="h-14 sm:h-16 w-auto"
             />
           </Link>

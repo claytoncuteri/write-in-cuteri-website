@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 
@@ -76,9 +77,13 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="lg:col-span-2">
-            <img
+            <Image
               src="/images/Clayton_Headshot.jpg"
-              alt="Clayton Cuteri"
+              alt="Clayton Cuteri, Secretary General of the American Congress Party"
+              width={1284}
+              height={1371}
+              quality={85}
+              sizes="(max-width: 1024px) 100vw, 384px"
               className="w-full max-w-sm rounded-xl shadow-lg object-cover object-top"
             />
           </div>
@@ -113,20 +118,23 @@ export default function AboutPage() {
                 trims whitespace; object-top keeps Clayton's face in frame
                 instead of centering through his torso; scale-110 zooms in
                 a touch further so the subject fills the card. */}
-            <div className="w-full max-w-sm aspect-square overflow-hidden rounded-xl shadow-lg">
-              <img
+            <div className="relative w-full max-w-sm aspect-square overflow-hidden rounded-xl shadow-lg">
+              <Image
                 src="/images/clayton-podium.jpg"
-                alt="Clayton Cuteri speaking at the Francis Marion Hotel in Charleston"
-                className="w-full h-full object-cover"
+                alt="Clayton Cuteri speaking at a campaign event for US House SC-01"
+                fill
+                quality={85}
+                sizes="(max-width: 1024px) 100vw, 384px"
                 // Source is portrait (~3:4) into a square container, so
                 // object-cover fits width-to-width and object-position X
                 // has no effect (no horizontal overflow to slide). We use
                 // transform: scale + translate instead so the zoom and the
-                // horizontal shift both land. translateX(-12%) pulls the
+                // horizontal shift both land. translateX(-6%) pulls the
                 // subject (Clayton, roughly center of source) visibly left
-                // within the crop; translateY(-8%) nudges up so his face
+                // within the crop; translateY(-2%) nudges up so his face
                 // clears the top edge after scaling.
                 style={{
+                  objectFit: "cover",
                   transform: "scale(1.4) translate(-6%, -2%)",
                   transformOrigin: "center",
                 }}
@@ -161,10 +169,13 @@ export default function AboutPage() {
             </div>
           </div>
           <div className="lg:col-span-2 flex justify-center">
-            <img
+            <Image
               src="/images/ACP_logo_with_letters.png"
-              alt="American Congress Party logo"
-              className="w-48 sm:w-56 object-contain"
+              alt="American Congress Party"
+              width={1080}
+              height={1080}
+              sizes="(max-width: 640px) 192px, 224px"
+              className="w-48 sm:w-56 h-auto object-contain"
             />
           </div>
         </div>
@@ -188,10 +199,14 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="lg:col-span-2 flex justify-center">
-            <img
+            <Image
               src="/images/clayton-red-carpet.jpg"
               alt="Clayton Cuteri at the Asia Icon Global Leader of the Year 2024 award ceremony"
-              className="w-full max-w-sm rounded-xl shadow-lg"
+              width={1284}
+              height={1542}
+              quality={85}
+              sizes="(max-width: 1024px) 100vw, 384px"
+              className="w-full max-w-sm h-auto rounded-xl shadow-lg"
             />
           </div>
         </div>

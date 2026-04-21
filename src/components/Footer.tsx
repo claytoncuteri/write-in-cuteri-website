@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { footerNavItems } from "@/data/navigation";
 
@@ -8,9 +9,11 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <img
+            <Image
               src="/images/ACP_Eagle_transparent_background.png"
-              alt="American Congress Party Eagle"
+              alt="American Congress Party eagle emblem"
+              width={2869}
+              height={2869}
               className="h-16 w-auto mb-4"
             />
             <p className="text-white/80 text-sm leading-relaxed">

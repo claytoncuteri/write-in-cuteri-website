@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 import { HomeProblems } from "@/components/HomeProblems";
@@ -57,10 +58,14 @@ export default function HomePage() {
             {/* Headshot */}
             <div className="flex justify-center lg:justify-end">
               <div className="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-2xl overflow-hidden shadow-2xl">
-                <img
+                <Image
                   src="/images/Clayton_Headshot.jpg"
-                  alt="Clayton Cuteri, write-in candidate for SC-01"
-                  className="w-full h-full object-cover object-top"
+                  alt="Clayton Cuteri, write-in candidate for US House SC-01 in the 2026 election"
+                  fill
+                  priority
+                  quality={85}
+                  sizes="(max-width: 640px) 288px, (max-width: 1024px) 320px, 384px"
+                  style={{ objectFit: "cover", objectPosition: "top" }}
                 />
               </div>
             </div>
@@ -106,12 +111,16 @@ export default function HomePage() {
             </div>
           </div>
           <div className="lg:col-span-2 flex justify-center">
-            <img
-              src="/images/clayton-seated-smiling.jpg"
-              alt="Clayton Cuteri"
-              className="w-64 h-80 sm:w-72 sm:h-96 rounded-xl object-cover shadow-lg"
-              style={{ objectPosition: "center 25%" }}
-            />
+            <div className="relative w-64 h-80 sm:w-72 sm:h-96 rounded-xl overflow-hidden shadow-lg">
+              <Image
+                src="/images/clayton-seated-smiling.jpg"
+                alt="Clayton Cuteri, American Congress Party candidate for South Carolina's 1st Congressional District"
+                fill
+                quality={85}
+                sizes="(max-width: 640px) 256px, 288px"
+                style={{ objectFit: "cover", objectPosition: "center 25%" }}
+              />
+            </div>
           </div>
         </div>
       </Section>
@@ -144,9 +153,12 @@ export default function HomePage() {
             </div>
           </div>
           <div className="lg:col-span-2 flex justify-center">
-            <img
+            <Image
               src="/images/ACP_Eagle_transparent_background.png"
-              alt="American Congress Party Eagle"
+              alt="American Congress Party eagle emblem"
+              width={2869}
+              height={2869}
+              sizes="(max-width: 640px) 192px, 224px"
               className="w-48 h-48 sm:w-56 sm:h-56 object-contain"
             />
           </div>

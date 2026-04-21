@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Image from "next/image";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 import Link from "next/link";
@@ -157,10 +158,14 @@ export default function MediaPage() {
 
           {/* Section 3: Headshot */}
           <div className="flex flex-col items-center">
-            <img
+            <Image
               src="/images/Clayton_Headshot.jpg"
-              alt="Clayton A. Cuteri, write-in candidate for U.S. Congress SC-01"
-              className="w-full max-w-[300px] rounded-xl shadow-lg"
+              alt="Clayton A. Cuteri, 2026 write-in candidate for US House SC-01, official press photo"
+              width={1284}
+              height={1371}
+              quality={85}
+              sizes="(max-width: 640px) 100vw, 300px"
+              className="w-full max-w-[300px] h-auto rounded-xl shadow-lg"
             />
             <a
               href="/images/Clayton_Headshot.jpg"
@@ -431,10 +436,14 @@ export default function MediaPage() {
       <Section bgColor="cream">
         <div className="grid lg:grid-cols-2 gap-8 items-center max-w-4xl mx-auto">
           <div>
-            <img
+            <Image
               src="/images/clayton-asia-icon-press.jpg"
               alt="Clayton Cuteri interviewed by BBC News, Al Jazeera, and Sky News at the Asia Icon Awards 2024"
-              className="w-full rounded-xl shadow-lg"
+              width={3024}
+              height={4032}
+              quality={85}
+              sizes="(max-width: 1024px) 100vw, 448px"
+              className="w-full h-auto rounded-xl shadow-lg"
             />
           </div>
           <div>
