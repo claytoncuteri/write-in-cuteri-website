@@ -207,17 +207,30 @@ export function DonateClient() {
                   >
                     $
                   </span>
+                  {/* type="text" (not "number") is intentional: `type="number"`
+                      changes the value when the user scrolls the mouse wheel
+                      over a focused input, which accidentally mutates
+                      donation amounts for any donor who wheel-scrolls the
+                      page while the field has focus. It also renders spin
+                      buttons we do not want. Stripe, GitHub, and most
+                      modern donation forms use `type="text"` +
+                      `inputMode="numeric"` so mobile still gets a numeric
+                      keyboard and desktop gets a clean, wheel-proof field.
+                      Non-digit input is stripped in onChange, and the
+                      final amount is clamped to the FEC cap in the submit
+                      handler. */}
                   <input
-                    type="number"
+                    type="text"
                     inputMode="numeric"
-                    min={1}
-                    max={FEC_MAX_AMOUNT}
-                    step={1}
+                    pattern="[0-9]*"
+                    maxLength={4}
                     value={customAmount}
-                    onChange={(e) => setCustomAmount(e.target.value)}
+                    onChange={(e) =>
+                      setCustomAmount(e.target.value.replace(/[^0-9]/g, ""))
+                    }
                     placeholder="Other"
                     aria-label="Custom donation amount in US dollars"
-                    className="w-full min-w-0 bg-transparent text-lg font-semibold placeholder:text-navy/50 focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    className="w-full min-w-0 bg-transparent text-lg font-semibold placeholder:text-navy/50 focus:outline-none"
                   />
                   <button
                     type="submit"
