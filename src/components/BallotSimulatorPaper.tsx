@@ -141,7 +141,7 @@ export function PaperBallot() {
             General Election - November 3, 2026
           </p>
           <p className="text-xs text-gray-500 font-mono">
-            Congressional District 1 - State of South Carolina
+            U.S. House of Representatives, District 1 - State of South Carolina
           </p>
         </div>
 
@@ -174,11 +174,11 @@ export function PaperBallot() {
                 : ""
             }`}
             role="group"
-            aria-label="U.S. House of Representatives District 1 - your race"
+            aria-label="U.S. House of Representatives, District 1 - your race"
           >
             <div className="flex items-baseline justify-between mb-2">
               <h4 className="text-sm font-bold uppercase tracking-wider text-navy font-serif">
-                United States House of Representatives, District 1
+                U.S. House of Representatives, District 1
               </h4>
               <span className="text-[10px] text-navy/70 uppercase tracking-wider font-semibold">
                 Vote for One
@@ -299,7 +299,7 @@ function ProgressiveHint({
   nudge: string | null;
 }) {
   const steps: { key: Stage; label: string }[] = [
-    { key: "find", label: "Find U.S. House, District 1" },
+    { key: "find", label: "Find U.S. House of Representatives, District 1" },
     { key: "oval", label: "Fill in the Write-in oval" },
     { key: "write", label: "Write Clayton Cuteri" },
     { key: "ready", label: "Cast your practice vote" },
@@ -317,10 +317,10 @@ function ProgressiveHint({
               <div
                 className={`w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-bold transition-colors ${
                   isDone
-                    ? "bg-green-500 text-white"
+                    ? "bg-green-600 text-white"
                     : isActive
-                    ? "bg-gold text-navy"
-                    : "bg-white/20 text-white/60"
+                    ? "bg-navy text-white"
+                    : "bg-navy/15 text-navy/60"
                 }`}
               >
                 {isDone ? "\u2713" : i + 1}
@@ -328,7 +328,7 @@ function ProgressiveHint({
               {i < steps.length - 1 && (
                 <div
                   className={`h-0.5 w-4 sm:w-6 ${
-                    isDone ? "bg-green-500" : "bg-white/20"
+                    isDone ? "bg-green-600" : "bg-navy/20"
                   }`}
                 />
               )}
@@ -338,13 +338,13 @@ function ProgressiveHint({
       </div>
 
       <div className="text-center">
-        <p className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-gold">
+        <p className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-navy/70">
           Step {activeIndex + 1} of {steps.length}
         </p>
-        <p className="mt-1 text-white text-xl sm:text-2xl font-serif flex items-center justify-center gap-2">
+        <p className="mt-1 text-charcoal text-xl sm:text-2xl font-serif flex items-center justify-center gap-2">
           {steps[activeIndex].label}
           {stage === "find" && (
-            <ArrowDown size={22} className="text-gold animate-bounce" />
+            <ArrowDown size={22} className="text-navy animate-bounce" />
           )}
         </p>
       </div>

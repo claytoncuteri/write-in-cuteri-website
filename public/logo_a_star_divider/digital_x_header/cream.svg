@@ -1,0 +1,11 @@
+<svg width="1500" height="500" viewBox="0 0 1500 500" xmlns="http://www.w3.org/2000/svg">
+<rect width="1500" height="500" fill="#FAF8F2"/>
+
+<text x="750.0" y="89.132" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="49.0" font-weight="700" letter-spacing="22.05" fill="#D72638">WRITE IN</text>
+<text x="750.0" y="267.212" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="140.0" font-weight="700" letter-spacing="11.200000000000001" fill="#1E3D8C">CUTERI</text>
+<line x1="420.0" y1="348.412" x2="709.68" y2="348.412" stroke="#1E3D8C" stroke-width="1.8199999999999998"/>
+<polygon points="750.0,326.0 755.0,341.5 771.3,341.5 758.1,351.0 763.2,366.5 750.0,356.9 736.8,366.5 741.9,351.0 728.7,341.5 745.0,341.5" fill="#D72638"/>
+<line x1="790.32" y1="348.412" x2="1080.0" y2="348.412" stroke="#1E3D8C" stroke-width="1.8199999999999998"/>
+<text x="750.0" y="417.628" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="30.8" font-weight="400" letter-spacing="9.24" fill="#1E3D8C">U.S. HOUSE OF REPRESENTATIVES</text>
+<text x="750.0" y="473.068" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="30.8" font-weight="400" letter-spacing="9.24" fill="#1E3D8C">DISTRICT 1</text>
+</svg>

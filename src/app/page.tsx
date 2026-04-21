@@ -23,7 +23,7 @@ export default function HomePage() {
               <p className="mt-4 text-lg sm:text-xl text-white/80">
                 Write-In Candidate, South Carolina District 1
                 <br />
-                November 3, 2026
+                November 3, 2026 General Election
               </p>
               <p className="mt-6 text-white/70 text-base sm:text-lg leading-relaxed max-w-lg">
                 Both Republicans and Democrats have failed us. The American

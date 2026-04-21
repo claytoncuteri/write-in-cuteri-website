@@ -89,6 +89,11 @@ export function SuccessState({ writeInValue, onReset, mode }: SuccessStateProps)
                 <span className="text-charcoal/60">(C-U-T-E-R-I)</span>. Try
                 the practice ballot again.
               </p>
+              <p className="mt-3 text-sm text-charcoal/60 max-w-md mx-auto">
+                On a real ballot, South Carolina counts votes by voter intent,
+                so a close attempt would still count for Clayton. The exact
+                spelling removes all doubt.
+              </p>
             </>
           )}
           <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center items-center">

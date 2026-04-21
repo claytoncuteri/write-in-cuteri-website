@@ -82,7 +82,7 @@ export function BMDSimulator() {
     );
     track("ballot_sim_decoy_click", {
       mode: "bmd",
-      race: "U.S. House District 1",
+      race: "U.S. House of Representatives, District 1",
       choice: name,
       stage,
     });
@@ -232,8 +232,8 @@ export function BMDSimulator() {
       </div>
 
       {/* Absentee callout */}
-      <div className="mt-6 bg-white/10 border border-white/20 rounded-lg p-4 text-white/80 text-sm">
-        <p className="font-semibold text-white mb-1">
+      <div className="mt-6 bg-navy/5 border border-navy/20 rounded-lg p-4 text-charcoal/80 text-sm">
+        <p className="font-semibold text-navy mb-1">
           Voting absentee by mail?
         </p>
         <p className="leading-relaxed">
@@ -264,10 +264,10 @@ function ContestScreen({
     <>
       <div className="px-6 py-5 border-b border-gray-200">
         <p className="text-[11px] text-gray-500 uppercase tracking-wider font-semibold">
-          United States House of Representatives
+          Federal Race
         </p>
         <h3 className="text-lg sm:text-xl font-bold text-gray-900 font-serif mt-0.5">
-          Congressional District 1
+          U.S. House of Representatives, District 1
         </h3>
         <p className="text-xs text-gray-600 mt-1">(Vote for One)</p>
       </div>
@@ -412,7 +412,7 @@ function KeyboardScreen({
     <>
       <div className="px-6 py-4 border-b border-gray-200 bg-gray-50">
         <p className="text-[11px] text-gray-500 uppercase tracking-wider font-semibold">
-          Write-in for U.S. House, District 1
+          Write-in for U.S. House of Representatives, District 1
         </p>
         <p className="text-xs text-gray-700 mt-1">
           Type the candidate&rsquo;s name, then tap Accept.
@@ -605,10 +605,10 @@ function ProgressiveHint({
               <div
                 className={`w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-bold transition-colors ${
                   isDone
-                    ? "bg-green-500 text-white"
+                    ? "bg-green-600 text-white"
                     : isActive
-                    ? "bg-gold text-navy"
-                    : "bg-white/20 text-white/60"
+                    ? "bg-navy text-white"
+                    : "bg-navy/15 text-navy/60"
                 }`}
               >
                 {isDone ? "\u2713" : i + 1}
@@ -616,7 +616,7 @@ function ProgressiveHint({
               {i < steps.length - 1 && (
                 <div
                   className={`h-0.5 w-4 sm:w-6 ${
-                    isDone ? "bg-green-500" : "bg-white/20"
+                    isDone ? "bg-green-600" : "bg-navy/20"
                   }`}
                 />
               )}
@@ -626,10 +626,10 @@ function ProgressiveHint({
       </div>
 
       <div className="text-center">
-        <p className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-gold">
+        <p className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-navy/70">
           Step {activeIndex + 1} of {steps.length}
         </p>
-        <p className="mt-1 text-white text-xl sm:text-2xl font-serif">
+        <p className="mt-1 text-charcoal text-xl sm:text-2xl font-serif">
           {steps[activeIndex]?.label}
         </p>
       </div>
