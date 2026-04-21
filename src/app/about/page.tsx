@@ -6,7 +6,7 @@ import { CTAButton } from "@/components/CTAButton";
 export const metadata: Metadata = {
   title: "About Clayton Cuteri | SC-01 Write-In Candidate 2026",
   description:
-    "Who is Clayton Cuteri? Write-in candidate for U.S. House SC-01 in the 2026 election. Secretary General of the American Congress Party, third-party alternative for Charleston and Lowcountry voters.",
+    "Who is Clayton Cuteri? Write-in candidate for U.S. House SC-01 in the 2026 election. Secretary General of the American Congress Party, third-party alternative for Charleston, Berkeley, Dorchester, Beaufort, Colleton, and Jasper county voters across the SC-01 Lowcountry.",
 };
 
 export default function AboutPage() {
@@ -90,57 +90,88 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      {/* Connection to SC-01 */}
-      <Section bgColor="cream" title="Connection to the Lowcountry">
+      {/* Career Before Politics.
+          Replaces the prior "Connection to the Lowcountry" beat. This is
+          now the primary place on the site where Clayton's career
+          credibility is established before politics. Dual-fact framing on
+          the Yorktown photo: the caption names USS Yorktown (CV-10) at
+          Patriots Point Naval & Maritime Museum accurately, and the Navy
+          government-contracting work is stated separately in body copy.
+          The photo does not depict contracting work or military service. */}
+      <Section bgColor="cream" title="Career Before Politics">
         <div className="grid lg:grid-cols-5 gap-10 items-start">
           <div className="lg:col-span-3 space-y-4">
             <p className="text-charcoal/80 text-lg leading-relaxed">
-              Clayton chose Charleston because, after years of moving across the
-              country, the Lowcountry was the place that felt like home. He lives
-              in Mount Pleasant. The marshes, the harbor, the people who have
-              built their lives in these communities from Sullivan&apos;s Island
-              down to Beaufort: this is worth protecting. This is not a district
-              he is parachuting into for a campaign. This is home.
+              Before running for Congress, Clayton built a career as a software
+              engineer in artificial intelligence, rising to Vice President of
+              Engineering. He then left to start his own companies and today
+              operates multiple businesses across media, technology, and
+              consumer brands.
             </p>
             <p className="text-charcoal/80 text-lg leading-relaxed">
-              What pushed Clayton from commentary to candidacy was watching the
-              Lowcountry get hollowed out in real time. Kids who grew up in Mount
-              Pleasant cannot afford a starter home here because Wall Street firms
-              buy them in bulk. Retirees on the islands are being taxed out of
-              houses they paid off decades ago. Families across Charleston,
-              Berkeley, and Dorchester counties pay $5,000 or more a year in
-              insurance, and carriers are still leaving the market. Both parties
-              have had years to fix this, and both have failed.
+              Five years ago he launched the podcast &quot;Traveling to
+              Consciousness,&quot; which grew into a media platform reaching 30
+              to 100 million views per month across Instagram, YouTube, and
+              Facebook, with more than 700,000 followers combined. That
+              audience is now the foundation of this campaign.
+            </p>
+            <p className="text-charcoal/80 text-lg leading-relaxed">
+              Clayton&apos;s engineering career has included government-
+              contracting work with the U.S. Navy on military drones and on
+              communications, software, and networking systems. He is not a
+              veteran and has not deployed. His lens on the defense community
+              is the engineer&apos;s lens, and it is one of the reasons
+              SC-01&apos;s military economy (Joint Base Charleston, MCAS
+              Beaufort, and Parris Island) is a priority for this campaign.
+            </p>
+            <p className="text-charcoal/80 text-lg leading-relaxed">
+              He is running without corporate PAC money and without needing
+              this job to support his family.
             </p>
           </div>
-          <div className="lg:col-span-2 flex justify-center">
-            {/* Tighter crop on the podium shot. aspect-[3/4] + object-cover
-                trims whitespace; object-top keeps Clayton's face in frame
-                instead of centering through his torso; scale-110 zooms in
-                a touch further so the subject fills the card. */}
-            <div className="relative w-full max-w-sm aspect-square overflow-hidden rounded-xl shadow-lg">
+          <div className="lg:col-span-2 flex flex-col items-center">
+            <div className="relative w-full max-w-sm aspect-[4/3] overflow-hidden rounded-xl shadow-lg">
               <Image
-                src="/images/clayton-podium.jpg"
-                alt="Clayton Cuteri speaking at a campaign event for US House SC-01"
+                src="/images/clayton-yorktown-patriots-point.jpg"
+                alt="Clayton Cuteri aboard USS Yorktown (CV-10) at Patriots Point Naval & Maritime Museum in Mount Pleasant, South Carolina."
                 fill
                 quality={85}
                 sizes="(max-width: 1024px) 100vw, 384px"
-                // Source is portrait (~3:4) into a square container, so
-                // object-cover fits width-to-width and object-position X
-                // has no effect (no horizontal overflow to slide). We use
-                // transform: scale + translate instead so the zoom and the
-                // horizontal shift both land. translateX(-6%) pulls the
-                // subject (Clayton, roughly center of source) visibly left
-                // within the crop; translateY(-2%) nudges up so his face
-                // clears the top edge after scaling.
-                style={{
-                  objectFit: "cover",
-                  transform: "scale(1.4) translate(-6%, -2%)",
-                  transformOrigin: "center",
-                }}
+                style={{ objectFit: "cover", objectPosition: "center" }}
               />
             </div>
+            <p className="mt-3 text-xs text-charcoal/60 max-w-sm text-center">
+              Aboard USS Yorktown (CV-10) at Patriots Point Naval &amp;
+              Maritime Museum, Mount Pleasant.
+            </p>
           </div>
+        </div>
+      </Section>
+
+      {/* Connection to SC-01 */}
+      <Section title="Home in SC-01">
+        <div className="max-w-3xl space-y-4">
+          <p className="text-charcoal/80 text-lg leading-relaxed">
+            After years of moving across the country, the Lowcountry was the
+            place that felt like home. Clayton lives in Mount Pleasant, but
+            this campaign is for the whole district: from Hilton Head,
+            Bluffton, and Beaufort through Walterboro and Ridgeland, up
+            through Summerville, Goose Creek, and Moncks Corner, and across
+            Charleston, Mount Pleasant, and North Charleston. The marshes,
+            the harbor, the ACE Basin, the communities that people have
+            built here: this is worth protecting.
+          </p>
+          <p className="text-charcoal/80 text-lg leading-relaxed">
+            What pushed Clayton from commentary to candidacy was watching
+            SC-01 get hollowed out in real time. Kids who grew up in Mount
+            Pleasant and Bluffton cannot afford starter homes. Retirees on
+            Hilton Head and Edisto are being taxed out of houses they paid
+            off decades ago. Families across Charleston, Berkeley,
+            Dorchester, Beaufort, Colleton, and Jasper counties pay $5,000
+            or more a year in insurance, and carriers are still leaving the
+            market. Both parties have had years to fix this, and both have
+            failed.
+          </p>
         </div>
       </Section>
 

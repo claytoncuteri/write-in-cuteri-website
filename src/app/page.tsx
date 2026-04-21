@@ -100,8 +100,9 @@ export default function HomePage() {
             </h2>
             <p className="mt-4 text-charcoal/80 text-lg leading-relaxed">
               Clayton Cuteri lives in Mount Pleasant, pays the same insurance
-              premiums you do, and watches the same neighbors get priced out of
-              the Lowcountry every year. He is not a career politician. He is an
+              premiums you do, and watches the same neighbors get priced out
+              of SC-01 every year, from Hilton Head and Bluffton to Summerville
+              and Goose Creek. He is not a career politician. He is an
               entrepreneur, content creator, and co-founder of the American
               Congress Party who built a following of over 700,000 people by
               saying what both parties refuse to say.

@@ -6,7 +6,7 @@ import { Calendar, MapPin, Clock, Users } from "lucide-react";
 export const metadata: Metadata = {
   title: "Events | Town Halls, Rallies, and Community Meetings",
   description:
-    "Upcoming campaign events for Clayton Cuteri in SC-01. Town halls, community meetings, and voter education events across Charleston, Berkeley, Beaufort, and the Lowcountry.",
+    "Upcoming campaign events for Clayton Cuteri in SC-01. Town halls, community meetings, and voter education events across Charleston, Berkeley, Dorchester, Beaufort, Colleton, and Jasper counties.",
 };
 
 // Add events here as they are scheduled
@@ -111,7 +111,8 @@ export default function EventsPage() {
             </h2>
             <p className="mt-3 text-charcoal/70 text-lg leading-relaxed">
               Clayton is scheduling town halls and community events across
-              Charleston, Berkeley, Dorchester, Beaufort, and Jasper counties.
+              Charleston, Berkeley, Dorchester, Beaufort, Colleton, and Jasper
+              counties.
               Sign up below to be the first to know when events are announced.
             </p>
           </div>

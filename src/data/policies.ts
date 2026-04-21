@@ -44,7 +44,7 @@ export const policies: Policy[] = [
       "$150B+ in economic stimulus from 47.9 million Americans freed from food insecurity",
       "$75B annual program cost",
     ],
-    readMore: "America Reimagined, Chapter 2",
+    readMore: "USDA FNS, National School Lunch Program (fns.usda.gov/nslp)",
   },
   {
     id: "free-medication",
@@ -65,7 +65,7 @@ export const policies: Policy[] = [
       "$650B in total savings from eliminating pharma markup on essential medicine",
       "$365B annual program cost",
     ],
-    readMore: "America Reimagined, Chapter 3",
+    readMore: "CMS Most Favored Nation Model (cms.gov/priorities/innovation)",
   },
   {
     id: "free-education",
@@ -85,7 +85,7 @@ export const policies: Policy[] = [
       "$215B saved through eliminated redundancy and improved outcomes",
       "$210B annual cost after transition period",
     ],
-    readMore: "America Reimagined, Chapter 4",
+    readMore: "CBO, Federal Aid for Postsecondary Students, Pub. 57630 (cbo.gov/publication/57630)",
   },
   {
     id: "clean-food-water",
@@ -106,7 +106,7 @@ export const policies: Policy[] = [
       "$290B saved from reduced chronic disease and avoided pollution cleanup",
       "$135B annual federal enforcement cost",
     ],
-    readMore: "America Reimagined, Chapter 5",
+    readMore: "EPA Safe Drinking Water Act (epa.gov/sdwa); FDA FSMA (fda.gov)",
   },
   {
     id: "gold-standard",
@@ -128,7 +128,7 @@ export const policies: Policy[] = [
       "Dollar has lost 97% of purchasing power since 1913",
       "Sound money restores stability to savings and wages",
     ],
-    readMore: "America Reimagined, Chapter 6",
+    readMore: "Federal Reserve History, The Gold Standard (federalreservehistory.org/essays/gold-standard)",
   },
   {
     id: "no-federal-income-tax",
@@ -152,7 +152,7 @@ export const policies: Policy[] = [
       "IRS eliminated entirely",
       "Property taxes eliminated on primary residences",
     ],
-    readMore: "America Reimagined, Chapter 7",
+    readMore: "JCT, Overview of the Federal Tax System, JCX-14-24 (jct.gov); CBO Distribution of Household Income, Pub. 59509 (cbo.gov/publication/59509)",
   },
   {
     id: "open-books",
@@ -175,7 +175,7 @@ export const policies: Policy[] = [
       "$2.8 billion sent to dead people by federal agencies",
       "Real-time public visibility stops waste before it happens",
     ],
-    readMore: "America Reimagined, Chapter 8",
+    readMore: "USAspending.gov (Treasury); GAO-22-104702 on federal financial transparency (gao.gov/products/gao-22-104702)",
   },
   {
     id: "stop-endless-wars",
@@ -199,7 +199,7 @@ export const policies: Policy[] = [
       "Redirected to domestic infrastructure and resilience",
       "Defense contractor revolving door closed",
     ],
-    readMore: "America Reimagined, Chapter 9",
+    readMore: "CBO, Options for Reducing the Deficit 2025-2034, Pub. 60557, defense option (cbo.gov/publication/60557)",
   },
   {
     id: "affordable-housing",
@@ -222,7 +222,7 @@ export const policies: Policy[] = [
       "Corporate bulk-buying of residential properties banned",
       "Property tax eliminated on primary residences",
     ],
-    readMore: "America Reimagined, Chapter 10",
+    readMore: "HUD, Worst Case Housing Needs 2023 (huduser.gov); HUD Fair Market Rents (huduser.gov/portal/datasets/fmr.html)",
   },
   {
     id: "end-homelessness",
@@ -244,7 +244,7 @@ export const policies: Policy[] = [
       "$20B redirected annually from foreign military aid",
       "Veterans receive immediate housing, no exceptions",
     ],
-    readMore: "America Reimagined, Chapter 11",
+    readMore: "HUD Annual Homelessness Assessment Report (hud.gov/data_sets/ahar); USICH Federal Strategic Plan (usich.gov)",
   },
   {
     id: "honor-first-responders",
@@ -266,7 +266,7 @@ export const policies: Policy[] = [
       "Mandatory mental health support reduces turnover",
       "Investment pays back through better outcomes and retention",
     ],
-    readMore: "America Reimagined, Chapter 12",
+    readMore: "VA National Center for Veterans Analysis and Statistics (va.gov/vetdata); DoD IG Semiannual Reports (dodig.mil/Reports/Semiannual-Reports)",
   },
   {
     id: "energy-independence",
@@ -289,7 +289,7 @@ export const policies: Policy[] = [
       "All publicly funded technology open-sourced on blockchain",
       "Conservative estimate; grows to $300B+ at full implementation",
     ],
-    readMore: "America Reimagined, Chapter 13",
+    readMore: "EIA Annual Energy Outlook (eia.gov/outlooks/aeo); DOE Energy Information portal (energy.gov)",
   },
   {
     id: "lowcountry-resilience",
@@ -300,7 +300,7 @@ export const policies: Policy[] = [
     plank:
       "Bring competition back to coastal insurance, mitigation back to coastal communities, and accountability back to disaster spending.",
     whatItMeans:
-      "Charleston families pay $5,000+ per year for flood, wind, and hail coverage on top of mortgages they can already barely afford. Carriers are abandoning the market entirely. Federal flood maps are a decade out of date. The National Flood Insurance Program is functionally bankrupt. Meanwhile, $90 billion a year flows to foreign wars while the homes we already have cannot be insured against the storms we already see.",
+      "Families from Hilton Head and Beaufort to Mt. Pleasant, from Folly Beach to Edisto, from Summerville to Goose Creek, are paying $5,000 and more per year for flood, wind, and hail coverage on top of mortgages they can already barely afford. Carriers are non-renewing and exiting. FEMA flood maps are a decade out of date. The National Flood Insurance Program is functionally bankrupt. Meanwhile, roughly $90 billion a year flows to foreign wars while the homes SC-01 already has cannot be insured against the storms SC-01 already sees.",
     solvesProblems: [
       { id: "insurance", title: "Insurance is Eating Us Alive", shortLabel: "Coastal insurance crisis" },
       { id: "environment", title: "The Lowcountry Is Being Poisoned and Paved", shortLabel: "Lowcountry environmental damage" },
@@ -316,7 +316,7 @@ export const policies: Policy[] = [
         analogy:
           "In 1957, Congress passed the Price-Anderson Act, making the federal government the insurer of last resort for nuclear catastrophes. This made nuclear power viable in America. Without it, no carrier would touch a nuclear plant.",
         districtReality:
-          "Right now, insurance carriers are pulling out of South Carolina because if a Category 5 hurricane levels the coast, they could go bankrupt paying claims. With a federal backstop, carriers know that if losses exceed a certain threshold, the government covers everything above that. The carrier's exposure is capped. They become willing to compete for your business again.",
+          "Carriers have been non-renewing and exiting across the SC-01 coast: Beaufort and Hilton Head clients, Charleston peninsula and Mt. Pleasant clients, Edisto and Hunting Island clients. A single Category 5 landfall anywhere from Hilton Head to Pawleys could blow past the surplus of the remaining writers. A federal backstop caps carrier tail exposure above a defined threshold, and carriers start competing again from Ridgeland to Moncks Corner.",
         framing:
           "This is not a government takeover of insurance. It is the government playing the role only the government can play: backstopping risks too big for any private actor to bear, so the private market can function for everything else.",
       },
@@ -327,7 +327,7 @@ export const policies: Policy[] = [
         analogy:
           "Until 1994, an Ohio bank could not easily open branches in California. Then the Riegle-Neal Act allowed interstate banking, and competition increased. Consumer prices dropped. Insurance needs the same fix.",
         districtReality:
-          "Right now, only a handful of carriers will write home insurance in coastal SC. They charge whatever they want because there is no real competition. If dozens more carriers could easily enter the SC market, they would compete for your business and premiums would drop.",
+          "In coastal Beaufort and Charleston counties, admitted-market options have thinned to a handful of carriers, and the SC Wind and Hail Underwriting Association ends up covering the gap at non-competitive rates. A Hilton Head condo owner and a Folly Beach cottage owner get quoted by the same two or three writers. Open the compact and dozens more carriers can quote Bluffton, James Island, and Sullivan's Island without re-filing 50 sets of paperwork.",
         framing:
           "This is a deregulation move. Removing artificial barriers to competition lets the free market actually work.",
       },
@@ -338,7 +338,7 @@ export const policies: Policy[] = [
         analogy:
           "Health Savings Accounts (HSAs) let you put money in tax-free, grow it tax-free, and spend it tax-free on medical expenses. Millions of Americans use them. They work. This is the same concept for disaster preparation.",
         districtReality:
-          "Most Charleston families do not have $10,000 sitting around for a hurricane deductible or to install impact windows. With a Disaster Resilience Account, you put $5,000 per year in pre-tax, and that money grows. When a storm hits, you have your deductible covered.",
+          "A Summerville family in Dorchester County, a Goose Creek family in Berkeley County, and a Walterboro family in Colleton County all run into the same wall: no one has $10,000 sitting around for a hurricane deductible or impact windows. A tax-free Disaster Resilience Account lets working households across SC-01 set aside $5,000 a year pre-tax and let it grow, so the deductible is covered before the storm names show up.",
         framing:
           "This puts disaster preparation in the hands of families, not bureaucrats. You decide when and how to use the money. The government just stops taxing you for being responsible.",
       },
@@ -349,7 +349,7 @@ export const policies: Policy[] = [
         analogy:
           "Imagine if your car insurance rate was based on the value of your car in 2010. You would either be paying way too much or way too little. Insurance only works when the data behind it is current.",
         districtReality:
-          "Many SC neighborhoods are classified on flood maps drawn before sea levels rose, before development paved over wetlands. Some homes in West Ashley are classified 'low risk' but flood three times a year. Updated maps mean accurate pricing for everyone.",
+          "NOAA's Charleston gauge logged 17 high-tide flood days in 2023-24, a record, and the same trend is showing up on Fort Pulaski's gauge near Beaufort and Jasper. Meanwhile FEMA maps still reflect pre-sea-rise, pre-paved Summerville and inland Colleton watersheds. Homes in West Ashley, downtown Beaufort, and parts of Hardeeville are classified 'low risk' and flood several times a year. Updated maps mean accurate pricing for the whole district.",
         framing:
           "Real data, public access, accurate pricing. No government should be running an insurance program on stale data.",
       },
@@ -360,7 +360,7 @@ export const policies: Policy[] = [
         analogy:
           "After Hurricane Andrew (1992), Florida funded 'wind mitigation' upgrades. When later hurricanes hit, those upgraded homes survived dramatically better. Insurance companies started offering discounts. The investment paid for itself many times over.",
         districtReality:
-          "Elevating a home costs $30,000 to $80,000. Most families cannot afford this alone. With federal mitigation grants, a family pays maybe 20% and the government pays 80%. Premiums drop because risk drops. Preventing $200,000 in damage with $40,000 in mitigation is just good math.",
+          "Elevating a raised-pier home in Beaufort or on Edisto runs $30,000 to $80,000. Hardening a roof and installing impact windows on a Bluffton or Ridgeland single-family home runs $15,000 to $25,000. A Colleton retiree on a fixed income cannot self-fund that. An 80/20 federal mitigation grant flips the math: the household pays roughly 20% out of pocket, premiums drop because risk drops, and preventing $200,000 in damage with $40,000 in mitigation is just good math.",
         framing:
           "This is not a giveaway. It is an investment that returns 5x to 10x in averted disaster claims. The current model, letting homes get destroyed and then paying to rebuild, is the most expensive option.",
       },
@@ -371,7 +371,7 @@ export const policies: Policy[] = [
         analogy:
           "Imagine Henry Ford invented the assembly line in 1913, and the government locked it away forever. That is what is happening to thousands of American inventors on technologies that could change lives.",
         districtReality:
-          "Some of those classified patents are for building materials that survive Category 5 winds. We literally have technology in government vaults that could make Charleston homes nearly hurricane-proof. We just cannot use it. Repealing the Act unlocks that tech.",
+          "Some of those classified patents cover building materials that survive Category 5 winds and storm-rated glass systems. Technology that could harden a Mt. Pleasant rancher, a Hilton Head villa, a Summerville tract home, and a Hanahan townhouse sits in government vaults. Repealing the Act unlocks that tech for the whole coast, not just federal facilities.",
         framing:
           "This is already in the Energy Independence priority. Lowcountry Resilience makes the storm-resistance application explicit.",
       },
@@ -382,9 +382,9 @@ export const policies: Policy[] = [
         analogy:
           "For decades, American factories moved overseas, and we lost critical capacity at home. The same thing happened with reinsurance: the global market consolidated offshore, and now American disaster premiums fund foreign economies.",
         districtReality:
-          "When you pay your homeowner's insurance, a chunk of that premium gets paid to a reinsurer to back up the policy. Most of those reinsurers are based in Bermuda or London. Your hurricane premium is partly funding offshore economies. Bringing reinsurance home means American money stays accountable to American regulators.",
+          "When an SC-01 homeowner pays a premium in Beaufort, North Charleston, or Moncks Corner, a chunk of it is ceded to a reinsurer to back the policy. Most reinsurers are domiciled in Bermuda, London, or Zurich. Your hurricane premium is partly funding offshore economies. Bringing reinsurance home keeps that capital accountable to American regulators and closer to the risk it is backing.",
         framing:
-          "American risk, American money, American homes. Stop sending Charleston money to people who do not care about Charleston.",
+          "American risk, American money, American homes. Stop sending SC-01 premium dollars to firms with no stake in whether Beaufort or Charleston rebuilds.",
       },
     ],
   },

@@ -8,9 +8,9 @@ import Link from "next/link";
 import { Printer } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "SC-01 Problems | Charleston Insurance, Housing, and More",
+  title: "SC-01 Problems | Lowcountry Insurance, Housing, and More",
   description:
-    "The eight biggest issues in South Carolina District 1: Charleston flood insurance costs, housing affordability crisis, cost of living, and more. Why both parties have failed SC-01 voters and what Clayton Cuteri will do about it.",
+    "The eight biggest issues facing South Carolina District 1 voters in Charleston, Berkeley, Dorchester, Beaufort, Colleton, and Jasper counties: coastal flood insurance costs, the housing affordability crisis, cost of living, and more. Why both parties have failed SC-01 voters and what Clayton Cuteri will do about it.",
 };
 
 export default function ProblemsPage() {
