@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
+import { imageBlur } from "@/data/imageBlur";
 
 export const metadata: Metadata = {
   title: "About Clayton Cuteri | SC-01 Write-In Candidate 2026",
@@ -84,6 +85,8 @@ export default function AboutPage() {
               height={1371}
               quality={85}
               sizes="(max-width: 1024px) 100vw, 384px"
+              placeholder="blur"
+              blurDataURL={imageBlur["/images/Clayton_Headshot.jpg"]}
               className="w-full max-w-sm rounded-xl shadow-lg object-cover object-top"
             />
           </div>
@@ -137,6 +140,8 @@ export default function AboutPage() {
                 fill
                 quality={85}
                 sizes="(max-width: 1024px) 100vw, 384px"
+                placeholder="blur"
+                blurDataURL={imageBlur["/images/clayton-yorktown-patriots-point.jpg"]}
                 style={{ objectFit: "cover", objectPosition: "center" }}
               />
             </div>
