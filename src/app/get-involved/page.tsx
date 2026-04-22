@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
-import { Users, Share2, Mail, FileText, Printer } from "lucide-react";
+import { Users, Share2, Mail, FileText, Printer, Image as ImageIcon, Package } from "lucide-react";
 import { PdfDownloadButton } from "@/components/PdfDownloadButton";
 import { IssueMatcher } from "@/components/IssueMatcher";
 import { track, identifyByEmail } from "@/lib/analytics";
@@ -264,7 +264,25 @@ export default function GetInvolvedPage() {
           Download and print these to hand out at events, door-to-door, or
           anywhere someone asks what Clayton stands for.
         </p>
-        <div className="grid sm:grid-cols-2 gap-4 max-w-lg">
+
+        {/* One-click "Download All" gets the full kit as a ZIP. Keeps
+            individual downloads below for anyone who only wants one piece. */}
+        <div className="bg-navy rounded-lg p-5 mb-6 max-w-lg flex items-center gap-4">
+          <Package size={36} className="text-gold shrink-0" />
+          <div className="flex-1">
+            <h3 className="font-bold text-white text-base font-serif">
+              Full Volunteer Kit
+            </h3>
+            <p className="text-xs text-white/70 mt-0.5">
+              One-pager, wallet card, and campaign logo in one ZIP
+            </p>
+          </div>
+          <PdfDownloadButton href="/images/cuteri-volunteer-kit.zip">
+            Download All
+          </PdfDownloadButton>
+        </div>
+
+        <div className="grid sm:grid-cols-3 gap-4 max-w-3xl">
           <div className="bg-white rounded-lg p-5 border border-gray-200 text-center">
             <FileText size={28} className="text-navy mx-auto mb-2" />
             <h3 className="font-bold text-charcoal text-sm font-serif">
@@ -287,6 +305,18 @@ export default function GetInvolvedPage() {
             </p>
             <PdfDownloadButton href="/images/cuteri-wallet-card.pdf">
               Download PDF
+            </PdfDownloadButton>
+          </div>
+          <div className="bg-white rounded-lg p-5 border border-gray-200 text-center">
+            <ImageIcon size={28} className="text-navy mx-auto mb-2" />
+            <h3 className="font-bold text-charcoal text-sm font-serif">
+              Campaign Logo
+            </h3>
+            <p className="text-xs text-charcoal/60 mt-1 mb-3">
+              Write-In Cuteri wordmark (SVG)
+            </p>
+            <PdfDownloadButton href="/images/writein-cuteri-wordmark.svg">
+              Download SVG
             </PdfDownloadButton>
           </div>
         </div>
