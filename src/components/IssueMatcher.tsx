@@ -430,7 +430,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
               a secondary signup path, friction here dents completion. */}
           <div>
             <label className="block text-xs font-semibold text-charcoal/60 uppercase tracking-wider mb-1">
-              Mobile phone (optional  -  for ballot-day reminders)
+              Mobile phone (optional)
             </label>
             <input
               type="tel"
@@ -441,6 +441,12 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
               className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-charcoal focus:outline-none focus:ring-2 focus:ring-navy focus:border-navy"
               data-ph-mask
             />
+            <p className="mt-1 text-[11px] text-charcoal/60 leading-snug">
+              If you share your number and check the box below, we may
+              text you about events, fundraisers, volunteer shifts,
+              ballot-day reminders, campaign updates, or anything else
+              related to the campaign. Opt out any time by replying STOP.
+            </p>
           </div>
           {phone.trim().length > 0 && (
             <label className="flex items-start gap-2 bg-cream border border-gray-200 rounded-lg p-3 text-[11px] text-charcoal/80 leading-snug">
