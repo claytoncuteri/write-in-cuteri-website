@@ -238,6 +238,19 @@ export default function PrivacyPage() {
             keyword described below.
           </p>
           <p className="text-charcoal/80 leading-relaxed mt-3">
+            <strong>When texts will actually start:</strong> we are
+            collecting consent now but holding the first send until our
+            SMS platform completes carrier approval (10DLC brand and
+            campaign registration with The Campaign Registry, plus
+            Campaign Verify authorization for political traffic). That
+            process typically takes several weeks. Until it clears, we
+            retain your number and the timestamped consent record but do
+            not send any messages. Once we go live, the first message
+            you receive will be a welcome text that identifies the
+            sender and the STOP keyword, so you can opt out immediately
+            if you changed your mind.
+          </p>
+          <p className="text-charcoal/80 leading-relaxed mt-3">
             You can opt out at any time by replying STOP to any campaign
             text message, or by emailing{" "}
             <a

@@ -226,9 +226,11 @@ export default function GetInvolvedPage() {
                   className="text-xs text-charcoal/80 leading-relaxed"
                 >
                   Text me volunteer shifts, event reminders, and ballot-day
-                  updates from Cuteri for Americans. Msg &amp; data rates
-                  may apply. Max 10 msgs/month. Reply STOP to unsubscribe,
-                  HELP for help.
+                  updates from Cuteri for Americans. Texting launches in
+                  the next month or two once carrier approval clears  -
+                  welcome text then. Msg &amp; data rates may apply. Max
+                  10 msgs/month. Reply STOP to unsubscribe, HELP for
+                  help.
                 </label>
               </div>
 

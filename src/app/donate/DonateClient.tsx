@@ -530,8 +530,10 @@ export function DonateClient() {
                     />
                     <span>
                       Text me when donations open and for ballot-day
-                      updates from Cuteri for Americans. Msg &amp; data
-                      rates may apply. Max 10 msgs/month. Reply STOP to
+                      updates from Cuteri for Americans. Texting launches
+                      in the next month or two once carrier approval
+                      clears  -  welcome text then. Msg &amp; data rates
+                      may apply. Max 10 msgs/month. Reply STOP to
                       unsubscribe, HELP for help.
                     </span>
                   </label>

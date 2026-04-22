@@ -102,8 +102,11 @@ export function HomeSignup() {
               Thanks for signing up.
             </h3>
             <p className="mt-2 text-green-700">
-              Check your inbox for a confirmation email. You will need to
-              confirm your email address to join the list.
+              Check your inbox for a confirmation email. You&rsquo;ll need
+              to confirm your email address to join the list. Text
+              messages are launching in the next month or two once
+              carrier approval clears  -  we&rsquo;ll send a welcome
+              text the moment we&rsquo;re live.
             </p>
           </div>
         ) : (
@@ -193,9 +196,11 @@ export function HomeSignup() {
                 className="text-xs text-charcoal/80 leading-relaxed"
               >
                 Text me ballot-day reminders and campaign updates from
-                Cuteri for Americans. Message and data rates may apply.
-                Max 10 messages per month. Reply STOP to unsubscribe,
-                HELP for help.
+                Cuteri for Americans. Texting is launching in the next
+                month or two once carrier approval clears  -  you&rsquo;ll
+                get a welcome text then. Message and data rates may
+                apply. Max 10 messages per month. Reply STOP to
+                unsubscribe, HELP for help.
               </label>
             </div>
 
