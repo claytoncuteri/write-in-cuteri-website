@@ -96,20 +96,20 @@ export default function MediaPage() {
               <Mail size={16} className="text-navy" />
               <span>Campaign: </span>
               <a
-                href="mailto:clayton@writeincuteri.com"
+                href="mailto:info@writeincuteri.com"
                 className="text-navy hover:text-navy-dark font-medium"
               >
-                clayton@writeincuteri.com
+                info@writeincuteri.com
               </a>
             </div>
             <div className="flex items-center gap-2 text-sm text-charcoal/70">
               <Mail size={16} className="text-navy" />
               <span>Press: </span>
               <a
-                href="mailto:info@writeincuteri.com"
+                href="mailto:press@writeincuteri.com"
                 className="text-navy hover:text-navy-dark font-medium"
               >
-                info@writeincuteri.com
+                press@writeincuteri.com
               </a>
             </div>
             <div className="flex items-center gap-2 text-sm text-charcoal/70">

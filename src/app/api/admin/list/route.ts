@@ -82,6 +82,9 @@ export async function GET(req: NextRequest) {
   const records = await listSignups({ tag, limit });
 
   if (format === "csv") {
+    // Phone + TCPA audit-trail columns added for the SMS program. The
+    // opt-in timestamp and consent wording are kept alongside the phone
+    // so any TCPA compliance audit can trace a text back to its consent.
     const rows = [
       [
         "created_at",
@@ -89,6 +92,9 @@ export async function GET(req: NextRequest) {
         "email",
         "first_name",
         "last_name",
+        "phone",
+        "sms_opt_in",
+        "sms_opt_in_at",
         "source_page",
         "ip_region",
         "ip_city",
@@ -101,6 +107,9 @@ export async function GET(req: NextRequest) {
           r.email,
           r.firstName ?? "",
           r.lastName ?? "",
+          r.fields?.phone ?? "",
+          r.fields?.sms_opt_in ?? "",
+          r.fields?.sms_opt_in_at ?? "",
           r.sourcePage ?? "",
           r.ipRegion ?? "",
           r.ipCity ?? "",

@@ -43,6 +43,21 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
   const [answers, setAnswers] = useState<Record<string, QuizAnswer>>({});
   const [index, setIndex] = useState(0); // question index within the active list
   const [email, setEmail] = useState("");
+  // First + last name captured at the email gate. Required because:
+  // (a) Kit uses first_name in merge tags across automation sequences,
+  // (b) Gmail and Yahoo reputation-score complete signups higher than
+  // email-only (better inbox placement), (c) personalized subject lines
+  // lift open rates 15-25% per Litmus 2024 industry benchmarks. The
+  // friction cost of two extra fields is worth the deliverability gain.
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  // Optional phone + TCPA opt-in at the email gate. Keeping these optional
+  // (not required) because the quiz is a secondary signup path  -  the
+  // required-phone surface is the dedicated HomeSignup block. Adding
+  // friction here would dent quiz completion, which is the whole point of
+  // the quiz. Anyone who ticks the box is a bonus SMS subscriber.
+  const [phone, setPhone] = useState("");
+  const [smsOptIn, setSmsOptIn] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [emailSubmitting, setEmailSubmitting] = useState(false);
   const [recordId, setRecordId] = useState<string | null>(null);
@@ -106,6 +121,10 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
           body: JSON.stringify({
             answers,
             email: emailValue,
+            firstName: firstName.trim() || undefined,
+            lastName: lastName.trim() || undefined,
+            phone: phone.trim() || undefined,
+            smsOptIn: smsOptIn && phone.trim().length > 0,
             scoreCore,
             completedExtended: false,
             sourcePage,
@@ -148,7 +167,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
         setEmailSubmitting(false);
       }
     },
-    [answers, scoreCore, sourcePage],
+    [answers, firstName, lastName, phone, smsOptIn, scoreCore, sourcePage],
   );
 
   const persistFinal = useCallback(async () => {
@@ -338,28 +357,117 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
         <p className="mt-3 text-charcoal/80 text-base">{alignmentCopy}</p>
 
         <form onSubmit={onEmailSubmit} className="mt-5 space-y-3">
+          <div className="grid sm:grid-cols-2 gap-3">
+            <div>
+              <label
+                htmlFor="quiz-firstName"
+                className="block text-xs font-semibold text-charcoal/60 uppercase tracking-wider mb-1"
+              >
+                First name
+              </label>
+              <input
+                type="text"
+                id="quiz-firstName"
+                required
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                autoComplete="given-name"
+                className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-charcoal focus:outline-none focus:ring-2 focus:ring-navy focus:border-navy"
+                autoFocus
+                data-ph-mask
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="quiz-lastName"
+                className="block text-xs font-semibold text-charcoal/60 uppercase tracking-wider mb-1"
+              >
+                Last name
+              </label>
+              <input
+                type="text"
+                id="quiz-lastName"
+                required
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                autoComplete="family-name"
+                className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-charcoal focus:outline-none focus:ring-2 focus:ring-navy focus:border-navy"
+                data-ph-mask
+              />
+            </div>
+          </div>
           <div>
-            <label className="block text-xs font-semibold text-charcoal/60 uppercase tracking-wider mb-1">
+            <label
+              htmlFor="quiz-email"
+              className="block text-xs font-semibold text-charcoal/60 uppercase tracking-wider mb-1"
+            >
               Email (required to unlock 5 more questions)
             </label>
             <input
               type="email"
+              id="quiz-email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
+              autoComplete="email"
               className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-charcoal focus:outline-none focus:ring-2 focus:ring-navy focus:border-navy"
-              autoFocus
               data-ph-mask
             />
             {emailError && (
               <p className="mt-1 text-sm text-red-accent">{emailError}</p>
             )}
             <p className="mt-2 text-[11px] text-charcoal/50 leading-snug">
-              We email you your results + a short explanation of where Clayton
-              stands on each issue. No spam. Unsubscribe in one click.
+              We email you your results + where Clayton stands on each
+              issue. By submitting you agree to receive email updates,
+              event invites, fundraiser notices, and volunteer
+              opportunities from Cuteri for Americans. Unsubscribe in
+              one click.
             </p>
           </div>
+
+          {/* Optional phone + TCPA opt-in. Optional on purpose  -  quiz is
+              a secondary signup path, friction here dents completion. */}
+          <div>
+            <label className="block text-xs font-semibold text-charcoal/60 uppercase tracking-wider mb-1">
+              Mobile phone (optional)
+            </label>
+            <input
+              type="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="(843) 555-0100"
+              autoComplete="tel"
+              className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-charcoal focus:outline-none focus:ring-2 focus:ring-navy focus:border-navy"
+              data-ph-mask
+            />
+            <p className="mt-1 text-[11px] text-charcoal/60 leading-snug">
+              If you share your number and check the box below, we may
+              text you about events, fundraisers, volunteer shifts,
+              ballot-day reminders, campaign updates, or anything else
+              related to the campaign. Opt out any time by replying STOP.
+            </p>
+          </div>
+          {phone.trim().length > 0 && (
+            <label className="flex items-start gap-2 bg-cream border border-gray-200 rounded-lg p-3 text-[11px] text-charcoal/80 leading-snug">
+              <input
+                type="checkbox"
+                checked={smsOptIn}
+                onChange={(e) => setSmsOptIn(e.target.checked)}
+                className="mt-0.5 h-4 w-4 text-navy border-gray-300 rounded focus:ring-navy"
+              />
+              <span>
+                Text me about events, fundraisers, volunteer shifts,
+                ballot-day reminders, campaign updates, or anything
+                else related to the Cuteri for Americans campaign.
+                Texting launches in the next month or two once carrier
+                approval clears  -  welcome text then.
+                Message frequency varies. Msg &amp; data rates may
+                apply. Reply STOP to unsubscribe, HELP for help.
+              </span>
+            </label>
+          )}
+
           <div className="flex flex-col sm:flex-row gap-2">
             <button
               type="submit"
@@ -375,6 +483,21 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
               )}
             </button>
           </div>
+          {/* FEC disclaimer on the form itself. Required on campaign
+              communications and surfaces asking for political identity
+              (quiz answers = political opinion data). Footer disclaimer
+              alone is insufficient when the form collects personal
+              data the campaign will use for outreach. */}
+          <p className="text-[10px] text-charcoal/40 text-center leading-tight pt-1">
+            Paid for by Cuteri for Americans. See our{" "}
+            <a
+              href="/privacy"
+              className="underline underline-offset-2 hover:text-charcoal/70"
+            >
+              privacy policy
+            </a>
+            .
+          </p>
         </form>
 
         {recordId && !unlocking && (

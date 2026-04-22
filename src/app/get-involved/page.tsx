@@ -3,9 +3,10 @@
 import { useState, type FormEvent } from "react";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
-import { Users, Share2, Mail, FileText, Printer } from "lucide-react";
+import { Users, Share2, Mail, FileText, Printer, Image as ImageIcon, Package, Download } from "lucide-react";
 import { PdfDownloadButton } from "@/components/PdfDownloadButton";
 import { IssueMatcher } from "@/components/IssueMatcher";
+import { KitContactForm } from "@/components/KitContactForm";
 import { track, identifyByEmail } from "@/lib/analytics";
 
 export default function GetInvolvedPage() {
@@ -20,6 +21,10 @@ export default function GetInvolvedPage() {
     const data = new FormData(form);
     const email = String(data.get("email") || "");
     const zip = String(data.get("zipCode") || "");
+    const phone = String(data.get("phone") || "");
+    // TCPA only matters when a phone is actually provided. Anyone who
+    // leaves the phone field blank isn't receiving SMS regardless.
+    const smsOptIn = phone.trim().length > 0 && data.get("smsOptIn") === "on";
 
     try {
       const res = await fetch("/api/subscribe", {
@@ -32,8 +37,10 @@ export default function GetInvolvedPage() {
           tag: "volunteer",
           sourcePage: "/get-involved",
           fields: {
-            phone: String(data.get("phone") || ""),
+            phone,
             zip_code: zip,
+            sms_opt_in: smsOptIn ? "yes" : "no",
+            sms_opt_in_at: smsOptIn ? new Date().toISOString() : "",
           },
         }),
       });
@@ -205,6 +212,31 @@ export default function GetInvolvedPage() {
                   />
                 </div>
               </div>
+              {/* TCPA opt-in for phone. Optional checkbox  -  volunteer
+                  form can be submitted without SMS consent. Only surfaces
+                  meaning if they also typed a phone number above. */}
+              <div className="flex items-start gap-2 bg-cream border border-gray-200 rounded-lg p-3">
+                <input
+                  type="checkbox"
+                  id="smsOptIn"
+                  name="smsOptIn"
+                  className="mt-1 h-4 w-4 text-navy border-gray-300 rounded focus:ring-navy"
+                />
+                <label
+                  htmlFor="smsOptIn"
+                  className="text-xs text-charcoal/80 leading-relaxed"
+                >
+                  Text me about events, fundraisers, volunteer shifts,
+                  ballot-day reminders, campaign updates, or anything
+                  else related to the Cuteri for Americans campaign.
+                  Texting launches in the next month or two once
+                  carrier approval clears  -  welcome
+                  text then. Message frequency varies. Msg &amp; data
+                  rates may apply. Reply STOP to unsubscribe, HELP for
+                  help.
+                </label>
+              </div>
+
               <div>
                 <label
                   htmlFor="howCanYouHelp"
@@ -234,7 +266,47 @@ export default function GetInvolvedPage() {
           Download and print these to hand out at events, door-to-door, or
           anywhere someone asks what Clayton stands for.
         </p>
-        <div className="grid sm:grid-cols-2 gap-4 max-w-lg">
+
+        {/* One-click "Download All" gets the full kit as a ZIP. The
+            whole banner is the clickable surface (not just the pill
+            on the right)  -  browsers/phones often miss the small
+            button hit-target on cards like this. Keeps individual
+            downloads below for anyone who only wants one piece. */}
+        <a
+          href="/images/cuteri-volunteer-kit.zip"
+          download=""
+          className="group block bg-red-accent hover:bg-red-accent/90 transition-colors rounded-lg p-6 mb-6 max-w-2xl shadow-md"
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+            <Package size={44} className="text-white shrink-0" />
+            <div className="flex-1">
+              <h3 className="font-bold text-white text-lg sm:text-xl font-serif">
+                Download Everything (ZIP)
+              </h3>
+              <p className="text-sm text-white/90 mt-1">
+                One-pager, wallet card, Write-In Cuteri wordmark, and
+                the full banner set (social covers, yard signs, bumper
+                stickers, OG images  -  cream, navy, white, and
+                transparent variants).
+              </p>
+            </div>
+            <span className="inline-flex items-center gap-2 px-5 py-3 bg-white text-red-accent font-bold text-base rounded-lg whitespace-nowrap shadow-sm">
+              <Download size={18} />
+              Download All
+            </span>
+          </div>
+        </a>
+
+        {/* Secondary contact-capture form. Non-gating (downloads above
+            stay open) but offers volunteers a lightweight way to leave
+            their info so we can follow up. Separate from the big
+            volunteer form below because some visitors only want to
+            grab materials and share their contact without committing
+            to a volunteer shift. */}
+        <KitContactForm />
+
+
+        <div className="grid sm:grid-cols-3 gap-4 max-w-3xl">
           <div className="bg-white rounded-lg p-5 border border-gray-200 text-center">
             <FileText size={28} className="text-navy mx-auto mb-2" />
             <h3 className="font-bold text-charcoal text-sm font-serif">
@@ -257,6 +329,18 @@ export default function GetInvolvedPage() {
             </p>
             <PdfDownloadButton href="/images/cuteri-wallet-card.pdf">
               Download PDF
+            </PdfDownloadButton>
+          </div>
+          <div className="bg-white rounded-lg p-5 border border-gray-200 text-center">
+            <ImageIcon size={28} className="text-navy mx-auto mb-2" />
+            <h3 className="font-bold text-charcoal text-sm font-serif">
+              Campaign Logo
+            </h3>
+            <p className="text-xs text-charcoal/60 mt-1 mb-3">
+              Write-In Cuteri wordmark (SVG)
+            </p>
+            <PdfDownloadButton href="/images/writein-cuteri-wordmark.svg">
+              Download SVG
             </PdfDownloadButton>
           </div>
         </div>

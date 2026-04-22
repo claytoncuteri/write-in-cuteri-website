@@ -47,6 +47,14 @@ export async function POST(req: NextRequest) {
   }
 
   const email = typeof body.email === "string" ? body.email.trim().toLowerCase() : undefined;
+  const firstName = typeof body.firstName === "string" ? body.firstName.trim() : undefined;
+  const lastName = typeof body.lastName === "string" ? body.lastName.trim() : undefined;
+  // Optional phone + TCPA opt-in captured at the email gate. Phone is not
+  // required here (we have a dedicated HomeSignup form for the required
+  // path); the quiz is a secondary capture surface that shouldn't add
+  // friction to an already-committed voter.
+  const phone = typeof body.phone === "string" ? body.phone.trim() : undefined;
+  const smsOptIn = body.smsOptIn === true;
   const scoreCore = Number(body.scoreCore ?? 0);
   const scoreExtendedRaw = body.scoreExtended;
   const scoreExtended =
@@ -87,6 +95,8 @@ export async function POST(req: NextRequest) {
       scoreCore >= 6 ? "high" : scoreCore >= 4 ? "medium" : "low";
     const ckResult = await subscribeToConvertKit({
       email,
+      firstName,
+      lastName,
       tag: "general",
       fields: {
         quiz_score_core: String(scoreCore),
@@ -94,6 +104,10 @@ export async function POST(req: NextRequest) {
         ...(completedExtended ? { quiz_extended: "yes" } : {}),
         ...(typeof scoreExtended === "number"
           ? { quiz_score_extended: String(scoreExtended) }
+          : {}),
+        ...(phone ? { phone } : {}),
+        ...(smsOptIn
+          ? { sms_opt_in: "yes", sms_opt_in_at: new Date().toISOString() }
           : {}),
       },
     });

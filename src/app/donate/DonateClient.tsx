@@ -57,15 +57,30 @@ export function DonateClient() {
     e.preventDefault();
     setEmailSubmitting(true);
     const data = new FormData(e.currentTarget);
+    const firstName = String(data.get("firstName") || "");
+    const lastName = String(data.get("lastName") || "");
     const email = String(data.get("email") || "");
+    const phone = String(data.get("phone") || "");
+    const smsOptIn = phone.trim().length > 0 && data.get("smsOptIn") === "on";
     try {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
+          firstName,
+          lastName,
           tag: "donor",
           sourcePage: "/donate",
+          fields: {
+            ...(phone ? { phone } : {}),
+            ...(smsOptIn
+              ? {
+                  sms_opt_in: "yes",
+                  sms_opt_in_at: new Date().toISOString(),
+                }
+              : {}),
+          },
         }),
       });
       if (!res.ok) throw new Error(`Signup failed: ${res.status}`);
@@ -493,18 +508,61 @@ export function DonateClient() {
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleEmailSignup} className="flex gap-2">
+                <form onSubmit={handleEmailSignup} className="space-y-2 text-left">
+                  <div className="grid grid-cols-2 gap-2">
+                    <input
+                      type="text"
+                      name="firstName"
+                      required
+                      placeholder="First name"
+                      className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-charcoal text-sm focus:outline-none focus:ring-2 focus:ring-navy focus:border-navy"
+                    />
+                    <input
+                      type="text"
+                      name="lastName"
+                      required
+                      placeholder="Last name"
+                      className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-charcoal text-sm focus:outline-none focus:ring-2 focus:ring-navy focus:border-navy"
+                    />
+                  </div>
                   <input
                     type="email"
                     name="email"
                     required
                     placeholder="your@email.com"
-                    className="flex-1 px-3 py-2.5 border border-gray-300 rounded-lg text-charcoal text-sm focus:outline-none focus:ring-2 focus:ring-navy focus:border-navy"
+                    className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-charcoal text-sm focus:outline-none focus:ring-2 focus:ring-navy focus:border-navy"
                   />
+                  {/* Phone is optional on the notify-when-open form. The
+                      donate page's primary job is the donation itself;
+                      this signup is secondary, so minimize friction. */}
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Mobile phone (optional)"
+                    autoComplete="tel"
+                    className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-charcoal text-sm focus:outline-none focus:ring-2 focus:ring-navy focus:border-navy"
+                  />
+                  <label className="flex items-start gap-2 text-[11px] text-charcoal/70 leading-snug">
+                    <input
+                      type="checkbox"
+                      name="smsOptIn"
+                      className="mt-0.5 h-4 w-4 text-navy border-gray-300 rounded focus:ring-navy"
+                    />
+                    <span>
+                      Text me about events, fundraisers, volunteer
+                      shifts, ballot-day reminders, campaign updates,
+                      or anything else related to the Cuteri for
+                      Americans campaign. Texting launches in the next
+                      month or two once carrier approval clears  -
+                      welcome text then. Message frequency varies. Msg
+                      &amp; data rates may apply. Reply STOP to
+                      unsubscribe, HELP for help.
+                    </span>
+                  </label>
                   <CTAButton
                     variant="primary"
                     type="submit"
-                    className="text-sm px-4 py-2.5"
+                    className="text-sm px-4 py-2.5 w-full"
                   >
                     {emailSubmitting ? "..." : "Notify Me"}
                   </CTAButton>
