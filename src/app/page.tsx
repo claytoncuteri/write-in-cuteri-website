@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Section } from "@/components/Section";
+import { imageBlur } from "@/data/imageBlur";
 import { CTAButton } from "@/components/CTAButton";
 import { HomeProblems } from "@/components/HomeProblems";
 import { PdfDownloadButton } from "@/components/PdfDownloadButton";
@@ -67,6 +68,8 @@ export default function HomePage() {
                   priority
                   quality={85}
                   sizes="(max-width: 640px) 288px, (max-width: 1024px) 320px, 384px"
+                  placeholder="blur"
+                  blurDataURL={imageBlur["/images/Clayton_Headshot.jpg"]}
                   style={{ objectFit: "cover", objectPosition: "top" }}
                 />
               </div>
@@ -121,6 +124,8 @@ export default function HomePage() {
                 fill
                 quality={85}
                 sizes="(max-width: 640px) 256px, 288px"
+                placeholder="blur"
+                blurDataURL={imageBlur["/images/clayton-seated-smiling.jpg"]}
                 style={{ objectFit: "cover", objectPosition: "center 25%" }}
               />
             </div>
@@ -162,6 +167,8 @@ export default function HomePage() {
               width={2869}
               height={2869}
               sizes="(max-width: 640px) 192px, 224px"
+              placeholder="blur"
+              blurDataURL={imageBlur["/images/ACP_Eagle_transparent_background.png"]}
               className="w-48 h-48 sm:w-56 sm:h-56 object-contain"
             />
           </div>

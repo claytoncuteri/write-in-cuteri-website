@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { footerNavItems } from "@/data/navigation";
+import { imageBlur } from "@/data/imageBlur";
 
 export function Footer() {
   return (
@@ -14,6 +15,8 @@ export function Footer() {
               alt="American Congress Party eagle emblem"
               width={2869}
               height={2869}
+              placeholder="blur"
+              blurDataURL={imageBlur["/images/ACP_Eagle_transparent_background.png"]}
               className="h-16 w-auto mb-4"
             />
             <p className="text-white/80 text-sm leading-relaxed">

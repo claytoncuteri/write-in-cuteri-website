@@ -12,14 +12,19 @@
 // Rank-order per priority is still valid under Krosnick (1999).
 //
 // Structure:
-//   - 8 CORE questions gate the email capture (sequenced Lowcountry-first
-//     for SC-01 credibility; see research notes in git log).
+//   - 8 CORE questions gate the email capture (sequenced highest-yes-first
+//     to maximize early-commitment momentum per Cialdini consistency).
+//     Lowcountry-first flavor preserved: q1 is Lowcountry drinking water.
 //   - 5 EXTENDED questions unlock after email, covering the remaining
 //     priorities so every voter can touch every position.
 //
-// Each question carries a `priorityId` matching the /policies priority
-// slug so the admin dashboard can aggregate per-priority agreement rates
-// and surface our strongest/weakest issues without fuzzy matching.
+// Three stable identifiers per question, intentionally decoupled:
+//   - `id` ("q1".."q13"): stable database/analytics foreign key. Never
+//     changes; assigned at creation. Does NOT match array position.
+//   - `priorityId`: semantic slug matching a /policies priority. Admin
+//     dashboard aggregates agreement rates via this field.
+//   - Array position: display order. Can be re-sequenced freely without
+//     breaking historical data, since id and priorityId both stay stable.
 
 export type QuizAnswer = "yes" | "no" | "unsure";
 
@@ -35,22 +40,11 @@ export interface QuizQuestion {
 
 export const CORE_QUESTIONS: QuizQuestion[] = [
   {
-    id: "q1",
-    priorityId: "lowcountry-resilience",
-    heading: "Lowcountry resilience",
-    prompt:
-      "Should the Federal Government stop insurance carriers from abandoning Charleston families stuck paying $12,000 a year?",
-    aligned: "yes",
-    policyRef: "coastal-insurance",
-    rationale:
-      "Federal backstop for Lowcountry coastal insurance modeled after the NFIP so carriers stay and premiums drop.",
-  },
-  {
     id: "q2",
     priorityId: "clean-food-clean-water",
     heading: "Clean food & water",
     prompt:
-      "Should chemical companies stop writing their own rules and poisoning Lowcountry water?",
+      "Should we stop the chemical companies from polluting our water and deciding what's safe for the Lowcountry to drink?",
     aligned: "yes",
     policyRef: "clean-water",
     rationale:
@@ -94,11 +88,33 @@ export const CORE_QUESTIONS: QuizQuestion[] = [
     priorityId: "stop-endless-wars",
     heading: "Stop endless wars",
     prompt:
-      "Should we stop sending $90 billion a year to foreign wars that kill innocent people, and bring that money home?",
+      "Should we stop spending $90 billion a year on foreign wars and invest that money in District 1 instead?",
     aligned: "yes",
     policyRef: "end-forever-wars",
     rationale:
       "Every young adult sent to a foreign war, and every dollar that funds it, is a life and a dollar not invested in Lowcountry insurance, veteran care, or first-responder pay.",
+  },
+  {
+    id: "q12",
+    priorityId: "no-federal-income-tax",
+    heading: "No federal income tax",
+    prompt:
+      "Should working families keep the $8,000 to $15,000 a year the Federal Government currently takes from their paycheck?",
+    aligned: "yes",
+    policyRef: "no-federal-income-tax",
+    rationale:
+      "Replace the federal income tax with a tariff-and-excise system that doesn't punish earning. Full transition plan in the policy book.",
+  },
+  {
+    id: "q1",
+    priorityId: "lowcountry-resilience",
+    heading: "Lowcountry resilience",
+    prompt:
+      "Should the Federal Government provide a safety net for coastal insurance so carriers stay in the Lowcountry and bring down the $12,000 per year premium?",
+    aligned: "yes",
+    policyRef: "coastal-insurance",
+    rationale:
+      "Federal backstop for Lowcountry coastal insurance modeled after the NFIP so carriers stay and premiums drop.",
   },
   {
     id: "q7",
@@ -111,6 +127,9 @@ export const CORE_QUESTIONS: QuizQuestion[] = [
     rationale:
       "Real-time public ledger of federal spending. Sunlight is the cheapest accountability we have.",
   },
+];
+
+export const EXTENDED_QUESTIONS: QuizQuestion[] = [
   {
     id: "q8",
     priorityId: "free-food",
@@ -122,9 +141,6 @@ export const CORE_QUESTIONS: QuizQuestion[] = [
     rationale:
       "Universal school meals plus SNAP reform. A country that funds foreign wars can feed its own kids.",
   },
-];
-
-export const EXTENDED_QUESTIONS: QuizQuestion[] = [
   {
     id: "q9",
     priorityId: "energy-independence",
@@ -157,17 +173,6 @@ export const EXTENDED_QUESTIONS: QuizQuestion[] = [
     policyRef: "gold-standard",
     rationale:
       "Full Fed audit, then a phased return to a sound-money standard. Stop the silent transfer of wealth from wage-earners to asset-holders.",
-  },
-  {
-    id: "q12",
-    priorityId: "no-federal-income-tax",
-    heading: "No federal income tax",
-    prompt:
-      "Should working families keep the $8,000 to $15,000 a year the Federal Government currently takes from their paycheck?",
-    aligned: "yes",
-    policyRef: "no-federal-income-tax",
-    rationale:
-      "Replace the federal income tax with a tariff-and-excise system that doesn't punish earning. Full transition plan in the policy book.",
   },
   {
     id: "q13",
