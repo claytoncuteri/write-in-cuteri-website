@@ -39,7 +39,7 @@ export const CORE_QUESTIONS: QuizQuestion[] = [
     priorityId: "lowcountry-resilience",
     heading: "Lowcountry resilience",
     prompt:
-      "Should the Federal Government stop insurance carriers from abandoning Charleston families stuck paying $12,000 a year?",
+      "Should the Federal Government stop insurance carriers from abandoning the Lowcountry, thus causing Charleston families to pay upwards of $12,000 a year?",
     aligned: "yes",
     policyRef: "coastal-insurance",
     rationale:

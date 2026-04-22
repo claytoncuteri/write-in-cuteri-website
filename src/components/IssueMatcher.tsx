@@ -291,7 +291,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
           </p>
         </div>
         <h3 className="text-2xl sm:text-3xl font-bold text-charcoal font-serif leading-tight">
-          See how much you agree with Clayton.
+          See how much Clayton agrees with you.
         </h3>
         <p className="mt-3 text-charcoal/70 text-base">
           Thirteen questions on Clayton&rsquo;s thirteen priorities. Eight to
@@ -315,8 +315,8 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
     const alignment =
       scoreCore >= 6 ? "high" : scoreCore >= 4 ? "medium" : "low";
     const alignmentCopy = {
-      high: "You and Clayton agree on nearly everything that matters.",
-      medium: "You agree with Clayton on the issues both parties ignore.",
+      high: "Clayton agrees with you on nearly everything that matters.",
+      medium: "Clayton agrees with you on the issues both parties ignore.",
       low: "You disagree often  -  but Clayton wants to hear why.",
     }[alignment];
     return (
@@ -445,7 +445,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
       `I agree with @ClaytonCuteri on ${total}/13 issues. Take the quiz: https://writeincuteri.com/#quiz`,
     );
     const shareTextSms = encodeURIComponent(
-      `I agree with Clayton Cuteri on ${total}/13 issues. Take the quiz: https://writeincuteri.com/#quiz`,
+      `Clayton Cuteri agrees with me on ${total}/13 issues. Take the quiz: https://writeincuteri.com/#quiz`,
     );
     return (
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8 max-w-2xl mx-auto text-center">
