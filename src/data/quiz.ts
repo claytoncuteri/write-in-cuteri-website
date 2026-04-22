@@ -12,14 +12,19 @@
 // Rank-order per priority is still valid under Krosnick (1999).
 //
 // Structure:
-//   - 8 CORE questions gate the email capture (sequenced Lowcountry-first
-//     for SC-01 credibility; see research notes in git log).
+//   - 8 CORE questions gate the email capture (sequenced highest-yes-first
+//     to maximize early-commitment momentum per Cialdini consistency).
+//     Lowcountry-first flavor preserved: q1 is Lowcountry drinking water.
 //   - 5 EXTENDED questions unlock after email, covering the remaining
 //     priorities so every voter can touch every position.
 //
-// Each question carries a `priorityId` matching the /policies priority
-// slug so the admin dashboard can aggregate per-priority agreement rates
-// and surface our strongest/weakest issues without fuzzy matching.
+// Three stable identifiers per question, intentionally decoupled:
+//   - `id` ("q1".."q13"): stable database/analytics foreign key. Never
+//     changes; assigned at creation. Does NOT match array position.
+//   - `priorityId`: semantic slug matching a /policies priority. Admin
+//     dashboard aggregates agreement rates via this field.
+//   - Array position: display order. Can be re-sequenced freely without
+//     breaking historical data, since id and priorityId both stay stable.
 
 export type QuizAnswer = "yes" | "no" | "unsure";
 
@@ -35,22 +40,11 @@ export interface QuizQuestion {
 
 export const CORE_QUESTIONS: QuizQuestion[] = [
   {
-    id: "q1",
-    priorityId: "lowcountry-resilience",
-    heading: "Lowcountry resilience",
-    prompt:
-      "Should the Federal Government stop insurance carriers from abandoning the Lowcountry, thus causing Charleston families to pay upwards of $12,000 a year?",
-    aligned: "yes",
-    policyRef: "coastal-insurance",
-    rationale:
-      "Federal backstop for Lowcountry coastal insurance modeled after the NFIP so carriers stay and premiums drop.",
-  },
-  {
     id: "q2",
     priorityId: "clean-food-clean-water",
     heading: "Clean food & water",
     prompt:
-      "Should chemical companies stop writing their own rules and poisoning Lowcountry water?",
+      "Should we stop the chemical companies from polluting our water and deciding what's safe for the Lowcountry to drink?",
     aligned: "yes",
     policyRef: "clean-water",
     rationale:
@@ -122,9 +116,31 @@ export const CORE_QUESTIONS: QuizQuestion[] = [
     rationale:
       "Universal school meals plus SNAP reform. A country that funds foreign wars can feed its own kids.",
   },
+  {
+    id: "q13",
+    priorityId: "free-education",
+    heading: "Free education",
+    prompt:
+      "Should every SC kid be able to learn a trade or finish college without $100,000 in debt?",
+    aligned: "yes",
+    policyRef: "free-education",
+    rationale:
+      "Trade schools and public-college tuition funded by redirecting a fraction of the foreign-war budget. Degrees and credentials without decades of debt.",
+  },
 ];
 
 export const EXTENDED_QUESTIONS: QuizQuestion[] = [
+  {
+    id: "q1",
+    priorityId: "lowcountry-resilience",
+    heading: "Lowcountry resilience",
+    prompt:
+      "Coastal insurance now costs Lowcountry families upwards of $12,000 a year, and carriers keep leaving because one hurricane could wipe them out. Should the Federal Government act as a safety net so carriers stay and bring premiums down?",
+    aligned: "yes",
+    policyRef: "coastal-insurance",
+    rationale:
+      "Federal backstop for Lowcountry coastal insurance modeled after the NFIP so carriers stay and premiums drop.",
+  },
   {
     id: "q9",
     priorityId: "energy-independence",
@@ -168,17 +184,6 @@ export const EXTENDED_QUESTIONS: QuizQuestion[] = [
     policyRef: "no-federal-income-tax",
     rationale:
       "Replace the federal income tax with a tariff-and-excise system that doesn't punish earning. Full transition plan in the policy book.",
-  },
-  {
-    id: "q13",
-    priorityId: "free-education",
-    heading: "Free education",
-    prompt:
-      "Should every SC kid be able to learn a trade or finish college without $100,000 in debt?",
-    aligned: "yes",
-    policyRef: "free-education",
-    rationale:
-      "Trade schools and public-college tuition funded by redirecting a fraction of the foreign-war budget. Degrees and credentials without decades of debt.",
   },
 ];
 
