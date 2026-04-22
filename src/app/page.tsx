@@ -6,12 +6,23 @@ import { HomeProblems } from "@/components/HomeProblems";
 import { PdfDownloadButton } from "@/components/PdfDownloadButton";
 import { IssueMatcher } from "@/components/IssueMatcher";
 import { HashScroller } from "@/components/HashScroller";
+import { HomeSignup } from "@/components/HomeSignup";
+import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ArrowRight, Printer, FileText, Users, Heart } from "lucide-react";
+
+// Seasonal CTA posture. Before Sept 1, 2026 (persuasion phase) the quiz
+// gets primary/red prominence and the write-in CTA sits as secondary.
+// After Sept 1 (GOTV phase), swap: write-in primary, quiz secondary.
+// Both buttons stay visible year-round for mere-exposure priming of the
+// write-in action. Keep this in sync with StickyMobileCta's GOTV_CUTOVER.
+const GOTV_CUTOVER = new Date("2026-09-01T00:00:00Z");
+const IS_GOTV_MODE = new Date() >= GOTV_CUTOVER;
 
 export default function HomePage() {
   return (
     <>
       <HashScroller />
+      <StickyMobileCta />
       {/* Hero */}
       <section className="bg-navy overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
@@ -22,7 +33,7 @@ export default function HomePage() {
                 Clayton Cuteri for U.S. Congress
               </h1>
               <p className="mt-4 text-lg sm:text-xl text-white/80">
-                Write-In Candidate, South Carolina District 1
+                Write-In Candidate, South Carolina District 1 (the Lowcountry)
                 <br />
                 November 3, 2026 General Election
               </p>
@@ -30,17 +41,39 @@ export default function HomePage() {
                 Both Republicans and Democrats have failed us. The American
                 Congress Party is for the Americans neither party speaks for.
               </p>
+              {/* Seasonal CTA swap. April 2026 (persuasion phase): quiz is
+                  primary/red, write-in is secondary navy-outline. Sept 1
+                  2026 onward (GOTV phase): swap. Both buttons stay visible
+                  all year so mere-exposure priming of the write-in action
+                  keeps accumulating. */}
               <div className="mt-8 flex flex-col sm:flex-row gap-4">
-                <CTAButton variant="primary" href="/write-in">
-                  How to Write Me In
-                </CTAButton>
-                <CTAButton
-                  variant="secondary"
-                  href="#quiz"
-                  className="!border-white !text-white hover:!bg-white hover:!text-navy"
-                >
-                  Take the Quiz: Where Do We Agree?
-                </CTAButton>
+                {IS_GOTV_MODE ? (
+                  <>
+                    <CTAButton variant="primary" href="/write-in">
+                      How to Write Me In
+                    </CTAButton>
+                    <CTAButton
+                      variant="secondary"
+                      href="#quiz"
+                      className="!border-white !text-white hover:!bg-white hover:!text-navy"
+                    >
+                      Take the Quiz: Where Do We Agree?
+                    </CTAButton>
+                  </>
+                ) : (
+                  <>
+                    <CTAButton variant="primary" href="#quiz">
+                      Take the Quiz: Where Do We Agree?
+                    </CTAButton>
+                    <CTAButton
+                      variant="secondary"
+                      href="/write-in"
+                      className="!border-white !text-white hover:!bg-white hover:!text-navy"
+                    >
+                      How to Write Me In
+                    </CTAButton>
+                  </>
+                )}
               </div>
               {/* Tertiary escape hatch to the full platform page. The quiz is
                   now the primary above-fold interactive entry (secondary button
@@ -174,6 +207,14 @@ export default function HomePage() {
           </div>
         </div>
       </Section>
+
+      {/* Homepage email + phone signup. Placed after the ACP section and
+          before the CTA Cards so engaged visitors who scrolled past the
+          hero but aren't ready for write-in/donate still have a low-
+          friction path to hand us contact info. Required phone + TCPA
+          opt-in here so we start building the SMS list for ballot-day
+          GOTV. */}
+      <HomeSignup />
 
       {/* CTA Cards */}
       <Section>

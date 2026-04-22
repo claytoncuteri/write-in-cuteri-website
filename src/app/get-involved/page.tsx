@@ -20,6 +20,10 @@ export default function GetInvolvedPage() {
     const data = new FormData(form);
     const email = String(data.get("email") || "");
     const zip = String(data.get("zipCode") || "");
+    const phone = String(data.get("phone") || "");
+    // TCPA only matters when a phone is actually provided. Anyone who
+    // leaves the phone field blank isn't receiving SMS regardless.
+    const smsOptIn = phone.trim().length > 0 && data.get("smsOptIn") === "on";
 
     try {
       const res = await fetch("/api/subscribe", {
@@ -32,8 +36,10 @@ export default function GetInvolvedPage() {
           tag: "volunteer",
           sourcePage: "/get-involved",
           fields: {
-            phone: String(data.get("phone") || ""),
+            phone,
             zip_code: zip,
+            sms_opt_in: smsOptIn ? "yes" : "no",
+            sms_opt_in_at: smsOptIn ? new Date().toISOString() : "",
           },
         }),
       });
@@ -205,6 +211,27 @@ export default function GetInvolvedPage() {
                   />
                 </div>
               </div>
+              {/* TCPA opt-in for phone. Optional checkbox  -  volunteer
+                  form can be submitted without SMS consent. Only surfaces
+                  meaning if they also typed a phone number above. */}
+              <div className="flex items-start gap-2 bg-cream border border-gray-200 rounded-lg p-3">
+                <input
+                  type="checkbox"
+                  id="smsOptIn"
+                  name="smsOptIn"
+                  className="mt-1 h-4 w-4 text-navy border-gray-300 rounded focus:ring-navy"
+                />
+                <label
+                  htmlFor="smsOptIn"
+                  className="text-xs text-charcoal/80 leading-relaxed"
+                >
+                  Text me volunteer shifts, event reminders, and ballot-day
+                  updates from Cuteri for Americans. Msg &amp; data rates
+                  may apply. Max 10 msgs/month. Reply STOP to unsubscribe,
+                  HELP for help.
+                </label>
+              </div>
+
               <div>
                 <label
                   htmlFor="howCanYouHelp"

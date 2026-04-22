@@ -50,6 +50,10 @@ type SignupRecord = {
   email: string;
   firstName?: string;
   lastName?: string;
+  // JSONB `fields` payload. Phone + sms_opt_in + sms_opt_in_at live here
+  // so we don't have to add columns every time a new signup surface adds
+  // a field. Typed loosely on purpose: the shape is source-dependent.
+  fields?: Record<string, string>;
   sourcePage?: string;
   ipRegion?: string;
   ipCity?: string;
@@ -538,6 +542,12 @@ export function AdminDashboard() {
                       Email
                     </th>
                     <th className="px-4 sm:px-6 py-2.5 text-left font-medium">
+                      Phone
+                    </th>
+                    <th className="px-4 sm:px-6 py-2.5 text-left font-medium">
+                      SMS
+                    </th>
+                    <th className="px-4 sm:px-6 py-2.5 text-left font-medium">
                       <MapPin size={12} className="inline mr-1" />
                       Region
                     </th>
@@ -561,6 +571,18 @@ export function AdminDashboard() {
                       </td>
                       <td className="px-4 sm:px-6 py-2.5 text-charcoal" data-ph-mask>
                         {r.email}
+                      </td>
+                      <td className="px-4 sm:px-6 py-2.5 text-charcoal/70" data-ph-mask>
+                        {r.fields?.phone || " - "}
+                      </td>
+                      <td className="px-4 sm:px-6 py-2.5">
+                        {r.fields?.sms_opt_in === "yes" ? (
+                          <span className="text-green-600 text-xs font-medium">
+                            yes
+                          </span>
+                        ) : (
+                          <span className="text-charcoal/40 text-xs"> - </span>
+                        )}
                       </td>
                       <td className="px-4 sm:px-6 py-2.5 text-charcoal/70">
                         {[r.ipCity, r.ipRegion].filter(Boolean).join(", ") ||

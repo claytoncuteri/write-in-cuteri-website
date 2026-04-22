@@ -14,7 +14,7 @@ export default function PrivacyPage() {
           <h1 className="text-4xl sm:text-5xl font-bold text-white font-serif">
             Privacy Policy
           </h1>
-          <p className="mt-4 text-white/80">Last updated: April 21, 2026</p>
+          <p className="mt-4 text-white/80">Last updated: April 22, 2026</p>
         </div>
       </section>
 
@@ -32,8 +32,9 @@ export default function PrivacyPage() {
           <p className="text-charcoal/80 leading-relaxed mt-3">
             When you submit a form on this site, we collect the information you
             type into it. Depending on the form, that may include your email
-            address, first name, last name, ZIP code, county, message content,
-            and quiz answers. We also record which page the form was submitted
+            address, first name, last name, mobile phone number, ZIP code,
+            county, message content, and quiz answers. We also record which
+            page the form was submitted
             from (for example, /donate or /get-involved) and which tag applies
             (volunteer, donor interest, press, general supporter).
           </p>
@@ -223,6 +224,52 @@ export default function PrivacyPage() {
             or copies the Anedot donation URL to your clipboard if your
             browser does not support the share sheet. We do not capture
             what you share or who you share with.
+          </p>
+
+          <h2 className="text-2xl font-bold text-charcoal font-serif mt-8">
+            Phone numbers and campaign text messages
+          </h2>
+          <p className="text-charcoal/80 leading-relaxed mt-3">
+            If you provide your mobile phone number on a signup form and
+            check the box consenting to text messages, we use your number
+            to send you ballot-day reminders, event notices, volunteer
+            shift requests, and campaign updates from Cuteri for
+            Americans. This is separate from the Anedot text-to-give
+            keyword described below.
+          </p>
+          <p className="text-charcoal/80 leading-relaxed mt-3">
+            You can opt out at any time by replying STOP to any campaign
+            text message, or by emailing{" "}
+            <a
+              href="mailto:unsubscribe@writeincuteri.com"
+              className="text-navy hover:text-navy-dark underline"
+            >
+              unsubscribe@writeincuteri.com
+            </a>
+            . Reply HELP to any text for help. Message and data rates from
+            your mobile carrier may apply. We send no more than ten
+            messages per phone number per month.
+          </p>
+          <p className="text-charcoal/80 leading-relaxed mt-3">
+            We share your phone number with the SMS delivery provider we
+            use to transmit messages, and with our email provider (Kit /
+            ConvertKit), solely to send you the messages you opted in to.
+            We do not sell or rent your phone number. When you sign up,
+            the site passes your number and consent record to the SMS
+            provider automatically so you can receive a confirmation
+            text right away.
+          </p>
+          <p className="text-charcoal/80 leading-relaxed mt-3">
+            Federal Communications Commission rules for political text
+            messages require us to keep an audit trail proving you
+            opted in. For that reason we retain your phone number, the
+            date and time you consented, and the consent wording you
+            agreed to, for the duration of the campaign plus four
+            years. You can still request deletion under &ldquo;Your
+            choices&rdquo; below, and we will delete your phone number
+            from active outreach lists immediately; the consent
+            audit record itself is the narrow exception required by FCC
+            rules.
           </p>
 
           <h2 className="text-2xl font-bold text-charcoal font-serif mt-8">

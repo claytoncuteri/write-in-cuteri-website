@@ -43,6 +43,13 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
   const [answers, setAnswers] = useState<Record<string, QuizAnswer>>({});
   const [index, setIndex] = useState(0); // question index within the active list
   const [email, setEmail] = useState("");
+  // Optional phone + TCPA opt-in at the email gate. Keeping these optional
+  // (not required) because the quiz is a secondary signup path  -  the
+  // required-phone surface is the dedicated HomeSignup block. Adding
+  // friction here would dent quiz completion, which is the whole point of
+  // the quiz. Anyone who ticks the box is a bonus SMS subscriber.
+  const [phone, setPhone] = useState("");
+  const [smsOptIn, setSmsOptIn] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [emailSubmitting, setEmailSubmitting] = useState(false);
   const [recordId, setRecordId] = useState<string | null>(null);
@@ -106,6 +113,8 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
           body: JSON.stringify({
             answers,
             email: emailValue,
+            phone: phone.trim() || undefined,
+            smsOptIn: smsOptIn && phone.trim().length > 0,
             scoreCore,
             completedExtended: false,
             sourcePage,
@@ -148,7 +157,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
         setEmailSubmitting(false);
       }
     },
-    [answers, scoreCore, sourcePage],
+    [answers, phone, smsOptIn, scoreCore, sourcePage],
   );
 
   const persistFinal = useCallback(async () => {
@@ -360,6 +369,39 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
               stands on each issue. No spam. Unsubscribe in one click.
             </p>
           </div>
+
+          {/* Optional phone + TCPA opt-in. Optional on purpose  -  quiz is
+              a secondary signup path, friction here dents completion. */}
+          <div>
+            <label className="block text-xs font-semibold text-charcoal/60 uppercase tracking-wider mb-1">
+              Mobile phone (optional  -  for ballot-day reminders)
+            </label>
+            <input
+              type="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="(843) 555-0100"
+              autoComplete="tel"
+              className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-charcoal focus:outline-none focus:ring-2 focus:ring-navy focus:border-navy"
+              data-ph-mask
+            />
+          </div>
+          {phone.trim().length > 0 && (
+            <label className="flex items-start gap-2 bg-cream border border-gray-200 rounded-lg p-3 text-[11px] text-charcoal/80 leading-snug">
+              <input
+                type="checkbox"
+                checked={smsOptIn}
+                onChange={(e) => setSmsOptIn(e.target.checked)}
+                className="mt-0.5 h-4 w-4 text-navy border-gray-300 rounded focus:ring-navy"
+              />
+              <span>
+                Text me ballot-day reminders and campaign updates from
+                Cuteri for Americans. Msg &amp; data rates may apply. Max 10
+                msgs/month. Reply STOP to unsubscribe, HELP for help.
+              </span>
+            </label>
+          )}
+
           <div className="flex flex-col sm:flex-row gap-2">
             <button
               type="submit"
