@@ -458,9 +458,10 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
               />
               <span>
                 Text me about events, fundraisers, volunteer shifts,
-                ballot-day reminders, and campaign updates from Cuteri
-                for Americans. Texting launches in the next month or
-                two once carrier approval clears  -  welcome text then.
+                ballot-day reminders, campaign updates, or anything
+                else related to the Cuteri for Americans campaign.
+                Texting launches in the next month or two once carrier
+                approval clears  -  welcome text then.
                 Message frequency varies. Msg &amp; data rates may
                 apply. Reply STOP to unsubscribe, HELP for help.
               </span>

@@ -57,6 +57,8 @@ export function DonateClient() {
     e.preventDefault();
     setEmailSubmitting(true);
     const data = new FormData(e.currentTarget);
+    const firstName = String(data.get("firstName") || "");
+    const lastName = String(data.get("lastName") || "");
     const email = String(data.get("email") || "");
     const phone = String(data.get("phone") || "");
     const smsOptIn = phone.trim().length > 0 && data.get("smsOptIn") === "on";
@@ -66,6 +68,8 @@ export function DonateClient() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
+          firstName,
+          lastName,
           tag: "donor",
           sourcePage: "/donate",
           fields: {
@@ -505,6 +509,22 @@ export function DonateClient() {
                 </div>
               ) : (
                 <form onSubmit={handleEmailSignup} className="space-y-2 text-left">
+                  <div className="grid grid-cols-2 gap-2">
+                    <input
+                      type="text"
+                      name="firstName"
+                      required
+                      placeholder="First name"
+                      className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-charcoal text-sm focus:outline-none focus:ring-2 focus:ring-navy focus:border-navy"
+                    />
+                    <input
+                      type="text"
+                      name="lastName"
+                      required
+                      placeholder="Last name"
+                      className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-charcoal text-sm focus:outline-none focus:ring-2 focus:ring-navy focus:border-navy"
+                    />
+                  </div>
                   <input
                     type="email"
                     name="email"
@@ -530,12 +550,13 @@ export function DonateClient() {
                     />
                     <span>
                       Text me about events, fundraisers, volunteer
-                      shifts, ballot-day reminders, and campaign
-                      updates from Cuteri for Americans. Texting
-                      launches in the next month or two once carrier
-                      approval clears  -  welcome text then. Message
-                      frequency varies. Msg &amp; data rates may apply.
-                      Reply STOP to unsubscribe, HELP for help.
+                      shifts, ballot-day reminders, campaign updates,
+                      or anything else related to the Cuteri for
+                      Americans campaign. Texting launches in the next
+                      month or two once carrier approval clears  -
+                      welcome text then. Message frequency varies. Msg
+                      &amp; data rates may apply. Reply STOP to
+                      unsubscribe, HELP for help.
                     </span>
                   </label>
                   <CTAButton

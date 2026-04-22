@@ -3,9 +3,10 @@
 import { useState, type FormEvent } from "react";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
-import { Users, Share2, Mail, FileText, Printer, Image as ImageIcon, Package } from "lucide-react";
+import { Users, Share2, Mail, FileText, Printer, Image as ImageIcon, Package, Download } from "lucide-react";
 import { PdfDownloadButton } from "@/components/PdfDownloadButton";
 import { IssueMatcher } from "@/components/IssueMatcher";
+import { KitContactForm } from "@/components/KitContactForm";
 import { track, identifyByEmail } from "@/lib/analytics";
 
 export default function GetInvolvedPage() {
@@ -226,9 +227,10 @@ export default function GetInvolvedPage() {
                   className="text-xs text-charcoal/80 leading-relaxed"
                 >
                   Text me about events, fundraisers, volunteer shifts,
-                  ballot-day reminders, and campaign updates from
-                  Cuteri for Americans. Texting launches in the next
-                  month or two once carrier approval clears  -  welcome
+                  ballot-day reminders, campaign updates, or anything
+                  else related to the Cuteri for Americans campaign.
+                  Texting launches in the next month or two once
+                  carrier approval clears  -  welcome
                   text then. Message frequency varies. Msg &amp; data
                   rates may apply. Reply STOP to unsubscribe, HELP for
                   help.
@@ -265,22 +267,44 @@ export default function GetInvolvedPage() {
           anywhere someone asks what Clayton stands for.
         </p>
 
-        {/* One-click "Download All" gets the full kit as a ZIP. Keeps
-            individual downloads below for anyone who only wants one piece. */}
-        <div className="bg-navy rounded-lg p-5 mb-6 max-w-lg flex items-center gap-4">
-          <Package size={36} className="text-gold shrink-0" />
-          <div className="flex-1">
-            <h3 className="font-bold text-white text-base font-serif">
-              Full Volunteer Kit
-            </h3>
-            <p className="text-xs text-white/70 mt-0.5">
-              One-pager, wallet card, and campaign logo in one ZIP
-            </p>
+        {/* One-click "Download All" gets the full kit as a ZIP. The
+            whole banner is the clickable surface (not just the pill
+            on the right)  -  browsers/phones often miss the small
+            button hit-target on cards like this. Keeps individual
+            downloads below for anyone who only wants one piece. */}
+        <a
+          href="/images/cuteri-volunteer-kit.zip"
+          download=""
+          className="group block bg-red-accent hover:bg-red-accent/90 transition-colors rounded-lg p-6 mb-6 max-w-2xl shadow-md"
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+            <Package size={44} className="text-white shrink-0" />
+            <div className="flex-1">
+              <h3 className="font-bold text-white text-lg sm:text-xl font-serif">
+                Download Everything (ZIP)
+              </h3>
+              <p className="text-sm text-white/90 mt-1">
+                One-pager, wallet card, Write-In Cuteri wordmark, and
+                the full banner set (social covers, yard signs, bumper
+                stickers, OG images  -  cream, navy, white, and
+                transparent variants).
+              </p>
+            </div>
+            <span className="inline-flex items-center gap-2 px-5 py-3 bg-white text-red-accent font-bold text-base rounded-lg whitespace-nowrap shadow-sm">
+              <Download size={18} />
+              Download All
+            </span>
           </div>
-          <PdfDownloadButton href="/images/cuteri-volunteer-kit.zip">
-            Download All
-          </PdfDownloadButton>
-        </div>
+        </a>
+
+        {/* Secondary contact-capture form. Non-gating (downloads above
+            stay open) but offers volunteers a lightweight way to leave
+            their info so we can follow up. Separate from the big
+            volunteer form below because some visitors only want to
+            grab materials and share their contact without committing
+            to a volunteer shift. */}
+        <KitContactForm />
+
 
         <div className="grid sm:grid-cols-3 gap-4 max-w-3xl">
           <div className="bg-white rounded-lg p-5 border border-gray-200 text-center">

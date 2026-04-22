@@ -196,8 +196,9 @@ export function HomeSignup() {
                 className="text-xs text-charcoal/80 leading-relaxed"
               >
                 Text me about events, fundraisers, volunteer shifts,
-                ballot-day reminders, and campaign updates from Cuteri
-                for Americans. Texting is launching in the next month
+                ballot-day reminders, campaign updates, or anything
+                else related to the Cuteri for Americans campaign.
+                Texting is launching in the next month
                 or two once carrier approval clears  -  you&rsquo;ll
                 get a welcome text then. Message frequency varies.
                 Message and data rates may apply. Reply STOP to
