@@ -529,12 +529,13 @@ export function DonateClient() {
                       className="mt-0.5 h-4 w-4 text-navy border-gray-300 rounded focus:ring-navy"
                     />
                     <span>
-                      Text me when donations open and for ballot-day
-                      updates from Cuteri for Americans. Texting launches
-                      in the next month or two once carrier approval
-                      clears  -  welcome text then. Msg &amp; data rates
-                      may apply. Max 10 msgs/month. Reply STOP to
-                      unsubscribe, HELP for help.
+                      Text me about events, fundraisers, volunteer
+                      shifts, ballot-day reminders, and campaign
+                      updates from Cuteri for Americans. Texting
+                      launches in the next month or two once carrier
+                      approval clears  -  welcome text then. Message
+                      frequency varies. Msg &amp; data rates may apply.
+                      Reply STOP to unsubscribe, HELP for help.
                     </span>
                   </label>
                   <CTAButton

@@ -232,10 +232,11 @@ export default function PrivacyPage() {
           <p className="text-charcoal/80 leading-relaxed mt-3">
             If you provide your mobile phone number on a signup form and
             check the box consenting to text messages, we use your number
-            to send you ballot-day reminders, event notices, volunteer
-            shift requests, and campaign updates from Cuteri for
-            Americans. This is separate from the Anedot text-to-give
-            keyword described below.
+            to send you event invites, fundraiser notices, volunteer
+            shift requests, ballot-day reminders, and general campaign
+            updates from Cuteri for Americans. Message frequency varies
+            based on campaign activity. This is separate from the
+            Anedot text-to-give keyword described below.
           </p>
           <p className="text-charcoal/80 leading-relaxed mt-3">
             <strong>When texts will actually start:</strong> we are

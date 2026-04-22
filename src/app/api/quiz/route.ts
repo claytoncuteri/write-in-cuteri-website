@@ -47,6 +47,8 @@ export async function POST(req: NextRequest) {
   }
 
   const email = typeof body.email === "string" ? body.email.trim().toLowerCase() : undefined;
+  const firstName = typeof body.firstName === "string" ? body.firstName.trim() : undefined;
+  const lastName = typeof body.lastName === "string" ? body.lastName.trim() : undefined;
   // Optional phone + TCPA opt-in captured at the email gate. Phone is not
   // required here (we have a dedicated HomeSignup form for the required
   // path); the quiz is a secondary capture surface that shouldn't add
@@ -93,6 +95,8 @@ export async function POST(req: NextRequest) {
       scoreCore >= 6 ? "high" : scoreCore >= 4 ? "medium" : "low";
     const ckResult = await subscribeToConvertKit({
       email,
+      firstName,
+      lastName,
       tag: "general",
       fields: {
         quiz_score_core: String(scoreCore),

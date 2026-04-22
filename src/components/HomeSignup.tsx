@@ -83,11 +83,11 @@ export function HomeSignup() {
         <div className="text-center mb-6">
           <Mail size={28} className="text-navy mx-auto mb-3" />
           <h2 className="text-2xl sm:text-3xl font-bold text-charcoal font-serif">
-            Get ballot-day reminders from Clayton
+            Get campaign updates from Clayton
           </h2>
           <p className="mt-3 text-charcoal/70">
-            No spam. Unsubscribe anytime. A text the morning of November 3,
-            2026 so you remember how to write Clayton in.
+            Event invites, fundraiser notices, volunteer opportunities,
+            and a ballot-day reminder when it counts. Unsubscribe anytime.
           </p>
         </div>
 
@@ -195,11 +195,12 @@ export function HomeSignup() {
                 htmlFor="home-smsOptIn"
                 className="text-xs text-charcoal/80 leading-relaxed"
               >
-                Text me ballot-day reminders and campaign updates from
-                Cuteri for Americans. Texting is launching in the next
-                month or two once carrier approval clears  -  you&rsquo;ll
-                get a welcome text then. Message and data rates may
-                apply. Max 10 messages per month. Reply STOP to
+                Text me about events, fundraisers, volunteer shifts,
+                ballot-day reminders, and campaign updates from Cuteri
+                for Americans. Texting is launching in the next month
+                or two once carrier approval clears  -  you&rsquo;ll
+                get a welcome text then. Message frequency varies.
+                Message and data rates may apply. Reply STOP to
                 unsubscribe, HELP for help.
               </label>
             </div>
