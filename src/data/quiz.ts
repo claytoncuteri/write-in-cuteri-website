@@ -117,15 +117,15 @@ export const CORE_QUESTIONS: QuizQuestion[] = [
       "Universal school meals plus SNAP reform. A country that funds foreign wars can feed its own kids.",
   },
   {
-    id: "q13",
-    priorityId: "free-education",
-    heading: "Free education",
+    id: "q12",
+    priorityId: "no-federal-income-tax",
+    heading: "No federal income tax",
     prompt:
-      "Should every SC kid be able to learn a trade or finish college without $100,000 in debt?",
+      "Should working families keep the $8,000 to $15,000 a year the Federal Government currently takes from their paycheck?",
     aligned: "yes",
-    policyRef: "free-education",
+    policyRef: "no-federal-income-tax",
     rationale:
-      "Trade schools and public-college tuition funded by redirecting a fraction of the foreign-war budget. Degrees and credentials without decades of debt.",
+      "Replace the federal income tax with a tariff-and-excise system that doesn't punish earning. Full transition plan in the policy book.",
   },
 ];
 
@@ -175,15 +175,15 @@ export const EXTENDED_QUESTIONS: QuizQuestion[] = [
       "Full Fed audit, then a phased return to a sound-money standard. Stop the silent transfer of wealth from wage-earners to asset-holders.",
   },
   {
-    id: "q12",
-    priorityId: "no-federal-income-tax",
-    heading: "No federal income tax",
+    id: "q13",
+    priorityId: "free-education",
+    heading: "Free education",
     prompt:
-      "Should working families keep the $8,000 to $15,000 a year the Federal Government currently takes from their paycheck?",
+      "Should every SC kid be able to learn a trade or finish college without $100,000 in debt?",
     aligned: "yes",
-    policyRef: "no-federal-income-tax",
+    policyRef: "free-education",
     rationale:
-      "Replace the federal income tax with a tariff-and-excise system that doesn't punish earning. Full transition plan in the policy book.",
+      "Trade schools and public-college tuition funded by redirecting a fraction of the foreign-war budget. Degrees and credentials without decades of debt.",
   },
 ];
 
