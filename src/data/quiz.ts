@@ -106,15 +106,15 @@ export const CORE_QUESTIONS: QuizQuestion[] = [
       "Real-time public ledger of federal spending. Sunlight is the cheapest accountability we have.",
   },
   {
-    id: "q8",
-    priorityId: "free-food",
-    heading: "Free food",
+    id: "q1",
+    priorityId: "lowcountry-resilience",
+    heading: "Lowcountry resilience",
     prompt:
-      "Should no American child go hungry while we send billions to kill innocent children overseas?",
+      "Coastal insurance now costs Lowcountry families upwards of $12,000 a year, and carriers keep leaving because one hurricane could wipe them out. Should the Federal Government act as a safety net so carriers stay and bring premiums down?",
     aligned: "yes",
-    policyRef: "free-food",
+    policyRef: "coastal-insurance",
     rationale:
-      "Universal school meals plus SNAP reform. A country that funds foreign wars can feed its own kids.",
+      "Federal backstop for Lowcountry coastal insurance modeled after the NFIP so carriers stay and premiums drop.",
   },
   {
     id: "q12",
@@ -131,15 +131,15 @@ export const CORE_QUESTIONS: QuizQuestion[] = [
 
 export const EXTENDED_QUESTIONS: QuizQuestion[] = [
   {
-    id: "q1",
-    priorityId: "lowcountry-resilience",
-    heading: "Lowcountry resilience",
+    id: "q8",
+    priorityId: "free-food",
+    heading: "Free food",
     prompt:
-      "Coastal insurance now costs Lowcountry families upwards of $12,000 a year, and carriers keep leaving because one hurricane could wipe them out. Should the Federal Government act as a safety net so carriers stay and bring premiums down?",
+      "Should no American child go hungry while we send billions to kill innocent children overseas?",
     aligned: "yes",
-    policyRef: "coastal-insurance",
+    policyRef: "free-food",
     rationale:
-      "Federal backstop for Lowcountry coastal insurance modeled after the NFIP so carriers stay and premiums drop.",
+      "Universal school meals plus SNAP reform. A country that funds foreign wars can feed its own kids.",
   },
   {
     id: "q9",
