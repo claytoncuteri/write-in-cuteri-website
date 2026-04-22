@@ -88,33 +88,11 @@ export const CORE_QUESTIONS: QuizQuestion[] = [
     priorityId: "stop-endless-wars",
     heading: "Stop endless wars",
     prompt:
-      "Should we stop sending $90 billion a year to foreign wars that kill innocent people, and bring that money home?",
+      "Should we stop spending $90 billion a year on foreign wars and invest that money in District 1 instead?",
     aligned: "yes",
     policyRef: "end-forever-wars",
     rationale:
       "Every young adult sent to a foreign war, and every dollar that funds it, is a life and a dollar not invested in Lowcountry insurance, veteran care, or first-responder pay.",
-  },
-  {
-    id: "q7",
-    priorityId: "open-books",
-    heading: "Open books",
-    prompt:
-      "Should every federal dollar be public online in real time, so you see exactly where your paycheck went?",
-    aligned: "yes",
-    policyRef: "government-transparency",
-    rationale:
-      "Real-time public ledger of federal spending. Sunlight is the cheapest accountability we have.",
-  },
-  {
-    id: "q1",
-    priorityId: "lowcountry-resilience",
-    heading: "Lowcountry resilience",
-    prompt:
-      "Coastal insurance now costs Lowcountry families upwards of $12,000 a year, and carriers keep leaving because one hurricane could wipe them out. Should the Federal Government act as a safety net so carriers stay and bring premiums down?",
-    aligned: "yes",
-    policyRef: "coastal-insurance",
-    rationale:
-      "Federal backstop for Lowcountry coastal insurance modeled after the NFIP so carriers stay and premiums drop.",
   },
   {
     id: "q12",
@@ -126,6 +104,28 @@ export const CORE_QUESTIONS: QuizQuestion[] = [
     policyRef: "no-federal-income-tax",
     rationale:
       "Replace the federal income tax with a tariff-and-excise system that doesn't punish earning. Full transition plan in the policy book.",
+  },
+  {
+    id: "q1",
+    priorityId: "lowcountry-resilience",
+    heading: "Lowcountry resilience",
+    prompt:
+      "Should the Federal Government provide a safety net for coastal insurance so carriers stay in the Lowcountry and bring down the $12,000 per year premium?",
+    aligned: "yes",
+    policyRef: "coastal-insurance",
+    rationale:
+      "Federal backstop for Lowcountry coastal insurance modeled after the NFIP so carriers stay and premiums drop.",
+  },
+  {
+    id: "q7",
+    priorityId: "open-books",
+    heading: "Open books",
+    prompt:
+      "Should every federal dollar be public online in real time, so you see exactly where your paycheck went?",
+    aligned: "yes",
+    policyRef: "government-transparency",
+    rationale:
+      "Real-time public ledger of federal spending. Sunlight is the cheapest accountability we have.",
   },
 ];
 
