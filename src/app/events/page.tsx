@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 import { Calendar, MapPin, Clock, Users } from "lucide-react";
+import { EventSignupForm } from "@/components/EventSignupForm";
 
 export const metadata: Metadata = {
   title: "Events | Town Halls, Rallies, and Community Meetings",
@@ -119,21 +120,24 @@ export default function EventsPage() {
         )}
       </Section>
 
-      {/* Event notification signup */}
+      {/* Event notification signup. Inline form (not a link to
+          /get-involved) because the volunteer form there asks for
+          more commitment than someone who just wants to know when an
+          event is scheduled in their area. Same four-field shape as
+          every other capture on the site. */}
       <Section bgColor="cream">
-        <div className="max-w-xl mx-auto text-center">
-          <Users size={32} className="text-navy mx-auto mb-3" />
-          <h2 className="text-2xl font-bold text-charcoal font-serif">
-            Get Event Notifications
-          </h2>
-          <p className="mt-2 text-charcoal/70 text-sm">
-            Be the first to know when Clayton is coming to your area.
-          </p>
-          <div className="mt-4">
-            <CTAButton variant="secondary" href="/get-involved">
-              Join the Volunteer List
-            </CTAButton>
+        <div className="max-w-xl mx-auto">
+          <div className="text-center">
+            <Users size={32} className="text-navy mx-auto mb-3" />
+            <h2 className="text-2xl font-bold text-charcoal font-serif">
+              Get Event Notifications
+            </h2>
+            <p className="mt-2 text-charcoal/70 text-sm">
+              Be the first to know when Clayton is coming to your area.
+              Drop your zip code and we&rsquo;ll prioritize nearby events.
+            </p>
           </div>
+          <EventSignupForm />
         </div>
       </Section>
 
