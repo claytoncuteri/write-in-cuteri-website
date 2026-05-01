@@ -157,13 +157,13 @@ export const policies: Policy[] = [
   {
     id: "open-books",
     number: 7,
-    title: "Open Books",
+    title: "Tax Dollar Transparency",
     part: "Breaking Free",
     partNumber: 2,
     plank:
       "Real-time public platform showing all government spending. Citizen approve/disapprove system for expenditures. Eliminate the Secret Service. Full financial transparency at every level of government.",
     whatItMeans:
-      "If they spent your money on it, you have the right to see it line by line. A real-time public platform shows every dollar the government spends, who it went to, and what for. Voters can flag suspicious expenditures. Both parties become accountable to the people they serve, not just to donors.",
+      "Tax Dollar Transparency means if they spent your money on it, you have the right to see it line by line. A real-time public platform shows every dollar the government spends, who it went to, and what for. Voters can flag suspicious expenditures. Both parties become accountable to the people they serve, not just to donors. (We sometimes call this Open Books for short.)",
     solvesProblems: [
       { id: "both-parties", title: "Both Parties Have Failed Us", shortLabel: "Two-party failure" },
       { id: "insurance", title: "Insurance is Eating Us Alive", shortLabel: "Coastal insurance crisis" },

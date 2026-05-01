@@ -35,7 +35,7 @@ export const problems: Problem[] = [
     planks: [
       { id: "lowcountry-resilience", number: 13, title: "Lowcountry Resilience" },
       { id: "stop-endless-wars", number: 8, title: "Stop Endless Wars" },
-      { id: "open-books", number: 7, title: "Open Books" },
+      { id: "open-books", number: 7, title: "Tax Dollar Transparency" },
       { id: "affordable-housing", number: 9, title: "Affordable Housing" },
     ],
     talkingPoint:
@@ -72,7 +72,7 @@ export const problems: Problem[] = [
     planks: [
       { id: "stop-endless-wars", number: 8, title: "Stop Endless Wars" },
       { id: "honor-first-responders", number: 11, title: "Honor First Responders & Veterans" },
-      { id: "open-books", number: 7, title: "Open Books" },
+      { id: "open-books", number: 7, title: "Tax Dollar Transparency" },
     ],
     talkingPoint:
       "If Congress votes to send your kid to die in another country, their kids should be the first ones on the plane. Stop offensive wars. Honor the young adults who actually serve.",
@@ -84,7 +84,7 @@ export const problems: Problem[] = [
     pain: "Lifelong Republicans across Berkeley, Dorchester, and Beaufort are exhausted by MAGA chaos. Lifelong Democrats on James Island, in North Charleston, and in Colleton are exhausted by establishment betrayal. Rural voters in Jasper and Colleton feel invisible to both. Everyone in District 1 feels unrepresented, unheard, and used.",
     cause: "The two parties function as a duopoly that profits from conflict. Different talking points, same donors, same outcomes for working families. A record share of Americans now identify as political independents, and District 1's turnout tells the same story.",
     planks: [
-      { id: "open-books", number: 7, title: "Open Books" },
+      { id: "open-books", number: 7, title: "Tax Dollar Transparency" },
     ],
     talkingPoint:
       "Republicans and Democrats agree on the only thing that matters to them: keeping you fighting each other while they cash the checks. The American Congress Party is for the Americans neither party speaks for.",
@@ -101,7 +101,7 @@ export const problems: Problem[] = [
     cause: "Pharmaceutical companies have captured the regulatory process. Medicare cannot negotiate prices for most drugs. The exact same pills sell for one-tenth the price in Europe.",
     planks: [
       { id: "free-medication", number: 2, title: "Free Medication" },
-      { id: "open-books", number: 7, title: "Open Books" },
+      { id: "open-books", number: 7, title: "Tax Dollar Transparency" },
       { id: "clean-food-water", number: 4, title: "Clean Food, Clean Water" },
     ],
     talkingPoint:
@@ -156,7 +156,7 @@ export const problems: Problem[] = [
     cause: "Property reassessments use market value (driven by out-of-state investment) without considering occupant income. Local government has grown dependent on property tax revenue. There is no federal floor protecting primary residences.",
     planks: [
       { id: "affordable-housing", number: 9, title: "Affordable Housing" },
-      { id: "open-books", number: 7, title: "Open Books" },
+      { id: "open-books", number: 7, title: "Tax Dollar Transparency" },
       { id: "no-federal-income-tax", number: 6, title: "No Federal Income Tax" },
     ],
     talkingPoint:
