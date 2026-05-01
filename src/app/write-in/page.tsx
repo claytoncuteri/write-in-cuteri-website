@@ -280,7 +280,7 @@ export default function WriteInPage() {
             your polling place info. Keep it in your pocket on Election Day.
           </p>
           <div className="mt-6">
-            <PdfDownloadButton href="/images/cuteri-wallet-card.pdf">
+            <PdfDownloadButton href="/downloads/cuteri-wallet-card.pdf">
               Download Wallet Card (PDF)
             </PdfDownloadButton>
           </div>

@@ -273,7 +273,7 @@ export default function GetInvolvedPage() {
             button hit-target on cards like this. Keeps individual
             downloads below for anyone who only wants one piece. */}
         <a
-          href="/images/cuteri-volunteer-kit.zip"
+          href="/downloads/cuteri-volunteer-kit.zip"
           download=""
           className="group block bg-red-accent hover:bg-red-accent/90 transition-colors rounded-lg p-6 mb-6 max-w-2xl shadow-md"
         >
@@ -315,7 +315,7 @@ export default function GetInvolvedPage() {
             <p className="text-xs text-charcoal/60 mt-1 mb-3">
               Platform summary and talking points
             </p>
-            <PdfDownloadButton href="/images/cuteri-one-pager.pdf">
+            <PdfDownloadButton href="/downloads/cuteri-one-pager.pdf">
               Download PDF
             </PdfDownloadButton>
           </div>
@@ -325,9 +325,11 @@ export default function GetInvolvedPage() {
               Wallet Card
             </h3>
             <p className="text-xs text-charcoal/60 mt-1 mb-3">
-              Write-in reminder card for Election Day
+              ExpressVote walkthrough: find the U.S. House race, touch
+              the WRITE-IN box, type Clayton Cuteri, then ACCEPT and
+              print + scan.
             </p>
-            <PdfDownloadButton href="/images/cuteri-wallet-card.pdf">
+            <PdfDownloadButton href="/downloads/cuteri-wallet-card.pdf">
               Download PDF
             </PdfDownloadButton>
           </div>

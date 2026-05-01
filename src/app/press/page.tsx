@@ -135,10 +135,10 @@ export default function MediaPage() {
             <div className="space-y-4 text-charcoal/80 leading-relaxed">
               <p>
                 Clayton A. Cuteri is a write-in candidate for U.S. House of
-                Representatives in South Carolina&apos;s 1st Congressional
-                District (general election, November 3, 2026). He is running
-                under the American Congress Party, a new third party he
-                co-founded, and serves as the party&apos;s Secretary General.
+                Representatives, District 1 (South Carolina), general
+                election November 3, 2026. He is running under the American
+                Congress Party, a new third party he co-founded, and serves
+                as the party&apos;s Secretary General.
               </p>
               <p>
                 A resident of Mount Pleasant, South Carolina, Cuteri is an
@@ -336,12 +336,12 @@ export default function MediaPage() {
             },
             {
               label: "Campaign One-Pager",
-              file: "/images/cuteri-one-pager.pdf",
+              file: "/downloads/cuteri-one-pager.pdf",
               desc: "Platform summary PDF",
             },
             {
               label: "Wallet Card",
-              file: "/images/cuteri-wallet-card.pdf",
+              file: "/downloads/cuteri-wallet-card.pdf",
               desc: "Print-ready write-in reminder",
             },
           ].map((asset) => (

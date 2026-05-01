@@ -32,10 +32,14 @@ export default function HomePage() {
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white font-serif leading-tight">
                 Clayton Cuteri for U.S. Congress
               </h1>
+              {/* Hero subhead leads with the exact ballot phrase
+                  voters will see on the Nov 3 ExpressVote screen so
+                  the homepage above-the-fold pairs Clayton's name
+                  with the full official race title on first paint. */}
               <p className="mt-4 text-lg sm:text-xl text-white/80">
-                Write-In Candidate, South Carolina District 1 (the Lowcountry)
+                Write-In Candidate, U.S. House of Representatives, District 1
                 <br />
-                November 3, 2026 General Election
+                South Carolina (the Lowcountry)  ·  November 3, 2026 General Election
               </p>
               <p className="mt-6 text-white/70 text-base sm:text-lg leading-relaxed max-w-lg">
                 Both Republicans and Democrats have failed us. The American
@@ -228,7 +232,7 @@ export default function HomePage() {
               Remember the name on Election Day.
             </p>
             <div className="mt-4">
-              <PdfDownloadButton href="/images/cuteri-wallet-card.pdf">
+              <PdfDownloadButton href="/downloads/cuteri-wallet-card.pdf">
                 Download
               </PdfDownloadButton>
             </div>
@@ -242,7 +246,7 @@ export default function HomePage() {
               The full platform on a single page.
             </p>
             <div className="mt-4">
-              <PdfDownloadButton href="/images/cuteri-one-pager.pdf">
+              <PdfDownloadButton href="/downloads/cuteri-one-pager.pdf">
                 Download
               </PdfDownloadButton>
             </div>

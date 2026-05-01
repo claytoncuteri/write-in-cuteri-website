@@ -34,6 +34,32 @@ const nextConfig: NextConfig = {
     ];
   },
   skipTrailingSlashRedirect: true,
+  // 301-redirect old /images/* download paths to the new /downloads/*
+  // home. Reason: printed wallet cards, social posts, and any cached
+  // crawler links from before the April folder reorg still point at
+  // the old paths; without these redirects those URLs would 404.
+  // permanent: true emits a 308 (Next's choice for permanent
+  // redirects), which preserves the request method and is correct for
+  // a static-asset move.
+  async redirects() {
+    return [
+      {
+        source: "/images/cuteri-wallet-card.pdf",
+        destination: "/downloads/cuteri-wallet-card.pdf",
+        permanent: true,
+      },
+      {
+        source: "/images/cuteri-one-pager.pdf",
+        destination: "/downloads/cuteri-one-pager.pdf",
+        permanent: true,
+      },
+      {
+        source: "/images/cuteri-volunteer-kit.zip",
+        destination: "/downloads/cuteri-volunteer-kit.zip",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

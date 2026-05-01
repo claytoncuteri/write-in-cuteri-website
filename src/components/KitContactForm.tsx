@@ -59,7 +59,7 @@ export function KitContactForm() {
       // Kick off the kit download immediately so the submission feels
       // like it "did something." Opens the zip in a new tab so the
       // thank-you state remains visible.
-      window.open("/images/cuteri-volunteer-kit.zip", "_blank");
+      window.open("/downloads/cuteri-volunteer-kit.zip", "_blank");
     } catch {
       track("signup_form_error", { form_type: "kit_download" });
       alert("Something went wrong. Please try again.");
