@@ -199,17 +199,33 @@ export function AdminDashboard() {
           // Each line is hidden when its denominator is 0 to avoid
           // "0/0" / "NaN%" noise on quiet days.
           note: (() => {
-            const scLine =
-              kpis.ballotSimStartsSc > 0
-                ? `SC: ${kpis.ballotSimStartsSc} starts -> ${Math.round(
-                    (100 * kpis.ballotSimCompletionsSc) /
-                      kpis.ballotSimStartsSc,
-                  )}% completion.`
-                : "";
+            // Helper: render "<starts> starts -> <pct>% completion"
+            // when starts > 0; empty string otherwise. Handles the
+            // case where someone completes the sim without the
+            // started event firing (e.g. starts < completions due
+            // to ingestion timing edge cases) by clamping pct to
+            // 100 so we never print "200% completion".
+            const fmt = (starts: number, completions: number): string => {
+              if (starts <= 0) return "";
+              const pct = Math.min(100, Math.round((100 * completions) / starts));
+              return `${starts} starts -> ${pct}% completion`;
+            };
+            const scFmt = fmt(
+              kpis.ballotSimStartsSc,
+              kpis.ballotSimCompletionsSc,
+            );
+            const allFmt = fmt(
+              kpis.ballotSimStartsAll,
+              kpis.ballotSimCompletionsAll,
+            );
+            const scLine = scFmt ? `SC: ${scFmt}.` : "";
+            // Skip the all-locations line if SC is the only source
+            // (the numbers would be identical and noisy). Show it
+            // otherwise so out-of-state testing still produces a
+            // visible % completion line during admin verification.
             const allLine =
-              kpis.ballotSimStartsAll > 0 &&
-              kpis.ballotSimStartsAll !== kpis.ballotSimStartsSc
-                ? `All locations: ${kpis.ballotSimStartsAll} starts, ${kpis.ballotSimCompletionsAll} completions.`
+              allFmt && kpis.ballotSimStartsAll !== kpis.ballotSimStartsSc
+                ? `All locations: ${allFmt}.`
                 : "";
             const tagline =
               "Practice = 4-6x higher correct-execution rate on Election Day.";
