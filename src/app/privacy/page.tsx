@@ -14,7 +14,7 @@ export default function PrivacyPage() {
           <h1 className="text-4xl sm:text-5xl font-bold text-white font-serif">
             Privacy Policy
           </h1>
-          <p className="mt-4 text-white/80">Last updated: April 22, 2026</p>
+          <p className="mt-4 text-white/80">Last updated: May 1, 2026</p>
         </div>
       </section>
 
@@ -219,11 +219,18 @@ export default function PrivacyPage() {
             privacy policy.
           </p>
           <p className="text-charcoal/80 leading-relaxed mt-3">
-            The mobile &ldquo;Share the donate link&rdquo; button uses
-            your device&apos;s native share sheet (via the Web Share API)
-            or copies the Anedot donation URL to your clipboard if your
-            browser does not support the share sheet. We do not capture
-            what you share or who you share with.
+            Several pages on this site (including the donate page and
+            the get-involved share section) include a &ldquo;Share via
+            app&rdquo; button that uses your device&apos;s native share
+            sheet (via the Web Share API), and a &ldquo;Copy link&rdquo;
+            button that copies the URL to your clipboard. Both run
+            entirely in your browser. We do not capture what you share,
+            who you share with, or whether you ultimately complete the
+            share. The dedicated platform buttons (X, Facebook,
+            LinkedIn, Threads) are outbound links that open the
+            respective platform&apos;s share intent in a new tab; once
+            you leave our site, that platform&apos;s privacy policy
+            applies.
           </p>
 
           <h2 className="text-2xl font-bold text-charcoal font-serif mt-8">
