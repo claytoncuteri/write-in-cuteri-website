@@ -118,6 +118,37 @@ export async function ballotSimStartsSc(): Promise<number> {
 }
 
 /**
+ * All-locations ballot-sim totals (last 30 days), unfiltered by state.
+ * Used for two purposes:
+ *   1. Out-of-state testing  -  lets the candidate verify the pipeline
+ *      works without needing to be physically in SC for the event to
+ *      pass the geo-IP filter.
+ *   2. Sanity check  -  if SC count is 0 but all-locations is non-zero,
+ *      the sim is being used but visitors aren't SC residents (which
+ *      would itself be a useful signal: marketing reach is broad but
+ *      not converting in-district).
+ */
+export async function ballotSimTotalsAll(): Promise<{
+  starts: number;
+  completions: number;
+}> {
+  const data = await hogql(`
+    SELECT
+      countIf(event = 'ballot_sim_started') AS starts,
+      countIf(event = 'ballot_sim_completed') AS completions
+    FROM events
+    WHERE event IN ('ballot_sim_started', 'ballot_sim_completed')
+      AND timestamp > now() - INTERVAL 30 DAY
+  `);
+  if (!data || !data.results[0]) return { starts: 0, completions: 0 };
+  const [starts, completions] = data.results[0];
+  return {
+    starts: Number(starts ?? 0),
+    completions: Number(completions ?? 0),
+  };
+}
+
+/**
  * Name-recognition proxy: % of SC sessions whose first referrer is direct or
  * a branded search. Branded search is approximated by hostname containing
  * "cuteri" in the referrer.
