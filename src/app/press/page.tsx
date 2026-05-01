@@ -135,15 +135,15 @@ export default function MediaPage() {
             <div className="space-y-4 text-charcoal/80 leading-relaxed">
               <p>
                 Clayton A. Cuteri is a write-in candidate for U.S. House of
-                Representatives in South Carolina&apos;s 1st Congressional
-                District (general election, November 3, 2026). He is running
-                under the American Congress Party, a new third party he
-                co-founded, and serves as the party&apos;s Secretary General.
+                Representatives, District 1 (South Carolina), general
+                election November 3, 2026. He is running under the American
+                Congress Party, a new third party he co-founded, and serves
+                as the party&apos;s Secretary General.
               </p>
               <p>
                 A resident of Mount Pleasant, South Carolina, Cuteri is an
                 author and podcaster who built a national audience of more than
-                700,000 followers across Instagram, Facebook, and YouTube over
+                729,000 followers across Instagram, Facebook, and YouTube over
                 five years. His content, which began with a spiritual podcast
                 and expanded into political commentary, reaches more than 30
                 million views per month. His forthcoming book, America
@@ -288,7 +288,7 @@ export default function MediaPage() {
               ["Party", "American Congress Party"],
               ["Committee", "Cuteri for Americans (FEC ID: C00947259)"],
               ["Residence", "Mount Pleasant, South Carolina"],
-              ["Social reach", "700,000+ followers; 30M+ monthly views"],
+              ["Social reach", "729,000+ followers; 30M+ monthly views"],
               [
                 "Platform",
                 "13 policies spanning food, medication, education, taxation, military, housing, energy, and coastal resilience",
@@ -336,12 +336,12 @@ export default function MediaPage() {
             },
             {
               label: "Campaign One-Pager",
-              file: "/images/cuteri-one-pager.pdf",
+              file: "/downloads/cuteri-one-pager.pdf",
               desc: "Platform summary PDF",
             },
             {
               label: "Wallet Card",
-              file: "/images/cuteri-wallet-card.pdf",
+              file: "/downloads/cuteri-wallet-card.pdf",
               desc: "Print-ready write-in reminder",
             },
           ].map((asset) => (

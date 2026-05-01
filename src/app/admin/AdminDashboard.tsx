@@ -39,6 +39,9 @@ type Kpis = {
   wauSc: number;
   wauTotal: number;
   ballotSimCompletionsSc: number;
+  ballotSimStartsSc: number;
+  ballotSimStartsAll: number;
+  ballotSimCompletionsAll: number;
   nameRecognitionPct: number;
   returnRate7dPct: number;
   generatedAt: string;
@@ -182,11 +185,52 @@ export function AdminDashboard() {
           note: "Signups + quiz-email combined. Refines once PostHog captures are flowing.",
         },
         {
-          label: "Ballot sim (SC, 30d)",
+          label: "Ballot sim completions (SC, 30d)",
           value: kpis.ballotSimCompletionsSc,
           target: currentTarget(TARGETS.ballotSim),
           icon: CheckCircle2,
-          note: "Write-in practice = 4-6x higher correct-execution rate on Election Day.",
+          // Two notes packed into the subline:
+          //   1. SC funnel rate: started -> completed. The KPI signal.
+          //      <40% = sim is broken; ~70%+ = sim works.
+          //   2. All-locations totals: lets out-of-state testing show
+          //      something on /admin even when geo-IP filters the test
+          //      event out of the SC count. Also flags reach-vs-
+          //      conversion gaps if all-loc is high but SC is low.
+          // Each line is hidden when its denominator is 0 to avoid
+          // "0/0" / "NaN%" noise on quiet days.
+          note: (() => {
+            // Helper: render "<starts> starts -> <pct>% completion"
+            // when starts > 0; empty string otherwise. Handles the
+            // case where someone completes the sim without the
+            // started event firing (e.g. starts < completions due
+            // to ingestion timing edge cases) by clamping pct to
+            // 100 so we never print "200% completion".
+            const fmt = (starts: number, completions: number): string => {
+              if (starts <= 0) return "";
+              const pct = Math.min(100, Math.round((100 * completions) / starts));
+              return `${starts} starts -> ${pct}% completion`;
+            };
+            const scFmt = fmt(
+              kpis.ballotSimStartsSc,
+              kpis.ballotSimCompletionsSc,
+            );
+            const allFmt = fmt(
+              kpis.ballotSimStartsAll,
+              kpis.ballotSimCompletionsAll,
+            );
+            const scLine = scFmt ? `SC: ${scFmt}.` : "";
+            // Skip the all-locations line if SC is the only source
+            // (the numbers would be identical and noisy). Show it
+            // otherwise so out-of-state testing still produces a
+            // visible % completion line during admin verification.
+            const allLine =
+              allFmt && kpis.ballotSimStartsAll !== kpis.ballotSimStartsSc
+                ? `All locations: ${allFmt}.`
+                : "";
+            const tagline =
+              "Practice = 4-6x higher correct-execution rate on Election Day.";
+            return [scLine, allLine, tagline].filter(Boolean).join(" ");
+          })(),
         },
         {
           label: "SC-01 subscribers",

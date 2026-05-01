@@ -345,7 +345,7 @@ export default function PoliciesPage() {
             polls on November 3.
           </p>
           <div className="mt-5">
-            <PdfDownloadButton href="/images/cuteri-wallet-card.pdf">
+            <PdfDownloadButton href="/downloads/cuteri-wallet-card.pdf">
               Download Wallet Card (PDF)
             </PdfDownloadButton>
           </div>

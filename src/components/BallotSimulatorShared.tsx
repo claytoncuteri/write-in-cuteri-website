@@ -9,7 +9,7 @@ import { track } from "@/lib/analytics";
 
 export type BallotMode = "bmd" | "paper";
 
-const WALLET_CARD_HREF = "/images/cuteri-wallet-card.pdf";
+const WALLET_CARD_HREF = "/downloads/cuteri-wallet-card.pdf";
 
 /**
  * Fuzzy match on common misspellings of "Cuteri". We want this forgiving

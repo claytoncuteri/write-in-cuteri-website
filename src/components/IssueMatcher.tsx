@@ -489,7 +489,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
               alone is insufficient when the form collects personal
               data the campaign will use for outreach. */}
           <p className="text-[10px] text-charcoal/40 text-center leading-tight pt-1">
-            Paid for by Cuteri for Americans. See our{" "}
+            Paid for by Cuteri for Americans (FEC ID C00947259). See our{" "}
             <a
               href="/privacy"
               className="underline underline-offset-2 hover:text-charcoal/70"

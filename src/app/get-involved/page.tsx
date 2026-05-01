@@ -7,6 +7,7 @@ import { Users, Share2, Mail, FileText, Printer, Image as ImageIcon, Package, Do
 import { PdfDownloadButton } from "@/components/PdfDownloadButton";
 import { IssueMatcher } from "@/components/IssueMatcher";
 import { KitContactForm } from "@/components/KitContactForm";
+import { CampaignShare } from "@/components/CampaignShare";
 import { track, identifyByEmail } from "@/lib/analytics";
 
 export default function GetInvolvedPage() {
@@ -273,7 +274,7 @@ export default function GetInvolvedPage() {
             button hit-target on cards like this. Keeps individual
             downloads below for anyone who only wants one piece. */}
         <a
-          href="/images/cuteri-volunteer-kit.zip"
+          href="/downloads/cuteri-volunteer-kit.zip"
           download=""
           className="group block bg-red-accent hover:bg-red-accent/90 transition-colors rounded-lg p-6 mb-6 max-w-2xl shadow-md"
         >
@@ -315,7 +316,7 @@ export default function GetInvolvedPage() {
             <p className="text-xs text-charcoal/60 mt-1 mb-3">
               Platform summary and talking points
             </p>
-            <PdfDownloadButton href="/images/cuteri-one-pager.pdf">
+            <PdfDownloadButton href="/downloads/cuteri-one-pager.pdf">
               Download PDF
             </PdfDownloadButton>
           </div>
@@ -325,9 +326,11 @@ export default function GetInvolvedPage() {
               Wallet Card
             </h3>
             <p className="text-xs text-charcoal/60 mt-1 mb-3">
-              Write-in reminder card for Election Day
+              ExpressVote walkthrough: find the U.S. House race, touch
+              the WRITE-IN box, type Clayton Cuteri, then ACCEPT and
+              print + scan.
             </p>
-            <PdfDownloadButton href="/images/cuteri-wallet-card.pdf">
+            <PdfDownloadButton href="/downloads/cuteri-wallet-card.pdf">
               Download PDF
             </PdfDownloadButton>
           </div>
@@ -354,32 +357,14 @@ export default function GetInvolvedPage() {
         <IssueMatcher sourcePage="/get-involved" />
       </Section>
 
-      {/* Social share */}
+      {/* Social share. Expanded from the original X-and-Facebook-only
+          pair to four platforms with web-share intents (X, Facebook,
+          LinkedIn, Threads) plus a native Web Share API button that
+          opens the OS share sheet on mobile  -  the only real path
+          to Instagram, TikTok, WhatsApp, Signal, AirDrop, etc.,
+          since none of those expose a public share URL. */}
       <Section bgColor="cream" title="Share This Campaign">
-        <div className="max-w-xl mx-auto text-center">
-          <p className="text-charcoal/70 text-lg mb-6">
-            The biggest challenge for any write-in candidate is name recognition.
-            Every share helps.
-          </p>
-          <div className="flex justify-center gap-4">
-            <a
-              href="https://twitter.com/intent/tweet?text=I%27m%20writing%20in%20Clayton%20Cuteri%20for%20Congress%20in%20SC-01.%20writeincuteri.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-5 py-2.5 bg-charcoal text-white rounded-lg text-sm font-semibold hover:bg-charcoal/80 transition-colors"
-            >
-              Share on X
-            </a>
-            <a
-              href="https://www.facebook.com/sharer/sharer.php?u=https://writeincuteri.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-5 py-2.5 bg-[#1877F2] text-white rounded-lg text-sm font-semibold hover:bg-[#1877F2]/80 transition-colors"
-            >
-              Share on Facebook
-            </a>
-          </div>
-        </div>
+        <CampaignShare />
       </Section>
 
       {/* ACP Link */}

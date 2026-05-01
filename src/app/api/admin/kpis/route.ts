@@ -9,6 +9,8 @@ import { isAdminAuthed } from "@/lib/admin-auth";
 import { getCounts } from "@/lib/db";
 import {
   ballotSimCompletionsSc,
+  ballotSimStartsSc,
+  ballotSimTotalsAll,
   nameRecognitionProxy,
   posthogConfigured,
   returnRate7d,
@@ -44,7 +46,15 @@ export async function GET() {
     // KPI response. On error we log and use zeros so the dashboard still
     // renders with best-effort data.
     const phOn = posthogConfigured();
-    const [dbCounts, wau, ballotSim, nameRec, retention] = await Promise.all([
+    const [
+      dbCounts,
+      wau,
+      ballotSim,
+      ballotSimStarts,
+      ballotSimAll,
+      nameRec,
+      retention,
+    ] = await Promise.all([
       getCounts().catch((err) => {
         console.error("[kpis] getCounts failed", err);
         return EMPTY_DB_COUNTS;
@@ -61,6 +71,18 @@ export async function GET() {
             return 0;
           })
         : Promise.resolve(0),
+      phOn
+        ? ballotSimStartsSc().catch((err) => {
+            console.error("[kpis] ballotSimStartsSc failed", err);
+            return 0;
+          })
+        : Promise.resolve(0),
+      phOn
+        ? ballotSimTotalsAll().catch((err) => {
+            console.error("[kpis] ballotSimTotalsAll failed", err);
+            return { starts: 0, completions: 0 };
+          })
+        : Promise.resolve({ starts: 0, completions: 0 }),
       phOn
         ? nameRecognitionProxy().catch((err) => {
             console.error("[kpis] nameRecognitionProxy failed", err);
@@ -83,6 +105,9 @@ export async function GET() {
       wauSc: wau.sc,
       wauTotal: wau.total,
       ballotSimCompletionsSc: ballotSim,
+      ballotSimStartsSc: ballotSimStarts,
+      ballotSimStartsAll: ballotSimAll.starts,
+      ballotSimCompletionsAll: ballotSimAll.completions,
       nameRecognitionPct: nameRec,
       returnRate7dPct: retention,
       generatedAt: new Date().toISOString(),

@@ -13,14 +13,28 @@
 
 "use client";
 
-import type posthog from "posthog-js";
+import posthog from "posthog-js";
 
-// We load posthog-js via the PostHogProvider in src/app/providers.tsx. This
-// helper just grabs the instance off window if it's there.
+// posthog-js is a singleton. PostHogProvider.tsx calls posthog.init()
+// once at mount; every subsequent import here gets the same initialized
+// instance.
+//
+// We previously tried to read `window.posthog`, which posthog-js v1.x
+// used to auto-assign. v2+ (we're on v1.369+) does NOT touch window by
+// default, so that reader returned null and every track() call no-oped
+// silently. Rooted out by checking PostHog Activity and seeing zero
+// ballot_sim_*, signup_form_*, donate_*, etc., despite the calls
+// firing in the code. Importing the module directly fixes every
+// custom event surface at once.
+//
+// Pageview / autocapture events were unaffected because PostHogProvider
+// captures those via the imported module directly, never via window.
 function ph(): typeof posthog | null {
   if (typeof window === "undefined") return null;
-  const w = window as unknown as { posthog?: typeof posthog };
-  return w.posthog ?? null;
+  // posthog-js sets `__loaded` to true after .init() has resolved.
+  // Returning null until init completes prevents events from queueing
+  // before the SDK is configured (they would be dropped on load).
+  return posthog?.__loaded ? posthog : null;
 }
 
 /**

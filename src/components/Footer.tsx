@@ -41,18 +41,29 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
+            {/* White-outline eagle reads cleanly on the navy footer
+                background; the plain transparent eagle leaves a dark
+                halo of pixels that bites into the navy. The outline
+                variant only ships for dark backgrounds; light
+                placements (homepage About card, etc.) keep the plain
+                eagle. */}
             <Image
-              src="/images/ACP_Eagle_transparent_background.png"
+              src="/images/ACP_Eagle_white_outline.png"
               alt="American Congress Party eagle emblem"
               width={2869}
               height={2869}
               placeholder="blur"
-              blurDataURL={imageBlur["/images/ACP_Eagle_transparent_background.png"]}
+              blurDataURL={imageBlur["/images/ACP_Eagle_white_outline.png"]}
               className="h-16 w-auto mb-4"
             />
+            {/* Brand line uses the full ballot phrase verbatim so every
+                page footer reinforces the Clayton -> race-title pair
+                that voters need to recognize on the Nov 3 ExpressVote
+                screen. */}
             <p className="text-white/80 text-sm leading-relaxed">
-              Clayton Cuteri for Congress. Write-in candidate, South Carolina
-              District 1. American Congress Party.
+              Clayton A. Cuteri, Write-In Candidate for U.S. House of
+              Representatives, District 1 (South Carolina). American
+              Congress Party.
             </p>
           </div>
 
@@ -148,9 +159,15 @@ export function Footer() {
 
         {/* FEC Disclaimer */}
         <div className="mt-12 pt-8 border-t border-white/10">
+          {/* Cuteri for Americans IS Clayton's authorized principal
+              campaign committee, so the boilerplate "Not authorized
+              by any other candidate or candidate's committee" clause
+              that PACs use does NOT belong here  -  that disclosure is
+              for unauthorized independent-expenditure committees, not
+              the candidate's own committee. Removing it removes a
+              factual error. */}
           <p className="text-xs text-white/50 leading-relaxed max-w-3xl">
-            Paid for by Cuteri for Americans (FEC ID C00947259). Not
-            authorized by any other candidate or candidate&apos;s committee.
+            Paid for by Cuteri for Americans (FEC ID C00947259).
             Contributions to Cuteri for Americans are not tax deductible.
             Federal law requires us to use our best efforts to collect and
             report the name, mailing address, occupation, and employer of

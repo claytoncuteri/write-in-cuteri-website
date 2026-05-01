@@ -119,7 +119,7 @@ export const CORE_QUESTIONS: QuizQuestion[] = [
   {
     id: "q7",
     priorityId: "open-books",
-    heading: "Open books",
+    heading: "Tax Dollar Transparency",
     prompt:
       "Should every federal dollar be public online in real time, so you see exactly where your paycheck went?",
     aligned: "yes",
