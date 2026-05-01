@@ -24,8 +24,8 @@ export default function AboutPage() {
               Clayton A. Cuteri
             </h1>
             <p className="mt-5 text-white/80 text-lg leading-relaxed">
-              Write-in candidate for U.S. House of Representatives, South
-              Carolina District 1. Secretary General, American Congress Party.
+              Write-In Candidate for U.S. House of Representatives, District 1
+              (South Carolina). Secretary General, American Congress Party.
             </p>
           </div>
         </div>

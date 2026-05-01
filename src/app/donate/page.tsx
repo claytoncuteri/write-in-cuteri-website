@@ -92,8 +92,7 @@ export default function DonatePage() {
               individuals whose contributions exceed $200 in an election
               cycle. Federal Election Commission limits apply: individuals may
               contribute up to $3,500 per election. Paid for by Cuteri for
-              Americans (FEC ID C00947259). Not authorized by any other
-              candidate or candidate&apos;s committee.
+              Americans (FEC ID C00947259).
             </p>
           </div>
 

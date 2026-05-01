@@ -217,7 +217,7 @@ export function HomeSignup() {
             </CTAButton>
 
             <p className="text-[11px] text-charcoal/50 text-center leading-relaxed">
-              Paid for by Cuteri for Americans. See our{" "}
+              Paid for by Cuteri for Americans (FEC ID C00947259). See our{" "}
               <a
                 href="/privacy"
                 className="underline underline-offset-2 hover:text-charcoal"

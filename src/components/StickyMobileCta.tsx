@@ -128,7 +128,7 @@ export function StickyMobileCta() {
             </button>
           </div>
           <p className="px-4 pb-1.5 text-[10px] text-white/60 text-center leading-tight">
-            Paid for by Cuteri for Americans.
+            Paid for by Cuteri for Americans (FEC ID C00947259).
           </p>
         </div>
       )}
