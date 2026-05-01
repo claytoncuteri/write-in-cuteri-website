@@ -39,6 +39,7 @@ type Kpis = {
   wauSc: number;
   wauTotal: number;
   ballotSimCompletionsSc: number;
+  ballotSimStartsSc: number;
   nameRecognitionPct: number;
   returnRate7dPct: number;
   generatedAt: string;
@@ -182,11 +183,21 @@ export function AdminDashboard() {
           note: "Signups + quiz-email combined. Refines once PostHog captures are flowing.",
         },
         {
-          label: "Ballot sim (SC, 30d)",
+          label: "Ballot sim completions (SC, 30d)",
           value: kpis.ballotSimCompletionsSc,
           target: currentTarget(TARGETS.ballotSim),
           icon: CheckCircle2,
-          note: "Write-in practice = 4-6x higher correct-execution rate on Election Day.",
+          // Started -> completed funnel rate is the single best signal
+          // for whether the sim works. <40% = sim is broken, fix UX;
+          // ~70%+ = sim works, focus elsewhere. Hides the rate when
+          // there are zero starts (avoids "NaN%" / "0/0" noise).
+          note:
+            kpis.ballotSimStartsSc > 0
+              ? `${kpis.ballotSimStartsSc} starts -> ${Math.round(
+                  (100 * kpis.ballotSimCompletionsSc) /
+                    kpis.ballotSimStartsSc,
+                )}% completion. Practice = 4-6x higher correct-execution rate on Election Day.`
+              : "Practice = 4-6x higher correct-execution rate on Election Day.",
         },
         {
           label: "SC-01 subscribers",

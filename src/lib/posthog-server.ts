@@ -100,6 +100,24 @@ export async function ballotSimCompletionsSc(): Promise<number> {
 }
 
 /**
+ * Count of ballot-simulator STARTS in the last 30 days, SC-filtered.
+ * Paired with ballotSimCompletionsSc() to compute the started -> completed
+ * funnel rate, the single most useful signal for whether the sim works:
+ * <40% completion = the sim is broken; ~70%+ = the sim works.
+ */
+export async function ballotSimStartsSc(): Promise<number> {
+  const data = await hogql(`
+    SELECT count(*)
+    FROM events
+    WHERE event = 'ballot_sim_started'
+      AND properties.$geoip_subdivision_1_code = 'SC'
+      AND timestamp > now() - INTERVAL 30 DAY
+  `);
+  if (!data || !data.results[0]) return 0;
+  return Number(data.results[0][0] ?? 0);
+}
+
+/**
  * Name-recognition proxy: % of SC sessions whose first referrer is direct or
  * a branded search. Branded search is approximated by hostname containing
  * "cuteri" in the referrer.
