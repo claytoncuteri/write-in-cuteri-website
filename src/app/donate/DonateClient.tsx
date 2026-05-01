@@ -20,7 +20,7 @@ const ANEDOT_URL = "https://secure.anedot.com/cuteri-for-americans/donate";
 
 // Research-backed ladder: ActBlue Q1 2024 median political gift is $10-$20,
 // average $42.73. $50 is pre-selected (adjusted up from research default $25)
-// because Clayton's 700K-follower podcast audience sits between political
+// because Clayton's 729K-follower podcast audience sits between political
 // cold traffic and creator/patron economics, warmer than ActBlue baseline.
 // See the /donate plan file for full rationale.
 const PRESET_AMOUNTS = [10, 25, 50, 100, 250] as const;

@@ -58,7 +58,7 @@ export default function AboutPage() {
               political commentary as he realized that inner work without public
               action was not enough. Today he reaches 30 to 100 million views
               per month across Instagram, YouTube, and Facebook, with a combined
-              audience of more than 700,000 followers. He has built and operated
+              audience of more than 729,000 followers. He has built and operated
               five businesses and is now turning that audience into a political
               movement.
             </p>
@@ -116,7 +116,7 @@ export default function AboutPage() {
               Five years ago he launched the podcast &quot;Traveling to
               Consciousness,&quot; which grew into a media platform reaching 30
               to 100 million views per month across Instagram, YouTube, and
-              Facebook, with more than 700,000 followers combined. That
+              Facebook, with more than 729,000 followers combined. That
               audience is now the foundation of this campaign.
             </p>
             <p className="text-charcoal/80 text-lg leading-relaxed">

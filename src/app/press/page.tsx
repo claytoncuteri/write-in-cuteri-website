@@ -143,7 +143,7 @@ export default function MediaPage() {
               <p>
                 A resident of Mount Pleasant, South Carolina, Cuteri is an
                 author and podcaster who built a national audience of more than
-                700,000 followers across Instagram, Facebook, and YouTube over
+                729,000 followers across Instagram, Facebook, and YouTube over
                 five years. His content, which began with a spiritual podcast
                 and expanded into political commentary, reaches more than 30
                 million views per month. His forthcoming book, America
@@ -288,7 +288,7 @@ export default function MediaPage() {
               ["Party", "American Congress Party"],
               ["Committee", "Cuteri for Americans (FEC ID: C00947259)"],
               ["Residence", "Mount Pleasant, South Carolina"],
-              ["Social reach", "700,000+ followers; 30M+ monthly views"],
+              ["Social reach", "729,000+ followers; 30M+ monthly views"],
               [
                 "Platform",
                 "13 policies spanning food, medication, education, taxation, military, housing, energy, and coastal resilience",

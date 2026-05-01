@@ -144,7 +144,7 @@ export default function HomePage() {
               of District 1 every year, from Hilton Head and Bluffton to Summerville
               and Goose Creek. He is not a career politician. He is an
               entrepreneur, content creator, and co-founder of the American
-              Congress Party who built a following of over 700,000 people by
+              Congress Party who built a following of over 729,000 people by
               saying what both parties refuse to say.
             </p>
             <div className="mt-6">
