@@ -18,6 +18,9 @@ const navGroups: (DropdownGroup | { label: string; href: string })[] = [
       { label: "Solutions", href: "/policies" },
     ],
   },
+  // Flat "Blog" link slots between Issues and About per the persuasion
+  // arc: problem -> solution -> proof (recent posts) -> candidate.
+  { label: "Blog", href: "/blog" },
   {
     label: "About",
     items: [

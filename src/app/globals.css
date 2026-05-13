@@ -32,6 +32,171 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
 }
 
+/* Blog post body typography. Replicates the relevant subset of
+   @tailwindcss/typography's `prose` class without pulling in the
+   plugin (keeps the bundle lean). Applies to both the public post
+   render (.blog-body) and the editor preview (TipTap renders inside
+   .ProseMirror; we duplicate selectors so the editor matches the
+   live post). Color tokens use the existing brand palette so headings
+   read as ACP Navy and links pop ACP Red. */
+.blog-body,
+.ProseMirror {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--color-charcoal);
+}
+.blog-body > * + *,
+.ProseMirror > * + * {
+  margin-top: 1.25em;
+}
+.blog-body h2,
+.ProseMirror h2 {
+  font-family: var(--font-serif);
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--color-navy);
+  line-height: 1.25;
+  margin-top: 2em;
+  margin-bottom: 0.6em;
+}
+.blog-body h3,
+.ProseMirror h3 {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-navy);
+  line-height: 1.3;
+  margin-top: 1.75em;
+  margin-bottom: 0.5em;
+}
+.blog-body h4,
+.ProseMirror h4 {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-navy);
+  margin-top: 1.5em;
+  margin-bottom: 0.4em;
+}
+.blog-body p,
+.ProseMirror p {
+  margin-bottom: 1em;
+}
+.blog-body a,
+.ProseMirror a {
+  color: var(--color-red-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.blog-body a:hover,
+.ProseMirror a:hover {
+  color: var(--color-red-accent-dark);
+}
+.blog-body strong,
+.ProseMirror strong {
+  color: var(--color-charcoal);
+  font-weight: 700;
+}
+.blog-body ul,
+.ProseMirror ul,
+.blog-body ol,
+.ProseMirror ol {
+  padding-left: 1.5rem;
+  margin: 1em 0;
+}
+.blog-body ul,
+.ProseMirror ul {
+  list-style: disc;
+}
+.blog-body ol,
+.ProseMirror ol {
+  list-style: decimal;
+}
+.blog-body li,
+.ProseMirror li {
+  margin: 0.4em 0;
+}
+.blog-body li > p,
+.ProseMirror li > p {
+  margin: 0;
+}
+.blog-body blockquote,
+.ProseMirror blockquote {
+  margin: 1.5em 0;
+  padding: 0.25em 0 0.25em 1.25em;
+  border-left: 3px solid var(--color-red-accent);
+  color: var(--color-charcoal);
+  font-style: italic;
+  background-color: rgba(0, 0, 0, 0.02);
+}
+.blog-body code,
+.ProseMirror code {
+  background-color: var(--color-cream);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  padding: 0.15em 0.4em;
+  font-size: 0.9em;
+}
+.blog-body pre,
+.ProseMirror pre {
+  background-color: #0f172a;
+  color: #e2e8f0;
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.blog-body pre code,
+.ProseMirror pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: inherit;
+}
+.blog-body img,
+.ProseMirror img {
+  border-radius: 8px;
+  margin: 1.5em auto;
+  max-width: 100%;
+  height: auto;
+}
+.blog-body hr,
+.ProseMirror hr {
+  margin: 2.5em 0;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+.blog-body table,
+.ProseMirror table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  font-size: 0.95em;
+}
+.blog-body th,
+.blog-body td,
+.ProseMirror th,
+.ProseMirror td {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+.blog-body th,
+.ProseMirror th {
+  background-color: var(--color-cream);
+  font-weight: 700;
+  color: var(--color-navy);
+}
+.blog-body div[data-callout] > *:first-child,
+.ProseMirror div[data-callout] > *:first-child {
+  margin-top: 0;
+}
+.blog-body div[data-callout] > *:last-child,
+.ProseMirror div[data-callout] > *:last-child {
+  margin-bottom: 0;
+}
+
 /* "Clayton agrees" celebratory pop used by IssueMatcher. Scales in from
    ~85% with a tiny overshoot-free ease-out so the whole-card green takeover
    feels like a confirmation stamp, not a modal appearance. */

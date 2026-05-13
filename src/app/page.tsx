@@ -7,6 +7,7 @@ import { PdfDownloadButton } from "@/components/PdfDownloadButton";
 import { IssueMatcher } from "@/components/IssueMatcher";
 import { HashScroller } from "@/components/HashScroller";
 import { HomeSignup } from "@/components/HomeSignup";
+import { HomeBlogTeaser } from "@/components/blog/HomeBlogTeaser";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ArrowRight, Printer, FileText, Users, Heart } from "lucide-react";
 
@@ -18,7 +19,7 @@ import { ArrowRight, Printer, FileText, Users, Heart } from "lucide-react";
 const GOTV_CUTOVER = new Date("2026-09-01T00:00:00Z");
 const IS_GOTV_MODE = new Date() >= GOTV_CUTOVER;
 
-export default function HomePage() {
+export default async function HomePage() {
   return (
     <>
       <HashScroller />
@@ -218,6 +219,10 @@ export default function HomePage() {
           friction path to hand us contact info. Required phone + TCPA
           opt-in here so we start building the SMS list for ballot-day
           GOTV. */}
+      {/* Latest blog posts -- three most-recent published posts. Hides
+          itself entirely if there aren't any yet. */}
+      <HomeBlogTeaser />
+
       <HomeSignup />
 
       {/* CTA Cards */}
