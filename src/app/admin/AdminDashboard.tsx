@@ -347,6 +347,18 @@ export function AdminDashboard() {
           </div>
         )}
 
+        {/* Quick links to the management surfaces that aren't tabs.
+            Blog posts manage their own list view rather than fitting
+            into the signup-tag tab pattern below. */}
+        <div className="mb-6 flex flex-wrap items-center gap-3">
+          <a
+            href="/admin/blog"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-navy text-white font-semibold text-sm hover:bg-navy-dark transition-colors"
+          >
+            Manage blog posts
+          </a>
+        </div>
+
         {!kpis?.posthogConfigured && kpis && (
           <div className="mb-6 flex items-start gap-2 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
             <AlertCircle size={18} className="text-yellow-700 mt-0.5 shrink-0" />
