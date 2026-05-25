@@ -7,6 +7,7 @@ import { PdfDownloadButton } from "@/components/PdfDownloadButton";
 import { IssueMatcher } from "@/components/IssueMatcher";
 import { HashScroller } from "@/components/HashScroller";
 import { HomeSignup } from "@/components/HomeSignup";
+import { HomeHeroSignup } from "@/components/HomeHeroSignup";
 import { HomeBlogTeaser } from "@/components/blog/HomeBlogTeaser";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ArrowRight, Printer, FileText, Users, Heart } from "lucide-react";
@@ -80,6 +81,14 @@ export default async function HomePage() {
                   </>
                 )}
               </div>
+              {/* Slim above-the-fold capture form. Two fields (first
+                  name + email) so drive-by visitors who won't take a
+                  quiz can still leave a contact in 5 seconds. Phone +
+                  TCPA capture lives on the full <HomeSignup /> below
+                  the fold for committed scrollers. Sits BELOW the
+                  primary CTA pair so it doesn't compete with the
+                  seasonal Quiz/Write-In call. */}
+              <HomeHeroSignup />
               {/* Tertiary escape hatch to the full platform page. The quiz is
                   now the primary above-fold interactive entry (secondary button
                   above), so this link serves voters who would rather read the
