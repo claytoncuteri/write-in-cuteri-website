@@ -105,7 +105,7 @@ export function HomeSignup() {
               Check your inbox for a confirmation email. You&rsquo;ll need
               to confirm your email address to join the list. Text
               messages are launching in the next month or two once
-              carrier approval clears  -  we&rsquo;ll send a welcome
+              carrier approval clears. We&rsquo;ll send a welcome
               text the moment we&rsquo;re live.
             </p>
           </div>
@@ -199,7 +199,7 @@ export function HomeSignup() {
                 ballot-day reminders, campaign updates, or anything
                 else related to the Cuteri for Americans campaign.
                 Texting is launching in the next month
-                or two once carrier approval clears  -  you&rsquo;ll
+                or two once carrier approval clears. You&rsquo;ll
                 get a welcome text then. Message frequency varies.
                 Message and data rates may apply. Reply STOP to
                 unsubscribe, HELP for help.
@@ -216,7 +216,7 @@ export function HomeSignup() {
               {submitting ? "Signing up..." : "Sign Up"}
             </CTAButton>
 
-            <p className="text-[11px] text-charcoal/50 text-center leading-relaxed">
+            <p className="text-[11px] text-charcoal/70 text-center leading-relaxed">
               Paid for by Cuteri for Americans (FEC ID C00947259). See our{" "}
               <a
                 href="/privacy"

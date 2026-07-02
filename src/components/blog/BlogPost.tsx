@@ -93,7 +93,7 @@ export function BlogPost({ post }: Props) {
 
         {post.tags && post.tags.length > 0 && (
           <div className="mt-10 pt-6 border-t border-gray-200">
-            <p className="text-xs uppercase tracking-wider text-charcoal/50 mb-2">
+            <p className="text-xs uppercase tracking-wider text-charcoal/70 mb-2">
               Tags
             </p>
             <ul className="flex flex-wrap gap-2">

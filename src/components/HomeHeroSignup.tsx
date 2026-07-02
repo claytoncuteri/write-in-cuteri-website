@@ -1,10 +1,9 @@
 "use client";
 
-// Slim above-the-fold capture form inside the hero. Sits BELOW the
-// seasonal CTA pair so the primary action (Quiz or Write-In, swapped
-// by phase) stays the dominant visual call. Catches drive-by visitors
-// who won't take an 8-question quiz but will drop an email in two
-// fields.
+// Slim above-the-fold capture form inside the hero. This is the hero's
+// single primary CTA (the quiz and write-in buttons live below the
+// fold). Catches drive-by visitors who won't take an 8-question quiz
+// but will drop an email in two fields.
 //
 // Why first name + email only (no last name, no phone, no TCPA):
 //   - Above-the-fold conversion lifts come from FEWER fields. Industry
@@ -92,7 +91,7 @@ export function HomeHeroSignup() {
       aria-label="Quick email signup"
     >
       <p className="text-white text-sm font-semibold mb-3">
-        Or get campaign updates by email:
+        Get campaign updates by email:
       </p>
       <div className="flex flex-col sm:flex-row gap-2">
         <input
@@ -101,7 +100,7 @@ export function HomeHeroSignup() {
           required
           placeholder="First name"
           autoComplete="given-name"
-          className="flex-1 px-3 py-2.5 rounded-lg bg-white text-charcoal text-sm placeholder:text-charcoal/50 focus:outline-none focus:ring-2 focus:ring-gold"
+          className="flex-1 px-3 py-2.5 rounded-lg bg-white text-charcoal text-sm placeholder:text-charcoal/70 focus:outline-none focus:ring-2 focus:ring-gold"
         />
         <input
           type="email"
@@ -109,7 +108,7 @@ export function HomeHeroSignup() {
           required
           placeholder="your@email.com"
           autoComplete="email"
-          className="flex-[1.5] px-3 py-2.5 rounded-lg bg-white text-charcoal text-sm placeholder:text-charcoal/50 focus:outline-none focus:ring-2 focus:ring-gold"
+          className="flex-[1.5] px-3 py-2.5 rounded-lg bg-white text-charcoal text-sm placeholder:text-charcoal/70 focus:outline-none focus:ring-2 focus:ring-gold"
         />
         <button
           type="submit"
@@ -120,7 +119,8 @@ export function HomeHeroSignup() {
         </button>
       </div>
       <p className="text-white/60 text-[11px] mt-2.5">
-        No spam. Unsubscribe anytime. Phone + SMS opt-in available below.
+        No spam. Unsubscribe anytime. Paid for by Cuteri for Americans
+        (FEC ID C00947259).
       </p>
     </form>
   );

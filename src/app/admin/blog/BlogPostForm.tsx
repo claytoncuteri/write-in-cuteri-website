@@ -362,7 +362,7 @@ export function BlogPostForm({ post }: Props) {
                 placeholder="auto-from-title"
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg text-charcoal font-mono text-sm focus:outline-none focus:ring-2 focus:ring-navy"
               />
-              <p className="text-[11px] text-charcoal/50 mt-1">
+              <p className="text-[11px] text-charcoal/70 mt-1">
                 /blog/{state.slug || slugify(state.title) || "<slug>"}
               </p>
             </div>
@@ -404,7 +404,7 @@ export function BlogPostForm({ post }: Props) {
                       ? "text-red-accent"
                       : excerptWarn
                         ? "text-orange-600"
-                        : "text-charcoal/50")
+                        : "text-charcoal/70")
                   }
                 >
                   {excerptCount}/300
@@ -416,7 +416,7 @@ export function BlogPostForm({ post }: Props) {
                 rows={2}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg text-charcoal focus:outline-none focus:ring-2 focus:ring-navy resize-none"
               />
-              <p className="text-[11px] text-charcoal/50 mt-1">
+              <p className="text-[11px] text-charcoal/70 mt-1">
                 Shown on cards and in search results.
               </p>
             </div>

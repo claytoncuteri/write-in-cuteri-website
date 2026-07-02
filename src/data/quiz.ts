@@ -135,7 +135,7 @@ export const EXTENDED_QUESTIONS: QuizQuestion[] = [
     priorityId: "free-food",
     heading: "Free food",
     prompt:
-      "Should no American child go hungry while we send billions to kill innocent children overseas?",
+      "Should no American child go hungry while we send billions overseas?",
     aligned: "yes",
     policyRef: "free-food",
     rationale:

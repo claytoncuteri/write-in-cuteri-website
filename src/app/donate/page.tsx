@@ -47,7 +47,9 @@ export default function DonatePage() {
                 $3,500
               </p>
               <p className="text-sm text-charcoal/70 mt-1">
-                Per individual, per election (primary and general are separate)
+                Per individual, per election. Clayton&rsquo;s write-in
+                campaign runs in the November 3, 2026 general election
+                only.
               </p>
             </div>
             <div className="bg-white rounded-lg p-6 border border-gray-200">

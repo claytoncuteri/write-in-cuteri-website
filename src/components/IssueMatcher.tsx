@@ -315,7 +315,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
         <p className="mt-3 text-charcoal/70 text-base">
           Thirteen questions on Clayton&rsquo;s thirteen priorities. Eight to
           start, five more after you unlock them. No fluff, no political mush.
-          Slanted the way most voters actually feel but the parties won&rsquo;t say.
+          Just the issues both parties dodge.
         </p>
         <button
           onClick={beginCore}
@@ -323,7 +323,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
         >
           Start the 13-question quiz <ArrowRight size={16} />
         </button>
-        <p className="mt-3 text-[11px] text-charcoal/40">
+        <p className="mt-3 text-[11px] text-charcoal/70">
           Takes under two minutes. You can see your score before giving an email.
         </p>
       </div>
@@ -336,7 +336,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
     const alignmentCopy = {
       high: "Clayton agrees with you on nearly everything that matters.",
       medium: "Clayton agrees with you on the issues both parties ignore.",
-      low: "You disagree often  -  but Clayton wants to hear why.",
+      low: "You disagree often, but Clayton wants to hear why.",
     }[alignment];
     return (
       <div className="relative bg-white rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8 max-w-2xl mx-auto overflow-hidden">
@@ -417,7 +417,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
             {emailError && (
               <p className="mt-1 text-sm text-red-accent">{emailError}</p>
             )}
-            <p className="mt-2 text-[11px] text-charcoal/50 leading-snug">
+            <p className="mt-2 text-[11px] text-charcoal/70 leading-snug">
               We email you your results + where Clayton stands on each
               issue. By submitting you agree to receive email updates,
               event invites, fundraiser notices, and volunteer
@@ -461,7 +461,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
                 ballot-day reminders, campaign updates, or anything
                 else related to the Cuteri for Americans campaign.
                 Texting launches in the next month or two once carrier
-                approval clears  -  welcome text then.
+                approval clears. We&rsquo;ll send a welcome text then.
                 Message frequency varies. Msg &amp; data rates may
                 apply. Reply STOP to unsubscribe, HELP for help.
               </span>
@@ -488,7 +488,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
               (quiz answers = political opinion data). Footer disclaimer
               alone is insufficient when the form collects personal
               data the campaign will use for outreach. */}
-          <p className="text-[10px] text-charcoal/40 text-center leading-tight pt-1">
+          <p className="text-[10px] text-charcoal/70 text-center leading-tight pt-1">
             Paid for by Cuteri for Americans (FEC ID C00947259). See our{" "}
             <a
               href="/privacy"
@@ -604,7 +604,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
             <Share2 size={14} /> Text a friend
           </a>
         </div>
-        <p className="mt-6 text-[11px] text-charcoal/40">
+        <p className="mt-6 text-[11px] text-charcoal/70">
           Want to dig deeper on any of these? Every answer links to the full
           policy on /policies.
         </p>
@@ -665,7 +665,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
       {phase === "extended" && (
         <button
           onClick={skipExtended}
-          className="mt-4 text-xs text-charcoal/50 hover:text-charcoal underline"
+          className="mt-4 text-xs text-charcoal/70 hover:text-charcoal underline"
         >
           Skip the rest and see my score
         </button>

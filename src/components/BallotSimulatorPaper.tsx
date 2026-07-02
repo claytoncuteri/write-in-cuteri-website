@@ -238,7 +238,7 @@ export function PaperBallot() {
                 {writeInValue.length > 0 && (
                   <p
                     className={`mt-1 text-[11px] font-medium pl-9 ${
-                      nameMatch ? "text-green-700" : "text-charcoal/50"
+                      nameMatch ? "text-green-700" : "text-charcoal/70"
                     }`}
                     aria-live="polite"
                   >
@@ -281,7 +281,7 @@ export function PaperBallot() {
           >
             Cast Practice Vote
           </button>
-          <p className="text-center text-[10px] text-charcoal/50 mt-2 uppercase tracking-wider">
+          <p className="text-center text-[10px] text-charcoal/70 mt-2 uppercase tracking-wider">
             Practice only &middot; nothing is submitted
           </p>
         </div>

@@ -185,15 +185,26 @@ export function Header() {
             </Link>
           </div>
 
-          {/* Mobile menu button */}
-          <button
-            className="lg:hidden p-2 rounded-md text-charcoal hover:bg-gray-100"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-expanded={mobileOpen}
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Mobile: compact Donate pill + menu button. Donate stays
+              visible without opening the hamburger because most campaign
+              traffic is mobile; the desktop header already treats Donate
+              as the persistent CTA. */}
+          <div className="flex items-center gap-2 lg:hidden">
+            <Link
+              href="/donate"
+              className="px-4 py-2 text-sm font-semibold text-white bg-red-accent rounded-full hover:bg-red-accent-dark transition-colors"
+            >
+              Donate
+            </Link>
+            <button
+              className="p-2 rounded-md text-charcoal hover:bg-gray-100"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-expanded={mobileOpen}
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            >
+              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -204,7 +215,7 @@ export function Header() {
             {navGroups.map((item) =>
               isDropdown(item) ? (
                 <div key={item.label}>
-                  <p className="px-3 pt-3 pb-1 text-xs font-semibold uppercase tracking-wider text-charcoal/40">
+                  <p className="px-3 pt-3 pb-1 text-xs font-semibold uppercase tracking-wider text-charcoal/70">
                     {item.label}
                   </p>
                   {item.items.map((sub) => {

@@ -109,7 +109,7 @@ export function BlogAdminList({ initialPosts }: Props) {
                   <tr key={post.id} className="hover:bg-gray-50/50">
                     <td className="px-4 py-3">
                       <div className="font-medium text-charcoal">{post.title}</div>
-                      <div className="text-xs text-charcoal/50 mt-0.5 font-mono">
+                      <div className="text-xs text-charcoal/70 mt-0.5 font-mono">
                         /{post.slug}
                       </div>
                     </td>

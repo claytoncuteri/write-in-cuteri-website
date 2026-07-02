@@ -12,13 +12,13 @@ import { HomeBlogTeaser } from "@/components/blog/HomeBlogTeaser";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ArrowRight, Printer, FileText, Users, Heart } from "lucide-react";
 
-// Seasonal CTA posture. Before Sept 1, 2026 (persuasion phase) the quiz
-// gets primary/red prominence and the write-in CTA sits as secondary.
-// After Sept 1 (GOTV phase), swap: write-in primary, quiz secondary.
-// Both buttons stay visible year-round for mere-exposure priming of the
-// write-in action. Keep this in sync with StickyMobileCta's GOTV_CUTOVER.
-const GOTV_CUTOVER = new Date("2026-09-01T00:00:00Z");
-const IS_GOTV_MODE = new Date() >= GOTV_CUTOVER;
+// Hero posture: the email capture form is the single primary CTA above
+// the fold (Obama '08 splash-page pattern: one dominant ask converts
+// best). The quiz lives in its own section below the problems beat, and
+// the write-in ask lives in the navy band right after the quiz. The
+// mobile sticky CTA (StickyMobileCta) still handles the seasonal
+// quiz -> write-in swap client-side, so the GOTV flip no longer depends
+// on a rebuild of this statically rendered page.
 
 export default async function HomePage() {
   return (
@@ -43,66 +43,26 @@ export default async function HomePage() {
                 <br />
                 South Carolina (the Lowcountry)  ·  November 3, 2026 General Election
               </p>
-              <p className="mt-6 text-white/70 text-base sm:text-lg leading-relaxed max-w-lg">
-                Both Republicans and Democrats have failed us. The American
-                Congress Party is for the Americans neither party speaks for.
+              {/* Spelling reinforcement: goal 1 is that every visitor
+                  leaves able to spell the name. Gold passes AA on navy
+                  at the new #F5C518 token. */}
+              <p className="mt-3 text-gold font-bold tracking-[0.2em] text-base sm:text-lg">
+                Write in: C-U-T-E-R-I
               </p>
-              {/* Seasonal CTA swap. April 2026 (persuasion phase): quiz is
-                  primary/red, write-in is secondary navy-outline. Sept 1
-                  2026 onward (GOTV phase): swap. Both buttons stay visible
-                  all year so mere-exposure priming of the write-in action
-                  keeps accumulating. */}
-              <div className="mt-8 flex flex-col sm:flex-row gap-4">
-                {IS_GOTV_MODE ? (
-                  <>
-                    <CTAButton variant="primary" href="/write-in">
-                      How to Write Me In
-                    </CTAButton>
-                    <CTAButton
-                      variant="secondary"
-                      href="#quiz"
-                      className="!border-white !text-white hover:!bg-white hover:!text-navy"
-                    >
-                      Take the Quiz: Where Do We Agree?
-                    </CTAButton>
-                  </>
-                ) : (
-                  <>
-                    <CTAButton variant="primary" href="#quiz">
-                      Take the Quiz: Where Do We Agree?
-                    </CTAButton>
-                    <CTAButton
-                      variant="secondary"
-                      href="/write-in"
-                      className="!border-white !text-white hover:!bg-white hover:!text-navy"
-                    >
-                      How to Write Me In
-                    </CTAButton>
-                  </>
-                )}
-              </div>
-              {/* Slim above-the-fold capture form. Two fields (first
-                  name + email) so drive-by visitors who won't take a
-                  quiz can still leave a contact in 5 seconds. Phone +
-                  TCPA capture lives on the full <HomeSignup /> below
-                  the fold for committed scrollers. Sits BELOW the
-                  primary CTA pair so it doesn't compete with the
-                  seasonal Quiz/Write-In call. */}
+              {/* Benefit framing, not grievance framing: leads with what
+                  the voter gets, in plain words. */}
+              <p className="mt-6 text-white/80 text-base sm:text-lg leading-relaxed max-w-lg">
+                Lower your bills. Keep more of your paycheck. Free
+                medication, free education, and an end to the insurance
+                bleed. That&rsquo;s the plan for the Lowcountry.
+              </p>
+              {/* The hero's single primary CTA: a two-field capture form
+                  (first name + email) a drive-by visitor can finish in
+                  5 seconds. The quiz and write-in buttons moved below the
+                  fold so nothing competes with it. Phone + TCPA capture
+                  lives on the full <HomeSignup /> further down for
+                  committed scrollers. */}
               <HomeHeroSignup />
-              {/* Tertiary escape hatch to the full platform page. The quiz is
-                  now the primary above-fold interactive entry (secondary button
-                  above), so this link serves voters who would rather read the
-                  13 policies in full than take a quiz. */}
-              <p className="mt-5 text-white/60 text-sm">
-                Prefer the full platform?{" "}
-                <a
-                  href="/policies"
-                  className="underline underline-offset-4 hover:text-white transition-colors"
-                >
-                  Read all 13 policies
-                </a>
-                .
-              </p>
             </div>
 
             {/* Headshot */}
@@ -138,6 +98,37 @@ export default async function HomePage() {
       <Section bgColor="cream">
         <div id="quiz" className="scroll-mt-24">
           <IssueMatcher sourcePage="/" />
+        </div>
+      </Section>
+
+      {/* Write-in CTA band. Sequenced right after the quiz so a voter
+          who just self-identified agreement gets the ballot action while
+          the commitment is fresh. This is where the hero's old CTA pair
+          and "13 policies" escape hatch now live. */}
+      <Section bgColor="navy">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white font-serif">
+            Ready for November 3?
+          </h2>
+          <p className="mt-4 text-white/80 text-lg leading-relaxed">
+            Practice the ballot now, so writing in CLAYTON CUTERI takes ten
+            seconds on Election Day.
+          </p>
+          <div className="mt-8 flex justify-center">
+            <CTAButton variant="primary" href="/write-in">
+              How to Write Me In
+            </CTAButton>
+          </div>
+          <p className="mt-5 text-white/70 text-sm">
+            Prefer the full platform?{" "}
+            <a
+              href="/policies"
+              className="underline underline-offset-4 hover:text-white transition-colors"
+            >
+              Read all 13 policies
+            </a>
+            .
+          </p>
         </div>
       </Section>
 

@@ -295,7 +295,7 @@ export default function MediaPage() {
               ],
             ].map(([label, value]) => (
               <div key={label} className="flex gap-4">
-                <span className="text-sm text-charcoal/50 w-28 flex-shrink-0">
+                <span className="text-sm text-charcoal/70 w-28 flex-shrink-0">
                   {label}
                 </span>
                 <span className="text-sm text-charcoal font-medium">

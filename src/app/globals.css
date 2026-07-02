@@ -1,5 +1,6 @@
 @import "tailwindcss";
-@import "leaflet/dist/leaflet.css";
+/* Leaflet CSS moved into DistrictMapLeaflet.tsx so only the pages that
+   render the map ship it. */
 
 @theme {
   --color-navy: #1E3D8C;
@@ -8,7 +9,9 @@
   --color-red-accent-dark: #B81E2E;
   --color-cream: #FAF8F2;
   --color-charcoal: #1A1A1A;
-  --color-gold: #FF6B6B;
+  /* True gold. The old #FF6B6B coral failed WCAG AA on navy (3.6:1);
+     this hits 6.1:1 on navy and 10.7:1 under charcoal text. */
+  --color-gold: #F5C518;
 
   --font-sans: var(--font-dm-sans), "DM Sans", ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-dm-serif), "DM Serif Display", ui-serif, Georgia, serif;

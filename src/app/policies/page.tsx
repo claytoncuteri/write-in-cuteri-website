@@ -215,7 +215,7 @@ export default function PoliciesPage() {
                             ))}
                           </ul>
                         )}
-                        <p className="text-xs text-charcoal/50 mt-4">
+                        <p className="text-xs text-charcoal/70 mt-4">
                           Expanded analysis coming in &quot;America
                           Reimagined,&quot; Clayton&apos;s forthcoming political
                           manifesto.
@@ -224,7 +224,7 @@ export default function PoliciesPage() {
                     )}
 
                     {/* Source */}
-                    <p className="text-xs text-charcoal/50">
+                    <p className="text-xs text-charcoal/70">
                       Source: {policy.readMore}
                     </p>
                   </div>
@@ -269,7 +269,7 @@ export default function PoliciesPage() {
             Cover your insurance deductible? Pay down your mortgage? Save for
             your kids? That is what these priorities put back in your pocket.
           </p>
-          <p className="mt-3 text-white/50 text-sm">
+          <p className="mt-3 text-white/70 text-sm">
             Based on {PER_PERSON_YEARLY}/person from $2.34+ trillion in national
             savings across all 13 priorities.
           </p>
@@ -314,7 +314,7 @@ export default function PoliciesPage() {
                 </span>
               </div>
             </div>
-            <p className="mt-4 text-xs text-charcoal/50 font-sans">
+            <p className="mt-4 text-xs text-charcoal/70 font-sans">
               National figures. Per-person share for District 1 residents:
               {" "}{PER_PERSON_YEARLY}/year ({PER_PERSON_MONTHLY}/month). Not new
               spending. Every dollar comes from eliminating waste, ending

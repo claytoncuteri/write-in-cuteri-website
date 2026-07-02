@@ -53,7 +53,12 @@ const ALLOWED_ATTR = [
 
 export function sanitizeBlogHtml(html: string): string {
   if (!html) return "";
-  return purify.sanitize(html, {
+  // Campaign style rule: no em dashes anywhere in site copy. Posts are
+  // authored in the TipTap editor or imported from markdown, both of
+  // which can carry U+2014 through; normalize to a spaced hyphen here
+  // so the rule holds for database-driven content too.
+  const normalized = html.replace(/\s*—\s*/g, " - ");
+  return purify.sanitize(normalized, {
     ALLOWED_TAGS,
     ALLOWED_ATTR,
     // Force external links to open safely. Caller can override per-link
