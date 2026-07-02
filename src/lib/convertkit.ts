@@ -15,11 +15,11 @@ import { looksLikeSC01 } from "@/lib/sc01-detect";
 const CONVERTKIT_API_KEY = process.env.CONVERTKIT_API_KEY;
 const CONVERTKIT_FORM_ID = process.env.CONVERTKIT_FORM_ID;
 
-// All Cuteri 2026 campaign tags use the C26- prefix so they cluster
-// alphabetically in Kit and a single glance at any subscriber's tag
-// list tells you which campaign/site they came from. Other sites
-// pulling into the same Kit account presumably use their own prefixes
-// (ACP-, CC-, Pod-, etc.).
+// All campaign tags use the SC01- prefix. These names match the tags
+// that ALREADY EXIST in the Kit account (created when ConvertKit went
+// live), so name-based lookup attaches to the live tags and their
+// existing subscribers  -  no Kit-side rename or migration needed.
+// Other ventures sharing the Kit account use their own prefixes.
 //
 // Tag IDs are NOT hardcoded. Kit's POST /v4/tags is idempotent: it
 // returns 200 + the existing tag if the name is taken, or 201 + a
@@ -32,20 +32,22 @@ const CONVERTKIT_FORM_ID = process.env.CONVERTKIT_FORM_ID;
 //     under whatever name lives here.
 //   - Adding a new tag is a one-line code change, no Kit ID lookup.
 const TAG_NAMES = {
-  // Umbrella  -  every Cuteri 2026 site signup gets this.
-  all: "C26-All",
-  // Intent / role tags (formerly SC01-*; rename in Kit kept the IDs
-  // intact, and lookup-by-name finds the renamed tags transparently).
-  supporter: "C26-Supporter",
-  volunteer: "C26-Volunteer",
-  donorInterest: "C26-DonorInterest",
-  mediaInquiry: "C26-MediaInquiry",
-  // Geo-confirmed: applied only when looksLikeSC01() says yes.
-  sc01Resident: "C26-SC01-Resident",
+  // Umbrella  -  every campaign-site signup gets this. New tag;
+  // auto-created on first signup.
+  all: "SC01-All",
+  // Intent / role tags. These four pre-date this module and already
+  // hold subscribers in Kit.
+  supporter: "SC01-Supporter",
+  volunteer: "SC01-Volunteer",
+  donorInterest: "SC01-DonorInterest",
+  mediaInquiry: "SC01-MediaInquiry",
+  // Geo-confirmed: applied only when looksLikeSC01() says yes. New
+  // tag; auto-created on first signup.
+  sc01Resident: "SC01-Resident",
 } as const;
 
 // Map the route-level tag string (volunteer/donor/press/general)
-// supplied by /api/subscribe + /api/quiz onto the C26- prefixed
+// supplied by /api/subscribe + /api/quiz onto the SC01- prefixed
 // intent tag name. Keeps the external API stable while letting the
 // underlying tag taxonomy evolve.
 const ROUTING_TAG_TO_NAME: Record<SubscriberTag, string> = {
@@ -63,7 +65,7 @@ interface SubscribeOptions {
   lastName?: string;
   tag: SubscriberTag;
   fields?: Record<string, string>;
-  // Geo signals used to decide whether to also apply C26-SC01-Resident.
+  // Geo signals used to decide whether to also apply SC01-Resident.
   // Both optional; either can fire the tag on its own.
   ipRegion?: string;
   zip?: string;
@@ -305,8 +307,8 @@ export async function subscribeToConvertKit({
     // Form-add failure is non-fatal: subscriber still exists and
     // will be tagged in Step 3. Log and continue.
 
-    // Step 3: Resolve and apply tags. Always C26-All + the routing
-    // tag; conditionally C26-SC01-Resident if geo signal says yes.
+    // Step 3: Resolve and apply tags. Always SC01-All + the routing
+    // tag; conditionally SC01-Resident if geo signal says yes.
     const tagNames: string[] = [TAG_NAMES.all, ROUTING_TAG_TO_NAME[tag]];
     if (looksLikeSC01({ ipRegion, zip })) {
       tagNames.push(TAG_NAMES.sc01Resident);

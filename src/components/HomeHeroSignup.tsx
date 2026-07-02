@@ -6,7 +6,7 @@
 //
 // Fields: first name, email, zip (required) + phone (optional, per
 // Clayton's July 2026 request). Zip is cheap friction (5 digits) and
-// drives the C26-SC01-Resident tag in Kit via looksLikeSC01(). Phone
+// drives the SC01-Resident tag in Kit via looksLikeSC01(). Phone
 // stays optional because required-phone forms cost 5-15%+ of
 // conversions; the TCPA checkbox only renders once a number is typed,
 // same pattern as the quiz and volunteer forms.

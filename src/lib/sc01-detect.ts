@@ -1,6 +1,6 @@
 // Best-effort detector for "this subscriber lives in or near SC-01."
 //
-// Used to gate the `C26-SC01-Resident` tag in convertkit.ts. False
+// Used to gate the `SC01-Resident` tag in convertkit.ts. False
 // positives are preferred to false negatives because:
 //   (a) The downstream cost of a false positive is sending a
 //       district-targeted Kit email to someone who can't vote here
