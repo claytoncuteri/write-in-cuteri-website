@@ -1,19 +1,24 @@
 import type { Metadata } from "next";
-import { DM_Sans, DM_Serif_Display, Caveat } from "next/font/google";
+import { Inter, Fraunces, Caveat } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { PostHogProvider } from "@/components/PostHogProvider";
 
-const dmSans = DM_Sans({
+// Brand fonts per the campaign spec: Fraunces for headlines (warm,
+// human serif that carries trust without reading glossy), Inter for
+// body (screen-native legibility at the small sizes where policy
+// detail and disclaimers live). Both are variable fonts, so no weight
+// list is needed. Caveat stays for the handwritten ballot-name
+// treatment on /write-in.
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-dm-sans",
+  variable: "--font-inter",
 });
 
-const dmSerif = DM_Serif_Display({
-  weight: "400",
+const fraunces = Fraunces({
   subsets: ["latin"],
-  variable: "--font-dm-serif",
+  variable: "--font-fraunces",
 });
 
 const caveat = Caveat({
@@ -200,7 +205,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${dmSans.variable} ${dmSerif.variable} ${caveat.variable}`}
+      className={`${inter.variable} ${fraunces.variable} ${caveat.variable}`}
     >
       <body className="min-h-screen flex flex-col" suppressHydrationWarning>
         {/* JSON-LD structured data. \u003c replacement prevents XSS via
