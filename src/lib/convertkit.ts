@@ -69,6 +69,76 @@ interface SubscribeOptions {
   zip?: string;
 }
 
+// Custom fields the site's forms write via `fields`. Kit silently
+// drops values for fields that don't exist in the account, so we
+// auto-provision these on first use, same zero-manual-setup
+// philosophy as the tags below. Kit derives the field key from the
+// label (lowercased, underscored), so these labels yield exactly the
+// keys the forms send.
+const REQUIRED_CUSTOM_FIELDS = [
+  "last_name",
+  "phone",
+  "zip_code",
+  "sms_opt_in",
+  "sms_opt_in_at",
+] as const;
+
+// Once-per-process latch. Unlike tags, Kit's custom-field create is
+// NOT idempotent (422 on duplicate label), so we list first, then
+// create only the missing ones. A 422 race from a concurrent
+// container is treated as "already exists" and ignored.
+let customFieldsEnsured = false;
+
+async function ensureCustomFields(): Promise<void> {
+  if (customFieldsEnsured || !CONVERTKIT_API_KEY) return;
+  const headers = {
+    "Content-Type": "application/json",
+    "X-Kit-Api-Key": CONVERTKIT_API_KEY,
+  };
+  try {
+    const listRes = await fetch(
+      "https://api.kit.com/v4/custom_fields?per_page=500",
+      { headers },
+    );
+    if (!listRes.ok) {
+      console.error("[convertkit] custom field list failed", {
+        status: listRes.status,
+      });
+      return; // leave latch unset; retry on next signup
+    }
+    const listBody = (await listRes.json()) as {
+      custom_fields?: { key?: string; label?: string }[];
+    };
+    const existing = new Set(
+      (listBody.custom_fields ?? []).flatMap((f) =>
+        [f.key, f.label]
+          .filter((v): v is string => typeof v === "string")
+          .map((v) => v.toLowerCase()),
+      ),
+    );
+    for (const label of REQUIRED_CUSTOM_FIELDS) {
+      if (existing.has(label)) continue;
+      const res = await fetch("https://api.kit.com/v4/custom_fields", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ label }),
+      });
+      const body = await res.text().catch(() => "");
+      console.log("[convertkit] custom field create", {
+        label,
+        status: res.status,
+        ok: res.ok || res.status === 422,
+        bodyPreview: body.slice(0, 150),
+      });
+    }
+    customFieldsEnsured = true;
+  } catch (err) {
+    console.error("[convertkit] ensureCustomFields threw", {
+      err: err instanceof Error ? err.message : String(err),
+    });
+  }
+}
+
 // In-process cache for tag-name -> tag-id. Empty on container start;
 // fills lazily as signups come in. Kit's create endpoint is idempotent,
 // so re-creating an existing tag on a fresh container just returns
@@ -170,6 +240,11 @@ export async function subscribeToConvertKit({
       "Content-Type": "application/json",
       "X-Kit-Api-Key": CONVERTKIT_API_KEY,
     };
+
+    // Step 0: Make sure the custom fields the forms write actually
+    // exist in the Kit account (no-op after the first signup per
+    // process). Must run before Step 1 or Kit drops the values.
+    await ensureCustomFields();
 
     // Step 1: Create (or upsert) the subscriber via v4 /subscribers.
     // Kit dedupes by email_address; resubmitting the same email
