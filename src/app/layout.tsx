@@ -1,19 +1,24 @@
 import type { Metadata } from "next";
-import { DM_Sans, DM_Serif_Display, Caveat } from "next/font/google";
+import { Inter, Fraunces, Caveat } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { PostHogProvider } from "@/components/PostHogProvider";
 
-const dmSans = DM_Sans({
+// Brand fonts per the campaign spec: Fraunces for headlines (warm,
+// human serif that carries trust without reading glossy), Inter for
+// body (screen-native legibility at the small sizes where policy
+// detail and disclaimers live). Both are variable fonts, so no weight
+// list is needed. Caveat stays for the handwritten ballot-name
+// treatment on /write-in.
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-dm-sans",
+  variable: "--font-inter",
 });
 
-const dmSerif = DM_Serif_Display({
-  weight: "400",
+const fraunces = Fraunces({
   subsets: ["latin"],
-  variable: "--font-dm-serif",
+  variable: "--font-fraunces",
 });
 
 const caveat = Caveat({
@@ -23,15 +28,12 @@ const caveat = Caveat({
 
 export const metadata: Metadata = {
   title: {
-    // Default and template both include the exact ballot phrase
-    // ("U.S. House of Representatives, District 1") so every browser
-    // tab, every search result snippet, and every share preview
-    // pairs Clayton's name with the title voters will see on the
-    // ExpressVote screen on Nov 3.
-    default:
-      "Clayton Cuteri for U.S. House of Representatives, District 1 (SC) | Write-In Candidate 2026",
-    template:
-      "%s | Clayton Cuteri for U.S. House of Representatives, District 1 (SC)",
+    // Name-first and short enough (~58 chars) to survive SERP
+    // truncation. The full ballot phrase still lives in the meta
+    // description, OG tags, and JSON-LD jobTitle; the title's job is
+    // "Clayton Cuteri" + "Write-In" + the race, unclipped.
+    default: "Clayton Cuteri | Write-In for U.S. House, District 1 (SC)",
+    template: "%s | Clayton Cuteri, U.S. House District 1 (SC)",
   },
   description:
     "Clayton A. Cuteri, write-in candidate for U.S. House of Representatives, District 1 (South Carolina, SC-01), November 3, 2026. American Congress Party. Third-party alternative for Charleston, Berkeley, Dorchester, Beaufort, Colleton, and Jasper county voters across the Lowcountry.",
@@ -86,7 +88,7 @@ export const metadata: Metadata = {
         url: "/logo_a_star_divider/digital_og_image/navy.png",
         width: 1200,
         height: 630,
-        alt: "Write-In Cuteri  -  Clayton Cuteri for U.S. House of Representatives, District 1, South Carolina",
+        alt: "Write-In Cuteri: Clayton Cuteri for U.S. House of Representatives, District 1, South Carolina",
       },
     ],
   },
@@ -203,7 +205,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${dmSans.variable} ${dmSerif.variable} ${caveat.variable}`}
+      className={`${inter.variable} ${fraunces.variable} ${caveat.variable}`}
     >
       <body className="min-h-screen flex flex-col" suppressHydrationWarning>
         {/* JSON-LD structured data. \u003c replacement prevents XSS via

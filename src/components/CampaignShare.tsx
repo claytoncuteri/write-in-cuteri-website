@@ -14,16 +14,20 @@
 // SMS, and anything else the user has installed. So one "Share..."
 // button covers the apps that lack web URLs.
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Share2, ClipboardCopy, Check } from "lucide-react";
 
-const SHARE_URL = "https://writeincuteri.com";
-const SHARE_TEXT =
+// Default share targets when the component is mounted without props.
+// Per-page mounts (e.g. /blog/[slug]) override both to target the
+// specific post URL + title.
+const DEFAULT_SHARE_URL = "https://writeincuteri.com";
+const DEFAULT_SHARE_TEXT =
   "I'm writing in Clayton Cuteri for U.S. House of Representatives, District 1 (SC).";
 
-const ENCODED_URL = encodeURIComponent(SHARE_URL);
-const ENCODED_TEXT = encodeURIComponent(SHARE_TEXT);
-const ENCODED_TEXT_PLUS_URL = encodeURIComponent(`${SHARE_TEXT} ${SHARE_URL}`);
+interface CampaignShareProps {
+  shareUrl?: string;
+  shareText?: string;
+}
 
 // lucide-react v1.x ships no brand icons; inline SVG paths from
 // Simple Icons (CC0). Same approach as the Footer's social row.
@@ -55,7 +59,22 @@ const ThreadsIcon = ({ className }: BrandIconProps) => (
 const PILL_BASE =
   "inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-white transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2";
 
-export function CampaignShare() {
+export function CampaignShare({
+  shareUrl,
+  shareText,
+}: CampaignShareProps = {}) {
+  const effectiveUrl = shareUrl ?? DEFAULT_SHARE_URL;
+  const effectiveText = shareText ?? DEFAULT_SHARE_TEXT;
+  const { ENCODED_URL, ENCODED_TEXT, ENCODED_TEXT_PLUS_URL } = useMemo(
+    () => ({
+      ENCODED_URL: encodeURIComponent(effectiveUrl),
+      ENCODED_TEXT: encodeURIComponent(effectiveText),
+      ENCODED_TEXT_PLUS_URL: encodeURIComponent(
+        `${effectiveText} ${effectiveUrl}`,
+      ),
+    }),
+    [effectiveUrl, effectiveText],
+  );
   const [copied, setCopied] = useState(false);
   const [canNativeShare, setCanNativeShare] = useState(false);
 
@@ -74,8 +93,8 @@ export function CampaignShare() {
     try {
       await navigator.share({
         title: "Clayton Cuteri for Congress",
-        text: SHARE_TEXT,
-        url: SHARE_URL,
+        text: effectiveText,
+        url: effectiveUrl,
       });
     } catch (err) {
       // AbortError just means the user cancelled the share sheet; not
@@ -88,14 +107,14 @@ export function CampaignShare() {
 
   async function handleCopy() {
     try {
-      await navigator.clipboard.writeText(SHARE_URL);
+      await navigator.clipboard.writeText(effectiveUrl);
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
     } catch {
       // Clipboard API can be blocked in some browser configs; fall
       // back to a window.prompt so the URL is still selectable.
       if (typeof window !== "undefined") {
-        window.prompt("Copy this link", SHARE_URL);
+        window.prompt("Copy this link", effectiveUrl);
       }
     }
   }

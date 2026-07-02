@@ -347,6 +347,18 @@ export function AdminDashboard() {
           </div>
         )}
 
+        {/* Quick links to the management surfaces that aren't tabs.
+            Blog posts manage their own list view rather than fitting
+            into the signup-tag tab pattern below. */}
+        <div className="mb-6 flex flex-wrap items-center gap-3">
+          <a
+            href="/admin/blog"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-navy text-white font-semibold text-sm hover:bg-navy-dark transition-colors"
+          >
+            Manage blog posts
+          </a>
+        </div>
+
         {!kpis?.posthogConfigured && kpis && (
           <div className="mb-6 flex items-start gap-2 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
             <AlertCircle size={18} className="text-yellow-700 mt-0.5 shrink-0" />
@@ -396,12 +408,12 @@ export function AdminDashboard() {
                       style={{ width: `${pct}%` }}
                     />
                   </div>
-                  <span className="text-[10px] text-charcoal/40 whitespace-nowrap">
+                  <span className="text-[10px] text-charcoal/70 whitespace-nowrap">
                     target {formatNum(card.target)}
                     {suffix}
                   </span>
                 </div>
-                <p className="mt-2 text-[11px] text-charcoal/50 leading-snug">
+                <p className="mt-2 text-[11px] text-charcoal/70 leading-snug">
                   {card.note}
                 </p>
               </div>
@@ -409,7 +421,7 @@ export function AdminDashboard() {
           })}
         </div>
 
-        <p className="text-[11px] text-charcoal/40 mb-6 -mt-4 flex items-center gap-1">
+        <p className="text-[11px] text-charcoal/70 mb-6 -mt-4 flex items-center gap-1">
           <ArrowUpRight size={11} />
           Targets are directional. Adjust as campaign evolves.
         </p>
@@ -454,7 +466,7 @@ export function AdminDashboard() {
               <h2 className="font-bold text-charcoal font-serif text-sm">
                 Priority agreement breakdown
               </h2>
-              <span className="text-[11px] text-charcoal/50">
+              <span className="text-[11px] text-charcoal/70">
                 {breakdown.totalRecords} quiz records, sorted by % aligned
               </span>
             </div>
@@ -497,8 +509,8 @@ export function AdminDashboard() {
                           <div className="font-medium text-charcoal">
                             {row.heading}
                           </div>
-                          <div className="text-[11px] text-charcoal/50 leading-snug">
-                            {row.questionId}  -  {row.priorityId}
+                          <div className="text-[11px] text-charcoal/70 leading-snug">
+                            {row.questionId} · {row.priorityId}
                           </div>
                         </td>
                         <td className={`px-4 sm:px-6 py-2.5 text-right font-bold ${tone}`}>
@@ -552,7 +564,7 @@ export function AdminDashboard() {
         <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
           <div className="px-4 sm:px-6 py-3 border-b border-gray-200 flex items-center justify-between">
             <h2 className="font-bold text-charcoal font-serif text-sm">
-              {tabs.find((t) => t.id === activeTab)?.label}  -  newest first
+              {tabs.find((t) => t.id === activeTab)?.label} (newest first)
             </h2>
             <a
               href={
@@ -569,7 +581,7 @@ export function AdminDashboard() {
 
           <div className="overflow-x-auto">
             {records.length === 0 ? (
-              <div className="p-12 text-center text-sm text-charcoal/50">
+              <div className="p-12 text-center text-sm text-charcoal/70">
                 {loading ? "Loading..." : "No records yet."}
               </div>
             ) : (
@@ -625,7 +637,7 @@ export function AdminDashboard() {
                             yes
                           </span>
                         ) : (
-                          <span className="text-charcoal/40 text-xs"> - </span>
+                          <span className="text-charcoal/70 text-xs"> - </span>
                         )}
                       </td>
                       <td className="px-4 sm:px-6 py-2.5 text-charcoal/70">
@@ -648,7 +660,7 @@ export function AdminDashboard() {
                             err
                           </span>
                         ) : (
-                          <span className="text-charcoal/40 text-xs">
+                          <span className="text-charcoal/70 text-xs">
                             <ArrowDownRight size={12} className="inline" />
                           </span>
                         )}
@@ -662,7 +674,7 @@ export function AdminDashboard() {
         </div>
 
         {kpis && (
-          <p className="mt-6 text-[11px] text-charcoal/40 text-center">
+          <p className="mt-6 text-[11px] text-charcoal/70 text-center">
             Generated {new Date(kpis.generatedAt).toLocaleString()}. Data from
             Replit DB + {kpis.posthogConfigured ? "PostHog" : "PostHog (not configured)"}.
           </p>

@@ -12,6 +12,10 @@ export interface Problem {
   cause: string;
   planks: PlankRef[];
   talkingPoint: string;
+  // One plain-words benefit phrase shown on the homepage card in place
+  // of the policy plank titles. Keep it emotional and under ~6 words;
+  // the full plank list still renders on /problems and /policies.
+  benefit: string;
 }
 
 // Copy guidance (internal):
@@ -40,6 +44,7 @@ export const problems: Problem[] = [
     ],
     talkingPoint:
       "We send $90 billion a year to foreign wars while families in Charleston, Beaufort, and Jasper cannot afford to insure the homes they already own. That ends. Bring the money home, fix the federal flood program, fund Lowcountry resilience.",
+    benefit: "Stop the insurance bleed",
   },
   {
     id: "housing",
@@ -59,6 +64,7 @@ export const problems: Problem[] = [
     ],
     talkingPoint:
       "Wall Street should not get to buy the house your kids were going to grow up in, whether that house is on James Island, in Summerville, or on Hilton Head. Ban corporate bulk-buying, give first-time buyers zero-interest loans, and let District 1 families come home.",
+    benefit: "Homes Lowcountry families can afford",
   },
   {
     id: "wars",
@@ -76,18 +82,20 @@ export const problems: Problem[] = [
     ],
     talkingPoint:
       "If Congress votes to send your kid to die in another country, their kids should be the first ones on the plane. Stop offensive wars. Honor the young adults who actually serve.",
+    benefit: "Bring the money home",
   },
   {
     id: "both-parties",
     number: 4,
     title: "Both Parties Have Failed Us",
-    pain: "Lifelong Republicans across Berkeley, Dorchester, and Beaufort are exhausted by MAGA chaos. Lifelong Democrats on James Island, in North Charleston, and in Colleton are exhausted by establishment betrayal. Rural voters in Jasper and Colleton feel invisible to both. Everyone in District 1 feels unrepresented, unheard, and used.",
+    pain: "Lifelong Republicans across Berkeley, Dorchester, and Beaufort feel let down by their own party. Lifelong Democrats on James Island, in North Charleston, and in Colleton feel the same about theirs. Rural voters in Jasper and Colleton feel invisible to both. Everyone in District 1 deserves better representation than they are getting.",
     cause: "The two parties function as a duopoly that profits from conflict. Different talking points, same donors, same outcomes for working families. A record share of Americans now identify as political independents, and District 1's turnout tells the same story.",
     planks: [
       { id: "open-books", number: 7, title: "Tax Dollar Transparency" },
     ],
     talkingPoint:
       "Republicans and Democrats agree on the only thing that matters to them: keeping you fighting each other while they cash the checks. The American Congress Party is for the Americans neither party speaks for.",
+    benefit: "A voice for the rest of us",
   },
   {
     id: "prescriptions",
@@ -106,6 +114,7 @@ export const problems: Problem[] = [
     ],
     talkingPoint:
       "Insulin costs $5 to make and sells for $300. The same pill is $80 in America and $8 in Europe. That is not a market. That is a racket. Free medication, paid for by ending pharma's grip on the federal government.",
+    benefit: "Free medication",
   },
   {
     id: "working-class",
@@ -125,6 +134,7 @@ export const problems: Problem[] = [
     ],
     talkingPoint:
       "If you work 40 hours a week on Hilton Head, at the Port, on the Volvo line in Berkeley County, or in a Summerville classroom, you should have a home, food on the table, healthcare, and savings. Right now you have a paycheck stub and a stress headache. The math is broken. Time to fix it.",
+    benefit: "Increase your pay",
   },
   {
     id: "environment",
@@ -142,6 +152,7 @@ export const problems: Problem[] = [
     ],
     talkingPoint:
       "The Lowcountry's beauty is its economy. Poison the water in Berkeley County, pave the marsh in Charleston, or sell out the ACE Basin in Colleton and you kill the goose. Real EPA accountability, District-1-first land protection, and an end to letting chemical companies grade their own homework.",
+    benefit: "Free non-chemical food, clean water",
   },
   {
     id: "property-tax",
@@ -161,5 +172,6 @@ export const problems: Problem[] = [
     ],
     talkingPoint:
       "If you have owned and lived in your home on Hilton Head, in Mount Pleasant, or on Edisto for 20 years, no government should be able to tax you out of it. Eliminate property taxes on primary residences, period.",
+    benefit: "Keep the home you paid for",
   },
 ];

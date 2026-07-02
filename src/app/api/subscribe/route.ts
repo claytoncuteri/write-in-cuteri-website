@@ -115,12 +115,17 @@ export async function POST(req: NextRequest) {
   }
 
   // 2. Submit to ConvertKit. This triggers the double-opt-in email.
+  // ipRegion + zip are forwarded so ConvertKit can conditionally
+  // apply the SC01-Resident tag when we have geo signal that
+  // the subscriber lives in or near SC-01.
   const ckResult = await subscribeToConvertKit({
     email,
     firstName,
     lastName,
     tag,
     fields,
+    ipRegion: geo.ipRegion,
+    zip: fields?.zip_code,
   });
   if (!ckResult.success) {
     console.error("[subscribe] ConvertKit subscribe failed", {

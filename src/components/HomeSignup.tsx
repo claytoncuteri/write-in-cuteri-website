@@ -9,11 +9,14 @@
 // a large share of engaged visitors bounced without giving us a way to
 // reach them.
 //
-// Fields: first name, last name, email (all required), phone (required
-// with TCPA opt-in). Phone is required here (not optional, unlike the
-// existing /get-involved form) because the primary reason to ship this
-// block is to start building the SMS list for ballot-day GOTV reminders.
-// An email-only signup would defeat the purpose.
+// Fields: first name, last name, email (required), phone (optional).
+// Phone was originally required to force SMS list growth, but form
+// research is unambiguous that a required phone field costs 5-15% of
+// conversions (up to ~48% in some case studies) because consumer
+// visitors read it as a spam signal. Optional phone with a
+// conditional TCPA checkbox (the same pattern as the quiz and
+// volunteer forms) keeps every willing SMS subscriber without taxing
+// the email capture.
 //
 // TCPA note: FCC rules for political SMS require express opt-in with
 // clear disclosure of sender, frequency, and opt-out. The checkbox copy
@@ -29,6 +32,9 @@ export function HomeSignup() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Controlled so the TCPA checkbox can appear only once a number is
+  // typed; consent UI for a field the visitor skipped is just noise.
+  const [phone, setPhone] = useState("");
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -38,8 +44,9 @@ export function HomeSignup() {
     const form = e.currentTarget;
     const data = new FormData(form);
     const email = String(data.get("email") || "");
-    const phone = String(data.get("phone") || "");
-    const smsOptIn = data.get("smsOptIn") === "on";
+    // TCPA consent only counts when a number was actually provided.
+    const smsOptIn =
+      phone.trim().length > 0 && data.get("smsOptIn") === "on";
 
     try {
       const res = await fetch("/api/subscribe", {
@@ -105,7 +112,7 @@ export function HomeSignup() {
               Check your inbox for a confirmation email. You&rsquo;ll need
               to confirm your email address to join the list. Text
               messages are launching in the next month or two once
-              carrier approval clears  -  we&rsquo;ll send a welcome
+              carrier approval clears. We&rsquo;ll send a welcome
               text the moment we&rsquo;re live.
             </p>
           </div>
@@ -166,45 +173,50 @@ export function HomeSignup() {
                 htmlFor="home-phone"
                 className="block text-sm font-medium text-charcoal mb-1"
               >
-                Mobile phone *
+                Mobile phone (optional)
               </label>
               <input
                 type="tel"
                 id="home-phone"
                 name="phone"
-                required
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
                 autoComplete="tel"
                 placeholder="(843) 555-0100"
                 className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-charcoal focus:outline-none focus:ring-2 focus:ring-navy focus:border-navy"
               />
+              <p className="mt-1 text-[11px] text-charcoal/60 leading-snug">
+                Add your number for a text reminder on ballot day.
+              </p>
             </div>
 
-            {/* TCPA opt-in. Required checkbox: FCC rules for political
-                SMS demand express written consent with clear sender, use
-                case, frequency, and opt-out language. Pre-checked is
-                forbidden. Keep this inline so consent is unambiguous. */}
-            <div className="flex items-start gap-2 bg-white border border-gray-200 rounded-lg p-3">
-              <input
-                type="checkbox"
-                id="home-smsOptIn"
-                name="smsOptIn"
-                required
-                className="mt-1 h-4 w-4 text-navy border-gray-300 rounded focus:ring-navy"
-              />
-              <label
-                htmlFor="home-smsOptIn"
-                className="text-xs text-charcoal/80 leading-relaxed"
-              >
-                Text me about events, fundraisers, volunteer shifts,
-                ballot-day reminders, campaign updates, or anything
-                else related to the Cuteri for Americans campaign.
-                Texting is launching in the next month
-                or two once carrier approval clears  -  you&rsquo;ll
-                get a welcome text then. Message frequency varies.
-                Message and data rates may apply. Reply STOP to
-                unsubscribe, HELP for help.
-              </label>
-            </div>
+            {/* TCPA opt-in, shown only once a phone number is typed.
+                FCC rules for political SMS demand express written
+                consent with clear sender, use case, frequency, and
+                opt-out language. Pre-checked is forbidden. */}
+            {phone.trim().length > 0 && (
+              <div className="flex items-start gap-2 bg-white border border-gray-200 rounded-lg p-3">
+                <input
+                  type="checkbox"
+                  id="home-smsOptIn"
+                  name="smsOptIn"
+                  className="mt-1 h-4 w-4 text-navy border-gray-300 rounded focus:ring-navy"
+                />
+                <label
+                  htmlFor="home-smsOptIn"
+                  className="text-xs text-charcoal/80 leading-relaxed"
+                >
+                  Text me about events, fundraisers, volunteer shifts,
+                  ballot-day reminders, campaign updates, or anything
+                  else related to the Cuteri for Americans campaign.
+                  Texting is launching in the next month
+                  or two once carrier approval clears. You&rsquo;ll
+                  get a welcome text then. Message frequency varies.
+                  Message and data rates may apply. Reply STOP to
+                  unsubscribe, HELP for help.
+                </label>
+              </div>
+            )}
 
             {error && (
               <p className="text-sm text-red-accent" role="alert">
@@ -216,7 +228,7 @@ export function HomeSignup() {
               {submitting ? "Signing up..." : "Sign Up"}
             </CTAButton>
 
-            <p className="text-[11px] text-charcoal/50 text-center leading-relaxed">
+            <p className="text-[11px] text-charcoal/70 text-center leading-relaxed">
               Paid for by Cuteri for Americans (FEC ID C00947259). See our{" "}
               <a
                 href="/privacy"

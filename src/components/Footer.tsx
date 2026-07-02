@@ -65,6 +65,15 @@ export function Footer() {
               Representatives, District 1 (South Carolina). American
               Congress Party.
             </p>
+            {/* Spelling strip: every page footer teaches the spelling
+                and the general-election-only date. Full-contrast white
+                so it always passes AA on navy. */}
+            <p className="mt-4 text-white font-bold tracking-[0.2em] text-sm">
+              Write in: C-U-T-E-R-I
+            </p>
+            <p className="mt-1 text-white/70 text-xs">
+              November 3, 2026. General election only.
+            </p>
           </div>
 
           {/* Site links */}
@@ -166,14 +175,14 @@ export function Footer() {
               for unauthorized independent-expenditure committees, not
               the candidate's own committee. Removing it removes a
               factual error. */}
-          <p className="text-xs text-white/50 leading-relaxed max-w-3xl">
+          <p className="text-xs text-white/70 leading-relaxed max-w-3xl">
             Paid for by Cuteri for Americans (FEC ID C00947259).
             Contributions to Cuteri for Americans are not tax deductible.
             Federal law requires us to use our best efforts to collect and
             report the name, mailing address, occupation, and employer of
             individuals whose contributions exceed $200 in an election cycle.
           </p>
-          <p className="text-xs text-white/40 mt-4">
+          <p className="text-xs text-white/70 mt-4">
             &copy; {new Date().getFullYear()} Cuteri for Americans. All rights
             reserved.
           </p>

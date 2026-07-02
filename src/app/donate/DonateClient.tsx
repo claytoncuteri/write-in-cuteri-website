@@ -553,10 +553,10 @@ export function DonateClient() {
                       shifts, ballot-day reminders, campaign updates,
                       or anything else related to the Cuteri for
                       Americans campaign. Texting launches in the next
-                      month or two once carrier approval clears  -
-                      welcome text then. Message frequency varies. Msg
-                      &amp; data rates may apply. Reply STOP to
-                      unsubscribe, HELP for help.
+                      month or two once carrier approval clears.
+                      We&rsquo;ll send a welcome text then. Message
+                      frequency varies. Msg &amp; data rates may
+                      apply. Reply STOP to unsubscribe, HELP for help.
                     </span>
                   </label>
                   <CTAButton

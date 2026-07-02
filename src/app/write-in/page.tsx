@@ -61,22 +61,56 @@ const steps = [
   },
 ];
 
+// FAQPage structured data mirroring the Common Questions section below.
+// Gives Google (and AI answer engines) a direct machine-readable answer
+// to the two highest-volume write-in questions.
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Will Clayton Cuteri be on the primary ballot?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "No. As a write-in candidate, Clayton Cuteri will only appear as a write-in option on the November 3, 2026 general election ballot. You do not need to vote in the June primary to vote for Clayton in November.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What if I can't spell Cuteri exactly right?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Your vote still counts. South Carolina counts write-in votes based on voter intent: as long as the name you write clearly identifies Clayton Cuteri and no other candidate with a similar name is running, the ballot will be counted for him. The safest thing is still to write Clayton Cuteri exactly.",
+      },
+    },
+  ],
+};
+
 export default function WriteInPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       {/* Spelling Banner */}
       <div className="bg-navy py-10 sm:py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-gold text-sm font-medium uppercase tracking-wider mb-4">
             Write this name on your ballot
           </p>
-          <p className="text-white text-5xl sm:text-6xl lg:text-8xl" style={{ fontFamily: "var(--font-caveat), cursive" }}>
+          {/* h1 for a11y + SEO: this page's most important string is the
+              name itself, styled as the handwritten ballot line. */}
+          <h1 className="text-white font-normal text-5xl sm:text-6xl lg:text-8xl" style={{ fontFamily: "var(--font-caveat), cursive" }}>
             CLAYTON CUTERI
-          </p>
-          <p className="mt-4 text-white/50 text-sm">
+          </h1>
+          <p className="mt-4 text-white/70 text-sm">
             Spell it exactly: C-L-A-Y-T-O-N &nbsp; C-U-T-E-R-I
           </p>
-          <p className="mt-2 text-white/40 text-xs">
+          <p className="mt-2 text-white/70 text-xs">
             Can&rsquo;t remember the exact spelling at the polls? South Carolina
             counts a clear attempt at his name. Do your best.
           </p>
@@ -193,7 +227,7 @@ export default function WriteInPage() {
           </div>
           <div className="w-full">
             <DistrictMap />
-            <p className="text-xs text-charcoal/50 mt-2 text-center">
+            <p className="text-xs text-charcoal/70 mt-2 text-center">
               Zoom in to street level to see exactly where the district line falls. Map data © OpenStreetMap contributors.
             </p>
           </div>

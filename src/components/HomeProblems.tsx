@@ -29,10 +29,13 @@ export function HomeProblems() {
             <p className="mt-2 text-charcoal/70 text-sm leading-relaxed">
               {problem.pain.split(". ").slice(0, 2).join(". ")}.
             </p>
+            {/* One benefit phrase, not the plank-title list: homepage
+                cards sell the outcome; /problems and /policies carry
+                the full policy detail. */}
             <p className="mt-3 text-sm font-semibold text-navy">
               Clayton&apos;s answer:{" "}
-              <span className="font-normal text-charcoal/70">
-                {problem.planks.map((p) => p.title).join(", ")}
+              <span className="text-red-accent font-bold">
+                {problem.benefit}
               </span>
             </p>
             <a

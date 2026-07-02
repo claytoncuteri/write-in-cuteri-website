@@ -110,6 +110,10 @@ export async function POST(req: NextRequest) {
           ? { sms_opt_in: "yes", sms_opt_in_at: new Date().toISOString() }
           : {}),
       },
+      // ipRegion lets convertkit.ts conditionally apply
+      // SC01-Resident. Quiz email-gate doesn't capture ZIP today, so
+      // the IP signal is what we have.
+      ipRegion: geo.ipRegion,
     });
     // Log the ConvertKit outcome so we can diagnose "email didn't arrive"
     // from Replit logs. Kit's API returns 200 even when no confirmation

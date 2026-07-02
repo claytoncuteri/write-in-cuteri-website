@@ -128,14 +128,17 @@ export function KitContactForm() {
               ballot-day reminders, campaign updates, or anything else
               related to the Cuteri for Americans campaign. Texting
               launches in the next month or two once carrier approval
-              clears  -  welcome text then. Message frequency varies.
-              Msg &amp; data rates may apply. Reply STOP to unsubscribe,
-              HELP for help.
+              clears. We&rsquo;ll send a welcome text then. Message
+              frequency varies. Msg &amp; data rates may apply. Reply
+              STOP to unsubscribe, HELP for help.
             </span>
           </label>
           <CTAButton variant="primary" type="submit" className="w-full">
             {submitting ? "Sending..." : "Send Me the Kit"}
           </CTAButton>
+          <p className="text-[11px] text-charcoal/70 text-center leading-relaxed">
+            Paid for by Cuteri for Americans (FEC ID C00947259).
+          </p>
         </form>
       )}
     </div>

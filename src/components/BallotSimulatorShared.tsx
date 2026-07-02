@@ -57,7 +57,7 @@ export function SuccessState({ writeInValue, onReset, mode }: SuccessStateProps)
           {nameMatch ? (
             <>
               <CheckCircle size={48} className="text-green-600 mx-auto mb-3" />
-              <p className="text-xs uppercase tracking-wider text-charcoal/50 font-semibold">
+              <p className="text-xs uppercase tracking-wider text-charcoal/70 font-semibold">
                 Practice only - this is not a real vote
               </p>
               <h3 className="mt-2 text-2xl font-bold text-green-800 font-serif">
@@ -121,7 +121,7 @@ export function SuccessState({ writeInValue, onReset, mode }: SuccessStateProps)
             </button>
           </div>
           {nameMatch && (
-            <p className="mt-3 text-xs text-charcoal/50 max-w-sm mx-auto">
+            <p className="mt-3 text-xs text-charcoal/70 max-w-sm mx-auto">
               The wallet card has the spelling (C-U-T-E-R-I) and the steps on
               one page. Print it or keep the PDF on your phone for Election
               Day.

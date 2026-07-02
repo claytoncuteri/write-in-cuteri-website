@@ -49,6 +49,40 @@ export interface SignupRecord {
   createdAt: string;           // ISO8601
 }
 
+// Valid blog post categories. Kept loose at the type level so legacy
+// rows with stale category strings don't break reads, but writes
+// through the admin form are constrained to BLOG_CATEGORIES (see
+// src/lib/blog-categories.ts).
+export type BlogCategory =
+  | "Lowcountry"
+  | "National"
+  | "Platform"
+  | "Campaign"
+  | "Press";
+
+export type BlogStatus = "draft" | "published" | "scheduled";
+
+export interface BlogPost {
+  id: string;                   // e.g. "blog:2026-05-13T12:00:00.000Z:a1b2c3"
+  slug: string;                 // kebab-case, unique
+  title: string;
+  subtitle?: string;
+  excerpt: string;              // ~150 char card/meta preview
+  bodyHtml: string;             // sanitized HTML from TipTap (DOMPurify
+                                // applied on save AND render)
+  author: string;               // default "Clayton A. Cuteri"
+  category?: BlogCategory;
+  tags?: string[];
+  featuredImage?: string;       // /blog-images/<filename>
+  featuredImageAlt?: string;
+  status: BlogStatus;
+  publishDate?: string;         // ISO; null until published/scheduled
+  readingTimeMinutes: number;   // computed at save (~200 wpm)
+  seoKeywords?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface QuizRecord {
   id: string;
   email?: string;              // only if they completed the email gate
@@ -132,6 +166,41 @@ async function ensureSchema(): Promise<void> {
       await client.query(`ALTER TABLE quiz_records ADD COLUMN IF NOT EXISTS data JSONB;`);
       await client.query(
         `CREATE INDEX IF NOT EXISTS quiz_records_created_at_idx ON quiz_records (created_at DESC);`,
+      );
+
+      // Blog posts. First-class columns for the fields we filter or
+      // sort on (slug, status, category, publish_date); JSONB data
+      // holds the rest of the payload (title, subtitle, body_html,
+      // tags, etc.) to keep new fields migration-free.
+      await client.query(`
+        CREATE TABLE IF NOT EXISTS blog_posts (
+          id           TEXT PRIMARY KEY,
+          slug         TEXT NOT NULL UNIQUE,
+          status       TEXT NOT NULL,
+          category     TEXT,
+          publish_date TIMESTAMPTZ,
+          created_at   TIMESTAMPTZ NOT NULL DEFAULT now(),
+          updated_at   TIMESTAMPTZ NOT NULL DEFAULT now(),
+          data         JSONB NOT NULL
+        );
+      `);
+      await client.query(`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS slug TEXT;`);
+      await client.query(`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS status TEXT;`);
+      await client.query(`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS category TEXT;`);
+      await client.query(`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS publish_date TIMESTAMPTZ;`);
+      await client.query(`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT now();`);
+      await client.query(`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS data JSONB;`);
+      await client.query(
+        `CREATE INDEX IF NOT EXISTS blog_posts_status_idx ON blog_posts (status);`,
+      );
+      await client.query(
+        `CREATE INDEX IF NOT EXISTS blog_posts_publish_date_idx ON blog_posts (publish_date DESC);`,
+      );
+      await client.query(
+        `CREATE INDEX IF NOT EXISTS blog_posts_category_idx ON blog_posts (category);`,
+      );
+      await client.query(
+        `CREATE UNIQUE INDEX IF NOT EXISTS blog_posts_slug_uniq ON blog_posts (slug);`,
       );
 
       // Drop NOT NULL on any legacy columns left over from earlier schemas
@@ -367,4 +436,261 @@ export async function getCounts(): Promise<{
       },
     };
   });
+}
+
+// -------------------------------------------------------------------
+// Blog posts
+// -------------------------------------------------------------------
+
+export interface BlogPostInput {
+  slug: string;
+  title: string;
+  subtitle?: string;
+  excerpt: string;
+  bodyHtml: string;
+  author?: string;
+  category?: BlogCategory;
+  tags?: string[];
+  featuredImage?: string;
+  featuredImageAlt?: string;
+  status: BlogStatus;
+  publishDate?: string | null;
+  readingTimeMinutes: number;
+  seoKeywords?: string;
+}
+
+function hydrateBlogPost(data: BlogPost): BlogPost {
+  // Defensive: tags can land as null from older rows; coerce to undefined
+  // so callers don't have to handle both shapes.
+  return {
+    ...data,
+    tags: data.tags && data.tags.length ? data.tags : undefined,
+  };
+}
+
+export async function putBlogPost(
+  input: BlogPostInput,
+): Promise<BlogPost> {
+  const now = new Date();
+  const id = makeKey("blog", now);
+  const full: BlogPost = {
+    ...input,
+    id,
+    author: input.author ?? "Clayton A. Cuteri",
+    publishDate: input.publishDate ?? undefined,
+    createdAt: now.toISOString(),
+    updatedAt: now.toISOString(),
+  };
+  await withClient((client) =>
+    client.query(
+      `INSERT INTO blog_posts
+         (id, slug, status, category, publish_date, created_at, updated_at, data)
+       VALUES ($1, $2, $3, $4, $5, $6, $6, $7)`,
+      [
+        full.id,
+        full.slug,
+        full.status,
+        full.category ?? null,
+        full.publishDate ? new Date(full.publishDate) : null,
+        now,
+        full,
+      ],
+    ),
+  );
+  return hydrateBlogPost(full);
+}
+
+export async function updateBlogPost(
+  id: string,
+  patch: Partial<BlogPostInput>,
+): Promise<BlogPost | null> {
+  return withClient(async (client) => {
+    const res = await client.query<{ data: BlogPost }>(
+      `SELECT data FROM blog_posts WHERE id = $1`,
+      [id],
+    );
+    if (res.rows.length === 0) return null;
+    const existing = res.rows[0].data;
+    const now = new Date();
+    const next: BlogPost = {
+      ...existing,
+      ...patch,
+      // Preserve immutable + timestamps; updatedAt always bumps.
+      id: existing.id,
+      createdAt: existing.createdAt,
+      updatedAt: now.toISOString(),
+      tags: patch.tags ?? existing.tags,
+      // publishDate in the patch input can be string | null | undefined
+      // (so callers can explicitly clear it). Coerce null -> undefined
+      // on the way out so the BlogPost type stays clean.
+      publishDate:
+        patch.publishDate === null
+          ? undefined
+          : (patch.publishDate ?? existing.publishDate),
+    };
+    await client.query(
+      `UPDATE blog_posts
+         SET slug = $2,
+             status = $3,
+             category = $4,
+             publish_date = $5,
+             updated_at = $6,
+             data = $7
+       WHERE id = $1`,
+      [
+        id,
+        next.slug,
+        next.status,
+        next.category ?? null,
+        next.publishDate ? new Date(next.publishDate) : null,
+        now,
+        next,
+      ],
+    );
+    return hydrateBlogPost(next);
+  });
+}
+
+export async function publishBlogPost(id: string): Promise<BlogPost | null> {
+  const now = new Date();
+  return updateBlogPost(id, {
+    status: "published",
+    publishDate: now.toISOString(),
+  });
+}
+
+export async function deleteBlogPost(id: string): Promise<boolean> {
+  return withClient(async (client) => {
+    const res = await client.query(`DELETE FROM blog_posts WHERE id = $1`, [id]);
+    return (res.rowCount ?? 0) > 0;
+  });
+}
+
+export async function getBlogPostBySlug(
+  slug: string,
+  opts?: { includeDrafts?: boolean },
+): Promise<BlogPost | null> {
+  const conds: string[] = [`slug = $1`];
+  const params: unknown[] = [slug];
+  if (!opts?.includeDrafts) {
+    conds.push(`status = 'published'`);
+  }
+  const rows = await withClient((client) =>
+    client.query<{ data: BlogPost }>(
+      `SELECT data FROM blog_posts WHERE ${conds.join(" AND ")} LIMIT 1`,
+      params,
+    ),
+  );
+  return rows.rows[0] ? hydrateBlogPost(rows.rows[0].data) : null;
+}
+
+export async function getBlogPostById(id: string): Promise<BlogPost | null> {
+  const rows = await withClient((client) =>
+    client.query<{ data: BlogPost }>(
+      `SELECT data FROM blog_posts WHERE id = $1 LIMIT 1`,
+      [id],
+    ),
+  );
+  return rows.rows[0] ? hydrateBlogPost(rows.rows[0].data) : null;
+}
+
+export async function listPublishedPosts(opts?: {
+  page?: number;
+  pageSize?: number;
+  category?: BlogCategory;
+}): Promise<{ posts: BlogPost[]; total: number }> {
+  const pageSize = Math.max(1, Math.min(50, opts?.pageSize ?? 12));
+  const page = Math.max(1, opts?.page ?? 1);
+  const offset = (page - 1) * pageSize;
+
+  const conds: string[] = [`status = 'published'`];
+  const params: unknown[] = [];
+  if (opts?.category) {
+    params.push(opts.category);
+    conds.push(`category = $${params.length}`);
+  }
+  const where = `WHERE ${conds.join(" AND ")}`;
+
+  return withClient(async (client) => {
+    const [rowsRes, countRes] = await Promise.all([
+      client.query<{ data: BlogPost }>(
+        `SELECT data FROM blog_posts ${where}
+         ORDER BY COALESCE(publish_date, created_at) DESC
+         LIMIT ${pageSize} OFFSET ${offset}`,
+        params,
+      ),
+      client.query<{ count: string }>(
+        `SELECT COUNT(*)::text AS count FROM blog_posts ${where}`,
+        params,
+      ),
+    ]);
+    return {
+      posts: rowsRes.rows.map((r) => hydrateBlogPost(r.data)),
+      total: Number(countRes.rows[0]?.count ?? 0),
+    };
+  });
+}
+
+export async function listAllPostsAdmin(): Promise<BlogPost[]> {
+  const rows = await withClient((client) =>
+    client.query<{ data: BlogPost }>(
+      `SELECT data FROM blog_posts
+       ORDER BY updated_at DESC NULLS LAST, created_at DESC`,
+    ),
+  );
+  return rows.rows.map((r) => hydrateBlogPost(r.data));
+}
+
+export async function listRelatedPosts(
+  post: BlogPost,
+  limit = 3,
+): Promise<BlogPost[]> {
+  // Same-category, excluding the current post, newest first. Fallback
+  // to most-recent-of-anything if not enough in the category.
+  return withClient(async (client) => {
+    const sameCat = post.category
+      ? await client.query<{ data: BlogPost }>(
+          `SELECT data FROM blog_posts
+           WHERE status = 'published'
+             AND id <> $1
+             AND category = $2
+           ORDER BY COALESCE(publish_date, created_at) DESC
+           LIMIT $3`,
+          [post.id, post.category, limit],
+        )
+      : { rows: [] };
+    if (sameCat.rows.length >= limit) {
+      return sameCat.rows.map((r) => hydrateBlogPost(r.data));
+    }
+    const remainder = limit - sameCat.rows.length;
+    const existingIds = [post.id, ...sameCat.rows.map((r) => r.data.id)];
+    const fallback = await client.query<{ data: BlogPost }>(
+      `SELECT data FROM blog_posts
+       WHERE status = 'published'
+         AND id <> ALL($1::text[])
+       ORDER BY COALESCE(publish_date, created_at) DESC
+       LIMIT $2`,
+      [existingIds, remainder],
+    );
+    return [...sameCat.rows, ...fallback.rows].map((r) => hydrateBlogPost(r.data));
+  });
+}
+
+export async function listAllPublishedSlugs(): Promise<
+  Array<{ slug: string; updatedAt: string; publishDate?: string }>
+> {
+  const rows = await withClient((client) =>
+    client.query<{
+      slug: string;
+      updated_at: Date;
+      publish_date: Date | null;
+    }>(
+      `SELECT slug, updated_at, publish_date FROM blog_posts WHERE status = 'published'`,
+    ),
+  );
+  return rows.rows.map((r) => ({
+    slug: r.slug,
+    updatedAt: new Date(r.updated_at).toISOString(),
+    publishDate: r.publish_date ? new Date(r.publish_date).toISOString() : undefined,
+  }));
 }

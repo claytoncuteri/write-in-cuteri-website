@@ -7,6 +7,9 @@ export const mainNavItems: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Problems", href: "/problems" },
   { label: "Priorities", href: "/policies" },
+  // Blog slots between Priorities and About so the user arc reads:
+  // problem -> solution -> proof (recent posts) -> candidate -> action.
+  { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
   { label: "Get Involved", href: "/get-involved" },
 ];
@@ -16,6 +19,7 @@ export const footerNavItems: NavItem[] = [
   { label: "District 1 Problems", href: "/problems" },
   { label: "Priorities", href: "/policies" },
   { label: "How to Write Me In", href: "/write-in" },
+  { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
   { label: "Get Involved", href: "/get-involved" },
   { label: "Events", href: "/events" },

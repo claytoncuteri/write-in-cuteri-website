@@ -231,7 +231,7 @@ export default function GetInvolvedPage() {
                   ballot-day reminders, campaign updates, or anything
                   else related to the Cuteri for Americans campaign.
                   Texting launches in the next month or two once
-                  carrier approval clears  -  welcome
+                  carrier approval clears. We&rsquo;ll send a welcome
                   text then. Message frequency varies. Msg &amp; data
                   rates may apply. Reply STOP to unsubscribe, HELP for
                   help.
@@ -256,6 +256,9 @@ export default function GetInvolvedPage() {
               <CTAButton variant="primary" type="submit" className="w-full">
                 {submitting ? "Sending..." : "Sign Up to Volunteer"}
               </CTAButton>
+              <p className="text-[11px] text-charcoal/70 text-center leading-relaxed">
+                Paid for by Cuteri for Americans (FEC ID C00947259).
+              </p>
             </form>
           )}
         </div>

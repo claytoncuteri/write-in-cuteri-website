@@ -39,7 +39,9 @@ export default function CardPage() {
             + "District 1") on two lines so it reads cleanly on a
             phone screen without wrapping. */}
         <div className="text-center">
-          <p className="text-gold font-semibold text-sm uppercase tracking-wider mb-3">
+          {/* red-accent, not gold: this page renders on the cream
+              background where gold has no contrast. */}
+          <p className="text-red-accent font-semibold text-sm uppercase tracking-wider mb-3">
             Write-In  ·  November 3, 2026
           </p>
           <h1 className="text-4xl sm:text-5xl font-bold text-charcoal font-serif leading-tight">
