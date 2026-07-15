@@ -752,9 +752,15 @@ export function AdminDashboard() {
             </h2>
             <a
               href={
-                activeTab === "quiz"
-                  ? "/api/admin/list?resource=quiz&format=csv"
-                  : `/api/admin/list?tag=${activeTab}&format=csv`
+                // Each tab exports its own resource. Without the
+                // donations arm, that tab's CSV would silently hit
+                // /api/admin/list?tag=donations, an invalid tag that
+                // exports ALL signups instead of donations.
+                activeTab === "donations"
+                  ? "/api/admin/donations?format=csv"
+                  : activeTab === "quiz"
+                    ? "/api/admin/list?resource=quiz&format=csv"
+                    : `/api/admin/list?tag=${activeTab}&format=csv`
               }
               className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-navy border border-navy/30 rounded-lg hover:bg-navy/5 transition-colors"
             >
