@@ -6,7 +6,7 @@
 
 import { NextResponse } from "next/server";
 import { isAdminAuthed } from "@/lib/admin-auth";
-import { getCounts } from "@/lib/db";
+import { getCounts, getDonationTotals } from "@/lib/db";
 import {
   ballotSimCompletionsSc,
   ballotSimStartsSc,
@@ -48,6 +48,7 @@ export async function GET() {
     const phOn = posthogConfigured();
     const [
       dbCounts,
+      donations,
       wau,
       ballotSim,
       ballotSimStarts,
@@ -58,6 +59,10 @@ export async function GET() {
       getCounts().catch((err) => {
         console.error("[kpis] getCounts failed", err);
         return EMPTY_DB_COUNTS;
+      }),
+      getDonationTotals().catch((err) => {
+        console.error("[kpis] getDonationTotals failed", err);
+        return { totalCents: 0, count: 0, uniqueDonors: 0, lastAt: undefined };
       }),
       phOn
         ? wauSplit().catch((err) => {
@@ -108,6 +113,12 @@ export async function GET() {
       ballotSimStartsSc: ballotSimStarts,
       ballotSimStartsAll: ballotSimAll.starts,
       ballotSimCompletionsAll: ballotSimAll.completions,
+      donations: {
+        totalCents: donations.totalCents,
+        count: donations.count,
+        uniqueDonors: donations.uniqueDonors,
+        lastAt: donations.lastAt,
+      },
       nameRecognitionPct: nameRec,
       returnRate7dPct: retention,
       generatedAt: new Date().toISOString(),

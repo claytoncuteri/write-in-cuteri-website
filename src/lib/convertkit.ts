@@ -196,7 +196,7 @@ async function applyTagToSubscriber(
   tagId: number,
   tagName: string,
   email: string,
-): Promise<void> {
+): Promise<boolean> {
   const res = await fetch(
     `https://api.kit.com/v4/tags/${tagId}/subscribers/${subscriberId}`,
     {
@@ -218,6 +218,7 @@ async function applyTagToSubscriber(
     ok: res.ok,
     bodyPreview: body.slice(0, 200),
   });
+  return res.ok;
 }
 
 export async function subscribeToConvertKit({
@@ -228,7 +229,11 @@ export async function subscribeToConvertKit({
   fields,
   ipRegion,
   zip,
-}: SubscribeOptions): Promise<{ success: boolean; error?: string }> {
+}: SubscribeOptions): Promise<{
+  success: boolean;
+  error?: string;
+  tagsApplied?: string[];
+}> {
   if (!CONVERTKIT_API_KEY || !CONVERTKIT_FORM_ID) {
     return {
       success: false,
@@ -323,13 +328,18 @@ export async function subscribeToConvertKit({
     );
     // Apply each resolved tag. Failures are logged but non-fatal;
     // we don't want a missing tag to break the whole signup flow.
+    // Successful tag names are collected and returned so callers can
+    // persist them on the signup row (admin visibility + retry
+    // verification).
+    const tagsApplied: string[] = [];
     for (const { name, id } of resolved) {
       if (!id) {
         console.error("[convertkit] skipping tag (no id)", { name, email });
         continue;
       }
       try {
-        await applyTagToSubscriber(subscriberId, id, name, email);
+        const ok = await applyTagToSubscriber(subscriberId, id, name, email);
+        if (ok) tagsApplied.push(name);
       } catch (err) {
         console.error("[convertkit] tag apply threw", {
           email,
@@ -339,6 +349,117 @@ export async function subscribeToConvertKit({
       }
     }
 
+    return { success: true, tagsApplied };
+  } catch (err) {
+    return {
+      success: false,
+      error: err instanceof Error ? err.message : "Unknown error",
+    };
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Admin follow-up helpers: sequence list + add-to-sequence
+// -----------------------------------------------------------------------------
+
+export interface KitSequence {
+  id: number;
+  name: string;
+  active: boolean;
+  emailCount: number;
+  subscriberCount: number;
+}
+
+/**
+ * Fetch every sequence in the Kit account. Used by the admin
+ * "Follow up" picker so Clayton can choose which existing sequence
+ * to drop a subscriber into. No auth wrapper here -- caller (an
+ * admin route) is expected to gate.
+ */
+export async function listKitSequences(): Promise<KitSequence[]> {
+  if (!CONVERTKIT_API_KEY) return [];
+  // Paginate through all pages. Kit's default per_page is 10; ask for
+  // 100 to cut round-trips. This account has ~30 sequences today.
+  const collected: KitSequence[] = [];
+  let cursor: string | undefined;
+  for (let page = 0; page < 20; page++) {
+    const url = new URL("https://api.kit.com/v4/sequences");
+    url.searchParams.set("per_page", "100");
+    if (cursor) url.searchParams.set("after", cursor);
+    const res = await fetch(url.toString(), {
+      headers: { "X-Kit-Api-Key": CONVERTKIT_API_KEY },
+    });
+    if (!res.ok) {
+      console.error("[convertkit] list sequences failed", { status: res.status });
+      break;
+    }
+    const body = (await res.json()) as {
+      sequences?: Array<{
+        id: number;
+        name: string;
+        active: boolean;
+        email_count?: number;
+        subscriber_count?: number;
+      }>;
+      pagination?: { has_next_page: boolean; end_cursor?: string };
+    };
+    for (const s of body.sequences ?? []) {
+      collected.push({
+        id: s.id,
+        name: s.name,
+        active: s.active,
+        emailCount: s.email_count ?? 0,
+        subscriberCount: s.subscriber_count ?? 0,
+      });
+    }
+    if (!body.pagination?.has_next_page || !body.pagination.end_cursor) break;
+    cursor = body.pagination.end_cursor;
+  }
+  return collected;
+}
+
+/**
+ * Add a subscriber (by email) to a Kit sequence. Returns success +
+ * optional error. Kit dedupes -- adding the same subscriber to the
+ * same sequence a second time is a no-op on their side, so admin
+ * mis-clicks are safe.
+ */
+export async function addSubscriberToKitSequence(opts: {
+  email: string;
+  sequenceId: number;
+}): Promise<{ success: boolean; error?: string }> {
+  if (!CONVERTKIT_API_KEY) {
+    return { success: false, error: "ConvertKit not configured" };
+  }
+  try {
+    const res = await fetch(
+      `https://api.kit.com/v4/sequences/${opts.sequenceId}/subscribers`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Kit-Api-Key": CONVERTKIT_API_KEY,
+        },
+        body: JSON.stringify({ email_address: opts.email }),
+      },
+    );
+    const body = await res.text().catch(() => "");
+    if (!res.ok) {
+      console.error("[convertkit] sequence add failed", {
+        email: opts.email,
+        sequenceId: opts.sequenceId,
+        status: res.status,
+        bodyPreview: body.slice(0, 200),
+      });
+      return {
+        success: false,
+        error: `Sequence add failed (${res.status}): ${body.slice(0, 200)}`,
+      };
+    }
+    console.log("[convertkit] sequence add ok", {
+      email: opts.email,
+      sequenceId: opts.sequenceId,
+    });
     return { success: true };
   } catch (err) {
     return {
