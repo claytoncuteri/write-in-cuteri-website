@@ -46,7 +46,49 @@ export interface SignupRecord {
   ipCity?: string;
   convertkitStatus: "pending" | "ok" | "error";
   convertkitError?: string;
+  // Which Kit tags were actually applied on the most recent sync
+  // attempt. Populated by convertkit.ts after Step 3 finishes. Lets
+  // the admin table show "SC01-All, SC01-Volunteer, SC01-Resident"
+  // per row instead of just an opaque ok/err badge, and lets us
+  // confirm a retry actually re-tagged.
+  convertkitTagsApplied?: string[];
+  // Kit sequences the subscriber has been added to via the admin's
+  // "Follow up" action. Append-only history so we can see when + which.
+  convertkitSequenceHistory?: Array<{
+    sequenceId: number;
+    sequenceName: string;
+    addedAt: string;
+    status: "ok" | "error";
+    error?: string;
+  }>;
   createdAt: string;           // ISO8601
+}
+
+export interface DonationRecord {
+  id: string;                    // "donation:<iso>:<hex>"
+  amount: number;                // dollars, not cents
+  currency: string;              // "USD"
+  email: string;
+  firstName?: string;
+  lastName?: string;
+  phone?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
+  // Recurring: null / one-time OR "monthly" / "annual"
+  recurring?: string;
+  // Provider-side identifier. Anedot returns a UUID or numeric id
+  // depending on integration mode. Used to dedupe on re-delivery
+  // (Anedot retries webhooks on 5xx).
+  externalId: string;
+  provider: "anedot" | "manual";
+  // Full webhook payload, kept in JSONB for future extensibility
+  // (donor employer, occupation, notes, etc. -- FEC requires we
+  // collect employer/occupation for donations over $200, and Anedot
+  // ships those fields when the donor supplies them).
+  rawPayload?: Record<string, unknown>;
+  createdAt: string;             // ISO8601, matches the receipt date
 }
 
 // Valid blog post categories. Kept loose at the type level so legacy
@@ -166,6 +208,39 @@ async function ensureSchema(): Promise<void> {
       await client.query(`ALTER TABLE quiz_records ADD COLUMN IF NOT EXISTS data JSONB;`);
       await client.query(
         `CREATE INDEX IF NOT EXISTS quiz_records_created_at_idx ON quiz_records (created_at DESC);`,
+      );
+
+      // Donations. First-class columns for filter/sort (email, amount,
+      // created_at, external_id for dedupe, provider for future
+      // multi-processor support); JSONB `data` holds the full donor
+      // record (address, employer, occupation, raw webhook payload).
+      // external_id + provider are UNIQUE so Anedot webhook retries
+      // don't create duplicate donation rows.
+      await client.query(`
+        CREATE TABLE IF NOT EXISTS donations (
+          id          TEXT PRIMARY KEY,
+          external_id TEXT NOT NULL,
+          provider    TEXT NOT NULL,
+          email       TEXT NOT NULL,
+          amount      NUMERIC(12,2) NOT NULL,
+          created_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
+          data        JSONB NOT NULL,
+          UNIQUE (provider, external_id)
+        );
+      `);
+      await client.query(`ALTER TABLE donations ADD COLUMN IF NOT EXISTS external_id TEXT;`);
+      await client.query(`ALTER TABLE donations ADD COLUMN IF NOT EXISTS provider TEXT;`);
+      await client.query(`ALTER TABLE donations ADD COLUMN IF NOT EXISTS email TEXT;`);
+      await client.query(`ALTER TABLE donations ADD COLUMN IF NOT EXISTS amount NUMERIC(12,2);`);
+      await client.query(`ALTER TABLE donations ADD COLUMN IF NOT EXISTS data JSONB;`);
+      await client.query(
+        `CREATE INDEX IF NOT EXISTS donations_created_at_idx ON donations (created_at DESC);`,
+      );
+      await client.query(
+        `CREATE INDEX IF NOT EXISTS donations_email_idx ON donations (email);`,
+      );
+      await client.query(
+        `CREATE UNIQUE INDEX IF NOT EXISTS donations_provider_ext_uniq ON donations (provider, external_id);`,
       );
 
       // Blog posts. First-class columns for the fields we filter or
@@ -289,6 +364,7 @@ export async function updateSignupStatus(
   id: string,
   status: SignupRecord["convertkitStatus"],
   error?: string,
+  tagsApplied?: string[],
 ): Promise<void> {
   await withClient(async (client) => {
     const res = await client.query<{ data: SignupRecord }>(
@@ -300,12 +376,66 @@ export async function updateSignupStatus(
     const next: SignupRecord = {
       ...existing,
       convertkitStatus: status,
-      ...(error ? { convertkitError: error } : {}),
+      // On success clear any stale error; on error preserve the new
+      // message. Undefined means "leave existing alone."
+      convertkitError:
+        status === "ok" ? undefined : (error ?? existing.convertkitError),
+      // Only overwrite tagsApplied on a successful sync; failed
+      // retries shouldn't wipe the previously-recorded good state.
+      ...(tagsApplied && status === "ok"
+        ? { convertkitTagsApplied: tagsApplied }
+        : {}),
     };
     await client.query(
       `UPDATE signups SET data = $2 WHERE id = $1`,
       [id, next],
     );
+  });
+}
+
+export async function getSignup(id: string): Promise<SignupRecord | null> {
+  const res = await withClient((client) =>
+    client.query<{ data: SignupRecord }>(
+      `SELECT data FROM signups WHERE id = $1`,
+      [id],
+    ),
+  );
+  return res.rows[0]?.data ?? null;
+}
+
+/**
+ * Append a Kit sequence-add attempt to the signup's history log.
+ * Used by the admin "Follow up" flow. Kept as an append-only history
+ * so we can show "already added on <date>" if an admin re-clicks the
+ * same sequence for the same subscriber.
+ */
+export async function appendSignupSequenceHistory(
+  id: string,
+  entry: {
+    sequenceId: number;
+    sequenceName: string;
+    status: "ok" | "error";
+    error?: string;
+  },
+): Promise<void> {
+  await withClient(async (client) => {
+    const res = await client.query<{ data: SignupRecord }>(
+      `SELECT data FROM signups WHERE id = $1`,
+      [id],
+    );
+    if (res.rows.length === 0) return;
+    const existing = res.rows[0].data;
+    const next: SignupRecord = {
+      ...existing,
+      convertkitSequenceHistory: [
+        ...(existing.convertkitSequenceHistory ?? []),
+        {
+          ...entry,
+          addedAt: new Date().toISOString(),
+        },
+      ],
+    };
+    await client.query(`UPDATE signups SET data = $2 WHERE id = $1`, [id, next]);
   });
 }
 
@@ -693,4 +823,110 @@ export async function listAllPublishedSlugs(): Promise<
     updatedAt: new Date(r.updated_at).toISOString(),
     publishDate: r.publish_date ? new Date(r.publish_date).toISOString() : undefined,
   }));
+}
+
+// -----------------------------------------------------------------------------
+// Donations
+// -----------------------------------------------------------------------------
+
+/**
+ * Insert a donation row. Idempotent on (provider, external_id) via
+ * ON CONFLICT DO NOTHING -- Anedot retries webhooks on 5xx, and we
+ * don't want a retry to create a duplicate row. Returns the row
+ * (existing OR newly created).
+ */
+export async function upsertDonation(
+  record: Omit<DonationRecord, "id" | "createdAt"> & { createdAt?: string },
+): Promise<DonationRecord> {
+  const now = record.createdAt ? new Date(record.createdAt) : new Date();
+  const id = makeKey("donation", now);
+  const full: DonationRecord = {
+    ...record,
+    id,
+    createdAt: now.toISOString(),
+  };
+  await withClient(async (client) => {
+    await client.query(
+      `INSERT INTO donations (id, external_id, provider, email, amount, created_at, data)
+       VALUES ($1, $2, $3, $4, $5, $6, $7)
+       ON CONFLICT (provider, external_id) DO NOTHING`,
+      [full.id, full.externalId, full.provider, full.email, full.amount, now, full],
+    );
+  });
+  // Read back to return whichever row now lives at this (provider, external_id).
+  return (await getDonationByExternalId(full.provider, full.externalId)) ?? full;
+}
+
+export async function getDonationByExternalId(
+  provider: string,
+  externalId: string,
+): Promise<DonationRecord | null> {
+  const rows = await withClient((client) =>
+    client.query<{ data: DonationRecord }>(
+      `SELECT data FROM donations WHERE provider = $1 AND external_id = $2 LIMIT 1`,
+      [provider, externalId],
+    ),
+  );
+  return rows.rows[0]?.data ?? null;
+}
+
+export async function listDonations(opts?: {
+  since?: Date;
+  limit?: number;
+}): Promise<DonationRecord[]> {
+  const conds: string[] = [];
+  const params: unknown[] = [];
+  if (opts?.since) {
+    params.push(opts.since);
+    conds.push(`created_at >= $${params.length}`);
+  }
+  const where = conds.length > 0 ? `WHERE ${conds.join(" AND ")}` : "";
+  const limitClause = opts?.limit
+    ? `LIMIT ${Math.min(Math.floor(opts.limit), 10_000)}`
+    : "";
+  const rows = await withClient((client) =>
+    client.query<{ data: DonationRecord }>(
+      `SELECT data FROM donations ${where}
+       ORDER BY created_at DESC ${limitClause}`,
+      params,
+    ),
+  );
+  return rows.rows.map((r) => r.data);
+}
+
+/**
+ * Aggregate donation totals + counts for admin KPIs. Kept SQL-side so
+ * we never load the full donations table into memory just to sum it.
+ */
+export async function getDonationTotals(): Promise<{
+  totalCents: number;   // sum in cents; render as $ in the UI
+  count: number;
+  uniqueDonors: number;
+  lastAt?: string;
+}> {
+  return withClient(async (client) => {
+    const [totalsRes, uniqueRes, lastRes] = await Promise.all([
+      client.query<{ total: string | null; count: string }>(
+        `SELECT COALESCE(SUM(amount), 0)::text AS total, COUNT(*)::text AS count FROM donations`,
+      ),
+      client.query<{ count: string }>(
+        `SELECT COUNT(DISTINCT email)::text AS count FROM donations`,
+      ),
+      client.query<{ last_at: Date | null }>(
+        `SELECT MAX(created_at) AS last_at FROM donations`,
+      ),
+    ]);
+    // amount is NUMERIC(12,2); parseFloat + *100 gives cents. Keep
+    // integer cents through the wire so JS number precision never
+    // rounds a $2,499.99 donation to $2,500.
+    const dollars = parseFloat(totalsRes.rows[0]?.total ?? "0");
+    return {
+      totalCents: Math.round(dollars * 100),
+      count: Number(totalsRes.rows[0]?.count ?? 0),
+      uniqueDonors: Number(uniqueRes.rows[0]?.count ?? 0),
+      lastAt: lastRes.rows[0]?.last_at
+        ? new Date(lastRes.rows[0].last_at).toISOString()
+        : undefined,
+    };
+  });
 }

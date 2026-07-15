@@ -137,12 +137,16 @@ export async function POST(req: NextRequest) {
     console.log("[subscribe] ConvertKit subscribe ok", { email, tag });
   }
 
-  // 3. Update the Replit DB record with the ConvertKit outcome.
+  // 3. Update the Replit DB record with the ConvertKit outcome AND
+  // the list of tags Kit actually accepted (so the admin table can
+  // show "SC01-All, SC01-Volunteer, SC01-Resident" per row and any
+  // future retry can confirm re-tagging succeeded).
   if (record?.id) {
     await updateSignupStatus(
       record.id,
       ckResult.success ? "ok" : "error",
       ckResult.error,
+      ckResult.tagsApplied,
     );
   }
 
