@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata, ogCard } from "@/lib/og";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 import { ExpandableCard } from "@/components/ExpandableCard";
@@ -7,11 +8,16 @@ import { problems } from "@/data/problems";
 import Link from "next/link";
 import { Printer } from "lucide-react";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/problems",
   title: "SC-01 Problems | Lowcountry Insurance, Housing, and More",
   description:
     "The eight biggest issues facing South Carolina District 1 voters in Charleston, Berkeley, Dorchester, Beaufort, Colleton, and Jasper counties: coastal flood insurance costs, the housing affordability crisis, cost of living, and more. Why both parties have failed SC-01 voters and what Clayton Cuteri will do about it.",
-};
+  ogTitle: "What SC-01 Voters Are Living With",
+  ogDescription:
+    "Flood insurance, housing and cost of living in Charleston, Berkeley, Dorchester, Beaufort, Colleton and Jasper counties, and what Clayton would do.",
+  image: ogCard("problems", "Outline map of South Carolina District 1 with the headline What District 1 voters are living with"),
+});
 
 export default function ProblemsPage() {
   return (

@@ -1,14 +1,20 @@
 import type { Metadata } from "next";
+import { pageMetadata, ogCard } from "@/lib/og";
 import Image from "next/image";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 import { imageBlur } from "@/data/imageBlur";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/about",
   title: "About Clayton Cuteri | SC-01 Write-In Candidate 2026",
   description:
     "Who is Clayton Cuteri? Write-in candidate for U.S. House SC-01 in the 2026 election. Secretary General of the American Congress Party, third-party alternative for Charleston, Berkeley, Dorchester, Beaufort, Colleton, and Jasper county voters across the SC-01 Lowcountry.",
-};
+  ogTitle: "About Clayton Cuteri",
+  ogDescription:
+    "Who Clayton A. Cuteri is: his background, why he ran for U.S. House in SC-01, and his role as Secretary General of the American Congress Party.",
+  image: ogCard("about", "Clayton Cuteri at Patriots Point, with the headline Meet Clayton Cuteri"),
+});
 
 export default function AboutPage() {
   return (

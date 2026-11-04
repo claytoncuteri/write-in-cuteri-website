@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata, ogCard } from "@/lib/og";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 import { ExpandableCard } from "@/components/ExpandableCard";
@@ -8,11 +9,16 @@ import { policies, partLabels } from "@/data/policies";
 import Link from "next/link";
 import { Printer } from "lucide-react";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/policies",
   title: "Solutions | 13 Policy Priorities for SC-01",
   description:
     "Clayton Cuteri's 13 priorities for South Carolina District 1: no federal income tax, free medication, affordable housing, coastal insurance reform, and more. $2.34+ trillion in savings, $582 more per person per month.",
-};
+  ogTitle: "13 Policy Priorities for SC-01",
+  ogDescription:
+    "Clayton Cuteri's 13 priorities for South Carolina District 1, from taxes and free medication to housing and coastal insurance, with the math.",
+  image: ogCard("policies", "Thirteen priorities for District 1"),
+});
 
 // SC-01 has ~800,000 residents. $2.34T / 335M population * 800K = ~$5.59B for SC-01.
 // Per person: $2.34T / 335M = ~$6,988/year = ~$582/month

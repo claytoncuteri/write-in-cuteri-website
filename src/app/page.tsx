@@ -1,4 +1,6 @@
+import type { Metadata } from "next";
 import Image from "next/image";
+import { pageMetadata, ogCard } from "@/lib/og";
 import { Section } from "@/components/Section";
 import { imageBlur } from "@/data/imageBlur";
 import { CTAButton } from "@/components/CTAButton";
@@ -19,6 +21,19 @@ import { ArrowRight, Printer, FileText, Users, Heart } from "lucide-react";
 // mobile sticky CTA (StickyMobileCta) still handles the seasonal
 // quiz -> write-in swap client-side, so the GOTV flip no longer depends
 // on a rebuild of this statically rendered page.
+
+// Home keeps the root layout's <title> and meta description (absolute,
+// so the title template is not applied) and adds its own share card.
+export const metadata: Metadata = pageMetadata({
+  path: "/",
+  title: { absolute: "Clayton Cuteri | Write-In for U.S. House, District 1 (SC)" },
+  description:
+    "Clayton A. Cuteri, write-in candidate for U.S. House of Representatives, District 1 (South Carolina, SC-01), November 3, 2026. American Congress Party. Third-party alternative for Charleston, Berkeley, Dorchester, Beaufort, Colleton, and Jasper county voters across the Lowcountry.",
+  ogTitle: "Clayton Cuteri for U.S. Congress, SC-01",
+  ogDescription:
+    "Clayton Cuteri, American Congress Party write-in candidate for U.S. House, South Carolina District 1: his plan, his background and how to help.",
+  image: ogCard("home", "Clayton Cuteri, write-in candidate for U.S. House, South Carolina District 1"),
+});
 
 export default async function HomePage() {
   return (

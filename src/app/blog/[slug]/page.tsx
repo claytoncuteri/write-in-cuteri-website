@@ -14,6 +14,7 @@ import { getBlogPostBySlug, listRelatedPosts } from "@/lib/db";
 import { BlogPost } from "@/components/blog/BlogPost";
 import { BlogPostFooter } from "@/components/blog/BlogPostFooter";
 import { stripHtml } from "@/lib/blog-sanitize";
+import { pageMetadata, BLOG_OG_IMAGE, SITE_URL } from "@/lib/og";
 
 export const dynamic = "force-dynamic";
 
@@ -21,8 +22,15 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-const DEFAULT_OG_IMAGE = "/logo_a_star_divider/digital_og_image/navy.png";
-const SITE_ORIGIN = "https://writeincuteri.com";
+const SITE_ORIGIN = SITE_URL;
+
+// og:description stays within ~155 chars so previews do not cut
+// mid-word; the full excerpt still goes in <meta name="description">.
+function clip(text: string, max = 155): string {
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max - 1);
+  return `${cut.slice(0, cut.lastIndexOf(" ")).replace(/[,;:.\s]+$/, "")}\u2026`;
+}
 
 export async function generateMetadata({
   params,
@@ -32,44 +40,30 @@ export async function generateMetadata({
   if (!post) {
     return {
       title: "Post not found | Clayton Cuteri for Congress",
+      robots: { index: false, follow: false },
     };
   }
   const description =
     post.excerpt ||
     stripHtml(post.bodyHtml).slice(0, 160).replace(/\s+/g, " ").trim();
-  const ogImage = post.featuredImage ?? DEFAULT_OG_IMAGE;
-  const ogImageAlt = post.featuredImageAlt ?? post.title;
-  const canonical = `${SITE_ORIGIN}/blog/${post.slug}`;
-  return {
+  // The post's own featured image when it has one (any size; we do not
+  // claim dimensions we have not checked), otherwise the blog card.
+  const image = post.featuredImage
+    ? { url: post.featuredImage, alt: post.featuredImageAlt ?? post.title }
+    : BLOG_OG_IMAGE;
+  return pageMetadata({
+    path: `/blog/${post.slug}`,
     title: `${post.title} | Clayton Cuteri for U.S. House, District 1 (SC)`,
     description,
-    alternates: { canonical },
-    openGraph: {
-      title: post.title,
-      description,
-      url: canonical,
-      siteName: "Clayton Cuteri for Congress",
-      type: "article",
-      publishedTime: post.publishDate ?? post.createdAt,
-      modifiedTime: post.updatedAt,
-      authors: [post.author],
-      images: [
-        {
-          url: ogImage,
-          alt: ogImageAlt,
-          width: 1200,
-          height: 630,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: post.title,
-      description,
-      images: [ogImage],
-    },
+    ogTitle: post.title,
+    ogDescription: clip(description),
+    image,
+    type: "article",
+    publishedTime: post.publishDate ?? post.createdAt,
+    modifiedTime: post.updatedAt,
+    authors: [post.author],
     keywords: post.seoKeywords,
-  };
+  });
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
@@ -87,7 +81,7 @@ export default async function BlogPostPage({ params }: PageProps) {
     description: post.excerpt,
     image: post.featuredImage
       ? `${SITE_ORIGIN}${post.featuredImage}`
-      : `${SITE_ORIGIN}${DEFAULT_OG_IMAGE}`,
+      : `${SITE_ORIGIN}${BLOG_OG_IMAGE.url}`,
     datePublished: dateIso,
     dateModified: post.updatedAt,
     author: {

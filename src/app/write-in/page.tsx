@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata, ogCard } from "@/lib/og";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 import { DistrictMap } from "@/components/DistrictMap";
@@ -14,11 +15,16 @@ import {
   Printer,
 } from "lucide-react";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/write-in",
   title: "How to Write In Clayton Cuteri | SC-01 Ballot Instructions",
   description:
     "How to write in a candidate in South Carolina. Step-by-step instructions for writing in Clayton Cuteri on your SC-01 ballot on November 3, 2026. Check voter registration, find your polling place, spell it: C-L-A-Y-T-O-N C-U-T-E-R-I.",
-};
+  ogTitle: "How to Write In Clayton Cuteri",
+  ogDescription:
+    "How a write-in vote works in South Carolina: check your registration, find your polling place, and spell the name C-U-T-E-R-I.",
+  image: ogCard("write-in", "A ballot with Clayton Cuteri handwritten on the U.S. House write-in line"),
+});
 
 const steps = [
   {
