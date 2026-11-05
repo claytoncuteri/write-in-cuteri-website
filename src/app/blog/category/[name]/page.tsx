@@ -9,6 +9,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { pageMetadata, BLOG_OG_IMAGE } from "@/lib/og";
 import { listPublishedPosts } from "@/lib/db";
 import { BLOG_CATEGORIES, isBlogCategory } from "@/lib/blog-categories";
 import { BlogCard } from "@/components/blog/BlogCard";
@@ -31,10 +32,14 @@ export async function generateMetadata({
   if (!isBlogCategory(name)) {
     return { title: "Category not found | Clayton Cuteri for Congress" };
   }
-  return {
+  return pageMetadata({
+    path: `/blog/category/${name}`,
     title: `${name} | The Campaign Blog | Clayton Cuteri for U.S. House, District 1 (SC)`,
     description: `${name}-category posts from Clayton Cuteri's campaign blog. U.S. House of Representatives, District 1, South Carolina.`,
-  };
+    ogTitle: `${name} | The Campaign Blog`,
+    ogDescription: `${name} posts from Clayton Cuteri's campaign blog: Lowcountry stories and platform updates for South Carolina District 1.`,
+    image: BLOG_OG_IMAGE,
+  });
 }
 
 const PAGE_SIZE = 12;

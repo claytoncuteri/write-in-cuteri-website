@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/og";
 import { Section } from "@/components/Section";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/privacy",
   title: "Privacy Policy",
   description: "Privacy policy for the Cuteri for Americans campaign website.",
-};
+  ogTitle: "Privacy Policy | Write In Cuteri",
+  ogDescription:
+    "What information writeincuteri.com collects, how the Cuteri for Americans campaign uses and shares it, and how you can control it.",
+});
 
 export default function PrivacyPage() {
   return (

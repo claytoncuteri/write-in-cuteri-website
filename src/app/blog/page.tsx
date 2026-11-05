@@ -4,28 +4,21 @@
 
 import Link from "next/link";
 import type { Metadata } from "next";
+import { pageMetadata, BLOG_OG_IMAGE } from "@/lib/og";
 import { listPublishedPosts } from "@/lib/db";
 import { BlogCard } from "@/components/blog/BlogCard";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/blog",
   title:
     "The Campaign Blog | Clayton Cuteri for U.S. House of Representatives, District 1 (SC)",
   description:
     "Lowcountry-focused commentary, national platform updates, and campaign news from Clayton Cuteri's write-in run for U.S. House of Representatives, District 1, South Carolina.",
-  openGraph: {
-    title: "The Campaign Blog | Clayton Cuteri for U.S. House, District 1 (SC)",
-    description:
-      "Write-in candidate Clayton Cuteri's blog: Lowcountry stories, platform deep-dives, and campaign news.",
-    type: "website",
-    url: "https://writeincuteri.com/blog",
-    images: ["/logo_a_star_divider/digital_og_image/navy.png"],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "The Campaign Blog | Clayton Cuteri for U.S. House, District 1 (SC)",
-    images: ["/logo_a_star_divider/digital_og_image/navy.png"],
-  },
-};
+  ogTitle: "The Campaign Blog | Clayton Cuteri, SC-01",
+  ogDescription:
+    "Lowcountry stories, platform deep dives and campaign news from Clayton Cuteri's write-in run for U.S. House, South Carolina District 1.",
+  image: BLOG_OG_IMAGE,
+});
 
 // Force dynamic so the build doesn't try to statically prerender the
 // page in environments without DATABASE_URL (Replit local builds,

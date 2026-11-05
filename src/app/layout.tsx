@@ -67,6 +67,9 @@ export const metadata: Metadata = {
     "third party Congress 2026",
     "U.S. House SC-01",
   ],
+  // Site-default share tags. Every public page overrides these through
+  // pageMetadata() in src/lib/og.ts with its own title, URL and card;
+  // these remain for admin and 404 pages.
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -76,7 +79,7 @@ export const metadata: Metadata = {
     title:
       "Clayton Cuteri | U.S. House of Representatives, District 1 (SC) | Write-In 2026",
     description:
-      "Write-in candidate for U.S. House of Representatives, District 1 (South Carolina). Third-party alternative for the Americans neither party speaks for. November 3, 2026.",
+      "Write-in candidate for U.S. House of Representatives, District 1 (South Carolina). Third-party alternative for the Americans neither party speaks for.",
     // Switched OG/share image from the headshot to the Write-In
     // Cuteri wordmark on navy. Reason: every iMessage, X, Facebook,
     // Slack, Discord, and LinkedIn share preview now reinforces the
@@ -88,6 +91,7 @@ export const metadata: Metadata = {
         url: "/logo_a_star_divider/digital_og_image/navy.png",
         width: 1200,
         height: 630,
+        type: "image/png",
         alt: "Write-In Cuteri: Clayton Cuteri for U.S. House of Representatives, District 1, South Carolina",
       },
     ],
@@ -97,7 +101,9 @@ export const metadata: Metadata = {
     title:
       "Clayton Cuteri | U.S. House of Representatives, District 1 (SC) | Write-In 2026",
     description:
-      "Third-party write-in candidate for U.S. House of Representatives, District 1 (South Carolina). American Congress Party. November 3, 2026.",
+      "Third-party write-in candidate for U.S. House of Representatives, District 1 (South Carolina). American Congress Party.",
+    site: "@ClaytonCuteri",
+    creator: "@ClaytonCuteri",
     images: ["/logo_a_star_divider/digital_og_image/navy.png"],
   },
   metadataBase: new URL("https://writeincuteri.com"),

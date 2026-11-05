@@ -15,12 +15,14 @@
 //   - PostHog event wiring (static landing only)
 
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/og";
 import Image from "next/image";
 import Link from "next/link";
 import { Section } from "@/components/Section";
 import { Smartphone, Share2, Radio, Mail, Globe } from "lucide-react";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/card",
   // Title intentionally pairs Clayton's name with the exact ballot
   // phrase voters will see on the Nov 3 ExpressVote screen, per the
   // mere-exposure / Zajonc rationale in the April 2026 plan.
@@ -28,7 +30,10 @@ export const metadata: Metadata = {
     "Clayton Cuteri | U.S. House of Representatives, District 1 (SC) | Campaign Card",
   description:
     "Clayton A. Cuteri, write-in candidate for U.S. House of Representatives, District 1 (South Carolina). Scan or tap to share the campaign.",
-};
+  ogTitle: "Clayton Cuteri Campaign Card",
+  ogDescription:
+    "Clayton A. Cuteri's campaign card for U.S. House, South Carolina District 1. Scan or tap to share the campaign with a friend.",
+});
 
 export default function CardPage() {
   return (

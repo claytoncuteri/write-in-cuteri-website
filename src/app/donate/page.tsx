@@ -1,15 +1,21 @@
 import type { Metadata } from "next";
+import { pageMetadata, ogCard } from "@/lib/og";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 import { ShieldCheck } from "lucide-react";
 import { DonateClient } from "./DonateClient";
 import { DONATIONS_LIVE } from "./flags";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/donate",
   title: "Donate | Clayton Cuteri for Congress SC-01",
   description:
     "Support Clayton Cuteri's write-in campaign for U.S. House SC-01. Secure donations processed by Anedot. Federal contribution limits apply.",
-};
+  ogTitle: "Donate to Clayton Cuteri for Congress",
+  ogDescription:
+    "Contribute to Clayton Cuteri's SC-01 campaign through Anedot's secure form. Federal contribution limits and donor rules are on the page.",
+  image: ogCard("donate", "Clayton Cuteri seated, with the headline Support the Campaign"),
+});
 
 export default function DonatePage() {
   return (

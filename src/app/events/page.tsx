@@ -1,14 +1,20 @@
 import type { Metadata } from "next";
+import { pageMetadata, ogCard } from "@/lib/og";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 import { Calendar, MapPin, Clock, Users } from "lucide-react";
 import { EventSignupForm } from "@/components/EventSignupForm";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/events",
   title: "Events | Town Halls, Rallies, and Community Meetings",
   description:
     "Upcoming campaign events for Clayton Cuteri in SC-01. Town halls, community meetings, and voter education events across Charleston, Berkeley, Dorchester, Beaufort, Colleton, and Jasper counties.",
-};
+  ogTitle: "Events: Meet Clayton in Person",
+  ogDescription:
+    "Town halls, community meetings and voter education events with Clayton Cuteri across South Carolina District 1, listed as they are scheduled.",
+  image: ogCard("events", "Clayton Cuteri speaking at a podium, with the headline Meet Clayton in Person"),
+});
 
 // Add events here as they are scheduled
 const upcomingEvents: {
