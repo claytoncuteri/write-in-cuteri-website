@@ -7,9 +7,9 @@ import { imageBlur } from "@/data/imageBlur";
 
 export const metadata: Metadata = pageMetadata({
   path: "/about",
-  title: "About Clayton Cuteri | SC-01 Write-In Candidate 2026",
+  title: "About Clayton Cuteri | American Congress Party",
   description:
-    "Who is Clayton Cuteri? Write-in candidate for U.S. House SC-01 in the 2026 election. Secretary General of the American Congress Party, third-party alternative for Charleston, Berkeley, Dorchester, Beaufort, Colleton, and Jasper county voters across the SC-01 Lowcountry.",
+    "Who is Clayton Cuteri? Secretary General of the American Congress Party and 2026 write-in candidate for U.S. House in South Carolina District 1 (SC-01), the Lowcountry.",
   ogTitle: "About Clayton Cuteri",
   ogDescription:
     "Who Clayton A. Cuteri is: his background, why he ran for U.S. House in SC-01, and his role as Secretary General of the American Congress Party.",
@@ -30,8 +30,8 @@ export default function AboutPage() {
               Clayton A. Cuteri
             </h1>
             <p className="mt-5 text-white/80 text-lg leading-relaxed">
-              Write-In Candidate for U.S. House of Representatives, District 1
-              (South Carolina). Secretary General, American Congress Party.
+              Secretary General, American Congress Party. 2026 candidate for
+              U.S. House of Representatives, District 1 (South Carolina).
             </p>
           </div>
         </div>
@@ -77,8 +77,8 @@ export default function AboutPage() {
               asked for permission. Clayton realized that avoiding politics was
               not virtue. It was surrender, handing power to people willing to
               poison the food supply, send other people&apos;s children to war,
-              and let insurance companies abandon entire coastlines. He is
-              running because the Americans who feel abandoned by both parties
+              and let insurance companies abandon entire coastlines. He ran
+              because the Americans who feel abandoned by both parties
               deserve a representative who actually lives their problems, not one
               who fundraises off them.
             </p>
@@ -123,19 +123,19 @@ export default function AboutPage() {
               Consciousness,&quot; which grew into a media platform reaching 30
               to 100 million views per month across Instagram, YouTube, and
               Facebook, with more than 729,000 followers combined. That
-              audience is now the foundation of this campaign.
+              audience was the foundation of his 2026 campaign.
             </p>
             <p className="text-charcoal/80 text-lg leading-relaxed">
               Clayton&apos;s engineering career has also included
               government-contracting work with the U.S. Navy on military
               drones and on communications, software, and networking systems.
               That work is one of the reasons District 1&apos;s military economy
-              (Joint Base Charleston, MCAS Beaufort, and Parris Island) is a
-              priority for this campaign.
+              (Joint Base Charleston, MCAS Beaufort, and Parris Island) was a
+              priority in his 2026 campaign.
             </p>
             <p className="text-charcoal/80 text-lg leading-relaxed">
-              He is running without corporate PAC money and without needing
-              this job to support his family.
+              He ran without corporate PAC money and without needing the job
+              to support his family.
             </p>
           </div>
           <div className="lg:col-span-2 flex flex-col items-center">
@@ -164,7 +164,7 @@ export default function AboutPage() {
           <p className="text-charcoal/80 text-lg leading-relaxed">
             After years of moving across the country, the Lowcountry was the
             place that felt like home. Clayton lives in Mount Pleasant, but
-            this campaign is for the whole district: from Hilton Head,
+            his 2026 campaign was for the whole district: from Hilton Head,
             Bluffton, and Beaufort through Walterboro and Ridgeland, up
             through Summerville, Goose Creek, and Moncks Corner, and across
             Charleston, Mount Pleasant, and North Charleston. The marshes,
@@ -196,9 +196,9 @@ export default function AboutPage() {
             </p>
             <p className="text-charcoal/80 text-lg leading-relaxed">
               The ACP is a real party with a real platform, built for the
-              Americans who deserve representation. South Carolina is one of the
-              first states where ACP candidates are running for federal office,
-              and the party is growing every day.
+              Americans who deserve representation. In 2026 South Carolina was one
+              of the first states where an ACP candidate ran for federal
+              office, and the party is growing every day.
             </p>
             <div className="mt-4">
               <CTAButton
@@ -263,7 +263,7 @@ export default function AboutPage() {
           <p className="text-charcoal/80 text-lg leading-relaxed">
             Clayton is a published author and is currently writing his political
             manifesto, which outlines the 13-policy platform at the center of
-            this campaign. The platform covers everything from free food and
+            his 2026 campaign. The platform covers everything from free food and
             medication to ending the Federal Reserve, eliminating the federal
             income tax, and redirecting war spending toward American communities.
           </p>
@@ -283,22 +283,22 @@ export default function AboutPage() {
       <Section bgColor="navy">
         <div className="max-w-3xl">
           <h2 className="text-3xl sm:text-4xl font-bold text-white font-serif">
-            Ready to Support Clayton?
+            This Is Just the Beginning
           </h2>
           <p className="mt-4 text-white/80 text-lg leading-relaxed mb-8">
-            Whether you volunteer, donate, or simply write his name on the
-            ballot, every action builds the movement.
+            The 2026 race is over. The movement is not. Stay in touch to hear
+            what comes next.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <CTAButton variant="primary" href="/write-in">
-              How to Write Me In
+            <CTAButton variant="primary" href="/#stay-in-touch">
+              Stay in Touch
             </CTAButton>
             <CTAButton
               variant="secondary"
-              href="/get-involved"
+              href="https://americancongressparty.com"
               className="!border-white !text-white hover:!bg-white hover:!text-navy"
             >
-              Get Involved
+              Join the American Congress Party
             </CTAButton>
           </div>
         </div>

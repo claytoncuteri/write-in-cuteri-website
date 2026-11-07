@@ -43,6 +43,20 @@ const nextConfig: NextConfig = {
   // a static-asset move.
   async redirects() {
     return [
+      // Post-election (Nov 3, 2026): the write-in instructions page is
+      // retired. Old links land on the home page, which shows a short
+      // notice explaining why (src/components/RedirectNotice.tsx).
+      // Temporary (307) so the URL can be reused in a future race.
+      {
+        source: "/write-in",
+        destination: "/?from=write-in",
+        permanent: false,
+      },
+      {
+        source: "/write-in/",
+        destination: "/?from=write-in",
+        permanent: false,
+      },
       {
         source: "/images/cuteri-wallet-card.pdf",
         destination: "/downloads/cuteri-wallet-card.pdf",

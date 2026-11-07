@@ -100,7 +100,7 @@ export function HomeHeroSignup() {
       aria-label="Quick email signup"
     >
       <p className="text-white text-sm font-semibold mb-3">
-        Get campaign updates by email:
+        Stay in touch. Get updates by email:
       </p>
       <div className="grid gap-2 sm:grid-cols-2">
         <input
@@ -156,7 +156,7 @@ export function HomeHeroSignup() {
           />
           <span>
             Text me about events, fundraisers, volunteer shifts,
-            ballot-day reminders, campaign updates, or anything else
+            campaign updates, or anything else
             related to the Cuteri for Americans campaign. Texting
             launches in the next month or two once carrier approval
             clears. We&rsquo;ll send a welcome text then. Message

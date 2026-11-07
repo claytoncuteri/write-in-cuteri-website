@@ -550,7 +550,7 @@ export function DonateClient() {
                     />
                     <span>
                       Text me about events, fundraisers, volunteer
-                      shifts, ballot-day reminders, campaign updates,
+                      shifts, campaign updates,
                       or anything else related to the Cuteri for
                       Americans campaign. Texting launches in the next
                       month or two once carrier approval clears.

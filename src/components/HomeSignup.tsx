@@ -86,15 +86,15 @@ export function HomeSignup() {
 
   return (
     <Section bgColor="cream">
-      <div className="max-w-xl mx-auto">
+      <div id="stay-in-touch" className="max-w-xl mx-auto scroll-mt-24">
         <div className="text-center mb-6">
           <Mail size={28} className="text-navy mx-auto mb-3" />
           <h2 className="text-2xl sm:text-3xl font-bold text-charcoal font-serif">
-            Get campaign updates from Clayton
+            Stay in touch with Clayton
           </h2>
           <p className="mt-3 text-charcoal/70">
-            Event invites, fundraiser notices, volunteer opportunities,
-            and a ballot-day reminder when it counts. Unsubscribe anytime.
+            Thank-you notes, event invites, and news on what comes next.
+            Unsubscribe anytime.
           </p>
         </div>
 
@@ -186,7 +186,7 @@ export function HomeSignup() {
                 className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-charcoal focus:outline-none focus:ring-2 focus:ring-navy focus:border-navy"
               />
               <p className="mt-1 text-[11px] text-charcoal/60 leading-snug">
-                Add your number for a text reminder on ballot day.
+                Add your number if you want texts too.
               </p>
             </div>
 
@@ -207,7 +207,7 @@ export function HomeSignup() {
                   className="text-xs text-charcoal/80 leading-relaxed"
                 >
                   Text me about events, fundraisers, volunteer shifts,
-                  ballot-day reminders, campaign updates, or anything
+                  campaign updates, or anything
                   else related to the Cuteri for Americans campaign.
                   Texting is launching in the next month
                   or two once carrier approval clears. You&rsquo;ll

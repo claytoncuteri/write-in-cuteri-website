@@ -22,7 +22,7 @@ import { Share2, ClipboardCopy, Check } from "lucide-react";
 // specific post URL + title.
 const DEFAULT_SHARE_URL = "https://writeincuteri.com";
 const DEFAULT_SHARE_TEXT =
-  "I'm writing in Clayton Cuteri for U.S. House of Representatives, District 1 (SC).";
+  "Clayton Cuteri ran for U.S. House in SC District 1 on about $1 a vote. This is just the beginning.";
 
 interface CampaignShareProps {
   shareUrl?: string;
@@ -122,8 +122,7 @@ export function CampaignShare({
   return (
     <div className="max-w-xl mx-auto text-center">
       <p className="text-charcoal/70 text-lg mb-6">
-        The biggest challenge for any write-in candidate is name recognition.
-        Every share helps.
+        The race is over, but the movement grows one share at a time.
       </p>
 
       {/* Row 1: dedicated platform buttons. Wrapped layout so the four

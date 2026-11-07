@@ -11,20 +11,19 @@ export const mainNavItems: NavItem[] = [
   // problem -> solution -> proof (recent posts) -> candidate -> action.
   { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
-  { label: "Get Involved", href: "/get-involved" },
+  { label: "Stay Involved", href: "/get-involved" },
 ];
 
 export const footerNavItems: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "District 1 Problems", href: "/problems" },
   { label: "Priorities", href: "/policies" },
-  { label: "How to Write Me In", href: "/write-in" },
   { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
-  { label: "Get Involved", href: "/get-involved" },
+  { label: "Stay Involved", href: "/get-involved" },
   { label: "Events", href: "/events" },
   { label: "Endorsements", href: "/endorsements" },
-  { label: "Donate", href: "/donate" },
+  { label: "Thank You, Donors", href: "/donate" },
   { label: "Media", href: "/press" },
   { label: "Privacy Policy", href: "/privacy" },
   { label: "Accessibility", href: "/accessibility" },

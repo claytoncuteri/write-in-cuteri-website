@@ -13,8 +13,7 @@
 import type { Metadata } from "next";
 
 export const SITE_URL = "https://writeincuteri.com";
-export const SITE_NAME =
-  "Clayton Cuteri for U.S. House of Representatives, District 1 (SC)";
+export const SITE_NAME = "Clayton Cuteri, American Congress Party (SC-01)";
 export const X_HANDLE = "@ClaytonCuteri";
 
 export type OgImage = {
@@ -25,14 +24,15 @@ export type OgImage = {
   type?: string;
 };
 
-// The Write-In Cuteri wordmark on navy, from the logo pack. Used by
-// pages without their own card (legal pages, /card, admin, 404).
+// Post-election default card (public/og/default.png). Used by pages
+// without their own card (legal pages, /card, admin, 404). Replaced the
+// "Write In Cuteri" logo-pack image after the Nov 3, 2026 election.
 export const DEFAULT_OG_IMAGE: OgImage = {
-  url: "/logo_a_star_divider/digital_og_image/navy.png",
+  url: "/og/default.png",
   width: 1200,
   height: 630,
   type: "image/png",
-  alt: "Write In Cuteri: Clayton Cuteri for U.S. House of Representatives, District 1, South Carolina",
+  alt: "Thank you, Lowcountry. Clayton Cuteri, American Congress Party, South Carolina District 1",
 };
 
 /** A card from public/og/<slug>.png (all 1200x630 PNG). */

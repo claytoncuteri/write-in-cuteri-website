@@ -3,11 +3,9 @@ import { pageMetadata, ogCard } from "@/lib/og";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 import { ExpandableCard } from "@/components/ExpandableCard";
-import { PdfDownloadButton } from "@/components/PdfDownloadButton";
 import { IssueMatcher } from "@/components/IssueMatcher";
 import { policies, partLabels } from "@/data/policies";
 import Link from "next/link";
-import { Printer } from "lucide-react";
 
 export const metadata: Metadata = pageMetadata({
   path: "/policies",
@@ -38,21 +36,21 @@ function groupByPart(items: typeof policies) {
 const partCTAs: Record<number, { variant: "primary" | "secondary"; href: string; label: string; message: string } | null> = {
   1: {
     variant: "primary",
-    href: "/write-in",
-    label: "Learn How to Write In Clayton",
-    message: "Like what you see? On November 3, you can write in Clayton Cuteri for District 1. Make sure you know how before Election Day.",
+    href: "/#stay-in-touch",
+    label: "Stay in Touch",
+    message: "Like what you see? The 2026 race is over, but this platform is not going anywhere. Stay in touch for what comes next.",
   },
   2: {
     variant: "primary",
-    href: "/donate",
-    label: "Donate to the Campaign",
-    message: "Tired of your money going to wars and waste? Fund the alternative.",
+    href: "https://americancongressparty.com",
+    label: "Join the American Congress Party",
+    message: "Tired of your money going to wars and waste? Join the alternative.",
   },
   3: {
     variant: "secondary",
     href: "/get-involved",
-    label: "Get Involved",
-    message: "These priorities start with your community. Join us.",
+    label: "Stay Involved",
+    message: "These priorities start with your community. Stay with us.",
   },
   4: null,
   5: null,
@@ -339,39 +337,19 @@ export default function PoliciesPage() {
         <IssueMatcher sourcePage="/policies" />
       </Section>
 
-      {/* Wallet card */}
-      <Section>
-        <div className="max-w-xl mx-auto text-center">
-          <Printer size={32} className="text-navy mx-auto mb-3" />
-          <h2 className="text-2xl font-bold text-charcoal font-serif">
-            Take These Priorities With You
-          </h2>
-          <p className="mt-2 text-charcoal/70">
-            Print a wallet card with Clayton&apos;s name so you are ready at the
-            polls on November 3.
-          </p>
-          <div className="mt-5">
-            <PdfDownloadButton href="/downloads/cuteri-wallet-card.pdf">
-              Download Wallet Card (PDF)
-            </PdfDownloadButton>
-          </div>
-        </div>
-      </Section>
-
       {/* Final CTA */}
       <Section bgColor="navy">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-white font-serif">
-            Remember Clayton Cuteri on November 3
+            This Is Just the Beginning
           </h2>
           <p className="mt-4 text-white/80 text-lg leading-relaxed mb-8">
-            Writing in a candidate is simple, but you need to know the steps
-            before you walk into the booth. Learn how now so you are ready on
-            Election Day.
+            The 2026 race is over. These priorities are not. Stay in touch to
+            hear what comes next.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <CTAButton variant="primary" href="/write-in">
-              Learn How to Write Me In
+            <CTAButton variant="primary" href="/#stay-in-touch">
+              Stay in Touch
             </CTAButton>
             <CTAButton
               variant="secondary"

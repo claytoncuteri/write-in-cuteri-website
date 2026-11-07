@@ -2,119 +2,75 @@ import type { Metadata } from "next";
 import { pageMetadata, ogCard } from "@/lib/og";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
-import { ShieldCheck } from "lucide-react";
-import { DonateClient } from "./DonateClient";
-import { DONATIONS_LIVE } from "./flags";
 
+// Post-election (after Nov 3, 2026): the Anedot donation form is off.
+//
+// FEC rule: after the election, a candidate committee may accept
+// contributions for that election only to pay off net debts from it
+// (11 CFR 110.1(b)(3)). Gifts for a later election need a real candidacy
+// in that election, with an amended Statement of Candidacy (Form 2)
+// filed within 15 days of qualifying. Until Clayton decides on that, the
+// page thanks donors and asks for nothing.
+//
+// DonateClient.tsx and flags.ts are kept unchanged so the form can come
+// back by restoring the previous version of this file.
 export const metadata: Metadata = pageMetadata({
   path: "/donate",
-  title: "Donate | Clayton Cuteri for Congress SC-01",
+  title: "Thank You to Our Donors | Clayton Cuteri",
   description:
-    "Support Clayton Cuteri's write-in campaign for U.S. House SC-01. Secure donations processed by Anedot. Federal contribution limits apply.",
-  ogTitle: "Donate to Clayton Cuteri for Congress",
+    "The 2026 SC-01 race is over and Cuteri for Americans is not accepting contributions right now. Thank you to every donor. Stay in touch and join the American Congress Party.",
+  ogTitle: "Thank You to Our Donors",
   ogDescription:
-    "Contribute to Clayton Cuteri's SC-01 campaign through Anedot's secure form. Federal contribution limits and donor rules are on the page.",
-  image: ogCard("donate", "Clayton Cuteri seated, with the headline Support the Campaign"),
+    "The 2026 SC-01 race is over. Thank you to every donor who made Clayton Cuteri's campaign possible.",
+  image: ogCard("donate", "Clayton Cuteri seated, with the headline Thank You to Our Donors"),
 });
 
 export default function DonatePage() {
   return (
     <>
-      {/* Hero */}
       <section className="bg-navy py-14 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <p className="text-gold font-semibold text-sm uppercase tracking-wider mb-3">
-              Donate
+              Donors
             </p>
             <h1 className="text-4xl sm:text-5xl font-bold text-white font-serif leading-tight">
-              Support the Campaign
+              Thank You to Our Donors
             </h1>
             <p className="mt-5 text-white/80 text-lg leading-relaxed">
-              Every dollar funds voter education, not TV attack ads. This
-              campaign runs on people and principles.
+              The 2026 race for U.S. House, South Carolina District 1 is over.
+              Your support made it possible. Thank you.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Interactive donation UI (preview toggle, presets, Anedot links, email signup) */}
-      <DonateClient />
-
-      {/* Contribution info (always shown) */}
-      <Section bgColor="cream" title="Contribution Guidelines">
-        <div className="max-w-3xl space-y-6">
-          <div className="grid sm:grid-cols-2 gap-6">
-            <div className="bg-white rounded-lg p-6 border border-gray-200">
-              <h3 className="font-bold text-charcoal font-serif text-lg">
-                Individual Limit
-              </h3>
-              <p className="text-3xl font-bold text-navy mt-2 font-serif">
-                $3,500
-              </p>
-              <p className="text-sm text-charcoal/70 mt-1">
-                Per individual, per election. Clayton&rsquo;s write-in
-                campaign runs in the November 3, 2026 general election
-                only.
-              </p>
-            </div>
-            <div className="bg-white rounded-lg p-6 border border-gray-200">
-              <ShieldCheck size={24} className="text-navy mb-2" />
-              <h3 className="font-bold text-charcoal font-serif text-lg">
-                Donor Requirements
-              </h3>
-              <ul className="mt-2 text-sm text-charcoal/70 space-y-1">
-                <li>U.S. citizen or permanent resident</li>
-                <li>Using your own funds</li>
-                <li>Not a federal contractor</li>
-                <li>At least 18 years old</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg p-6 border border-gray-200">
-            <h3 className="font-bold text-charcoal font-serif text-lg mb-3">
-              Prohibited Contributions
-            </h3>
-            <p className="text-sm text-charcoal/70 leading-relaxed">
-              Federal law prohibits contributions from corporations, labor
-              unions, federal contractors, and foreign nationals. All
-              contributions must be made from personal funds. PAC contributions
-              are accepted within legal limits.
-            </p>
+      <Section bgColor="cream">
+        <div className="max-w-3xl">
+          <h2 className="text-2xl sm:text-3xl font-bold text-charcoal font-serif">
+            We are not accepting contributions right now
+          </h2>
+          <p className="mt-4 text-charcoal/80 text-lg leading-relaxed">
+            The campaign is closed to new gifts while we finish our final
+            reports with the Federal Election Commission. The best way to help
+            today is to stay in touch and join the American Congress Party.
+          </p>
+          <div className="mt-8 flex flex-col sm:flex-row gap-4">
+            <CTAButton variant="primary" href="/#stay-in-touch">
+              Stay in Touch
+            </CTAButton>
+            <CTAButton variant="secondary" href="https://americancongressparty.com">
+              Join the American Congress Party
+            </CTAButton>
           </div>
         </div>
       </Section>
 
-      {/* FEC Disclaimer */}
       <Section>
         <div className="max-w-3xl mx-auto">
-          <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
-            <h3 className="font-bold text-charcoal text-sm uppercase tracking-wider mb-3">
-              FEC Disclaimer
-            </h3>
-            <p className="text-sm text-charcoal/70 leading-relaxed">
-              Contributions to Cuteri for Americans are not tax deductible.
-              Federal law requires us to use our best efforts to collect and
-              report the name, mailing address, occupation, and employer of
-              individuals whose contributions exceed $200 in an election
-              cycle. Federal Election Commission limits apply: individuals may
-              contribute up to $3,500 per election. Paid for by Cuteri for
-              Americans (FEC ID C00947259).
-            </p>
-          </div>
-
-          {/* Ready-to-give CTA. Anchor-link back up so users who finish
-              reading the disclaimer (highest-intent readers since they
-              checked requirements) don't have to scroll hunt for the
-              donate button. The `#donate-now` id lives on whichever
-              section DonateClient is currently rendering (live or
-              coming-soon), so this works with DONATIONS_LIVE on or off. */}
-          <div className="mt-8 text-center">
-            <CTAButton variant="primary" href="#donate-now">
-              {DONATIONS_LIVE ? "Donate Now" : "Get Notified When Donations Open"}
-            </CTAButton>
-          </div>
+          <p className="text-sm text-charcoal/70 leading-relaxed text-center">
+            Paid for by Cuteri for Americans (FEC ID C00947259).
+          </p>
         </div>
       </Section>
     </>

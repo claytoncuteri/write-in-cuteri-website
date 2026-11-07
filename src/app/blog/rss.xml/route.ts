@@ -65,7 +65,7 @@ export async function GET() {
     <title>Clayton Cuteri for Congress -- Campaign Blog</title>
     <link>${SITE}/blog</link>
     <atom:link href="${SITE}/blog/rss.xml" rel="self" type="application/rss+xml" />
-    <description>Lowcountry stories, national platform updates, and campaign news from Clayton Cuteri's write-in run for U.S. House of Representatives, District 1, South Carolina.</description>
+    <description>Lowcountry stories, national platform updates, and campaign news from Clayton Cuteri and the American Congress Party, South Carolina District 1.</description>
     <language>en-us</language>
     <lastBuildDate>${buildDate}</lastBuildDate>
     <copyright>Paid for by Cuteri for Americans (FEC ID C00947259)</copyright>${items}

@@ -4,7 +4,6 @@
 // but having a post-scoped one too means if someone screenshots the
 // post body alone the legal text travels with it.
 
-import Link from "next/link";
 import { Heart } from "lucide-react";
 import type { BlogPost } from "@/lib/db";
 import { CampaignShare } from "@/components/CampaignShare";
@@ -47,7 +46,7 @@ export function BlogPostFooter({ post, related }: Props) {
           </section>
         )}
 
-        {/* Newsletter + donate row */}
+        {/* Newsletter + ACP row */}
         <div className="mt-10 grid md:grid-cols-2 gap-5">
           <div className="bg-white rounded-lg border border-gray-200 p-6">
             <h3 className="text-lg font-bold text-charcoal font-serif mb-3">
@@ -58,19 +57,20 @@ export function BlogPostFooter({ post, related }: Props) {
           <div className="bg-navy rounded-lg p-6 flex flex-col">
             <h3 className="text-lg font-bold text-white font-serif mb-2 inline-flex items-center gap-2">
               <Heart size={18} className="text-red-accent" />
-              Support the campaign
+              What comes next
             </h3>
             <p className="text-sm text-white/80 mb-4 flex-1">
-              This campaign runs on small-dollar donors, not corporate
-              PACs. Every contribution funds voter education and
-              outreach across SC-01.
+              The 2026 race is over. The movement is not. Join the
+              American Congress Party to stay part of it.
             </p>
-            <Link
-              href="/donate"
+            <a
+              href="https://americancongressparty.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center px-4 py-2.5 rounded-lg bg-red-accent text-white font-semibold hover:bg-red-accent-dark transition-colors text-sm self-start"
             >
-              Donate
-            </Link>
+              Join the ACP
+            </a>
           </div>
         </div>
 

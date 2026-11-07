@@ -23,16 +23,12 @@ import { Smartphone, Share2, Radio, Mail, Globe } from "lucide-react";
 
 export const metadata: Metadata = pageMetadata({
   path: "/card",
-  // Title intentionally pairs Clayton's name with the exact ballot
-  // phrase voters will see on the Nov 3 ExpressVote screen, per the
-  // mere-exposure / Zajonc rationale in the April 2026 plan.
-  title:
-    "Clayton Cuteri | U.S. House of Representatives, District 1 (SC) | Campaign Card",
+  title: "Clayton Cuteri | American Congress Party | Card",
   description:
-    "Clayton A. Cuteri, write-in candidate for U.S. House of Representatives, District 1 (South Carolina). Scan or tap to share the campaign.",
+    "Clayton A. Cuteri, Secretary General of the American Congress Party and 2026 candidate for U.S. House, South Carolina District 1. Scan or tap to share.",
   ogTitle: "Clayton Cuteri Campaign Card",
   ogDescription:
-    "Clayton A. Cuteri's campaign card for U.S. House, South Carolina District 1. Scan or tap to share the campaign with a friend.",
+    "Clayton A. Cuteri, American Congress Party. Scan or tap to share with a friend.",
 });
 
 export default function CardPage() {
@@ -47,16 +43,16 @@ export default function CardPage() {
           {/* red-accent, not gold: this page renders on the cream
               background where gold has no contrast. */}
           <p className="text-red-accent font-semibold text-sm uppercase tracking-wider mb-3">
-            Write-In  ·  November 3, 2026
+            American Congress Party
           </p>
           <h1 className="text-4xl sm:text-5xl font-bold text-charcoal font-serif leading-tight">
             Clayton A. Cuteri
           </h1>
           <p className="mt-3 text-lg sm:text-xl text-charcoal/80 font-medium">
-            Candidate, U.S. House of Representatives
+            Secretary General
           </p>
           <p className="text-lg sm:text-xl text-charcoal/80 font-medium">
-            South Carolina, District 1
+            2026 candidate, U.S. House, SC District 1
           </p>
 
           <div className="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-center gap-3 sm:gap-6 text-sm">
