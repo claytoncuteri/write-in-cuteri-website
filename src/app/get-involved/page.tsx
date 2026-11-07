@@ -266,7 +266,8 @@ export default function GetInvolvedPage() {
       {/* Post-election (Nov 2026): the "Materials for Volunteers"
           section was removed. Its wallet card, write-in wordmark and
           volunteer-kit ZIP all taught people how to write Clayton in.
-          The one-pager is still linked from the home page. */}
+          Those files are hidden in archive/write-in-2026/. The
+          one-pager is still linked from the home page. */}
       {/* Issue-matcher for visitors who are interested but not yet ready to
           commit to the volunteer form. Placed AFTER the volunteer form and
           materials so high-intent visitors hit the form first; the quiz is

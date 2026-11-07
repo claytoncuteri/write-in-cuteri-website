@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { pageMetadata, ogCard } from "@/lib/og";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
+import { ShieldCheck } from "lucide-react";
+import { DonateClient } from "./DonateClient";
+import { POST_ELECTION_DONATIONS_OPEN } from "./flags";
 
 // Post-election (after Nov 3, 2026): the Anedot donation form is off.
 //
@@ -12,8 +15,9 @@ import { CTAButton } from "@/components/CTAButton";
 // filed within 15 days of qualifying. Until Clayton decides on that, the
 // page thanks donors and asks for nothing.
 //
-// DonateClient.tsx and flags.ts are kept unchanged so the form can come
-// back by restoring the previous version of this file.
+// POST_ELECTION_DONATIONS_OPEN in flags.ts switches to a draft "next
+// campaign" version with the Anedot form back on. It ships false and
+// needs a campaign-finance lawyer's OK before it is turned on.
 export const metadata: Metadata = pageMetadata({
   path: "/donate",
   title: "Thank You to Our Donors | Clayton Cuteri",
@@ -45,6 +49,22 @@ export default function DonatePage() {
         </div>
       </section>
 
+      {POST_ELECTION_DONATIONS_OPEN ? <NextCampaignGiving /> : <ClosedNotice />}
+
+      <Section>
+        <div className="max-w-3xl mx-auto">
+          <p className="text-sm text-charcoal/70 leading-relaxed text-center">
+            Paid for by Cuteri for Americans (FEC ID C00947259).
+          </p>
+        </div>
+      </Section>
+    </>
+  );
+}
+
+// Shipping version: thanks donors, asks for nothing.
+function ClosedNotice() {
+  return (
       <Section bgColor="cream">
         <div className="max-w-3xl">
           <h2 className="text-2xl sm:text-3xl font-bold text-charcoal font-serif">
@@ -65,11 +85,67 @@ export default function DonatePage() {
           </div>
         </div>
       </Section>
+  );
+}
 
-      <Section>
-        <div className="max-w-3xl mx-auto">
-          <p className="text-sm text-charcoal/70 leading-relaxed text-center">
-            Paid for by Cuteri for Americans (FEC ID C00947259).
+// DRAFT, not approved: the page with donations back on, worded for a
+// future campaign without naming an office or a year. Turned on only
+// by POST_ELECTION_DONATIONS_OPEN (see flags.ts for what a lawyer
+// should confirm first).
+function NextCampaignGiving() {
+  return (
+    <>
+      <Section bgColor="cream">
+        <div className="max-w-3xl">
+          <h2 className="text-2xl sm:text-3xl font-bold text-charcoal font-serif">
+            Help build what comes next
+          </h2>
+          <p className="mt-4 text-charcoal/80 text-lg leading-relaxed">
+            The 2026 race is over, but Clayton is not done. He plans to run
+            again. Gifts made here go to Cuteri for Americans for his next
+            federal campaign.
+          </p>
+        </div>
+      </Section>
+
+      <DonateClient
+        blurb="Your gift helps Clayton start his next campaign early, with no big donors behind him."
+        shareTitle="Support Clayton Cuteri's next campaign"
+      />
+
+      <Section bgColor="cream" title="Contribution Guidelines">
+        <div className="max-w-3xl space-y-6">
+          <div className="grid sm:grid-cols-2 gap-6">
+            <div className="bg-white rounded-lg p-6 border border-gray-200">
+              <h3 className="font-bold text-charcoal font-serif text-lg">
+                Individual Limit
+              </h3>
+              <p className="mt-2 text-sm text-charcoal/70 leading-relaxed">
+                Federal law limits how much one person can give per
+                election. We will post the limit for Clayton&rsquo;s next
+                election here.
+              </p>
+            </div>
+            <div className="bg-white rounded-lg p-6 border border-gray-200">
+              <ShieldCheck size={24} className="text-navy mb-2" />
+              <h3 className="font-bold text-charcoal font-serif text-lg">
+                Donor Requirements
+              </h3>
+              <ul className="mt-2 text-sm text-charcoal/70 space-y-1">
+                <li>U.S. citizen or permanent resident</li>
+                <li>Using your own funds</li>
+                <li>Not a federal contractor</li>
+                <li>At least 18 years old</li>
+              </ul>
+            </div>
+          </div>
+          <p className="text-sm text-charcoal/70 leading-relaxed">
+            Contributions to Cuteri for Americans are not tax deductible.
+            Federal law requires us to use our best efforts to collect and
+            report the name, mailing address, occupation, and employer of
+            people who give more than $200 in an election cycle.
+            Corporations, labor unions, federal contractors and foreign
+            nationals may not give.
           </p>
         </div>
       </Section>
