@@ -7,7 +7,7 @@ export const metadata: Metadata = pageMetadata({
   title: "Accessibility",
   description:
     "Accessibility commitment and features for the Cuteri for Americans campaign website.",
-  ogTitle: "Accessibility | Write In Cuteri",
+  ogTitle: "Accessibility | Clayton Cuteri",
   ogDescription:
     "The Cuteri for Americans campaign's accessibility commitment, the features built into writeincuteri.com, and how to send feedback.",
 });

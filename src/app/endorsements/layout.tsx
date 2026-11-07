@@ -5,12 +5,12 @@ import { pageMetadata, ogCard } from "@/lib/og";
 // metadata lives here, the same pattern as /get-involved and /press.
 export const metadata: Metadata = pageMetadata({
   path: "/endorsements",
-  title: "Endorsements | Who Stands With Clayton",
+  title: "Endorsements | Who Stood With Clayton",
   description:
-    "Endorse Clayton Cuteri for U.S. House in South Carolina District 1. Community leaders, local voices, and everyday Americans can add their name with a short form.",
-  ogTitle: "Endorse Clayton Cuteri for U.S. House, SC-01",
+    "Thank you to everyone who stood with Clayton Cuteri in the 2026 SC-01 race. Want to add your name for what comes next? Use the short form.",
+  ogTitle: "Who Stood With Clayton Cuteri",
   ogDescription:
-    "Add your endorsement of Clayton Cuteri for U.S. House in South Carolina District 1 with a short form: your name, organization and why.",
+    "Thank you to everyone who stood with Clayton in 2026. Add your name for what comes next with a short form.",
   image: ogCard("endorsements", "Clayton Cuteri seated, with the headline Who Stands With Clayton"),
 });
 

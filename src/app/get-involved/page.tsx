@@ -3,10 +3,8 @@
 import { useState, type FormEvent } from "react";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
-import { Users, Share2, Mail, FileText, Printer, Image as ImageIcon, Package, Download } from "lucide-react";
-import { PdfDownloadButton } from "@/components/PdfDownloadButton";
+import { Users, Share2, Mail } from "lucide-react";
 import { IssueMatcher } from "@/components/IssueMatcher";
-import { KitContactForm } from "@/components/KitContactForm";
 import { CampaignShare } from "@/components/CampaignShare";
 import { track, identifyByEmail } from "@/lib/analytics";
 
@@ -68,14 +66,16 @@ export default function GetInvolvedPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <p className="text-gold font-semibold text-sm uppercase tracking-wider mb-3">
-              Get Involved
+              Stay Involved
             </p>
             <h1 className="text-4xl sm:text-5xl font-bold text-white font-serif leading-tight">
-              Join the Movement
+              Thank You for Showing Up
             </h1>
             <p className="mt-5 text-white/80 text-lg leading-relaxed">
-              This campaign runs on people, not PAC money. Every volunteer,
-              every shared post, every conversation at the grocery store matters.
+              The 2026 race is over. This campaign ran on people, not PAC
+              money: every volunteer, every shared post, every conversation at
+              the grocery store. Thank you. This is just the beginning, so
+              stay close for what comes next.
             </p>
           </div>
         </div>
@@ -87,11 +87,11 @@ export default function GetInvolvedPage() {
           <div className="bg-cream rounded-lg p-6 text-center">
             <Users size={32} className="text-navy mx-auto mb-3" />
             <h3 className="text-lg font-bold text-charcoal font-serif">
-              Volunteer
+              Raise Your Hand
             </h3>
             <p className="mt-2 text-charcoal/70 text-sm">
-              Help at events, knock doors, make calls, or distribute materials
-              across District 1.
+              Sign up below and tell us how you want to help when the next
+              chapter starts.
             </p>
           </div>
           <div className="bg-cream rounded-lg p-6 text-center">
@@ -100,8 +100,8 @@ export default function GetInvolvedPage() {
               Spread the Word
             </h3>
             <p className="mt-2 text-charcoal/70 text-sm">
-              Share this website. Talk to your neighbors. The biggest barrier for
-              a write-in is name recognition.
+              Share the story. Talk to your neighbors. The movement grows one
+              conversation at a time.
             </p>
           </div>
           <div className="bg-cream rounded-lg p-6 text-center">
@@ -110,8 +110,7 @@ export default function GetInvolvedPage() {
               Stay Updated
             </h3>
             <p className="mt-2 text-charcoal/70 text-sm">
-              Join the email list to get campaign updates, event invitations, and
-              voter education materials.
+              Join the email list to hear what comes next, first.
             </p>
           </div>
         </div>
@@ -119,7 +118,7 @@ export default function GetInvolvedPage() {
         {/* Volunteer Form */}
         <div className="max-w-xl mx-auto">
           <h2 className="text-2xl sm:text-3xl font-bold text-charcoal font-serif mb-6">
-            Sign Up to Volunteer
+            Stay in the Loop
           </h2>
 
           {submitted ? (
@@ -228,7 +227,7 @@ export default function GetInvolvedPage() {
                   className="text-xs text-charcoal/80 leading-relaxed"
                 >
                   Text me about events, fundraisers, volunteer shifts,
-                  ballot-day reminders, campaign updates, or anything
+                  campaign updates, or anything
                   else related to the Cuteri for Americans campaign.
                   Texting launches in the next month or two once
                   carrier approval clears. We&rsquo;ll send a welcome
@@ -254,7 +253,7 @@ export default function GetInvolvedPage() {
                 />
               </div>
               <CTAButton variant="primary" type="submit" className="w-full">
-                {submitting ? "Sending..." : "Sign Up to Volunteer"}
+                {submitting ? "Sending..." : "Count Me In"}
               </CTAButton>
               <p className="text-[11px] text-charcoal/70 text-center leading-relaxed">
                 Paid for by Cuteri for Americans (FEC ID C00947259).
@@ -264,94 +263,11 @@ export default function GetInvolvedPage() {
         </div>
       </Section>
 
-      {/* Volunteer materials */}
-      <Section bgColor="cream" title="Materials for Volunteers">
-        <p className="text-charcoal/70 mb-6">
-          Download and print these to hand out at events, door-to-door, or
-          anywhere someone asks what Clayton stands for.
-        </p>
-
-        {/* One-click "Download All" gets the full kit as a ZIP. The
-            whole banner is the clickable surface (not just the pill
-            on the right)  -  browsers/phones often miss the small
-            button hit-target on cards like this. Keeps individual
-            downloads below for anyone who only wants one piece. */}
-        <a
-          href="/downloads/cuteri-volunteer-kit.zip"
-          download=""
-          className="group block bg-red-accent hover:bg-red-accent/90 transition-colors rounded-lg p-6 mb-6 max-w-2xl shadow-md"
-        >
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-            <Package size={44} className="text-white shrink-0" />
-            <div className="flex-1">
-              <h3 className="font-bold text-white text-lg sm:text-xl font-serif">
-                Download Everything (ZIP)
-              </h3>
-              <p className="text-sm text-white/90 mt-1">
-                One-pager, wallet card, Write-In Cuteri wordmark, and
-                the full banner set (social covers, yard signs, bumper
-                stickers, OG images  -  cream, navy, white, and
-                transparent variants).
-              </p>
-            </div>
-            <span className="inline-flex items-center gap-2 px-5 py-3 bg-white text-red-accent font-bold text-base rounded-lg whitespace-nowrap shadow-sm">
-              <Download size={18} />
-              Download All
-            </span>
-          </div>
-        </a>
-
-        {/* Secondary contact-capture form. Non-gating (downloads above
-            stay open) but offers volunteers a lightweight way to leave
-            their info so we can follow up. Separate from the big
-            volunteer form below because some visitors only want to
-            grab materials and share their contact without committing
-            to a volunteer shift. */}
-        <KitContactForm />
-
-
-        <div className="grid sm:grid-cols-3 gap-4 max-w-3xl">
-          <div className="bg-white rounded-lg p-5 border border-gray-200 text-center">
-            <FileText size={28} className="text-navy mx-auto mb-2" />
-            <h3 className="font-bold text-charcoal text-sm font-serif">
-              Campaign One-Pager
-            </h3>
-            <p className="text-xs text-charcoal/60 mt-1 mb-3">
-              Platform summary and talking points
-            </p>
-            <PdfDownloadButton href="/downloads/cuteri-one-pager.pdf">
-              Download PDF
-            </PdfDownloadButton>
-          </div>
-          <div className="bg-white rounded-lg p-5 border border-gray-200 text-center">
-            <Printer size={28} className="text-navy mx-auto mb-2" />
-            <h3 className="font-bold text-charcoal text-sm font-serif">
-              Wallet Card
-            </h3>
-            <p className="text-xs text-charcoal/60 mt-1 mb-3">
-              ExpressVote walkthrough: find the U.S. House race, touch
-              the WRITE-IN box, type Clayton Cuteri, then ACCEPT and
-              print + scan.
-            </p>
-            <PdfDownloadButton href="/downloads/cuteri-wallet-card.pdf">
-              Download PDF
-            </PdfDownloadButton>
-          </div>
-          <div className="bg-white rounded-lg p-5 border border-gray-200 text-center">
-            <ImageIcon size={28} className="text-navy mx-auto mb-2" />
-            <h3 className="font-bold text-charcoal text-sm font-serif">
-              Campaign Logo
-            </h3>
-            <p className="text-xs text-charcoal/60 mt-1 mb-3">
-              Write-In Cuteri wordmark (SVG)
-            </p>
-            <PdfDownloadButton href="/images/writein-cuteri-wordmark.svg">
-              Download SVG
-            </PdfDownloadButton>
-          </div>
-        </div>
-      </Section>
-
+      {/* Post-election (Nov 2026): the "Materials for Volunteers"
+          section was removed. Its wallet card, write-in wordmark and
+          volunteer-kit ZIP all taught people how to write Clayton in.
+          Those files are hidden in archive/write-in-2026/. The
+          one-pager is still linked from the home page. */}
       {/* Issue-matcher for visitors who are interested but not yet ready to
           commit to the volunteer form. Placed AFTER the volunteer form and
           materials so high-intent visitors hit the form first; the quiz is
@@ -366,7 +282,7 @@ export default function GetInvolvedPage() {
           opens the OS share sheet on mobile  -  the only real path
           to Instagram, TikTok, WhatsApp, Signal, AirDrop, etc.,
           since none of those expose a public share URL. */}
-      <Section bgColor="cream" title="Share This Campaign">
+      <Section bgColor="cream" title="Share the Story">
         <CampaignShare />
       </Section>
 
@@ -377,15 +293,16 @@ export default function GetInvolvedPage() {
             Learn About the American Congress Party
           </h2>
           <p className="mt-4 text-white/80 text-lg max-w-2xl mx-auto">
-            This campaign is part of a larger movement. The ACP is building a
-            party for the Americans neither Republicans nor Democrats represent.
+            The 2026 race was one step in a larger movement. The ACP is building
+            a party for the Americans neither Republicans nor Democrats
+            represent.
           </p>
           <div className="mt-6">
             <CTAButton
               variant="primary"
               href="https://americancongressparty.com"
             >
-              Visit americancongressparty.com
+              Join the American Congress Party
             </CTAButton>
           </div>
         </div>

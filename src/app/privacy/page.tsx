@@ -6,7 +6,7 @@ export const metadata: Metadata = pageMetadata({
   path: "/privacy",
   title: "Privacy Policy",
   description: "Privacy policy for the Cuteri for Americans campaign website.",
-  ogTitle: "Privacy Policy | Write In Cuteri",
+  ogTitle: "Privacy Policy | Clayton Cuteri",
   ogDescription:
     "What information writeincuteri.com collects, how the Cuteri for Americans campaign uses and shares it, and how you can control it.",
 });
@@ -245,7 +245,7 @@ export default function PrivacyPage() {
             If you provide your mobile phone number on a signup form and
             check the box consenting to text messages, we use your number
             to send you event invites, fundraiser notices, volunteer
-            shift requests, ballot-day reminders, and general campaign
+            shift requests, general campaign
             updates from Cuteri for Americans. Message frequency varies
             based on campaign activity. This is separate from the
             Anedot text-to-give keyword described below.

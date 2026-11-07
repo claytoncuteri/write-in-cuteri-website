@@ -1,29 +1,25 @@
-# Clayton Cuteri for U.S. Congress
-# Write-In Candidate, South Carolina Congressional District 1 (SC-01)
-# American Congress Party
-# November 3, 2026 General Election
+# Clayton Cuteri
+# American Congress Party, South Carolina Congressional District 1 (SC-01)
+# 2026 race: over (general election held November 3, 2026)
 
 ## About
-Clayton A. Cuteri is a write-in candidate for U.S. House of Representatives, South Carolina District 1 (SC-01), in the November 3, 2026 general election. He is the Secretary General of the American Congress Party (ACP), a national third-party organization. His platform includes 13 policy priorities drawn from his book "America Reimagined."
+Clayton A. Cuteri is the Secretary General of the American Congress Party (ACP), a national third-party organization. He ran as a write-in candidate for U.S. House of Representatives, South Carolina District 1 (SC-01), in the November 3, 2026 general election and did not win. The Associated Press count at 99% reporting (unofficial) showed 218 write-in votes for him. His platform includes 13 policy priorities drawn from his book "America Reimagined."
 
 ## Key Information
-- Candidate: Clayton A. Cuteri
-- Office: U.S. House of Representatives, SC-01
-- Party: American Congress Party (ACP)
-- Election: November 3, 2026
-- Status: Write-in candidate
+- Name: Clayton A. Cuteri
+- Role: Secretary General, American Congress Party (ACP)
+- 2026 race: U.S. House of Representatives, SC-01, general election November 3, 2026 (write-in; not elected)
 - Website: https://writeincuteri.com
 - Committee: Cuteri for Americans
 - District: Charleston (partial), Berkeley, Dorchester (partial), Beaufort, Colleton (partial), Jasper counties
 
 ## Pages
 - Home: https://writeincuteri.com/
-- How to Write In: https://writeincuteri.com/write-in/
 - SC-01 Problems: https://writeincuteri.com/problems/
 - Priorities/Solutions: https://writeincuteri.com/policies/
 - About Clayton: https://writeincuteri.com/about/
-- Get Involved: https://writeincuteri.com/get-involved/
-- Donate: https://writeincuteri.com/donate/
+- Stay Involved: https://writeincuteri.com/get-involved/
+- Thank you to donors (not accepting contributions): https://writeincuteri.com/donate/
 - Media: https://writeincuteri.com/press/
 - Privacy: https://writeincuteri.com/privacy/
 - Accessibility: https://writeincuteri.com/accessibility/

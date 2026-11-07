@@ -8,7 +8,6 @@ import { BLOG_CATEGORIES } from "@/lib/blog-categories";
 //
 // Priority guide:
 //   1.0  homepage
-//   0.9  write-in (the core conversion page for a write-in campaign)
 //   0.8  problems, policies, blog index (primary content pillars)
 //   0.7  blog post, about, get-involved, endorsements, events, press
 //   0.6  donate (high-intent but transactional, gated by FEC status)
@@ -26,7 +25,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: number;
   }[] = [
     { path: "/", changeFrequency: "weekly", priority: 1.0 },
-    { path: "/write-in", changeFrequency: "monthly", priority: 0.9 },
     { path: "/problems", changeFrequency: "monthly", priority: 0.8 },
     { path: "/policies", changeFrequency: "monthly", priority: 0.8 },
     { path: "/blog", changeFrequency: "daily", priority: 0.8 },

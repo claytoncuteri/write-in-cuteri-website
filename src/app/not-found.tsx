@@ -16,8 +16,8 @@ export default function NotFound() {
           <CTAButton variant="primary" href="/">
             Go Home
           </CTAButton>
-          <CTAButton variant="secondary" href="/write-in">
-            How to Write Me In
+          <CTAButton variant="secondary" href="/#stay-in-touch">
+            Stay in Touch
           </CTAButton>
         </div>
       </div>

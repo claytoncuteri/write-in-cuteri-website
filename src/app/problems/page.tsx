@@ -3,16 +3,14 @@ import { pageMetadata, ogCard } from "@/lib/og";
 import { Section } from "@/components/Section";
 import { CTAButton } from "@/components/CTAButton";
 import { ExpandableCard } from "@/components/ExpandableCard";
-import { PdfDownloadButton } from "@/components/PdfDownloadButton";
 import { problems } from "@/data/problems";
 import Link from "next/link";
-import { Printer } from "lucide-react";
 
 export const metadata: Metadata = pageMetadata({
   path: "/problems",
   title: "SC-01 Problems | Lowcountry Insurance, Housing, and More",
   description:
-    "The eight biggest issues facing South Carolina District 1 voters in Charleston, Berkeley, Dorchester, Beaufort, Colleton, and Jasper counties: coastal flood insurance costs, the housing affordability crisis, cost of living, and more. Why both parties have failed SC-01 voters and what Clayton Cuteri will do about it.",
+    "The eight biggest issues facing South Carolina District 1 voters in Charleston, Berkeley, Dorchester, Beaufort, Colleton, and Jasper counties: coastal flood insurance costs, the housing affordability crisis, cost of living, and more. Why both parties have failed SC-01 voters and what Clayton Cuteri proposes to do about it.",
   ogTitle: "What SC-01 Voters Are Living With",
   ogDescription:
     "Flood insurance, housing and cost of living in Charleston, Berkeley, Dorchester, Beaufort, Colleton and Jasper counties, and what Clayton would do.",
@@ -101,25 +99,6 @@ export default function ProblemsPage() {
         </div>
       </Section>
 
-      {/* Wallet card */}
-      <Section bgColor="cream">
-        <div className="max-w-xl mx-auto text-center">
-          <Printer size={32} className="text-navy mx-auto mb-3" />
-          <h2 className="text-2xl font-bold text-charcoal font-serif">
-            Remember the Name on Election Day
-          </h2>
-          <p className="mt-2 text-charcoal/70">
-            Print a wallet-sized card with the correct spelling and bring it to
-            the polls on November 3.
-          </p>
-          <div className="mt-5">
-            <PdfDownloadButton href="/downloads/cuteri-wallet-card.pdf">
-              Download Wallet Card (PDF)
-            </PdfDownloadButton>
-          </div>
-        </div>
-      </Section>
-
       {/* CTA */}
       <Section bgColor="navy" title="Ready to See the Solutions?">
         <p className="text-white/80 text-lg leading-relaxed max-w-2xl mb-8">
@@ -132,10 +111,10 @@ export default function ProblemsPage() {
           </CTAButton>
           <CTAButton
             variant="secondary"
-            href="/write-in"
+            href="/#stay-in-touch"
             className="!border-white !text-white hover:!bg-white hover:!text-navy"
           >
-            Learn How to Write Me In
+            Stay in Touch
           </CTAButton>
         </div>
       </Section>

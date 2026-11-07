@@ -13,10 +13,10 @@ export const metadata: Metadata = pageMetadata({
   title:
     "The Campaign Blog | Clayton Cuteri for U.S. House of Representatives, District 1 (SC)",
   description:
-    "Lowcountry-focused commentary, national platform updates, and campaign news from Clayton Cuteri's write-in run for U.S. House of Representatives, District 1, South Carolina.",
+    "Lowcountry-focused commentary, national platform updates, and campaign news from Clayton Cuteri and the American Congress Party, South Carolina District 1.",
   ogTitle: "The Campaign Blog | Clayton Cuteri, SC-01",
   ogDescription:
-    "Lowcountry stories, platform deep dives and campaign news from Clayton Cuteri's write-in run for U.S. House, South Carolina District 1.",
+    "Lowcountry stories, platform deep dives and news from Clayton Cuteri and the American Congress Party, SC District 1.",
   image: BLOG_OG_IMAGE,
 });
 
@@ -55,8 +55,8 @@ export default async function BlogIndexPage({ searchParams }: Props) {
             </h1>
             <p className="mt-5 text-white/80 text-lg leading-relaxed">
               Lowcountry stories, national platform updates, press
-              releases, and campaign news from the write-in run for
-              U.S. House of Representatives, District 1.
+              releases, and news from Clayton and the American Congress
+              Party.
             </p>
           </div>
         </div>

@@ -43,19 +43,39 @@ const nextConfig: NextConfig = {
   // a static-asset move.
   async redirects() {
     return [
+      // Post-election (Nov 3, 2026): the write-in instructions page is
+      // retired. Old links land on the home page, which shows a short
+      // notice explaining why (src/components/RedirectNotice.tsx).
+      // Temporary (307) so the URL can be reused in a future race.
       {
-        source: "/images/cuteri-wallet-card.pdf",
-        destination: "/downloads/cuteri-wallet-card.pdf",
-        permanent: true,
+        source: "/write-in",
+        destination: "/?from=write-in",
+        permanent: false,
       },
+      {
+        source: "/write-in/",
+        destination: "/?from=write-in",
+        permanent: false,
+      },
+      // The write-in files (wallet card, volunteer kit, write-in
+      // wordmark) are hidden, not deleted: they now live in
+      // archive/write-in-2026/ and are no longer served. Old links,
+      // including their pre-move /images/ paths, land on the home page
+      // with the same notice. Temporary, like /write-in.
+      ...[
+        "/downloads/cuteri-wallet-card.pdf",
+        "/images/cuteri-wallet-card.pdf",
+        "/downloads/cuteri-volunteer-kit.zip",
+        "/images/cuteri-volunteer-kit.zip",
+        "/images/writein-cuteri-wordmark.svg",
+      ].map((source) => ({
+        source,
+        destination: "/?from=write-in",
+        permanent: false,
+      })),
       {
         source: "/images/cuteri-one-pager.pdf",
         destination: "/downloads/cuteri-one-pager.pdf",
-        permanent: true,
-      },
-      {
-        source: "/images/cuteri-volunteer-kit.zip",
-        destination: "/downloads/cuteri-volunteer-kit.zip",
         permanent: true,
       },
     ];

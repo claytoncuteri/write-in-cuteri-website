@@ -12,32 +12,32 @@ import { HomeSignup } from "@/components/HomeSignup";
 import { HomeHeroSignup } from "@/components/HomeHeroSignup";
 import { HomeBlogTeaser } from "@/components/blog/HomeBlogTeaser";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
-import { ArrowRight, Printer, FileText, Users, Heart } from "lucide-react";
+import { RedirectNotice } from "@/components/RedirectNotice";
+import { ReelFeature } from "@/components/ReelFeature";
+import { ArrowRight, FileText, Users, Mail } from "lucide-react";
 
-// Hero posture: the email capture form is the single primary CTA above
-// the fold (Obama '08 splash-page pattern: one dominant ask converts
-// best). The quiz lives in its own section below the problems beat, and
-// the write-in ask lives in the navy band right after the quiz. The
-// mobile sticky CTA (StickyMobileCta) still handles the seasonal
-// quiz -> write-in swap client-side, so the GOTV flip no longer depends
-// on a rebuild of this statically rendered page.
+// Post-election home (after the Nov 3, 2026 general election). The site
+// no longer asks anyone to vote or write Clayton in. The hero thanks
+// voters and volunteers, the reel feature carries the story, and the
+// asks are: stay in touch (email/SMS) and join the American Congress
+// Party. Old /write-in links land here with a short notice explaining why
+// (RedirectNotice + next.config.ts redirects).
 
-// Home keeps the root layout's <title> and meta description (absolute,
-// so the title template is not applied) and adds its own share card.
 export const metadata: Metadata = pageMetadata({
   path: "/",
-  title: { absolute: "Clayton Cuteri | Write-In for U.S. House, District 1 (SC)" },
+  title: { absolute: "Clayton Cuteri | Thank You, Lowcountry" },
   description:
-    "Clayton A. Cuteri, write-in candidate for U.S. House of Representatives, District 1 (South Carolina, SC-01), November 3, 2026. American Congress Party. Third-party alternative for Charleston, Berkeley, Dorchester, Beaufort, Colleton, and Jasper county voters across the Lowcountry.",
-  ogTitle: "Clayton Cuteri for U.S. Congress, SC-01",
+    "The 2026 race for U.S. House in South Carolina District 1 is over. Clayton Cuteri thanks every voter and volunteer. Stay in touch and see what comes next.",
+  ogTitle: "Thank you, Lowcountry",
   ogDescription:
-    "Clayton Cuteri, American Congress Party write-in candidate for U.S. House, South Carolina District 1: his plan, his background and how to help.",
-  image: ogCard("home", "Clayton Cuteri, write-in candidate for U.S. House, South Carolina District 1"),
+    "The 2026 SC-01 race is over. Clayton Cuteri thanks every voter and volunteer. Stay in touch and see what comes next.",
+  image: ogCard("home", "Thank you, Lowcountry. Clayton Cuteri speaking to camera."),
 });
 
 export default async function HomePage() {
   return (
     <>
+      <RedirectNotice />
       <HashScroller />
       <StickyMobileCta />
       {/* Hero */}
@@ -47,36 +47,21 @@ export default async function HomePage() {
             {/* Text */}
             <div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white font-serif leading-tight">
-                Clayton Cuteri for U.S. Congress
+                Thank you, Lowcountry.
               </h1>
-              {/* Hero subhead leads with the exact ballot phrase
-                  voters will see on the Nov 3 ExpressVote screen so
-                  the homepage above-the-fold pairs Clayton's name
-                  with the full official race title on first paint. */}
               <p className="mt-4 text-lg sm:text-xl text-white/80">
-                Write-In Candidate, U.S. House of Representatives, District 1
-                <br />
-                South Carolina (the Lowcountry)  ·  November 3, 2026 General Election
+                The 2026 race for U.S. House, South Carolina District 1 is
+                over.
               </p>
-              {/* Spelling reinforcement: goal 1 is that every visitor
-                  leaves able to spell the name. Gold passes AA on navy
-                  at the new #F5C518 token. */}
-              <p className="mt-3 text-gold font-bold tracking-[0.2em] text-base sm:text-lg">
-                Write in: C-U-T-E-R-I
-              </p>
-              {/* Benefit framing, not grievance framing: leads with what
-                  the voter gets, in plain words. */}
               <p className="mt-6 text-white/80 text-base sm:text-lg leading-relaxed max-w-lg">
-                Lower your bills. Keep more of your paycheck. Free
-                medication, free education, and an end to the insurance
-                bleed. That&rsquo;s the plan for the Lowcountry.
+                We didn&rsquo;t win this time. To everyone who wrote my name
+                in, knocked a door, shared a post or gave a dollar: thank
+                you. This is just the beginning. Stay tuned for what comes
+                next.
               </p>
-              {/* The hero's single primary CTA: a two-field capture form
-                  (first name + email) a drive-by visitor can finish in
-                  5 seconds. The quiz and write-in buttons moved below the
-                  fold so nothing competes with it. Phone + TCPA capture
-                  lives on the full <HomeSignup /> further down for
-                  committed scrollers. */}
+              <p className="mt-3 text-gold font-semibold text-base sm:text-lg">
+                Clayton
+              </p>
               <HomeHeroSignup />
             </div>
 
@@ -85,7 +70,7 @@ export default async function HomePage() {
               <div className="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-2xl overflow-hidden shadow-2xl">
                 <Image
                   src="/images/Clayton_Headshot.jpg"
-                  alt="Clayton Cuteri, write-in candidate for US House SC-01 in the 2026 election"
+                  alt="Clayton Cuteri, American Congress Party"
                   fill
                   priority
                   quality={85}
@@ -100,6 +85,9 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* The reel people loved, with fact-checked numbers. */}
+      <ReelFeature />
+
       {/* Problems (client component with expand toggle) */}
       <HomeProblems />
 
@@ -113,37 +101,6 @@ export default async function HomePage() {
       <Section bgColor="cream">
         <div id="quiz" className="scroll-mt-24">
           <IssueMatcher sourcePage="/" />
-        </div>
-      </Section>
-
-      {/* Write-in CTA band. Sequenced right after the quiz so a voter
-          who just self-identified agreement gets the ballot action while
-          the commitment is fresh. This is where the hero's old CTA pair
-          and "13 policies" escape hatch now live. */}
-      <Section bgColor="navy">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white font-serif">
-            Ready for November 3?
-          </h2>
-          <p className="mt-4 text-white/80 text-lg leading-relaxed">
-            Practice the ballot now, so writing in CLAYTON CUTERI takes ten
-            seconds on Election Day.
-          </p>
-          <div className="mt-8 flex justify-center">
-            <CTAButton variant="primary" href="/write-in">
-              How to Write Me In
-            </CTAButton>
-          </div>
-          <p className="mt-5 text-white/70 text-sm">
-            Prefer the full platform?{" "}
-            <a
-              href="/policies"
-              className="underline underline-offset-4 hover:text-white transition-colors"
-            >
-              Read all 13 policies
-            </a>
-            .
-          </p>
         </div>
       </Section>
 
@@ -198,9 +155,9 @@ export default async function HomePage() {
               for real people.
             </p>
             <p className="text-white/80 text-lg leading-relaxed mt-4">
-              Clayton serves as ACP Secretary General. This campaign is not about
-              left or right. It is about the common people versus the connected
-              few.
+              Clayton serves as ACP Secretary General. The 2026 race was one
+              step. The work is not about left or right. It is about the
+              common people versus the connected few, and it keeps going.
             </p>
             <div className="mt-6">
               <a
@@ -209,7 +166,7 @@ export default async function HomePage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-white font-semibold hover:text-white/80 transition-colors"
               >
-                Visit americancongressparty.com <ArrowRight size={16} />
+                Join the American Congress Party <ArrowRight size={16} />
               </a>
             </div>
           </div>
@@ -228,33 +185,42 @@ export default async function HomePage() {
         </div>
       </Section>
 
-      {/* Homepage email + phone signup. Placed after the ACP section and
-          before the CTA Cards so engaged visitors who scrolled past the
-          hero but aren't ready for write-in/donate still have a low-
-          friction path to hand us contact info. Required phone + TCPA
-          opt-in here so we start building the SMS list for ballot-day
-          GOTV. */}
       {/* Latest blog posts -- three most-recent published posts. Hides
           itself entirely if there aren't any yet. */}
       <HomeBlogTeaser />
 
+      {/* Stay-in-touch signup (#stay-in-touch, the sticky bar's target). */}
       <HomeSignup />
 
       {/* CTA Cards */}
       <Section>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+        <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
           <div className="bg-cream rounded-lg p-6 text-center">
-            <Printer size={28} className="text-navy mx-auto mb-3" />
+            <Mail size={28} className="text-navy mx-auto mb-3" />
             <h3 className="text-lg font-bold text-charcoal font-serif">
-              Wallet Card
+              Stay in Touch
             </h3>
             <p className="mt-2 text-charcoal/70 text-sm">
-              Remember the name on Election Day.
+              Be the first to hear what comes next.
             </p>
             <div className="mt-4">
-              <PdfDownloadButton href="/downloads/cuteri-wallet-card.pdf">
-                Download
-              </PdfDownloadButton>
+              <CTAButton variant="primary" href="#stay-in-touch">
+                Sign Up
+              </CTAButton>
+            </div>
+          </div>
+          <div className="bg-cream rounded-lg p-6 text-center">
+            <Users size={28} className="text-navy mx-auto mb-3" />
+            <h3 className="text-lg font-bold text-charcoal font-serif">
+              Join the Party
+            </h3>
+            <p className="mt-2 text-charcoal/70 text-sm">
+              The American Congress Party is just getting started.
+            </p>
+            <div className="mt-4">
+              <CTAButton variant="secondary" href="https://americancongressparty.com">
+                Visit ACP
+              </CTAButton>
             </div>
           </div>
           <div className="bg-cream rounded-lg p-6 text-center">
@@ -263,40 +229,12 @@ export default async function HomePage() {
               One-Pager
             </h3>
             <p className="mt-2 text-charcoal/70 text-sm">
-              The full platform on a single page.
+              The 2026 platform on a single page.
             </p>
             <div className="mt-4">
               <PdfDownloadButton href="/downloads/cuteri-one-pager.pdf">
                 Download
               </PdfDownloadButton>
-            </div>
-          </div>
-          <div className="bg-cream rounded-lg p-6 text-center">
-            <Users size={28} className="text-navy mx-auto mb-3" />
-            <h3 className="text-lg font-bold text-charcoal font-serif">
-              Get Involved
-            </h3>
-            <p className="mt-2 text-charcoal/70 text-sm">
-              Volunteer and spread the word.
-            </p>
-            <div className="mt-4">
-              <CTAButton variant="secondary" href="/get-involved">
-                Join Us
-              </CTAButton>
-            </div>
-          </div>
-          <div className="bg-cream rounded-lg p-6 text-center">
-            <Heart size={28} className="text-navy mx-auto mb-3" />
-            <h3 className="text-lg font-bold text-charcoal font-serif">
-              Support the Campaign
-            </h3>
-            <p className="mt-2 text-charcoal/70 text-sm">
-              Every dollar funds voter education.
-            </p>
-            <div className="mt-4">
-              <CTAButton variant="primary" href="/donate">
-                Donate
-              </CTAButton>
             </div>
           </div>
         </div>

@@ -10,11 +10,9 @@
 // with the first scroll and a persistent bar is a standard 2026 campaign
 // pattern. Hidden on `md:` and above via Tailwind.
 //
-// Seasonal content switch: before Sept 1, 2026 the persistent CTA is the
-// quiz (persuasion phase, similarity-building). On and after Sept 1, it
-// flips to the write-in instructions (GOTV phase). The hero CTA colors
-// swap on the same date; this component reads the same seasonal flag so
-// they stay coordinated.
+// Post-election (after Nov 3, 2026): the bar points to the stay-in-touch
+// signup on the home page. The old quiz / write-in seasonal switch was
+// removed with the /write-in page.
 //
 // FEC disclosure: federal campaign messaging requires a "paid for by"
 // label. Space on a 44px sticky bar is tight but doable with small type.
@@ -30,15 +28,6 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { X } from "lucide-react";
-
-// Seasonal cutover date. On or after this date, the sticky CTA flips from
-// quiz-mode (persuasion) to write-in-mode (GOTV). Keep this in sync with
-// the hero CTA swap in src/app/page.tsx.
-const GOTV_CUTOVER = new Date("2026-09-01T00:00:00Z");
-
-function isGotvMode(now = new Date()): boolean {
-  return now >= GOTV_CUTOVER;
-}
 
 const DISMISS_KEY = "home-sticky-cta-dismissed";
 
@@ -91,10 +80,7 @@ export function StickyMobileCta() {
     }
   }
 
-  const gotv = isGotvMode();
-  const cta = gotv
-    ? { href: "/write-in", label: "How to Write Me In" }
-    : { href: "#quiz", label: "Take the Quiz" };
+  const cta = { href: "#stay-in-touch", label: "Stay in Touch" };
 
   return (
     <>
@@ -108,7 +94,7 @@ export function StickyMobileCta() {
       {visible && !dismissed && (
         <div
           role="region"
-          aria-label="Campaign call to action"
+          aria-label="Stay in touch"
           className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-navy border-t-2 border-red-accent shadow-lg"
         >
           <div className="flex items-center gap-3 px-4 py-2.5">

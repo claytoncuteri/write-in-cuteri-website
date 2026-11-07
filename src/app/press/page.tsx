@@ -130,15 +130,15 @@ export default function MediaPage() {
         <div className="grid lg:grid-cols-3 gap-10 items-start">
           <div className="lg:col-span-2">
             <h2 className="text-2xl font-bold text-charcoal font-serif mb-4">
-              Candidate Bio
+              Bio
             </h2>
             <div className="space-y-4 text-charcoal/80 leading-relaxed">
               <p>
-                Clayton A. Cuteri is a write-in candidate for U.S. House of
-                Representatives, District 1 (South Carolina), general
-                election November 3, 2026. He is running under the American
-                Congress Party, a new third party he co-founded, and serves
-                as the party&apos;s Secretary General.
+                Clayton A. Cuteri is the Secretary General of the American
+                Congress Party, a new third party he co-founded. In the
+                November 3, 2026 general election he ran as a write-in
+                candidate for U.S. House of Representatives, District 1
+                (South Carolina).
               </p>
               <p>
                 A resident of Mount Pleasant, South Carolina, Cuteri is an
@@ -148,7 +148,7 @@ export default function MediaPage() {
                 and expanded into political commentary, reaches more than 30
                 million views per month. His forthcoming book, America
                 Reimagined, will expand on the 13-policy platform at the center
-                of his campaign.
+                of his 2026 campaign.
               </p>
               <p className="text-sm text-charcoal/60">
                 Principal campaign committee: Cuteri for Americans (FEC
@@ -161,7 +161,7 @@ export default function MediaPage() {
           <div className="flex flex-col items-center">
             <Image
               src="/images/Clayton_Headshot.jpg"
-              alt="Clayton A. Cuteri, 2026 write-in candidate for US House SC-01, official press photo"
+              alt="Clayton A. Cuteri, official press photo"
               width={1284}
               height={1371}
               quality={85}
@@ -251,24 +251,25 @@ export default function MediaPage() {
         </div>
       </Section>
 
-      {/* Section 5: The Write-In Process */}
+      {/* Section 5: 2026 result. Numbers checked 2026-11-06 against the
+          AP count shown in Clayton's Nov 5 reel and FEC candidate totals.
+          Update once South Carolina certifies the result. */}
       <Section bgColor="cream">
         <div className="max-w-3xl">
           <h2 className="text-2xl font-bold text-charcoal font-serif mb-4">
-            The Write-In Process
+            The 2026 Result
           </h2>
           <p className="text-charcoal/80 leading-relaxed">
-            Clayton Cuteri&apos;s name will not appear on the printed ballot. To
-            vote for him, District 1 voters must write &quot;Clayton A. Cuteri&quot;
-            in the write-in field on their general election ballot on November 3,
-            2026. South Carolina law permits write-in candidates for federal
-            office. The campaign has filed all required notices with the South
-            Carolina State Election Commission and the Federal Election
-            Commission.
+            Clayton&apos;s name was not printed on the ballot. Voters had to
+            write it in by hand. The Associated Press count at 99% reporting
+            showed 218 write-in votes for Clayton (unofficial until the state
+            certifies). Through its last pre-election FEC report, his
+            campaign had spent $228.82, about $1 per vote. The top
+            vote-getter had spent about $29 per vote.
           </p>
           <div className="mt-4">
-            <CTAButton variant="secondary" href="/write-in">
-              Learn How to Write In Clayton
+            <CTAButton variant="secondary" href="https://www.instagram.com/p/DfXqMWWAt7S/">
+              Watch Clayton&apos;s Video on the Result
             </CTAButton>
           </div>
         </div>
@@ -284,7 +285,8 @@ export default function MediaPage() {
                 "Office",
                 "U.S. House of Representatives, South Carolina District 1",
               ],
-              ["Election", "November 3, 2026 (general election, write-in)"],
+              ["Election", "Ran Nov. 3, 2026 (general election, write-in)"],
+              ["Result", "218 votes (AP, unofficial, 99% reporting)"],
               ["Party", "American Congress Party"],
               ["Committee", "Cuteri for Americans (FEC ID: C00947259)"],
               ["Residence", "Mount Pleasant, South Carolina"],
@@ -338,11 +340,6 @@ export default function MediaPage() {
               label: "Campaign One-Pager",
               file: "/downloads/cuteri-one-pager.pdf",
               desc: "Platform summary PDF",
-            },
-            {
-              label: "Wallet Card",
-              file: "/downloads/cuteri-wallet-card.pdf",
-              desc: "Print-ready write-in reminder",
             },
           ].map((asset) => (
             <a

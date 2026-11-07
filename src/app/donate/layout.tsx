@@ -3,13 +3,13 @@ import { pageMetadata, ogCard } from "@/lib/og";
 
 export const metadata: Metadata = pageMetadata({
   path: "/donate",
-  title: "Donate | Support Clayton Cuteri for U.S. Congress SC-01",
+  title: "Thank You to Our Donors | Clayton Cuteri",
   description:
-    "Support Clayton Cuteri's write-in campaign for U.S. House SC-01. Every dollar funds voter education across Charleston, Berkeley, Dorchester, Beaufort, Colleton, and Jasper counties. Not TV attack ads.",
-  ogTitle: "Donate to Clayton Cuteri for Congress",
+    "The 2026 SC-01 race is over and Cuteri for Americans is not accepting contributions right now. Thank you to every donor. Stay in touch and join the American Congress Party.",
+  ogTitle: "Thank You to Our Donors",
   ogDescription:
-    "Contribute to Clayton Cuteri's SC-01 campaign through Anedot's secure form. Federal contribution limits and donor rules are on the page.",
-  image: ogCard("donate", "Clayton Cuteri seated, with the headline Support the Campaign"),
+    "The 2026 SC-01 race is over. Thank you to every donor who made Clayton Cuteri's campaign possible.",
+  image: ogCard("donate", "Clayton Cuteri seated, with the headline Thank You to Our Donors"),
 });
 
 export default function DonateLayout({

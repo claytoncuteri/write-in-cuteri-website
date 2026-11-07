@@ -30,13 +30,12 @@ const navGroups: (DropdownGroup | { label: string; href: string })[] = [
     ],
   },
   {
-    label: "Get Involved",
+    label: "Stay Involved",
     items: [
-      { label: "Volunteer", href: "/get-involved" },
+      { label: "Stay Involved", href: "/get-involved" },
       { label: "Events", href: "/events" },
     ],
   },
-  { label: "Write Me In", href: "/write-in" },
 ];
 
 function isDropdown(
@@ -148,8 +147,8 @@ export function Header() {
               improve anyway. */}
           <Link href="/" className="flex-shrink-0">
             <img
-              src="/images/writein-cuteri-wordmark.svg"
-              alt="Write In Cuteri for U.S. House of Representatives, South Carolina District 1"
+              src="/images/cuteri-wordmark.svg"
+              alt="Clayton Cuteri, home"
               className="h-10 sm:h-12 w-auto"
             />
           </Link>
@@ -178,23 +177,22 @@ export function Header() {
           {/* Desktop CTA */}
           <div className="hidden lg:flex items-center">
             <Link
-              href="/donate"
+              href="/#stay-in-touch"
               className="px-5 py-2.5 text-sm font-semibold text-white bg-red-accent rounded-full hover:bg-red-accent-dark transition-colors"
             >
-              Donate
+              Stay in Touch
             </Link>
           </div>
 
-          {/* Mobile: compact Donate pill + menu button. Donate stays
-              visible without opening the hamburger because most campaign
-              traffic is mobile; the desktop header already treats Donate
-              as the persistent CTA. */}
+          {/* Mobile: compact Stay in Touch pill + menu button. After the
+              Nov 3, 2026 election the persistent header CTA moved from
+              Donate to the stay-in-touch signup on the home page. */}
           <div className="flex items-center gap-2 lg:hidden">
             <Link
-              href="/donate"
+              href="/#stay-in-touch"
               className="px-4 py-2 text-sm font-semibold text-white bg-red-accent rounded-full hover:bg-red-accent-dark transition-colors"
             >
-              Donate
+              Stay in Touch
             </Link>
             <button
               className="p-2 rounded-md text-charcoal hover:bg-gray-100"
@@ -255,11 +253,11 @@ export function Header() {
             )}
             <div className="pt-3">
               <Link
-                href="/donate"
+                href="/#stay-in-touch"
                 onClick={() => setMobileOpen(false)}
                 className="block text-center px-5 py-3 text-base font-semibold text-white bg-red-accent rounded-lg hover:bg-red-accent-dark transition-colors"
               >
-                Donate
+                Stay in Touch
               </Link>
             </div>
           </nav>

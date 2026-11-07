@@ -9,8 +9,7 @@ import { PostHogProvider } from "@/components/PostHogProvider";
 // human serif that carries trust without reading glossy), Inter for
 // body (screen-native legibility at the small sizes where policy
 // detail and disclaimers live). Both are variable fonts, so no weight
-// list is needed. Caveat stays for the handwritten ballot-name
-// treatment on /write-in.
+// list is needed. Caveat is kept for handwritten accents.
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -28,43 +27,21 @@ const caveat = Caveat({
 
 export const metadata: Metadata = {
   title: {
-    // Name-first and short enough (~58 chars) to survive SERP
-    // truncation. The full ballot phrase still lives in the meta
-    // description, OG tags, and JSON-LD jobTitle; the title's job is
-    // "Clayton Cuteri" + "Write-In" + the race, unclipped.
-    default: "Clayton Cuteri | Write-In for U.S. House, District 1 (SC)",
-    template: "%s | Clayton Cuteri, U.S. House District 1 (SC)",
+    // Post-election (after Nov 3, 2026): the site no longer asks for
+    // votes. Name first, then party and district.
+    default: "Clayton Cuteri | American Congress Party, SC District 1",
+    template: "%s | Clayton Cuteri, American Congress Party",
   },
   description:
-    "Clayton A. Cuteri, write-in candidate for U.S. House of Representatives, District 1 (South Carolina, SC-01), November 3, 2026. American Congress Party. Third-party alternative for Charleston, Berkeley, Dorchester, Beaufort, Colleton, and Jasper county voters across the Lowcountry.",
+    "Thank you, Lowcountry. Clayton A. Cuteri ran for U.S. House in South Carolina District 1 (SC-01) in 2026 as the American Congress Party write-in. The race is over. The work is not. Stay in touch and see what comes next.",
   keywords: [
     "Clayton Cuteri",
-    "SC-01 candidates 2026",
-    "write-in candidate SC-01",
-    "South Carolina district 1 election 2026",
-    "third party candidate South Carolina 2026",
     "American Congress Party",
-    "Charleston SC congressional race",
-    "Beaufort SC congressional race",
-    "Hilton Head congressional race",
-    "Summerville SC congressional race",
-    "Goose Creek SC congressional race",
-    "who is running for Congress Charleston SC",
-    "who is running for Congress Beaufort SC",
-    "independent candidate Charleston SC",
-    "independent candidate Hilton Head",
-    "how to write in a candidate South Carolina",
-    "SC-01 open seat 2026",
-    "alternative to Republican Democrat SC-01",
-    "Charleston flood insurance cost",
-    "SC housing affordability crisis",
-    "South Carolina income tax elimination",
-    "cost of living Charleston SC",
-    "write-in candidate how does it work",
-    "SC 2026 election date",
-    "South Carolina voter registration 2026",
-    "Lowcountry resilience",
-    "third party Congress 2026",
+    "SC-01 2026",
+    "South Carolina District 1",
+    "third party South Carolina",
+    "Charleston SC",
+    "Lowcountry",
     "U.S. House SC-01",
   ],
   // Site-default share tags. Every public page overrides these through
@@ -74,37 +51,28 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://writeincuteri.com",
-    siteName:
-      "Clayton Cuteri for U.S. House of Representatives, District 1 (SC)",
-    title:
-      "Clayton Cuteri | U.S. House of Representatives, District 1 (SC) | Write-In 2026",
+    siteName: "Clayton Cuteri, American Congress Party (SC-01)",
+    title: "Thank you, Lowcountry | Clayton Cuteri",
     description:
-      "Write-in candidate for U.S. House of Representatives, District 1 (South Carolina). Third-party alternative for the Americans neither party speaks for.",
-    // Switched OG/share image from the headshot to the Write-In
-    // Cuteri wordmark on navy. Reason: every iMessage, X, Facebook,
-    // Slack, Discord, and LinkedIn share preview now reinforces the
-    // exact same brand mark that lives in the site nav  -  every
-    // share becomes a logo impression. Asset already shipped with the
-    // logo_a_star_divider banner pack; no new export needed.
+      "The 2026 SC-01 race is over. Thank you to every voter and volunteer. Stay in touch and see what comes next.",
     images: [
       {
-        url: "/logo_a_star_divider/digital_og_image/navy.png",
+        url: "/og/default.png",
         width: 1200,
         height: 630,
         type: "image/png",
-        alt: "Write-In Cuteri: Clayton Cuteri for U.S. House of Representatives, District 1, South Carolina",
+        alt: "Thank you, Lowcountry. Clayton Cuteri, American Congress Party, South Carolina District 1",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title:
-      "Clayton Cuteri | U.S. House of Representatives, District 1 (SC) | Write-In 2026",
+    title: "Thank you, Lowcountry | Clayton Cuteri",
     description:
-      "Third-party write-in candidate for U.S. House of Representatives, District 1 (South Carolina). American Congress Party.",
+      "The 2026 SC-01 race is over. Thank you to every voter and volunteer. Stay in touch and see what comes next.",
     site: "@ClaytonCuteri",
     creator: "@ClaytonCuteri",
-    images: ["/logo_a_star_divider/digital_og_image/navy.png"],
+    images: ["/og/default.png"],
   },
   metadataBase: new URL("https://writeincuteri.com"),
   alternates: {
@@ -128,7 +96,7 @@ const jsonLd = {
       url: "https://writeincuteri.com",
       name: "Clayton Cuteri for U.S. Congress",
       description:
-        "Write-in candidate for U.S. House of Representatives, South Carolina District 1 (SC-01). American Congress Party.",
+        "Clayton Cuteri, American Congress Party. 2026 candidate for U.S. House of Representatives, South Carolina District 1 (SC-01).",
       publisher: { "@id": "https://writeincuteri.com/#organization" },
     },
     {
@@ -150,15 +118,10 @@ const jsonLd = {
       "@type": "Person",
       "@id": "https://writeincuteri.com/#candidate",
       name: "Clayton A. Cuteri",
-      // jobTitle uses the exact ballot phrase Google + LLM crawlers
-      // (Claude, ChatGPT, Bing) read when answering "who is running
-      // for U.S. House in South Carolina District 1?". This is the
-      // single most important string for the campaign's structured
-      // data.
-      jobTitle:
-        "Write-In Candidate for U.S. House of Representatives, District 1 (South Carolina)",
+      // Post-election: no longer a current candidacy.
+      jobTitle: "Secretary General, American Congress Party",
       description:
-        "Write-in candidate for U.S. House of Representatives, District 1 (South Carolina). Secretary General of the American Congress Party. Author of the forthcoming book America Reimagined.",
+        "Secretary General of the American Congress Party. 2026 write-in candidate for U.S. House of Representatives, District 1 (South Carolina). Author of the forthcoming book America Reimagined.",
       image: "https://writeincuteri.com/images/Clayton_Headshot.jpg",
       url: "https://writeincuteri.com/about/",
       affiliation: {

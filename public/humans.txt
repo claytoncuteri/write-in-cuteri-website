@@ -1,6 +1,6 @@
 /* TEAM */
-Candidate: Clayton A. Cuteri
-Role: Write-In Candidate, U.S. House SC-01
+Name: Clayton A. Cuteri
+Role: Secretary General, American Congress Party (2026 SC-01 candidate)
 Party: American Congress Party
 Website: writeincuteri.com
 
@@ -12,5 +12,5 @@ Last updated: 2026-04-14
 
 /* CAMPAIGN */
 Committee: Cuteri for Americans
-Election: November 3, 2026
+Election: November 3, 2026 (race over)
 District: South Carolina Congressional District 1
