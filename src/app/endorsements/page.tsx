@@ -71,11 +71,12 @@ export default function EndorsementsPage() {
               Endorsements
             </p>
             <h1 className="text-4xl sm:text-5xl font-bold text-white font-serif leading-tight">
-              Who Stands With Clayton
+              Who Stood With Clayton
             </h1>
             <p className="mt-5 text-white/80 text-lg leading-relaxed">
-              Community leaders, local voices, and everyday Americans who
-              believe District 1 deserves better than what both parties have offered.
+              Thank you to the community leaders, local voices, and everyday
+              Americans who believed District 1 deserves better than what both
+              parties have offered.
             </p>
           </div>
         </div>
@@ -127,24 +128,23 @@ export default function EndorsementsPage() {
           <div className="max-w-2xl mx-auto text-center py-8">
             <Award size={48} className="text-navy/30 mx-auto mb-4" />
             <h2 className="text-2xl font-bold text-charcoal font-serif">
-              Endorsements Growing
+              Thank You
             </h2>
             <p className="mt-3 text-charcoal/70 text-lg leading-relaxed">
-              This campaign is built on real people, not political machines.
-              Endorsements from community leaders, local organizations, and
-              District 1 voters will be listed here as they come in.
+              This campaign was built on real people, not political machines.
+              Every person who stood with Clayton in 2026 made it possible.
             </p>
           </div>
         )}
       </Section>
 
       {/* Request to Endorse form */}
-      <Section bgColor="cream" title="Request to Endorse">
+      <Section bgColor="cream" title="Add Your Name">
         <div className="max-w-xl mx-auto">
           <p className="text-charcoal/70 text-sm mb-6">
-            Are you a community leader, organization, or District 1 voter who wants
-            to publicly endorse Clayton Cuteri? Fill out the form below and the
-            campaign will follow up.
+            Are you a community leader, organization, or District 1 resident who
+            wants to stand with Clayton for what comes next? Fill out the form
+            below and we will follow up.
           </p>
 
           {submitted ? (

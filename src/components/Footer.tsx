@@ -56,23 +56,16 @@ export function Footer() {
               blurDataURL={imageBlur["/images/ACP_Eagle_white_outline.png"]}
               className="h-16 w-auto mb-4"
             />
-            {/* Brand line uses the full ballot phrase verbatim so every
-                page footer reinforces the Clayton -> race-title pair
-                that voters need to recognize on the Nov 3 ExpressVote
-                screen. */}
+            {/* Post-election brand line (after Nov 3, 2026). The old
+                "Write in: C-U-T-E-R-I" spelling strip and election date
+                were removed. */}
             <p className="text-white/80 text-sm leading-relaxed">
-              Clayton A. Cuteri, Write-In Candidate for U.S. House of
-              Representatives, District 1 (South Carolina). American
-              Congress Party.
+              Clayton A. Cuteri, American Congress Party. 2026 candidate
+              for U.S. House of Representatives, District 1 (South
+              Carolina).
             </p>
-            {/* Spelling strip: every page footer teaches the spelling
-                and the general-election-only date. Full-contrast white
-                so it always passes AA on navy. */}
-            <p className="mt-4 text-white font-bold tracking-[0.2em] text-sm">
-              Write in: C-U-T-E-R-I
-            </p>
-            <p className="mt-1 text-white/70 text-xs">
-              November 3, 2026. General election only.
+            <p className="mt-4 text-white font-bold text-sm">
+              Thank you, Lowcountry.
             </p>
           </div>
 

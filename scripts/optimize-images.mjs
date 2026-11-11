@@ -31,7 +31,6 @@ const SKIP_NAMES = new Set([
   "favicon_180x180.png",
   "favicon_512x512.png",
   "donate-qr.png",
-  "writein-cuteri-wordmark.svg",
   "sc01-district-map.svg",
   // PDFs handled by extension filter below
 ]);

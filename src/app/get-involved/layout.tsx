@@ -3,13 +3,13 @@ import { pageMetadata, ogCard } from "@/lib/og";
 
 export const metadata: Metadata = pageMetadata({
   path: "/get-involved",
-  title: "Get Involved | Volunteer for Clayton Cuteri SC-01",
+  title: "Stay Involved | Clayton Cuteri, SC-01",
   description:
-    "Volunteer for Clayton Cuteri's write-in campaign in South Carolina District 1. Sign up, spread the word, download materials, and help build a third-party alternative across Charleston, Berkeley, Dorchester, Beaufort, Colleton, and Jasper counties.",
-  ogTitle: "Get Involved with the Cuteri Campaign",
+    "The 2026 SC-01 race is over. Thank you to every volunteer. Stay in touch with Clayton Cuteri, share the story and join the American Congress Party.",
+  ogTitle: "Stay Involved with Clayton Cuteri",
   ogDescription:
-    "Volunteer for Clayton Cuteri's SC-01 campaign, share it with friends, and download flyers, cards and the full volunteer kit.",
-  image: ogCard("get-involved", "Clayton Cuteri walking a red carpet, with the headline Join the Movement"),
+    "Thank you to every volunteer. Stay in touch, share the story and join the American Congress Party for what comes next.",
+  image: ogCard("get-involved", "Clayton Cuteri walking a red carpet, with the headline Stay in the Movement"),
 });
 
 export default function GetInvolvedLayout({

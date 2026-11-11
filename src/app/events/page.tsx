@@ -7,12 +7,12 @@ import { EventSignupForm } from "@/components/EventSignupForm";
 
 export const metadata: Metadata = pageMetadata({
   path: "/events",
-  title: "Events | Town Halls, Rallies, and Community Meetings",
+  title: "Events | Meet Clayton in Person",
   description:
-    "Upcoming campaign events for Clayton Cuteri in SC-01. Town halls, community meetings, and voter education events across Charleston, Berkeley, Dorchester, Beaufort, Colleton, and Jasper counties.",
+    "The 2026 SC-01 race is over. Sign up to hear about future events with Clayton Cuteri across Charleston, Berkeley, Dorchester, Beaufort, Colleton, and Jasper counties.",
   ogTitle: "Events: Meet Clayton in Person",
   ogDescription:
-    "Town halls, community meetings and voter education events with Clayton Cuteri across South Carolina District 1, listed as they are scheduled.",
+    "The 2026 race is over. Sign up to hear about future events with Clayton Cuteri across South Carolina District 1.",
   image: ogCard("events", "Clayton Cuteri speaking at a podium, with the headline Meet Clayton in Person"),
 });
 
@@ -52,9 +52,8 @@ export default function EventsPage() {
               Meet Clayton in Person
             </h1>
             <p className="mt-5 text-white/80 text-lg leading-relaxed">
-              Town halls, community meetings, and voter education events across
-              District 1. Come ask questions, hear the platform, and decide for
-              yourself.
+              The 2026 race is over. Thank you to everyone who came out. When
+              Clayton is back in your area, you will hear it here first.
             </p>
           </div>
         </div>
@@ -114,13 +113,12 @@ export default function EventsPage() {
           <div className="max-w-2xl mx-auto text-center py-8">
             <Calendar size={48} className="text-navy/30 mx-auto mb-4" />
             <h2 className="text-2xl font-bold text-charcoal font-serif">
-              Events Coming Soon
+              No Events Scheduled Right Now
             </h2>
             <p className="mt-3 text-charcoal/70 text-lg leading-relaxed">
-              Clayton is scheduling town halls and community events across
-              Charleston, Berkeley, Dorchester, Beaufort, Colleton, and Jasper
-              counties.
-              Sign up below to be the first to know when events are announced.
+              The 2026 campaign has ended, so nothing is on the calendar right
+              now.
+              Sign up below to be the first to know when new events are announced.
             </p>
           </div>
         )}
@@ -156,7 +154,7 @@ export default function EventsPage() {
           <p className="mt-3 text-charcoal/70 leading-relaxed">
             If you have a venue, a living room, or a backyard in District 1 and want
             to host a meet-and-greet with Clayton, reach out. Grassroots events
-            are the backbone of this campaign.
+            are the backbone of this movement.
           </p>
           <div className="mt-4">
             <CTAButton variant="secondary" href="/press">

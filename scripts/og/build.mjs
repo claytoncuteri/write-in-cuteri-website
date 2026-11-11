@@ -27,22 +27,22 @@ const districtPath = mapSvg.match(/<path d="([^"]+)"/)[1];
 
 export const pages = [
   {
+    slug: "default",
+    headline: "Thank you, Lowcountry",
+    sub: "Clayton Cuteri, American Congress Party, SC District 1",
+    art: { kind: "eagle" },
+  },
+  {
     slug: "home",
-    headline: "Clayton Cuteri for U.S. Congress",
-    sub: "Write-in candidate for U.S. House, SC District 1",
-    art: { kind: "photo", file: "Clayton_Headshot.jpg", position: "50% 30%" },
+    headline: "Thank you, Lowcountry",
+    sub: "We didn't win this time. We learned, and we're not done.",
+    art: { kind: "photo", file: "reel-win-or-learn.jpg", position: "50% 45%" },
   },
   {
     slug: "about",
     headline: "Meet Clayton Cuteri",
-    sub: "Secretary General of the American Congress Party and SC-01 write-in",
+    sub: "Secretary General of the American Congress Party",
     art: { kind: "photo", file: "clayton-yorktown-patriots-point.jpg", position: "78% 40%" },
-  },
-  {
-    slug: "write-in",
-    headline: "How to write in Clayton Cuteri",
-    sub: "Step-by-step ballot instructions for South Carolina District 1",
-    art: { kind: "ballot" },
   },
   {
     slug: "problems",
@@ -64,20 +64,20 @@ export const pages = [
   },
   {
     slug: "get-involved",
-    headline: "Join the Movement",
-    sub: "Volunteer, share the campaign and download campaign materials",
+    headline: "Stay in the Movement",
+    sub: "Stay in touch and join the American Congress Party",
     art: { kind: "photo", file: "clayton-red-carpet.jpg", position: "52% 45%" },
   },
   {
     slug: "endorsements",
-    headline: "Who Stands With Clayton",
-    sub: "Add your voice in support of Clayton's campaign",
+    headline: "Who Stood With Clayton",
+    sub: "Thank you to everyone who added their voice",
     art: { kind: "photo", file: "clayton-seated-direct.jpg", position: "60% 45%" },
   },
   {
     slug: "events",
     headline: "Meet Clayton in Person",
-    sub: "Town halls and community events across District 1",
+    sub: "Stay in touch to hear about future events",
     art: { kind: "photo", file: "clayton-podium.jpg", position: "45% 40%" },
   },
   {
@@ -88,8 +88,8 @@ export const pages = [
   },
   {
     slug: "donate",
-    headline: "Support the Campaign",
-    sub: "Secure contributions through Anedot. Federal limits apply.",
+    headline: "Thank You to Our Donors",
+    sub: "The 2026 SC-01 race is over. Your support made it possible.",
     art: { kind: "photo", file: "clayton-seated-smiling.jpg", position: "55% 45%" },
   },
 ];

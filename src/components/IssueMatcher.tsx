@@ -444,7 +444,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
             <p className="mt-1 text-[11px] text-charcoal/60 leading-snug">
               If you share your number and check the box below, we may
               text you about events, fundraisers, volunteer shifts,
-              ballot-day reminders, campaign updates, or anything else
+              campaign updates, or anything else
               related to the campaign. Opt out any time by replying STOP.
             </p>
           </div>
@@ -458,7 +458,7 @@ export function IssueMatcher({ sourcePage = "/" }: { sourcePage?: string }) {
               />
               <span>
                 Text me about events, fundraisers, volunteer shifts,
-                ballot-day reminders, campaign updates, or anything
+                campaign updates, or anything
                 else related to the Cuteri for Americans campaign.
                 Texting launches in the next month or two once carrier
                 approval clears. We&rsquo;ll send a welcome text then.

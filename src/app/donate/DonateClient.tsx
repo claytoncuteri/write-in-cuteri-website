@@ -37,7 +37,17 @@ function anedotLink(amount?: number): string {
 // confused donors bouncing on Anedot's error page.
 const FEC_MAX_AMOUNT = 3500;
 
-export function DonateClient() {
+type DonateClientProps = {
+  /** Line under "Make a Contribution". Defaults to the 2026 wording. */
+  blurb?: string;
+  /** Title used by the share sheet. */
+  shareTitle?: string;
+};
+
+export function DonateClient({
+  blurb = "Your contribution directly funds voter education, community events, and campaign outreach across District 1.",
+  shareTitle = "Donate to Clayton Cuteri for Congress",
+}: DonateClientProps = {}) {
   const [emailSubmitted, setEmailSubmitted] = useState(false);
   const [emailSubmitting, setEmailSubmitting] = useState(false);
   const [shareMsg, setShareMsg] = useState<string | null>(null);
@@ -171,7 +181,7 @@ export function DonateClient() {
   async function handleMobileShare() {
     track("donate_share_click", { source_page: "/donate" });
     const shareData = {
-      title: "Donate to Clayton Cuteri for Congress",
+      title: shareTitle,
       text: "Support Clayton Cuteri for U.S. House SC-01.",
       url: ANEDOT_URL,
     };
@@ -205,8 +215,7 @@ export function DonateClient() {
               Make a Contribution
             </h2>
             <p className="mt-4 text-charcoal/70 text-lg leading-relaxed">
-              Your contribution directly funds voter education, community
-              events, and campaign outreach across District 1.
+              {blurb}
             </p>
 
             {/* Single-submit donation flow. Research (ActBlue / WinRed /
@@ -550,7 +559,7 @@ export function DonateClient() {
                     />
                     <span>
                       Text me about events, fundraisers, volunteer
-                      shifts, ballot-day reminders, campaign updates,
+                      shifts, campaign updates,
                       or anything else related to the Cuteri for
                       Americans campaign. Texting launches in the next
                       month or two once carrier approval clears.

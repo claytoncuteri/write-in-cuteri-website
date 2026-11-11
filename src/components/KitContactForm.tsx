@@ -75,7 +75,7 @@ export function KitContactForm() {
       </h3>
       <p className="text-xs text-charcoal/60 mt-1 mb-4">
         Leave your info and we&apos;ll send the kit to your inbox plus keep
-        you in the loop on events, fundraisers, and ballot-day reminders.
+        you in the loop on events and what comes next.
       </p>
 
       {submitted ? (
@@ -125,7 +125,7 @@ export function KitContactForm() {
             />
             <span>
               Text me about events, fundraisers, volunteer shifts,
-              ballot-day reminders, campaign updates, or anything else
+              campaign updates, or anything else
               related to the Cuteri for Americans campaign. Texting
               launches in the next month or two once carrier approval
               clears. We&rsquo;ll send a welcome text then. Message
